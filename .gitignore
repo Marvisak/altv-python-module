@@ -1,0 +1,4 @@
+.idea/
+build/
+vendors/Python
+cmake-build-debug/

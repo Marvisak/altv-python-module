@@ -1,0 +1,34 @@
+cmake_minimum_required(VERSION 3.19)
+
+project(python-module)
+SET(PROJECT_MODULE_NAME python-module)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_definitions(-DMODULE_NAME="${PROJECT_MODULE_NAME}")
+add_definitions(-DALT_${MODULE_TYPE}_API)
+add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+
+
+file(GLOB_RECURSE PROJECT_SOURCE_FILES "./src/*.h" "./src/*.hpp" "./src/*.cpp")
+
+include_directories(
+        "${PROJECT_SOURCE_DIR}/src"
+        "${PROJECT_SOURCE_DIR}/vendors/cpp-sdk"
+        "${PROJECT_SOURCE_DIR}/vendors/boost"
+        "${PROJECT_SOURCE_DIR}/vendors/Python/include"
+        "${PROJECT_SOURCE_DIR}/vendors/pybind11/include"
+)
+
+
+link_directories(
+
+        "${PROJECT_SOURCE_DIR}/vendors/boost/stage/lib"
+        "${PROJECT_SOURCE_DIR}/vendors/Python/libs"
+)
+
+add_library(
+        ${PROJECT_MODULE_NAME} SHARED
+        ${PROJECT_SOURCE_FILES}
+)
