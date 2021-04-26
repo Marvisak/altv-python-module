@@ -17,7 +17,6 @@ include_directories(
         "${PROJECT_SOURCE_DIR}/src"
         "${PROJECT_SOURCE_DIR}/vendors/cpp-sdk"
         "${PROJECT_SOURCE_DIR}/vendors/boost"
-        "${PROJECT_SOURCE_DIR}/vendors/Python/include"
         "${PROJECT_SOURCE_DIR}/vendors/pybind11/include"
 )
 
@@ -25,7 +24,6 @@ include_directories(
 link_directories(
 
         "${PROJECT_SOURCE_DIR}/vendors/boost/stage/lib"
-        "${PROJECT_SOURCE_DIR}/vendors/Python/libs"
 )
 
 add_library(
