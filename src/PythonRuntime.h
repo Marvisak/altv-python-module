@@ -1,7 +1,11 @@
 #pragma once
 
+#include <main.h>
+#include <PythonResource.h>
+
 class PythonRuntime : public alt::IScriptRuntime
 {
+    std::unordered_set<PythonResource*> resources;
     static PythonRuntime* instance;
 
 public:

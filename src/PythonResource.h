@@ -1,8 +1,8 @@
 #pragma once
 
 #include <main.h>
-#include <PythonRuntime.h>
 
+class PythonRuntime;
 class PythonResource : public alt::IResource::Impl
 {
     PythonRuntime* runtime;

@@ -1,6 +1,5 @@
 #include <main.h>
 #include <PythonRuntime.h>
-#include <PythonResource.h>
 #include <AltObject.h>
 
 PythonRuntime* PythonRuntime::instance = nullptr;
@@ -11,8 +10,10 @@ PythonRuntime::PythonRuntime()
     instance = this;
 }
 
-alt::IResource::Impl* PythonRuntime::CreateImpl(alt::IResource *resource) {
-    return new PythonResource(this, resource);
+alt::IResource::Impl* PythonRuntime::CreateImpl(alt::IResource* impl) {
+    auto* resource = new PythonResource(this, impl);
+    resources.insert(resource);
+    return resource;
 }
 
 void PythonRuntime::DestroyImpl(alt::IResource::Impl *impl) {
