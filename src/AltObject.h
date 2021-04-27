@@ -5,9 +5,10 @@
 PYBIND11_EMBEDDED_MODULE(alt, m)
 {
     m.doc() = "AltV Python Module";
-    m.def("log", &log_info);
-    m.def("log_error", &log_error);
-    m.def("log_debug", &log_debug);
-    m.def("log_warning", &log_warning);
-    m.def("log_colored", &log_colored);
+    m.def("log", &Log);
+    m.def("logError", &LogError);
+    m.def("logDebug", &LogDebug);
+    m.def("logWarning", &LogWarning);
+    m.def("logColored", &LogColored);
+    m.def("on", &On);
 }

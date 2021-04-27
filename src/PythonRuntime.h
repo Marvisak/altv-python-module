@@ -5,7 +5,7 @@
 
 class PythonRuntime : public alt::IScriptRuntime
 {
-    std::unordered_set<PythonResource*> resources;
+    std::vector<PythonResource*> resources {};
     static PythonRuntime* instance;
 
 public:
@@ -16,6 +16,7 @@ public:
 
     void DestroyImpl(alt::IResource::Impl* impl) override;
     void OnDispose() override;
+    PythonResource* GetPythonResourceFromPath(std::string const &path);
 
     static PythonRuntime* GetInstance()
     {

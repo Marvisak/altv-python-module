@@ -7,6 +7,7 @@ class PythonResource : public alt::IResource::Impl
 {
     PythonRuntime* runtime;
     alt::IResource* resource;
+    friend PythonRuntime;
 public:
     PythonResource(PythonRuntime* runtime, alt::IResource* resource) : runtime(runtime), resource(resource) {};
 

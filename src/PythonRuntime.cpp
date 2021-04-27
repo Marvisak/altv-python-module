@@ -10,9 +10,20 @@ PythonRuntime::PythonRuntime()
     instance = this;
 }
 
+PythonResource* PythonRuntime::GetPythonResourceFromPath(std::string const &path)
+{
+    for (PythonResource* resource : resources)
+    {
+        if (path.find(resource->resource->GetPath().ToString()) != std::string::npos) {
+            return resource;
+        }
+    }
+    return nullptr;
+}
+
 alt::IResource::Impl* PythonRuntime::CreateImpl(alt::IResource* impl) {
     auto* resource = new PythonResource(this, impl);
-    resources.insert(resource);
+    resources.push_back(resource);
     return resource;
 }
 
