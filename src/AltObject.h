@@ -1,6 +1,6 @@
 #pragma once
 #include <main.h>
-#include <Methods/methods.h>
+#include <bindings/bindings.h>
 
 PYBIND11_EMBEDDED_MODULE(alt, m)
 {

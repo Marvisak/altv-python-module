@@ -7,7 +7,7 @@ PythonRuntime* PythonRuntime::instance = nullptr;
 
 PythonRuntime::PythonRuntime()
 {
-    pybind11::initialize_interpreter();
+    pybind11::initialize_interpreter(false);
     instance = this;
 }
 
@@ -20,4 +20,8 @@ void PythonRuntime::DestroyImpl(alt::IResource::Impl *impl) {
     delete resource;
 }
 
+void PythonRuntime::OnDispose()
+{
+    pybind11::finalize_interpreter();
+}
 
