@@ -3,8 +3,7 @@
 
 bool PythonResource::Start()
 {
-    alt::String path = resource->GetPath();
-    alt::String mainFile = path + preferred_separator + resource->GetMain();
+    alt::String mainFile = GetFullPath();
     FILE* fp = fopen(mainFile.CStr(), "r");
     bool crashed = PyRun_SimpleFile(fp, mainFile.CStr());
     return !crashed;
@@ -36,5 +35,11 @@ void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) {
 
 void PythonResource::AddEvent(const std::string &eventName, const pybind11::function &eventFunc) {
     Events[eventName].push_back(eventFunc);
+}
+
+alt::String PythonResource::GetFullPath() {
+    alt::String path = resource->GetPath();
+    alt::String fullPath = path + preferred_separator + resource->GetMain();
+    return fullPath;
 }
 

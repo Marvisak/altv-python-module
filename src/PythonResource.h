@@ -24,4 +24,6 @@ public:
     void OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) override;
 
     void AddEvent(const std::string &eventName, const pybind11::function &eventFunc);
+
+    alt::String GetFullPath();
 };

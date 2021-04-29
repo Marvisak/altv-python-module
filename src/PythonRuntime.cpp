@@ -14,7 +14,7 @@ PythonResource* PythonRuntime::GetPythonResourceFromPath(std::string const &path
 {
     for (PythonResource* resource : resources)
     {
-        if (path.find(resource->resource->GetPath().ToString()) != std::string::npos) {
+        if (resource->GetFullPath() == path) {
             return resource;
         }
     }
