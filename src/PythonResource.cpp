@@ -1,15 +1,13 @@
 #include <main.h>
 #include <PythonResource.h>
 
-bool PythonResource::Start() {
-    alt::String dir = alt::String(resource->GetPath()) + alt::String(preferred_separator);
-    alt::String mainFile = dir + resource->GetMain();
+bool PythonResource::Start()
+{
+    alt::String mainFile = resource->GetMain();
     FILE* fp = fopen(mainFile.CStr(), "r");
-    // This might be updated to something better
     bool crashed = PyRun_SimpleFile(fp, mainFile.CStr());
     return !crashed;
 }
-
 bool PythonResource::Stop()
 {
     return true;

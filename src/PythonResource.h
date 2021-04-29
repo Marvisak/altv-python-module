@@ -20,6 +20,4 @@ public:
     void OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) override;
 
     void OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) override;
-
-
 };
