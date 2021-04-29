@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.1)
 
 project(python-module)
 SET(PROJECT_MODULE_NAME python-module)
