@@ -11,6 +11,8 @@ static const char* preferred_separator = "/";
 // Standard C++ stuff
 #include <iostream>
 #include <string>
+#include <map>
+
 
 // AltV SDK
 #include <SDK.h>

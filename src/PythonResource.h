@@ -7,6 +7,8 @@ class PythonResource : public alt::IResource::Impl
 {
     PythonRuntime* runtime;
     alt::IResource* resource;
+    std::map<std::string, std::vector<pybind11::function>> Events;
+
     friend PythonRuntime;
 public:
     PythonResource(PythonRuntime* runtime, alt::IResource* resource) : runtime(runtime), resource(resource) {};
@@ -20,4 +22,6 @@ public:
     void OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) override;
 
     void OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) override;
+
+    void AddEvent(const std::string &eventName, const pybind11::function &eventFunc);
 };
