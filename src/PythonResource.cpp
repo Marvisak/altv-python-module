@@ -1,5 +1,6 @@
 #include <main.h>
 #include <PythonResource.h>
+#include <PythonRuntime.h>
 
 bool PythonResource::Start()
 {
@@ -14,12 +15,17 @@ bool PythonResource::Stop()
 }
 
 bool PythonResource::OnEvent(const alt::CEvent *ev) {
-    auto type = ev->GetType();
-    if(type == alt::CEvent::Type::RESOURCE_START)
+    auto type = runtime->GetEventType(ev->GetType());
+    if(false)
     {
-        for (const auto &func : Events["anyResourceStart"])
+        for (const auto &listener : ServerEvents["anyResourceStart"])
         {
-            func();
+            listener();
+        }
+    } else {
+        for (auto listener : ServerEvents[type])
+        {
+            listener();
         }
     }
     return true;
@@ -34,7 +40,7 @@ void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) {
 }
 
 void PythonResource::AddEvent(const std::string &eventName, const pybind11::function &eventFunc) {
-    Events[eventName].push_back(eventFunc);
+    ServerEvents[eventName].push_back(eventFunc);
 }
 
 alt::String PythonResource::GetFullPath() {

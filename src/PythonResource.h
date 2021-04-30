@@ -7,7 +7,8 @@ class PythonResource : public alt::IResource::Impl
 {
     PythonRuntime* runtime;
     alt::IResource* resource;
-    std::map<std::string, std::vector<pybind11::function>> Events;
+    std::map<std::string, std::vector<pybind11::function>> ServerEvents;
+    std::map<std::string, std::vector<pybind11::function>> ClientEvents;
 
     friend PythonRuntime;
 public:
@@ -19,11 +20,12 @@ public:
 
     bool OnEvent(const alt::CEvent* ev) override;
 
+    alt::String GetFullPath();
+
     void OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) override;
 
     void OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) override;
 
     void AddEvent(const std::string &eventName, const pybind11::function &eventFunc);
 
-    alt::String GetFullPath();
 };
