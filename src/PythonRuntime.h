@@ -7,14 +7,70 @@ class PythonRuntime : public alt::IScriptRuntime
 {
     std::vector<PythonResource*> resources {};
     static PythonRuntime* instance;
+    typedef std::function<py::args(const alt::CEvent*)> GetterFunc;
+    std::map<std::string, GetterFunc> ArgGetters {};
+
+    inline void	RegisterArgGetter(alt::CEvent::Type eventType, const GetterFunc &getter)
+    {
+        ArgGetters[GetEventType(eventType)] = getter;
+    }
+
     const std::vector<std::string> EventTypes{
-        "anyResourceError"
+            "NONE",
+
+            "playerConnect",
+            "playerDisconnect",
+
+            "anyResourceStart",
+            "anyResourceStop",
+            "anyResourceError",
+
+            "SERVER_SCRIPT_EVENT",
+            "CLIENT_SCRIPT_EVENT",
+
+            "metaChange",
+            "syncedMetaChange",
+            "streamSyncedMetaChange",
+            "globalMetaChange",
+            "globalSyncedMetaChange",
+
+            "playerDamage",
+            "playerDeath",
+            "startFire",
+            "explosion",
+            "startProjectile",
+            "weaponDamage",
+            "vehicleDestroy",
+
+            "checkpoint",
+            "colshape",
+            "playerEnterVehicle",
+            "playerEnteringVehicle",
+            "playerLeaveVehicle",
+            "playerChangeVehicleSeat",
+            "playerWeaponChange",
+
+            "vehicleAttach",
+            "vehicleDetach",
+            "netOwnerChange",
+
+            "removeEntity",
+            "createBaseObject",
+            "removeBaseObject",
+
+            "dataNodeReceived",
+
+            "consoleCommand",
     };
 
 public:
     PythonRuntime();
 
-    std::string GetEventType(const alt::CEvent* ev);
+    inline GetterFunc GetEventArgs(const std::string &eventName)
+    {
+        return ArgGetters[eventName];
+    }
+
     std::string GetEventType(alt::CEvent::Type ev);
 
     alt::IResource::Impl* CreateImpl(alt::IResource* resource) override;
@@ -27,4 +83,5 @@ public:
     {
         return instance;
     }
+
 };

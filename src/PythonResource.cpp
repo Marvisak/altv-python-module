@@ -14,16 +14,18 @@ bool PythonResource::Stop()
     return true;
 }
 
-bool PythonResource::OnEvent(const alt::CEvent *ev) {
+bool PythonResource::OnEvent(const alt::CEvent* ev) {
     auto type = runtime->GetEventType(ev->GetType());
-    if(false)
-    {
-        for (const auto &listener : ServerEvents["anyResourceStart"])
+
+    if (runtime->GetEventArgs(type)) {
+        auto getter = GetEventList(ev, type);
+        auto arguments = runtime->GetEventArgs(type)(ev);
+        for (const auto &listener : getter)
         {
-            listener();
+            listener(*arguments);
         }
     } else {
-        for (auto listener : ServerEvents[type])
+        for (const auto &listener : ServerEvents[type])
         {
             listener();
         }
@@ -39,7 +41,7 @@ void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) {
 
 }
 
-void PythonResource::AddEvent(const std::string &eventName, const pybind11::function &eventFunc) {
+void PythonResource::AddEvent(const std::string &eventName, const py::function &eventFunc) {
     ServerEvents[eventName].push_back(eventFunc);
 }
 

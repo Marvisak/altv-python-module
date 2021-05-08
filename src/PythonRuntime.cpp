@@ -1,20 +1,37 @@
 #include <main.h>
 #include <PythonRuntime.h>
-#include <AltObject.h>
+#include <bindings/bindings.h>
+#include <utils.h>
 
 PythonRuntime* PythonRuntime::instance = nullptr;
 
 PythonRuntime::PythonRuntime()
 {
-    pybind11::initialize_interpreter(false);
+    py::initialize_interpreter(false);
     instance = this;
+
+
+    this->RegisterArgGetter(
+            alt::CEvent::Type::SERVER_SCRIPT_EVENT,
+            [](const alt::CEvent* ev)
+            {
+                auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
+                py::list args;
+                for (const auto &arg : event->GetArgs())
+                {
+                    PushMValue(args, arg);
+                }
+                return args;
+            }
+    );
+
 }
 
 PythonResource* PythonRuntime::GetPythonResourceFromPath(std::string const &path)
 {
     for (PythonResource* resource : resources)
     {
-        if (resource->GetFullPath() == path) {
+        if (path.find(resource->resource->GetPath().ToString()) != std::string::npos) {
             return resource;
         }
     }
@@ -42,18 +59,13 @@ void PythonRuntime::DestroyImpl(alt::IResource::Impl *impl) {
 
 void PythonRuntime::OnDispose()
 {
-    pybind11::finalize_interpreter();
-}
-
-std::string PythonRuntime::GetEventType(const alt::CEvent* ev)
-{
-//    return EventTypes.at(static_cast<int>(ev->GetType()));
-    return "anyResourceError";
+    py::finalize_interpreter();
 }
 
 std::string PythonRuntime::GetEventType(alt::CEvent::Type ev)
 {
-    //return EventTypes.at(static_cast<int>(ev));
-    return "anyResourceError";
+    return EventTypes.at(static_cast<int>(ev));
 }
+
+
 

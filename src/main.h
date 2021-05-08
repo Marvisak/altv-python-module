@@ -20,4 +20,6 @@ static const char* preferred_separator = "/";
 // Python API
 #include <pybind11/embed.h>
 
+namespace py = pybind11;
+
 extern alt::ICore* Core;

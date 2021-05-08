@@ -2,26 +2,22 @@
 
 #include <main.h>
 
-void Log(std::string const &str)
+void Log(const std::string &eventName)
 {
-    Core->LogInfo(str);
+    Core->LogColored(eventName);
 }
 
-void LogError(std::string const &str)
+void LogError(const std::string &eventName)
 {
-    Core->LogError(str);
+    Core->LogError(eventName);
 }
 
-void LogDebug(std::string const &str)
+void LogDebug(const std::string &eventName)
 {
-    Core->LogDebug(str);
+    Core->LogDebug(eventName);
 }
 
-void LogWarning(std::string const &str)
+void LogWarning(const std::string &eventName)
 {
-    Core->LogWarning(str);
-}
-void LogColored(std::string const &str)
-{
-    Core->LogColored(str);
+    Core->LogWarning(eventName);
 }

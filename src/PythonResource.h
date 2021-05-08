@@ -7,8 +7,10 @@ class PythonResource : public alt::IResource::Impl
 {
     PythonRuntime* runtime;
     alt::IResource* resource;
-    std::map<std::string, std::vector<pybind11::function>> ServerEvents;
-    std::map<std::string, std::vector<pybind11::function>> ClientEvents;
+    typedef std::vector<py::function> EventsVector;
+    typedef std::map<std::string, EventsVector> EventsMap;
+    EventsMap ServerEvents {};
+    EventsMap ClientEvents {};
 
     friend PythonRuntime;
 public:
@@ -26,6 +28,22 @@ public:
 
     void OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) override;
 
-    void AddEvent(const std::string &eventName, const pybind11::function &eventFunc);
+    void AddEvent(const std::string &eventName, const py::function &eventFunc);
+
+    EventsVector GetEventList(const alt::CEvent* &ev, const std::string &eventName)
+    {
+
+        if (eventName == "SERVER_SCRIPT_EVENT")
+        {
+            auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
+            return ServerEvents[event->GetName().ToString()];
+        }
+        else if (eventName == "CLIENT_SCRIPT_EVENT") {
+            auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
+            return ClientEvents[event->GetName().ToString()];
+        } else {
+            return ServerEvents[eventName];
+        }
+    }
 
 };
