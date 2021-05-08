@@ -17,6 +17,6 @@ void Emit(const std::string &eventName, const py::args &args)
     {
         eventArgs.Push(ArgToMValue(arg));
     }
-    alt::ICore::Instance().TriggerLocalEvent(eventName, eventArgs);
+    Core->TriggerLocalEvent(eventName, eventArgs);
 }
 

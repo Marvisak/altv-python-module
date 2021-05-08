@@ -9,8 +9,8 @@ class PythonResource : public alt::IResource::Impl
     alt::IResource* resource;
     typedef std::vector<py::function> EventsVector;
     typedef std::map<std::string, EventsVector> EventsMap;
-    EventsMap ServerEvents {};
-    EventsMap ClientEvents {};
+    EventsMap ServerEvents;
+    EventsMap ClientEvents;
 
     friend PythonRuntime;
 public:
@@ -32,7 +32,6 @@ public:
 
     EventsVector GetEventList(const alt::CEvent* &ev, const std::string &eventName)
     {
-
         if (eventName == "SERVER_SCRIPT_EVENT")
         {
             auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
