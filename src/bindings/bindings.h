@@ -16,6 +16,8 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
     m.def("emit", &Emit, "Emits event");
 
     py::class_<Player>(m, "player")
-            .def_property("health", &Player::get_health, &Player::set_health);
-
+            .def("spawn", &Player::Spawn)
+            .def_property("health", &Player::GetHealth, &Player::SetHealth);
+    py::class_<Vector3>(m, "vector3")
+            .def("toDict", &Vector3::toDict);
 }
