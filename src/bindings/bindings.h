@@ -3,6 +3,7 @@
 #include <main.h>
 #include <bindings/log.h>
 #include <bindings/events.h>
+#include <classes/classes.h>
 
 PYBIND11_EMBEDDED_MODULE(alt, m)
 {
@@ -13,4 +14,8 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
     m.def("logWarning", &LogWarning, "Logs warning to the console");
     m.def("on", &On, "Listens to event");
     m.def("emit", &Emit, "Emits event");
+
+    py::class_<Player>(m, "player")
+            .def_property("health", &Player::get_health, &Player::set_health);
+
 }

@@ -1,15 +1,12 @@
-//#pragma once
-//#include <main.h>
-//
-//
-//class Player {
-//    alt::IPlayer* player;
-//
-//    int get_health() const { return player->GetHealth(); }
-//    void set_health(int number) { player->SetHealth(number); }
-//public:
-//    __declspec(property()) int health;
-//
-//    Player(alt::IPlayer* player) : player(player) {};
-//
-//};
+#pragma once
+#include <main.h>
+
+
+class Player {
+    alt::RefBase<alt::RefStore<alt::IPlayer>> player;
+
+public:
+    unsigned short get_health() const { return player->GetHealth(); }
+    void set_health(int number) { player->SetHealth(number); }
+    explicit Player(alt::RefBase<alt::RefStore<alt::IPlayer>> &&player) : player(player) {};
+};

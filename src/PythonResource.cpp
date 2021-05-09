@@ -17,7 +17,7 @@ bool PythonResource::Stop()
 bool PythonResource::OnEvent(const alt::CEvent* ev) {
     auto type = runtime->GetEventType(ev->GetType());
     if (runtime->GetEventArgs(type)) {
-        auto getter = this->GetEventList(ev, type);
+        auto getter = GetEventList(ev, type);
         auto arguments = runtime->GetEventArgs(type)(ev);
         for (const auto &listener : getter)
         {
