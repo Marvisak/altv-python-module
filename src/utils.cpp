@@ -35,7 +35,9 @@ alt::MValue Utils::ArgToMValue(const pybind11::handle &arg) {
             tempList->Push(ArgToMValue(element));
         }
         mValue = tempList;
-    } else
+    }
+
+    else
     {
         mValue = Core->CreateMValueNone();
     }
@@ -67,9 +69,9 @@ void Utils::PushMValue(py::list &list, const alt::MValueConst &mValue) {
         case alt::IMValue::Type::LIST:
             auto mList = mValue.As<alt::IMValueList>();
             py::list pyList;
-            for (size_t i = 0; i < mList->GetSize(); i++)
+            for (uint64_t i = 0; i < mList->GetSize(); i++)
             {
-                pyList.append(mList->Get(i));
+                PushMValue(pyList, mList->Get(i));
             }
             list.append(pyList);
             break;
