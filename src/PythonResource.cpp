@@ -21,12 +21,21 @@ bool PythonResource::OnEvent(const alt::CEvent* ev) {
         auto arguments = runtime->GetEventArgs(type)(ev);
         for (const auto &listener : getter)
         {
-            listener(*arguments);
+            try {
+                listener(*arguments);
+            } catch (py::error_already_set &e)
+            {
+                py::print(e.what());
+            }
         }
     } else {
         for (const auto &listener : ServerEvents[type])
         {
-            listener();
+            try {
+                listener();
+            } catch (py::error_already_set &e) {
+                py::print(e.what());
+            }
         }
     }
     return true;
