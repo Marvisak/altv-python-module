@@ -11,7 +11,7 @@ PythonRuntime::PythonRuntime()
     instance = this;
 
 
-    this->RegisterArgGetter(
+    RegisterArgGetter(
             alt::CEvent::Type::SERVER_SCRIPT_EVENT,
             [](const alt::CEvent* ev)
             {
@@ -19,13 +19,13 @@ PythonRuntime::PythonRuntime()
                 py::list args;
                 for (const auto &arg : event->GetArgs())
                 {
-                    PushMValue(args, arg);
+                    Utils::PushMValue(args, arg);
                 }
                 return args;
             }
     );
 
-    this->RegisterArgGetter(
+    RegisterArgGetter(
             alt::CEvent::Type::PLAYER_CONNECT,
             [](const alt::CEvent* ev)
             {
@@ -75,7 +75,7 @@ void PythonRuntime::OnDispose()
 
 std::string PythonRuntime::GetEventType(alt::CEvent::Type ev)
 {
-    return EventTypes.at(static_cast<int>(ev));
+    return Utils::EventTypes.at(static_cast<int>(ev));
 }
 
 
