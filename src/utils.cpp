@@ -1,5 +1,5 @@
 #include <utils.h>
-
+#include <classes/classes.h>
 
 PythonResource* Utils::GetResourceFromFrame(PyFrameObject *frame) {
     PyObject *filename = frame->f_code->co_filename;
@@ -45,6 +45,10 @@ alt::MValue Utils::ArgToMValue(const pybind11::handle &arg) {
             tempDict->Set(item.first.cast<std::string>(), ArgToMValue(item.second));
         }
         mValue = tempDict;
+    } else if (type == "vector3")
+    {
+        auto vector3 = arg.cast<Vector3>();
+        mValue = Core->CreateMValueVector3(alt::Vector3f(vector3.x, vector3.y, vector3.z));
     }
 
     else
@@ -56,65 +60,51 @@ alt::MValue Utils::ArgToMValue(const pybind11::handle &arg) {
 
 py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
     py::object value;
-    switch(mValue->GetType())
-    {
+    switch(mValue->GetType()) {
         case alt::IMValue::Type::NIL:
         case alt::IMValue::Type::NONE:
-        {
             value = py::none();
             break;
-        }
         case alt::IMValue::Type::BOOL:
-        {
             value = py::bool_(mValue.As<alt::IMValueBool>()->Value());
             break;
-        }
-
         case alt::IMValue::Type::INT:
-        {
             value = py::int_(static_cast<int>(mValue.As<alt::IMValueInt>()->Value()));
             break;
-        }
-
         case alt::IMValue::Type::UINT:
-        {
             value = py::int_(static_cast<unsigned int>(mValue.As<alt::IMValueUInt>()->Value()));
             break;
-        }
         case alt::IMValue::Type::DOUBLE:
-        {
             value = py::float_(mValue.As<alt::IMValueDouble>()->Value());
             break;
-        }
         case alt::IMValue::Type::STRING:
-        {
             value = py::str(mValue.As<alt::IMValueString>()->Value().ToString());
             break;
-        }
-
-        case alt::IMValue::Type::LIST:
-        {
+        case alt::IMValue::Type::LIST: {
             auto mList = mValue.As<alt::IMValueList>();
             py::list pyList;
-            for (uint64_t i = 0; i < mList->GetSize(); i++)
-            {
+            for (uint64_t i = 0; i < mList->GetSize(); i++) {
                 pyList.append(MValueToValue(mList->Get(i)));
             }
             value = pyList;
             break;
         }
 
-        case alt::IMValue::Type::DICT:
-        {
+        case alt::IMValue::Type::DICT: {
             auto mDict = mValue.As<alt::IMValueDict>();
             py::dict pyDict;
-            for(auto item = mDict->Begin(); item; item = mDict->Next())
-            {
+            for (auto item = mDict->Begin(); item; item = mDict->Next()) {
                 auto dictVal = MValueToValue(item->GetValue().Get());
                 pyDict[item->GetKey().CStr()] = dictVal;
             }
             value = pyDict;
             break;
+        }
+
+        case alt::IMValue::Type::VECTOR3:
+        {
+            auto mVector3 = mValue.As<alt::IMValueVector3>()->Value();
+            value = py::cast(new Vector3(mVector3[0], mVector3[1], mVector3[2]));
         }
     }
     return value;
