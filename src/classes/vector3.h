@@ -1,10 +1,6 @@
 #pragma once
 #include <main.h>
 
-#include <utility>
-
-const double PI = 3.141592653589793238463;
-
 class Vector3
 {
 private:
