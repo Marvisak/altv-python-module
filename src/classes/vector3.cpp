@@ -2,6 +2,17 @@
 
 py::dict Vector3::toDict() {
     py::dict dict;
-    dict["x"], dict["y"], dict["z"] = x, y, z;
+    dict["x"] = x;
+    dict["y"] = y;
+    dict["z"] = z;
     return dict;
+}
+
+py::list Vector3::toList()
+{
+    py::list list;
+    list.append(x);
+    list.append(y);
+    list.append(z);
+    return list;
 }

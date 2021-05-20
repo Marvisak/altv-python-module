@@ -23,5 +23,6 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
             .def_readwrite("x", &Vector3::x)
             .def_readwrite("y", &Vector3::y)
             .def_readwrite("z", &Vector3::z)
-            .def("toDict", &Vector3::toDict);
+            .def("toDict", &Vector3::toDict)
+            .def("toList", &Vector3::toList);
 }
