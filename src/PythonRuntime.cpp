@@ -19,7 +19,8 @@ PythonRuntime::PythonRuntime()
                 py::list args;
                 for (const auto &arg : event->GetArgs())
                 {
-                    Utils::PushMValue(args, arg);
+                    auto value = Utils::MValueToValue(arg);
+                    args.append(value);
                 }
                 return args;
             }

@@ -12,6 +12,7 @@ static const char* preferred_separator = "/";
 #include <iostream>
 #include <string>
 #include <map>
+#include <variant>
 
 
 // AltV SDK

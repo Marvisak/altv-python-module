@@ -1,5 +1,6 @@
 #include <utils.h>
 
+
 PythonResource* Utils::GetResourceFromFrame(PyFrameObject *frame) {
     PyObject *filename = frame->f_code->co_filename;
     PyObject* byteStr = PyUnicode_AsEncodedString(filename, "utf-8", "~E~");
@@ -35,6 +36,15 @@ alt::MValue Utils::ArgToMValue(const pybind11::handle &arg) {
             tempList->Push(ArgToMValue(element));
         }
         mValue = tempList;
+    } else if (type == "dict")
+    {
+        auto tempDict = Core->CreateMValueDict();
+        auto dict = arg.cast<py::dict>();
+        for (auto item : dict)
+        {
+            tempDict->Set(item.first.cast<std::string>(), ArgToMValue(item.second));
+        }
+        mValue = tempDict;
     }
 
     else
@@ -44,36 +54,68 @@ alt::MValue Utils::ArgToMValue(const pybind11::handle &arg) {
     return mValue;
 }
 
-void Utils::PushMValue(py::list &list, const alt::MValueConst &mValue) {
+py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
+    py::object value;
     switch(mValue->GetType())
     {
         case alt::IMValue::Type::NIL:
         case alt::IMValue::Type::NONE:
-            list.append(py::none());
+        {
+            value = py::none();
             break;
+        }
         case alt::IMValue::Type::BOOL:
-            list.append(mValue.As<alt::IMValueBool>()->Value());
+        {
+            value = py::bool_(mValue.As<alt::IMValueBool>()->Value());
             break;
+        }
+
         case alt::IMValue::Type::INT:
-            list.append(static_cast<int32_t>(mValue.As<alt::IMValueInt>()->Value()));
+        {
+            value = py::int_(static_cast<int>(mValue.As<alt::IMValueInt>()->Value()));
             break;
+        }
+
         case alt::IMValue::Type::UINT:
-            list.append(static_cast<uint32_t>(mValue.As<alt::IMValueUInt>()->Value()));
+        {
+            value = py::int_(static_cast<unsigned int>(mValue.As<alt::IMValueUInt>()->Value()));
             break;
+        }
         case alt::IMValue::Type::DOUBLE:
-            list.append(mValue.As<alt::IMValueDouble>()->Value());
+        {
+            value = py::float_(mValue.As<alt::IMValueDouble>()->Value());
             break;
+        }
         case alt::IMValue::Type::STRING:
-            list.append(mValue.As<alt::IMValueString>()->Value().ToString());
+        {
+            value = py::str(mValue.As<alt::IMValueString>()->Value().ToString());
             break;
+        }
+
         case alt::IMValue::Type::LIST:
+        {
             auto mList = mValue.As<alt::IMValueList>();
             py::list pyList;
             for (uint64_t i = 0; i < mList->GetSize(); i++)
             {
-                PushMValue(pyList, mList->Get(i));
+                pyList.append(MValueToValue(mList->Get(i)));
             }
-            list.append(pyList);
+            value = pyList;
             break;
+        }
+
+        case alt::IMValue::Type::DICT:
+        {
+            auto mDict = mValue.As<alt::IMValueDict>();
+            py::dict pyDict;
+            for(auto item = mDict->Begin(); item; item = mDict->Next())
+            {
+                auto dictVal = MValueToValue(item->GetValue().Get());
+                pyDict[item->GetKey().CStr()] = dictVal;
+            }
+            value = pyDict;
+            break;
+        }
     }
+    return value;
 }
