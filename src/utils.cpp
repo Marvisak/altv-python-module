@@ -1,6 +1,7 @@
 #include <utils.h>
 #include <classes/classes.h>
 
+
 PythonResource* Utils::GetResourceFromFrame(PyFrameObject *frame) {
     PyObject *filename = frame->f_code->co_filename;
     PyObject* byteStr = PyUnicode_AsEncodedString(filename, "utf-8", "~E~");
@@ -9,7 +10,7 @@ PythonResource* Utils::GetResourceFromFrame(PyFrameObject *frame) {
     return resource;
 }
 
-alt::MValue Utils::ArgToMValue(const pybind11::handle &arg) {
+alt::MValue Utils::ValueToMValue(pybind11::handle arg) {
     alt::MValue mValue;
     auto type = py::type::of(arg).attr("__name__").cast<std::string>();
     auto valueStr = py::str(arg).cast<std::string>();
@@ -33,7 +34,7 @@ alt::MValue Utils::ArgToMValue(const pybind11::handle &arg) {
         auto tempList = Core->CreateMValueList();
         for (auto element : arg)
         {
-            tempList->Push(ArgToMValue(element));
+            tempList->Push(ValueToMValue(element));
         }
         mValue = tempList;
     } else if (type == "dict")
@@ -42,15 +43,18 @@ alt::MValue Utils::ArgToMValue(const pybind11::handle &arg) {
         auto dict = arg.cast<py::dict>();
         for (auto item : dict)
         {
-            tempDict->Set(item.first.cast<std::string>(), ArgToMValue(item.second));
+            tempDict->Set(item.first.cast<std::string>(), ValueToMValue(item.second));
         }
         mValue = tempDict;
     } else if (type == "vector3")
     {
         auto vector3 = arg.cast<Vector3>();
         mValue = Core->CreateMValueVector3(alt::Vector3f(vector3.x, vector3.y, vector3.z));
+    } else if (type == "function")
+    {
+        auto func = arg.cast<py::function>();
+        mValue = Core->CreateMValueFunction(new PythonResource::PythonFunction(func));
     }
-
     else
     {
         mValue = Core->CreateMValueNone();
@@ -110,7 +114,21 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
         case alt::IMValue::Type::BASE_OBJECT:
             break;
         case alt::IMValue::Type::FUNCTION:
+        {
+            auto mFunc = mValue.As<alt::IMValueFunction>();
+            py::cpp_function pyFunc = [mFunc](const py::args& args)
+            {
+                alt::MValueArgs funcArgs;
+                for (auto arg : args)
+                {
+                    funcArgs.Push(Utils::ValueToMValue(arg));
+                }
+                auto returnValue = mFunc->Call(funcArgs);
+                return MValueToValue(returnValue);
+            };
+            value = pyFunc;
             break;
+        }
         case alt::IMValue::Type::RGBA:
             break;
         case alt::IMValue::Type::BYTE_ARRAY:

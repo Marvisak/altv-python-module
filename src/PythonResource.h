@@ -2,6 +2,7 @@
 
 #include <main.h>
 
+
 class PythonRuntime;
 class PythonResource : public alt::IResource::Impl
 {
@@ -45,4 +46,14 @@ public:
         }
     }
 
+    class PythonFunction : public alt::IMValueFunction::Impl {
+    private:
+        py::function func;
+    public:
+        explicit PythonFunction(py::function func) : func(std::move(func)) {};
+
+        alt::MValue Call(alt::MValueArgs args) const override;
+    };
+
 };
+

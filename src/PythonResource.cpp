@@ -1,6 +1,7 @@
 #include <main.h>
 #include <PythonResource.h>
 #include <PythonRuntime.h>
+#include <utils.h>
 
 bool PythonResource::Start()
 {
@@ -57,5 +58,14 @@ alt::String PythonResource::GetFullPath() {
     alt::String path = resource->GetPath();
     alt::String fullPath = path + preferred_separator + resource->GetMain();
     return fullPath;
+}
+
+alt::MValue PythonResource::PythonFunction::Call(alt::MValueArgs args) const {
+    py::list funcArgs;
+    for (const auto& arg : args) {
+        funcArgs.append(Utils::MValueToValue(arg));
+    }
+    auto returnValue = func(*funcArgs);
+    return Utils::ValueToMValue(returnValue);
 }
 
