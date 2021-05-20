@@ -1,6 +1,6 @@
 #include <classes/vector3.h>
 
-py::dict Vector3::toDict() {
+py::dict Vector3::ToDict() {
     py::dict dict;
     dict["x"] = x;
     dict["y"] = y;
@@ -8,7 +8,7 @@ py::dict Vector3::toDict() {
     return dict;
 }
 
-py::list Vector3::toList()
+py::list Vector3::ToList()
 {
     py::list list;
     list.append(x);

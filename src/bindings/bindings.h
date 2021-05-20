@@ -18,11 +18,7 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
     py::class_<Player>(m, "player")
             .def("spawn", &Player::Spawn)
             .def_property("health", &Player::GetHealth, &Player::SetHealth);
-    py::class_<Vector3>(m, "vector3")
-            .def(py::init([](float x, float y, float z) {return new Vector3(x, y, z);}))
-            .def_readwrite("x", &Vector3::x)
-            .def_readwrite("y", &Vector3::y)
-            .def_readwrite("z", &Vector3::z)
-            .def("toDict", &Vector3::toDict)
-            .def("toList", &Vector3::toList);
+
+    Vector3::RegisterVector3(m);
+
 }

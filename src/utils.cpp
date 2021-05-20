@@ -104,8 +104,17 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
         case alt::IMValue::Type::VECTOR3:
         {
             auto mVector3 = mValue.As<alt::IMValueVector3>()->Value();
-            value = py::cast(new Vector3(mVector3[0], mVector3[1], mVector3[2]));
+            value = py::cast(Vector3(mVector3[0], mVector3[1], mVector3[2]));
         }
+
+        case alt::IMValue::Type::BASE_OBJECT:
+            break;
+        case alt::IMValue::Type::FUNCTION:
+            break;
+        case alt::IMValue::Type::RGBA:
+            break;
+        case alt::IMValue::Type::BYTE_ARRAY:
+            break;
     }
     return value;
 }
