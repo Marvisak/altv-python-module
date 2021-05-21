@@ -23,3 +23,9 @@ void Emit(const std::string &eventName, const py::args &args)
     Core->TriggerLocalEvent(eventName, eventArgs);
 }
 
+void RegisterEventFunctions(py::module_ m)
+{
+    m.def("on", &On, "Listens to event");
+    m.def("emit", &Emit, "Emits event");
+}
+

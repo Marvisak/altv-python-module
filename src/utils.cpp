@@ -1,7 +1,6 @@
 #include <utils.h>
 #include <classes/classes.h>
 
-
 PythonResource* Utils::GetResourceFromFrame(PyFrameObject *frame) {
     PyObject *filename = frame->f_code->co_filename;
     PyObject* byteStr = PyUnicode_AsEncodedString(filename, "utf-8", "~E~");
@@ -54,6 +53,10 @@ alt::MValue Utils::ValueToMValue(pybind11::handle arg) {
     {
         auto func = arg.cast<py::function>();
         mValue = Core->CreateMValueFunction(new PythonResource::PythonFunction(func));
+    } else if (type == "player")
+    {
+        auto player = arg.cast<Player>();
+        mValue = Core->CreateMValueBaseObject(player.GetBaseObject());
     }
     else
     {
@@ -112,7 +115,29 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
         }
 
         case alt::IMValue::Type::BASE_OBJECT:
+        {
+            auto mBaseObject = mValue.As<alt::IMValueBaseObject>()->Value().Get();
+            switch (mBaseObject->GetType())
+            {
+
+                case alt::IBaseObject::Type::PLAYER:
+                    value = py::cast(Player(dynamic_cast<alt::IPlayer*>(mBaseObject)));
+                    break;
+                case alt::IBaseObject::Type::VEHICLE:
+                    break;
+                case alt::IBaseObject::Type::BLIP:
+                    break;
+                case alt::IBaseObject::Type::WEBVIEW:
+                    break;
+                case alt::IBaseObject::Type::VOICE_CHANNEL:
+                    break;
+                case alt::IBaseObject::Type::COLSHAPE:
+                    break;
+                case alt::IBaseObject::Type::CHECKPOINT:
+                    break;
+            }
             break;
+        }
         case alt::IMValue::Type::FUNCTION:
         {
             auto mFunc = mValue.As<alt::IMValueFunction>();

@@ -21,3 +21,11 @@ void LogWarning(const std::string &eventName)
 {
     Core->LogWarning(eventName);
 }
+
+void RegisterLogFunctions(py::module_ m)
+{
+    m.def("log", &Log, "Logs text to the console");
+    m.def("logError", &LogError, "Logs error to the console");
+    m.def("logDebug", &LogDebug, "Logs debug message to the console");
+    m.def("logWarning", &LogWarning, "Logs warning to the console");
+}
