@@ -10,6 +10,15 @@ PythonRuntime::PythonRuntime()
     py::initialize_interpreter(false);
     instance = this;
 
+    RegisterArgGetter(
+            alt::CEvent::Type::RESOURCE_ERROR,
+            [](const alt::CEvent* ev)
+            {
+                auto event = dynamic_cast<const alt::CResourceErrorEvent*>(ev);
+                auto resourceName = event->GetResource()->GetName().ToString();
+                return py::make_tuple(resourceName);
+            }
+    );
 
     RegisterArgGetter(
             alt::CEvent::Type::SERVER_SCRIPT_EVENT,
@@ -35,7 +44,6 @@ PythonRuntime::PythonRuntime()
                 return py::make_tuple(player);
             }
     );
-
 
 }
 

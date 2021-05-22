@@ -61,8 +61,7 @@ alt::MValue Utils::ValueToMValue(pybind11::handle arg) {
     {
         auto rgba = arg.cast<RGBA>();
         mValue = Core->CreateMValueRGBA(alt::RGBA(rgba.r, rgba.g, rgba.b, rgba.a));
-    }
-    else
+    } else
     {
         mValue = Core->CreateMValueNone();
     }
@@ -164,7 +163,8 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
             value = py::cast(RGBA(mRGBA.r, mRGBA.g, mRGBA.b, mRGBA.a));
             break;
         }
-        case alt::IMValue::Type::BYTE_ARRAY:
+        default:
+            value = py::none();
             break;
     }
     return value;
