@@ -31,6 +31,16 @@ PythonRuntime::PythonRuntime()
     );
 
     RegisterArgGetter(
+            alt::CEvent::Type::RESOURCE_STOP,
+            [](const alt::CEvent* ev)
+            {
+                auto event = dynamic_cast<const alt::CResourceStopEvent*>(ev);
+                auto resourceName = event->GetResource()->GetName().ToString();
+                return py::make_tuple(resourceName);
+            }
+    );
+
+    RegisterArgGetter(
             alt::CEvent::Type::SERVER_SCRIPT_EVENT,
             [](const alt::CEvent* ev)
             {
