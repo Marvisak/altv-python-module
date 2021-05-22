@@ -57,6 +57,10 @@ alt::MValue Utils::ValueToMValue(pybind11::handle arg) {
     {
         auto player = arg.cast<Player>();
         mValue = Core->CreateMValueBaseObject(player.GetBaseObject());
+    } else if (type == "rgba")
+    {
+        auto rgba = arg.cast<RGBA>();
+        mValue = Core->CreateMValueRGBA(alt::RGBA(rgba.r, rgba.g, rgba.b, rgba.a));
     }
     else
     {
@@ -155,7 +159,11 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
             break;
         }
         case alt::IMValue::Type::RGBA:
+        {
+            auto mRGBA = mValue.As<alt::IMValueRGBA>().Get()->Value();
+            value = py::cast(RGBA(mRGBA.r, mRGBA.g, mRGBA.b, mRGBA.a));
             break;
+        }
         case alt::IMValue::Type::BYTE_ARRAY:
             break;
     }

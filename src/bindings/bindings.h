@@ -13,4 +13,5 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
 
     Player::RegisterPlayerClass(m);
     Vector3::RegisterVector3Class(m);
+    RGBA::RegisterRGBAClass(m);
 }
