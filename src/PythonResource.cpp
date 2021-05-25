@@ -69,3 +69,9 @@ alt::MValue PythonResource::PythonFunction::Call(alt::MValueArgs args) const {
     return Utils::ValueToMValue(returnValue);
 }
 
+bool PythonResource::MakeClient(alt::IResource::CreationInfo* info, alt::Array<alt::String> files)
+{
+    info->type = "js";
+    return true;
+}
+

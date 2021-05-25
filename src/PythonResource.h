@@ -55,5 +55,7 @@ public:
         alt::MValue Call(alt::MValueArgs args) const override;
     };
 
+    bool MakeClient(alt::IResource::CreationInfo* info, alt::Array<alt::String> files) override;
+
 };
 
