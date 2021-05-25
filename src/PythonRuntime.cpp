@@ -41,6 +41,21 @@ PythonRuntime::PythonRuntime()
     );
 
     RegisterArgGetter(
+            alt::CEvent::Type::CONSOLE_COMMAND_EVENT,
+            [](const alt::CEvent* ev)
+            {
+                auto event = dynamic_cast<const alt::CConsoleCommandEvent*>(ev);
+                auto args = event->GetArgs();
+                py::list pyArgs;
+                for (auto arg : args)
+                {
+                    pyArgs.append(arg.ToString());
+                }
+                return pyArgs;
+            }
+    );
+
+    RegisterArgGetter(
             alt::CEvent::Type::SERVER_SCRIPT_EVENT,
             [](const alt::CEvent* ev)
             {
