@@ -6,9 +6,9 @@
 
 
 class Player {
-    alt::RefBase<alt::RefStore<alt::IPlayer>> player;
+    alt::Ref<alt::IPlayer> player;
 public:
-    explicit Player(alt::RefBase<alt::RefStore<alt::IPlayer>> &&player) : player(player) {};
+    explicit Player(alt::Ref<alt::IPlayer> &&player) : player(player) {};
 
     alt::RefBase<alt::RefStore<alt::IPlayer>> GetBaseObject() { return player; }
 
