@@ -3,12 +3,15 @@
 
 class Vector3
 {
-private:
 public:
     double x, y, z;
     Vector3(double x, double y, double z) : x(x), y(y), z(z) {}
     py::dict ToDict();
     py::list ToList();
+
+    alt::Position toAltPos() const {
+        return alt::Position{x, y, z};
+    }
 
     std::string ToString()
     {

@@ -16,14 +16,12 @@ file(GLOB_RECURSE PROJECT_SOURCE_FILES "./src/*.h" "./src/*.hpp" "./src/*.cpp")
 include_directories(
         "${PROJECT_SOURCE_DIR}/src"
         "${PROJECT_SOURCE_DIR}/vendors/cpp-sdk"
-        "${PROJECT_SOURCE_DIR}/vendors/boost"
         "${PROJECT_SOURCE_DIR}/vendors/pybind11/include"
         "${PROJECT_SOURCE_DIR}/vendors/cpython/include"
 )
 
 
 link_directories(
-
     "${PROJECT_SOURCE_DIR}/vendors/cpython/lib"
 )
 
