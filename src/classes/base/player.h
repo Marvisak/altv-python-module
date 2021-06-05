@@ -10,7 +10,7 @@ class Player {
 public:
     explicit Player(alt::Ref<alt::IPlayer> &&player) : player(player) {};
 
-    alt::RefBase<alt::RefStore<alt::IPlayer>> GetBaseObject() { return player; }
+    alt::Ref<alt::IPlayer> GetBaseObject() { return player; }
 
     //Health
     unsigned short GetHealth() const { return player->GetHealth(); }
