@@ -6,8 +6,9 @@
 namespace Utils
 {
     PythonResource* GetResourceFromFrame(PyFrameObject* frame);
-    alt::MValue ValueToMValue(pybind11::handle arg);
+    alt::MValue ValueToMValue(const py::object& arg);
     py::object MValueToValue(const alt::MValueConst& mValue);
+    std::string GetTypeOfObject(const py::object& object);
 
     const std::vector<std::string> EventTypes{
             "NONE",

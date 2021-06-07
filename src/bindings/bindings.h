@@ -11,7 +11,7 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
     m.doc() = "AltV Python Module";
     RegisterLogFunctions(m);
     RegisterEventFunctions(m);
-    RegisterUtilFunctions(m);
+    RegisterHelpersFunctions(m);
 
     Player::RegisterPlayerClass(m);
     Vector3::RegisterVector3Class(m);

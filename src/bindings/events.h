@@ -16,9 +16,9 @@ void Emit(const std::string &eventName, const py::args &args)
     if (std::find(Utils::EventTypes.begin(), Utils::EventTypes.end(), eventName) != Utils::EventTypes.end())
         return;
     alt::MValueArgs eventArgs;
-    for (auto arg : *args)
+    for (const py::handle& arg : *args)
     {
-        eventArgs.Push(Utils::ValueToMValue(arg));
+        eventArgs.Push(Utils::ValueToMValue(arg.cast<py::object>()));
     }
     Core->TriggerLocalEvent(eventName, eventArgs);
 }

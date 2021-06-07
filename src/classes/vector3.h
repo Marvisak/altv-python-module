@@ -89,9 +89,9 @@ public:
     }
 
 
-    static void RegisterVector3Class(pybind11::module_ m)
+    static void RegisterVector3Class(const pybind11::module_& m)
     {
-        py::class_<Vector3>(std::move(m), "vector3")
+        py::class_<Vector3>(m, "vector3")
             .def(py::init([](float _x, float _y, float _z) {return Vector3(_x, _y, _z);}))
             .def_readwrite("x", &Vector3::x)
             .def_readwrite("y", &Vector3::y)

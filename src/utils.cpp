@@ -9,9 +9,9 @@ PythonResource* Utils::GetResourceFromFrame(PyFrameObject *frame) {
     return resource;
 }
 
-alt::MValue Utils::ValueToMValue(pybind11::handle arg) {
+alt::MValue Utils::ValueToMValue(const py::object& arg) {
     alt::MValue mValue;
-    auto type = py::type::of(arg).attr("__name__").cast<std::string>();
+    auto type = Utils::GetTypeOfObject(arg);
     auto valueStr = py::str(arg).cast<std::string>();
     if (type == "str")
     {
@@ -33,7 +33,7 @@ alt::MValue Utils::ValueToMValue(pybind11::handle arg) {
         auto tempList = Core->CreateMValueList();
         for (auto element : arg)
         {
-            tempList->Push(ValueToMValue(element));
+            tempList->Push(ValueToMValue(element.cast<py::object>()));
         }
         mValue = tempList;
     } else if (type == "dict")
@@ -42,7 +42,7 @@ alt::MValue Utils::ValueToMValue(pybind11::handle arg) {
         auto dict = arg.cast<py::dict>();
         for (auto item : dict)
         {
-            tempDict->Set(item.first.cast<std::string>(), ValueToMValue(item.second));
+            tempDict->Set(item.first.cast<std::string>(), ValueToMValue(item.second.cast<py::object>()));
         }
         mValue = tempDict;
     } else if (type == "vector3")
@@ -149,7 +149,7 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
                 alt::MValueArgs funcArgs;
                 for (auto arg : args)
                 {
-                    funcArgs.Push(Utils::ValueToMValue(arg));
+                    funcArgs.Push(Utils::ValueToMValue(arg.cast<py::object>()));
                 }
                 auto returnValue = mFunc->Call(funcArgs);
                 return MValueToValue(returnValue);
@@ -168,4 +168,8 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
             break;
     }
     return value;
+}
+
+std::string Utils::GetTypeOfObject(const py::object& object) {
+    return py::type::of(object).attr("__name__").cast<std::string>();
 }
