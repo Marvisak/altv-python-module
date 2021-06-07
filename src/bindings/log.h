@@ -2,24 +2,24 @@
 
 #include <main.h>
 
-void Log(const std::string &eventName)
+void Log(const py::object& object)
 {
-    Core->LogColored(eventName);
+    Core->LogColored(py::str(object).cast<std::string>());
 }
 
-void LogError(const std::string &eventName)
+void LogError(const py::object& object)
 {
-    Core->LogError(eventName);
+    Core->LogError(py::str(object).cast<std::string>());
 }
 
-void LogDebug(const std::string &eventName)
+void LogDebug(const py::object& object)
 {
-    Core->LogDebug(eventName);
+    Core->LogDebug(py::str(object).cast<std::string>());
 }
 
-void LogWarning(const std::string &eventName)
+void LogWarning(const py::object& object)
 {
-    Core->LogWarning(eventName);
+    Core->LogWarning(py::str(object).cast<std::string>());
 }
 
 void RegisterLogFunctions(py::module_ m)
