@@ -7,7 +7,7 @@ public:
 
     static void RegisterRGBAClass(const py::module_& m)
     {
-        py::class_<RGBA>(m, "rgba")
+        py::class_<RGBA>(m, "RGBA")
             .def(py::init([](uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a) {return RGBA(_r, _g, _b, _a);}))
             .def_readwrite("r", &RGBA::r)
             .def_readwrite("g", &RGBA::g)

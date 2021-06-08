@@ -41,7 +41,7 @@ public:
 
     static void RegisterPlayerClass(const py::module_& m)
     {
-        py::class_<Player>(m, "player")
+        py::class_<Player>(m, "Player")
             // Spawning
             .def("spawn", py::overload_cast<float, float, float, unsigned int>(&Player::Spawn))
             .def("spawn", py::overload_cast<Vector3, unsigned int>(&Player::Spawn))

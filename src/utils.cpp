@@ -45,7 +45,7 @@ alt::MValue Utils::ValueToMValue(const py::object& arg) {
             tempDict->Set(item.first.cast<std::string>(), ValueToMValue(item.second.cast<py::object>()));
         }
         mValue = tempDict;
-    } else if (type == "vector3")
+    } else if (type == "Vector3")
     {
         auto vector3 = arg.cast<Vector3>();
         mValue = Core->CreateMValueVector3(alt::Vector3f(vector3.x, vector3.y, vector3.z));
@@ -53,11 +53,12 @@ alt::MValue Utils::ValueToMValue(const py::object& arg) {
     {
         auto func = arg.cast<py::function>();
         mValue = Core->CreateMValueFunction(new PythonResource::PythonFunction(func));
-    } else if (type == "player")
+    } else if (type == "Player")
     {
         auto player = arg.cast<Player>();
         mValue = Core->CreateMValueBaseObject(player.GetBaseObject());
-    } else if (type == "rgba")
+
+    } else if (type == "RGBA")
     {
         auto rgba = arg.cast<RGBA>();
         mValue = Core->CreateMValueRGBA(alt::RGBA(rgba.r, rgba.g, rgba.b, rgba.a));
@@ -115,6 +116,7 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
         {
             auto mVector3 = mValue.As<alt::IMValueVector3>()->Value();
             value = py::cast(Vector3(mVector3[0], mVector3[1], mVector3[2]));
+            break;
         }
 
         case alt::IMValue::Type::BASE_OBJECT:
