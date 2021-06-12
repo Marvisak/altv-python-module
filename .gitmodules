@@ -1,10 +1,6 @@
 [submodule "vendors/cpp-sdk"]
 	path = vendors/cpp-sdk
-	url = https://github.com/altmp/cpp-sdk/tree/dev
-[submodule "vendors/extern/pybind11"]
-	path = vendors/extern/pybind11
-	url = https://github.com/pybind/pybind11
-	branch = stable
+	url = https://github.com/altmp/cpp-sdk
 [submodule "vendors/pybind11"]
 	path = vendors/pybind11
 	url = https://github.com/pybind/pybind11
