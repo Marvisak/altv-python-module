@@ -46,6 +46,10 @@ public:
     py::list GetCurrentWeaponComponents() const { return Utils::ArrayToPyList(player->GetCurrentWeaponComponents()); }
     uint8_t GetCurrentWeaponTintIndex() const { return player->GetCurrentWeaponTintIndex(); }
 
+    // Dimension
+    int32_t GetDimension() const { return player->GetDimension(); }
+    void SetDimension(int32_t dimension) { return player->SetDimension(dimension); }
+
     // Spawning
     void Spawn(float x, float y, float z, unsigned int delay);
     void Spawn(Vector3 coords, unsigned int delay);
@@ -92,6 +96,9 @@ public:
             .def_property_readonly("currentWeaponComponents", &Player::GetCurrentWeaponComponents)
             .def_property_readonly("currentWeaponTintIndex", &Player::GetCurrentWeaponTintIndex)
             .def("giveWeapon", &Player::GiveWeapon)
+
+            // Dimension
+            .def_property("dimension", &Player::GetDimension, &Player::SetDimension)
 
             // Event
             .def("emit", &Player::Emit);
