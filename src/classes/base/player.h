@@ -21,30 +21,30 @@ public:
     }
 
     // Health
-    unsigned short GetHealth() const { return player->GetHealth(); }
+    uint16_t GetHealth() const { return player->GetHealth(); }
     void SetHealth(int number) { player->SetHealth(number); }
 
     // Armour
-    unsigned short GetArmour() const { return player->GetArmour(); }
+    uint16_t GetArmour() const { return player->GetArmour(); }
     void SetArmour(int number) { player->SetArmour(number); }
 
     // Model
     void SetModel(const py::object& model);
-    unsigned int GetModel() const {return player->GetModel();};
+    uint32_t GetModel() const {return player->GetModel();};
 
     // Authentication
     std::string GetAuthToken() const { return player->GetAuthToken().ToString(); }
-    unsigned long long GetHWIDHash() const { return player->GetHwidHash(); }
-    unsigned long long GetHWIDExHash() const { return player->GetHwidExHash(); }
+    uint64_t GetHWIDHash() const { return player->GetHwidHash(); }
+    uint64_t GetHWIDExHash() const { return player->GetHwidExHash(); }
     std::string GetIP() const { return player->GetIP().ToString(); }
-    unsigned long long GetSocialId() const { return player->GetSocialID(); }
+    uint64_t GetSocialId() const { return player->GetSocialID(); }
 
     // Weapons
-    unsigned int GetCurrentWeapon() const { return player->GetCurrentWeapon();}
+    uint32_t GetCurrentWeapon() const { return player->GetCurrentWeapon();}
     void SetCurrentWeapon(unsigned int weaponHash) { player->SetCurrentWeapon(weaponHash); }
     void GiveWeapon(unsigned int weaponHash, int ammoCount, bool equipNow) { player->GiveWeapon(weaponHash, ammoCount, equipNow); }
     py::list GetCurrentWeaponComponents() const { return Utils::ArrayToPyList(player->GetCurrentWeaponComponents()); }
-    unsigned char GetCurrentWeaponTintIndex() const { return player->GetCurrentWeaponTintIndex(); }
+    uint8_t GetCurrentWeaponTintIndex() const { return player->GetCurrentWeaponTintIndex(); }
 
     // Spawning
     void Spawn(float x, float y, float z, unsigned int delay);

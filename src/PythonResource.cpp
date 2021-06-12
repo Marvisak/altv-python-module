@@ -41,13 +41,9 @@ bool PythonResource::OnEvent(const alt::CEvent* ev) {
     return true;
 }
 
-void PythonResource::OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) {
+void PythonResource::OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) {}
 
-}
-
-void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) {
-
-}
+void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) {}
 
 void PythonResource::AddEvent(const std::string &eventName, const py::function &eventFunc) {
     ServerEvents[eventName].push_back(eventFunc);

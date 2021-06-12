@@ -12,7 +12,7 @@ void Player::Spawn(Vector3 coords, unsigned int delay) {
 void Player::SetModel(const py::object& model) {
     auto type = Utils::GetTypeOfObject(model);
     if (type == "str") {
-        unsigned int modelHash = Core->Hash(py::str(model).cast<std::string>());
+        uint32_t modelHash = Core->Hash(py::str(model).cast<std::string>());
         player->SetModel(modelHash);
     } else if (type == "int" || type == "float") {
         player->SetModel(py::int_(model).cast<unsigned int>());
