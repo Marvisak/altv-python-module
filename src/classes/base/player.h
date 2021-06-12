@@ -20,7 +20,7 @@ public:
         return pyList;
     }
 
-    //Health
+    // Health
     unsigned short GetHealth() const { return player->GetHealth(); }
     void SetHealth(int number) { player->SetHealth(number); }
 
@@ -42,8 +42,9 @@ public:
     // Weapons
     unsigned int GetCurrentWeapon() const { return player->GetCurrentWeapon();}
     void SetCurrentWeapon(unsigned int weaponHash) { player->SetCurrentWeapon(weaponHash); }
-    void GiveWeapon(unsigned int weaponHash, int ammoCount, bool equipNow) {player->GiveWeapon(weaponHash, ammoCount, equipNow);};
-
+    void GiveWeapon(unsigned int weaponHash, int ammoCount, bool equipNow) { player->GiveWeapon(weaponHash, ammoCount, equipNow); }
+    py::list GetCurrentWeaponComponents() const { return Utils::ArrayToPyList(player->GetCurrentWeaponComponents()); }
+    unsigned char GetCurrentWeaponTintIndex() const { return player->GetCurrentWeaponTintIndex(); }
 
     // Spawning
     void Spawn(float x, float y, float z, unsigned int delay);
@@ -88,6 +89,8 @@ public:
 
             // Weapons
             .def_property("currentWeapon", &Player::GetCurrentWeapon, &Player::SetCurrentWeapon)
+            .def_property_readonly("currentWeaponComponents", &Player::GetCurrentWeaponComponents)
+            .def_property_readonly("currentWeaponTintIndex", &Player::GetCurrentWeaponTintIndex)
             .def("giveWeapon", &Player::GiveWeapon)
 
             // Event

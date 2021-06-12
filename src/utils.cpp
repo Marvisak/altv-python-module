@@ -178,6 +178,15 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
     return value;
 }
 
+py::list Utils::ArrayToPyList(const alt::Array<uint32_t>& array) {
+    py::list pyList;
+    for (auto element : array)
+    {
+        pyList.append(element);
+    }
+    return pyList;
+}
+
 std::string Utils::GetTypeOfObject(const py::object& object) {
     return py::type::of(object).attr("__name__").cast<std::string>();
 }
