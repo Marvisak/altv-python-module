@@ -71,6 +71,21 @@ PythonRuntime::PythonRuntime()
     );
 
     RegisterArgGetter(
+            alt::CEvent::Type::CLIENT_SCRIPT_EVENT,
+            [](const alt::CEvent* ev)
+            {
+                auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
+                py::list args;
+                for (const auto &arg : event->GetArgs())
+                {
+                    auto value = Utils::MValueToValue(arg);
+                    args.append(value);
+                }
+                return args;
+            }
+    );
+
+    RegisterArgGetter(
             alt::CEvent::Type::PLAYER_CONNECT,
             [](const alt::CEvent* ev)
             {

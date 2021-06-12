@@ -1,6 +1,5 @@
 #include <main.h>
 #include <PythonResource.h>
-#include <PythonRuntime.h>
 #include <utils.h>
 
 bool PythonResource::Start()
@@ -52,6 +51,10 @@ void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) {
 
 void PythonResource::AddEvent(const std::string &eventName, const py::function &eventFunc) {
     ServerEvents[eventName].push_back(eventFunc);
+}
+
+void PythonResource::AddClientEvent(const std::string &eventName, const py::function &eventFunc) {
+    ClientEvents[eventName].push_back(eventFunc);
 }
 
 alt::String PythonResource::GetFullPath() {

@@ -28,4 +28,4 @@ link_directories(
 add_library(
         ${PROJECT_MODULE_NAME} SHARED
         ${PROJECT_SOURCE_FILES}
-        src/bindings/helpers.h)
+)

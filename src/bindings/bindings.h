@@ -4,7 +4,8 @@
 #include <bindings/log.h>
 #include <bindings/events.h>
 #include <classes/classes.h>
-#include <bindings/helpers.h>
+#include <bindings/alt.h>
+
 
 PYBIND11_EMBEDDED_MODULE(alt, m)
 {

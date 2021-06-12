@@ -6,9 +6,19 @@
 class Player {
     alt::Ref<alt::IPlayer> player;
 public:
-    explicit Player(alt::Ref<alt::IPlayer> &&player) : player(player) {};
 
-    alt::Ref<alt::IPlayer> GetBaseObject() { return player; }
+    explicit Player(alt::Ref<alt::IPlayer> player) : player(player) {};
+
+    alt::Ref<alt::IPlayer> GetBaseObject() const { return player; }
+
+    static py::list GetAllPlayers(const py::object& self) {
+        auto players = Core->GetPlayers();
+        py::list pyList;
+        for (const auto& player : players) {
+            pyList.append(py::cast(Player(player)));
+        }
+        return pyList;
+    }
 
     //Health
     unsigned short GetHealth() const { return player->GetHealth(); }
@@ -42,6 +52,10 @@ public:
     static void RegisterPlayerClass(const py::module_& m)
     {
         py::class_<Player>(m, "Player")
+            // Static
+
+            .def_property_readonly_static("all", &Player::GetAllPlayers)
+
             // Spawning
             .def("spawn", py::overload_cast<float, float, float, unsigned int>(&Player::Spawn))
             .def("spawn", py::overload_cast<Vector3, unsigned int>(&Player::Spawn))

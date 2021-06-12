@@ -31,6 +31,8 @@ public:
 
     void AddEvent(const std::string &eventName, const py::function &eventFunc);
 
+    void AddClientEvent(const std::string &eventName, const py::function &eventFunc);
+
     EventsVector GetEventList(const alt::CEvent* &ev, const std::string &eventName)
     {
         if (eventName == "SERVER_SCRIPT_EVENT")

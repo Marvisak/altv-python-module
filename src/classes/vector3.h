@@ -13,17 +13,17 @@ public:
         return alt::Position{x, y, z};
     }
 
-    std::string ToString()
+    std::string ToString() const
     {
         return "Vector3(" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ")";
     }
 
-    double Length()
+    double Length() const
     {
         return sqrt(x * x + y * y + z * z);
     }
 
-    double Distance(Vector3& other)
+    double Distance(Vector3& other) const
     {
         return sqrt(std::pow(x - other.x, 2) + std::pow(y - other.y, 2) + std::pow(z - other.z, 2));
     }
