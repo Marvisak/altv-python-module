@@ -140,6 +140,12 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
                     break;
                 case alt::IBaseObject::Type::CHECKPOINT:
                     break;
+                case alt::IBaseObject::Type::WEBSOCKET_CLIENT:
+                    break;
+                case alt::IBaseObject::Type::HTTP_CLIENT:
+                    break;
+                case alt::IBaseObject::Type::AUDIO:
+                    break;
             }
             break;
         }
