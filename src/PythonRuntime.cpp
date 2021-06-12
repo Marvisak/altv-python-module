@@ -46,7 +46,9 @@ PythonRuntime::PythonRuntime()
             {
                 auto event = dynamic_cast<const alt::CConsoleCommandEvent*>(ev);
                 auto args = event->GetArgs();
+                auto name = event->GetName();
                 py::list pyArgs;
+                pyArgs.append(name.ToString());
                 for (auto arg : args)
                 {
                     pyArgs.append(arg.ToString());
