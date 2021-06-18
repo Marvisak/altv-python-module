@@ -23,6 +23,10 @@ public:
 
     // NetOwner
     Player GetNetOwner() const;
+    void SetNetOwner(const Player& player, bool disableMigration);
+    void ResetNetOwner(bool disableMigration) {
+        entity->SetNetworkOwner(nullptr, disableMigration);
+    }
 
 
     // Rot
@@ -33,13 +37,53 @@ public:
     bool GetVisible() const { return entity->GetVisible(); }
     void SetVisible(bool visible) const { return entity->SetVisible(visible); }
 
+    bool HasSyncedMetaData(const std::string& key) { return entity->HasSyncedMetaData(key); }
+    py::object GetSyncedMetaData(const std::string& key) { return Utils::MValueToValue(entity->GetSyncedMetaData(key)); }
+    bool HasStreamSyncedMetaData(const std::string& key) { return entity->HasStreamSyncedMetaData(key); }
+    py::object GetStreamSyncedMetaData(const std::string& key) { return Utils::MValueToValue(entity->GetSyncedMetaData(key)); }
+
+    void SetSyncedMetaData(const std::string& key, const py::object& val) { entity->SetSyncedMetaData(key, Utils::ValueToMValue(val));}
+    void DeleteSyncedMetaData(const std::string& key) { entity->DeleteSyncedMetaData(key); }
+    void SetStreamSyncedMetaData(const std::string& key, const py::object& val) { entity->SetStreamSyncedMetaData(key, Utils::ValueToMValue(val)); }
+    void DeleteStreamSyncedMetaData(const std::string& key) { entity->DeleteStreamSyncedMetaData(key); }
+
+    static py::object GetById(uint16_t number) {
+        auto entity = Core->GetEntityByID(number);
+        if (entity.Get() != nullptr)
+            return py::cast(Entity(entity));
+        return py::none();
+    }
 
     static void RegisterEntityClass(const py::module_& m) {
         auto pyClass = py::class_<Entity, WorldObject>(m, "Entity");
+
+        // ID
         pyClass.def_property_readonly("id", &Entity::GetID);
+        pyClass.def_static("getById", &Entity::GetById);
+
+        // Model
         pyClass.def_property_readonly("model", &Entity::GetModel);
+
+        // NetOwner
         pyClass.def_property_readonly("netOwner", &Entity::GetNetOwner);
+        pyClass.def("setNetOwner", &Entity::SetNetOwner);
+        pyClass.def("resetNetOwner", &Entity::ResetNetOwner);
+
+        // Rot
         pyClass.def_property("rot", &Entity::GetRotation, &Entity::SetRotation);
+
+        // Visibility
         pyClass.def_property("visible", &Entity::GetVisible, &Entity::SetVisible);
+
+        // MetaData
+        pyClass.def("deleteStreamSyncedMeta", &Entity::DeleteStreamSyncedMetaData);
+        pyClass.def("deleteSyncedMeta", &Entity::DeleteSyncedMetaData);
+        pyClass.def("getStreamSyncedMeta", &Entity::GetStreamSyncedMetaData);
+        pyClass.def("getSyncedMeta", &Entity::GetSyncedMetaData);
+        pyClass.def("hasStreamSyncedMeta", &Entity::HasStreamSyncedMetaData);
+        pyClass.def("hasSyncedMeta", &Entity::HasSyncedMetaData);
+        pyClass.def("setStreamSyncedMeta", &Entity::SetStreamSyncedMetaData);
+        pyClass.def("setSyncedMeta", &Entity::SetSyncedMetaData);
+
     }
 };
