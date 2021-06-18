@@ -14,6 +14,14 @@ public:
 
     Entity(alt::Ref<alt::IEntity> entity) : entity(entity), WorldObject(entity) {};
 
+    static py::list GetAllEntities(const py::object& self) {
+        auto entities = Core->GetEntities();
+        py::list pyList;
+        for (const auto& entity : entities) {
+            pyList.append(py::cast(Entity(entity)));
+        }
+        return pyList;
+    }
 
     // ID
     uint16_t GetID() const { return entity->GetID(); }
@@ -56,6 +64,8 @@ public:
 
     static void RegisterEntityClass(const py::module_& m) {
         auto pyClass = py::class_<Entity, WorldObject>(m, "Entity");
+
+        pyClass.def_property_readonly_static("all", &Entity::GetAllEntities);
 
         // ID
         pyClass.def_property_readonly("id", &Entity::GetID);
