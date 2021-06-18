@@ -24,6 +24,7 @@ public:
     // Health
     uint16_t GetHealth() const { return player->GetHealth(); }
     void SetHealth(int number) { player->SetHealth(number); }
+    bool IsDead() { return player->IsDead(); }
 
     // Armour
     uint16_t GetArmour() const { return player->GetArmour(); }
@@ -33,6 +34,7 @@ public:
     void SetModel(const py::object& model);
 
     // Authentication
+    std::string GetName() const { return player->GetName().ToString(); }
     std::string GetAuthToken() const { return player->GetAuthToken().ToString(); }
     uint64_t GetHWIDHash() const { return player->GetHwidHash(); }
     uint64_t GetHWIDExHash() const { return player->GetHwidExHash(); }
@@ -41,11 +43,23 @@ public:
 
     // Weapons
     uint32_t GetCurrentWeapon() const { return player->GetCurrentWeapon();}
-    void SetCurrentWeapon(unsigned int weaponHash) { player->SetCurrentWeapon(weaponHash); }
-    void GiveWeapon(unsigned int weaponHash, int ammoCount, bool equipNow) { player->GiveWeapon(weaponHash, ammoCount, equipNow); }
+    void SetCurrentWeapon(uint32_t weaponHash) { player->SetCurrentWeapon(weaponHash); }
+    void GiveWeapon(uint32_t weaponHash, int ammoCount, bool equipNow) { player->GiveWeapon(weaponHash, ammoCount, equipNow); }
     void GiveWeapon(const std::string& weaponName, int ammoCount, bool equipNow) { player->GiveWeapon(Core->Hash(weaponName), ammoCount, equipNow); }
     py::list GetCurrentWeaponComponents() const { return Utils::ArrayToPyList(player->GetCurrentWeaponComponents()); }
     uint8_t GetCurrentWeaponTintIndex() const { return player->GetCurrentWeaponTintIndex(); }
+    bool HasWeaponComponent(uint32_t weapon, uint32_t component) { return player->HasWeaponComponent(weapon, component); }
+    bool HasWeaponComponent(const std::string& weapon, uint32_t component) { return player->HasWeaponComponent(Core->Hash(weapon), component); }
+    bool HasWeaponComponent(uint32_t weapon, const std::string& component) { return player->HasWeaponComponent(weapon, Core->Hash(component)); }
+    bool HasWeaponComponent(const std::string& weapon, const std::string& component) { return player->HasWeaponComponent(Core->Hash(weapon), Core->Hash(component)); }
+    bool IsFlashlightActive() const { return player->IsFlashlightActive(); }
+
+    // Actions
+    bool IsJumping() { return player->IsJumping(); }
+    bool IsInRagdoll() { return player->IsInRagdoll(); }
+    bool IsShooting() { return player->IsShooting(); }
+    bool IsAiming() { return player->IsAiming(); }
+    bool IsReloading() { return player->IsReloading(); }
 
 
     // Entity Aiming
@@ -89,12 +103,15 @@ public:
 
         // Health
         pyClass.def_property("health", &Player::GetHealth, &Player::SetHealth);
+        pyClass.def_property_readonly("dead", &Player::IsDead);
+
         // Armour
         pyClass.def_property("armour", &Player::GetArmour, &Player::SetArmour);
         // Model
         pyClass.def_property("model", &Player::GetModel, &Player::SetModel);
 
         // Auth
+        pyClass.def_property_readonly("name", &Player::GetName);
         pyClass.def_property_readonly("authToken", &Player::GetAuthToken);
         pyClass.def_property_readonly("hwidHash", &Player::GetHWIDHash);
         pyClass.def_property_readonly("hwidExHash", &Player::GetHWIDExHash);
@@ -105,8 +122,20 @@ public:
         pyClass.def_property("currentWeapon", &Player::GetCurrentWeapon, &Player::SetCurrentWeapon);
         pyClass.def_property_readonly("currentWeaponComponents", &Player::GetCurrentWeaponComponents);
         pyClass.def_property_readonly("currentWeaponTintIndex", &Player::GetCurrentWeaponTintIndex);
-        pyClass.def("giveWeapon", py::overload_cast<unsigned int, int, bool>(&Player::GiveWeapon));
+        pyClass.def("giveWeapon", py::overload_cast<uint32_t, int, bool>(&Player::GiveWeapon));
         pyClass.def("giveWeapon", py::overload_cast<const std::string&, int, bool>(&Player::GiveWeapon));
+        pyClass.def_property_readonly("flashlightActive", &Player::IsFlashlightActive);
+        pyClass.def("hasWeaponComponent", py::overload_cast<uint32_t, uint32_t>(&Player::HasWeaponComponent));
+        pyClass.def("hasWeaponComponent", py::overload_cast<const std::string&, uint32_t>(&Player::HasWeaponComponent));
+        pyClass.def("hasWeaponComponent", py::overload_cast<uint32_t, const std::string&>(&Player::HasWeaponComponent));
+        pyClass.def("hasWeaponComponent", py::overload_cast<const std::string&, const std::string&>(&Player::HasWeaponComponent));
+
+        // Actions
+        pyClass.def_property_readonly("jumping", &Player::IsJumping);
+        pyClass.def_property_readonly("inRagdoll", &Player::IsInRagdoll);
+        pyClass.def_property_readonly("aiming", &Player::IsAiming);
+        pyClass.def_property_readonly("shooting", &Player::IsShooting);
+        pyClass.def_property_readonly("reloading", &Player::IsReloading);
 
         // Aiming
         pyClass.def_property_readonly("entityAimingOffset", &Player::GetEntityAimingOffset);
