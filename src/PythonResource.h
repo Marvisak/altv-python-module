@@ -13,9 +13,11 @@ class PythonResource : public alt::IResource::Impl
     EventsMap ServerEvents;
     EventsMap ClientEvents;
 
+    std::unordered_map<alt::IBaseObject::Type, alt::Ref<alt::IBaseObject>> objects;
+
     friend PythonRuntime;
 public:
-    PythonResource(PythonRuntime* runtime, alt::IResource* resource) : runtime(runtime), resource(resource) {};
+    PythonResource(PythonRuntime* runtime, alt::IResource* resource) : runtime(runtime), resource(resource) {}
 
     bool Start() override;
 
@@ -24,6 +26,8 @@ public:
     bool OnEvent(const alt::CEvent* ev) override;
 
     alt::String GetFullPath();
+
+    bool IsObjectValid(const alt::Ref<alt::IBaseObject>& object);
 
     void OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) override;
 

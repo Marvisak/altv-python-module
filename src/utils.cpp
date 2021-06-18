@@ -114,8 +114,8 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
 
         case alt::IMValue::Type::VECTOR3:
         {
-            auto mVector3 = mValue.As<alt::IMValueVector3>()->Value();
-            value = py::cast(Vector3(mVector3[0], mVector3[1], mVector3[2]));
+            Vector3 mVector3 = mValue.As<alt::IMValueVector3>()->Value();
+            value = py::cast(mVector3);
             break;
         }
 
@@ -168,7 +168,7 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
         case alt::IMValue::Type::RGBA:
         {
             auto mRGBA = mValue.As<alt::IMValueRGBA>().Get()->Value();
-            value = py::cast(RGBA(mRGBA.r, mRGBA.g, mRGBA.b, mRGBA.a));
+            value = py::cast(RGBA(mRGBA));
             break;
         }
         default:

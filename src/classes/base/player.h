@@ -2,12 +2,13 @@
 #include <main.h>
 #include <utils.h>
 #include <classes/vector3.h>
+#include <classes/base/entity.h>
 
-class Player {
+
+class Player : public Entity {
     alt::Ref<alt::IPlayer> player;
 public:
-
-    explicit Player(alt::Ref<alt::IPlayer> player) : player(player) {};
+    Player(alt::Ref<alt::IPlayer> player) : player(player), Entity(player) {};
 
     alt::Ref<alt::IPlayer> GetBaseObject() const { return player; }
 
@@ -30,7 +31,6 @@ public:
 
     // Model
     void SetModel(const py::object& model);
-    uint32_t GetModel() const {return player->GetModel();};
 
     // Authentication
     std::string GetAuthToken() const { return player->GetAuthToken().ToString(); }
@@ -43,12 +43,22 @@ public:
     uint32_t GetCurrentWeapon() const { return player->GetCurrentWeapon();}
     void SetCurrentWeapon(unsigned int weaponHash) { player->SetCurrentWeapon(weaponHash); }
     void GiveWeapon(unsigned int weaponHash, int ammoCount, bool equipNow) { player->GiveWeapon(weaponHash, ammoCount, equipNow); }
+    void GiveWeapon(const std::string& weaponName, int ammoCount, bool equipNow) { player->GiveWeapon(Core->Hash(weaponName), ammoCount, equipNow); }
     py::list GetCurrentWeaponComponents() const { return Utils::ArrayToPyList(player->GetCurrentWeaponComponents()); }
     uint8_t GetCurrentWeaponTintIndex() const { return player->GetCurrentWeaponTintIndex(); }
 
-    // Dimension
-    int32_t GetDimension() const { return player->GetDimension(); }
-    void SetDimension(int32_t dimension) { return player->SetDimension(dimension); }
+
+    // Entity Aiming
+    Vector3 GetEntityAimingOffset() const { return player->GetEntityAimOffset(); }
+    py::object GetEntityAimingAt() const {
+        auto entity = player->GetEntityAimingAt();
+        if (entity != 0) {
+            return py::cast(Entity(player->GetEntityAimingAt()));
+        } else {
+            return py::none();
+        }
+    }
+
 
     // Spawning
     void Spawn(float x, float y, float z, unsigned int delay);
@@ -68,39 +78,41 @@ public:
 
     static void RegisterPlayerClass(const py::module_& m)
     {
-        py::class_<Player>(m, "Player")
-            // Static
+        auto pyClass = py::class_<Player, Entity>(m, "Player");
 
-            .def_property_readonly_static("all", &Player::GetAllPlayers)
+        // Static
+        pyClass.def_property_readonly_static("all", &Player::GetAllPlayers);
 
-            // Spawning
-            .def("spawn", py::overload_cast<float, float, float, unsigned int>(&Player::Spawn))
-            .def("spawn", py::overload_cast<Vector3, unsigned int>(&Player::Spawn))
+        // Spawning
+        pyClass.def("spawn", py::overload_cast<float, float, float, unsigned int>(&Player::Spawn));
+        pyClass.def("spawn", py::overload_cast<Vector3, unsigned int>(&Player::Spawn));
 
-            // Health
-            .def_property("health", &Player::GetHealth, &Player::SetHealth)
-            // Armour
-            .def_property("armour", &Player::GetArmour, &Player::SetArmour)
-            // Model
-            .def_property("model", &Player::GetModel, &Player::SetModel)
+        // Health
+        pyClass.def_property("health", &Player::GetHealth, &Player::SetHealth);
+        // Armour
+        pyClass.def_property("armour", &Player::GetArmour, &Player::SetArmour);
+        // Model
+        pyClass.def_property("model", &Player::GetModel, &Player::SetModel);
 
-            // Auth
-            .def_property_readonly("authToken", &Player::GetAuthToken)
-            .def_property_readonly("hwidHash", &Player::GetHWIDHash)
-            .def_property_readonly("hwidExHash", &Player::GetHWIDExHash)
-            .def_property_readonly("ip", &Player::GetIP)
-            .def_property_readonly("socialId", &Player::GetSocialId)
+        // Auth
+        pyClass.def_property_readonly("authToken", &Player::GetAuthToken);
+        pyClass.def_property_readonly("hwidHash", &Player::GetHWIDHash);
+        pyClass.def_property_readonly("hwidExHash", &Player::GetHWIDExHash);
+        pyClass.def_property_readonly("ip", &Player::GetIP);
+        pyClass.def_property_readonly("socialId", &Player::GetSocialId);
 
-            // Weapons
-            .def_property("currentWeapon", &Player::GetCurrentWeapon, &Player::SetCurrentWeapon)
-            .def_property_readonly("currentWeaponComponents", &Player::GetCurrentWeaponComponents)
-            .def_property_readonly("currentWeaponTintIndex", &Player::GetCurrentWeaponTintIndex)
-            .def("giveWeapon", &Player::GiveWeapon)
+        // Weapons
+        pyClass.def_property("currentWeapon", &Player::GetCurrentWeapon, &Player::SetCurrentWeapon);
+        pyClass.def_property_readonly("currentWeaponComponents", &Player::GetCurrentWeaponComponents);
+        pyClass.def_property_readonly("currentWeaponTintIndex", &Player::GetCurrentWeaponTintIndex);
+        pyClass.def("giveWeapon", py::overload_cast<unsigned int, int, bool>(&Player::GiveWeapon));
+        pyClass.def("giveWeapon", py::overload_cast<const std::string&, int, bool>(&Player::GiveWeapon));
 
-            // Dimension
-            .def_property("dimension", &Player::GetDimension, &Player::SetDimension)
+        // Aiming
+        pyClass.def_property_readonly("entityAimingOffset", &Player::GetEntityAimingOffset);
+        pyClass.def_property_readonly("entityAimingAt", &Player::GetEntityAimingAt);
 
-            // Event
-            .def("emit", &Player::Emit);
+        // Event
+        pyClass.def("emit", &Player::Emit);
     }
 };

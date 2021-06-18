@@ -41,9 +41,33 @@ bool PythonResource::OnEvent(const alt::CEvent* ev) {
     return true;
 }
 
-void PythonResource::OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) {}
+void PythonResource::OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) {
+    object->AddRef();
+    objects.insert({object->GetType(), object});
+}
 
-void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) {}
+void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) {
+    auto range = objects.equal_range(object->GetType());
+    for(auto it = range.first; it != range.second; it++)
+    {
+        if(it->second == object)
+        {
+            objects.erase(it);
+            break;
+        }
+    }
+}
+
+bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject>& object) {
+    auto range = objects.equal_range(object->GetType());
+    for (auto it = range.first; it != range.second; it++)
+        if(it->second == object) return true;
+    for (const auto& player : Core->GetPlayers())
+        if(player == object) return true;
+    for (const auto& entity : Core->GetEntities())
+        if(entity == object) return true;
+    return false;
+}
 
 void PythonResource::AddEvent(const std::string &eventName, const py::function &eventFunc) {
     ServerEvents[eventName].push_back(eventFunc);

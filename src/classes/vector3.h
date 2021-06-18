@@ -6,11 +6,20 @@ class Vector3
 public:
     double x, y, z;
     Vector3(double x, double y, double z) : x(x), y(y), z(z) {}
+    Vector3(alt::Position position) : x(position[0]), y(position[1]), z(position[2]) {}
+    Vector3(alt::Rotation rotation) : x(rotation[0]), y(rotation[1]), z(rotation[2]) {}
+    Vector3(alt::Vector3f vector) : x(vector[0]), y(vector[1]), z(vector[2]) {}
+
     py::dict ToDict();
     py::list ToList();
 
+
     alt::Position toAltPos() const {
         return alt::Position{x, y, z};
+    }
+
+    alt::Rotation toAltRot() const {
+        return alt::Rotation{x, y, z};
     }
 
     std::string ToString() const
