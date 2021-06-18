@@ -17,6 +17,7 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
     RegisterEnums(m);
 
     BaseObject::RegisterBaseObjectClass(m);
+    WorldObject::RegisterWorldObjectClass(m);
     Entity::RegisterEntityClass(m);
     Player::RegisterPlayerClass(m);
     Vector3::RegisterVector3Class(m);
