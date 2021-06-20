@@ -18,3 +18,14 @@ void Player::SetModel(const py::object& model) {
         player->SetModel(py::int_(model).cast<unsigned int>());
     }
 }
+
+void Player::Emit(const std::string &eventName, const py::args &args) {
+    if (std::find(Utils::EventTypes.begin(), Utils::EventTypes.end(), eventName) != Utils::EventTypes.end())
+        return;
+    alt::MValueArgs eventArgs;
+    for (const py::handle& arg : *args)
+    {
+        eventArgs.Push(Utils::ValueToMValue(arg.cast<py::object>()));
+    }
+    Core->TriggerClientEvent(player, eventName, eventArgs);
+}

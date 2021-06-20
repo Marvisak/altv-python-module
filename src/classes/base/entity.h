@@ -31,8 +31,8 @@ public:
 
     // NetOwner
     Player GetNetOwner() const;
-    void SetNetOwner(const Player& player, bool disableMigration);
-    void ResetNetOwner(bool disableMigration) {
+    void SetNetOwner(const Player& player, bool disableMigration=false);
+    void ResetNetOwner(bool disableMigration=false) {
         entity->SetNetworkOwner(nullptr, disableMigration);
     }
 
@@ -76,8 +76,8 @@ public:
 
         // NetOwner
         pyClass.def_property_readonly("netOwner", &Entity::GetNetOwner);
-        pyClass.def("setNetOwner", &Entity::SetNetOwner);
-        pyClass.def("resetNetOwner", &Entity::ResetNetOwner);
+        pyClass.def("setNetOwner", &Entity::SetNetOwner, py::arg("player"), py::arg("disableMigration") = false);
+        pyClass.def("resetNetOwner", &Entity::ResetNetOwner, py::arg("disableMigration") = false);
 
         // Rot
         pyClass.def_property("rot", &Entity::GetRotation, &Entity::SetRotation);
