@@ -78,6 +78,8 @@ PythonRuntime::PythonRuntime()
             {
                 auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
                 py::list args;
+                auto player = event->GetTarget();
+                args.append(Player(player));
                 for (const auto &arg : event->GetArgs())
                 {
                     auto value = Utils::MValueToValue(arg);
