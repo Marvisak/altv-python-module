@@ -67,6 +67,9 @@ public:
     py::list GetCurrentWeaponComponents() const { return Utils::ArrayToPyList(player->GetCurrentWeaponComponents()); }
     uint8_t GetCurrentWeaponTintIndex() const { return player->GetCurrentWeaponTintIndex(); }
 
+    uint8_t GetWeaponTintIndex(uint32_t weaponHash) { return player->GetWeaponTintIndex(weaponHash); }
+    uint8_t GetWeaponTintIndex(const std::string& weaponName) { return player->GetWeaponTintIndex(Core->Hash(weaponName)); }
+
     bool HasWeaponComponent(uint32_t weapon, uint32_t component) { return player->HasWeaponComponent(weapon, component); }
     bool HasWeaponComponent(const std::string& weapon, uint32_t component) { return player->HasWeaponComponent(Core->Hash(weapon), component); }
     bool HasWeaponComponent(uint32_t weapon, const std::string& component) { return player->HasWeaponComponent(weapon, Core->Hash(component)); }
@@ -111,6 +114,7 @@ public:
             return py::cast(Entity(player->GetEntityAimingAt()));
         return py::none();
     }
+    Vector3 GetAimPos() const { return player->GetAimPos(); }
 
     // Spawning
     void Spawn(float x, float y, float z, unsigned int delay);
@@ -174,6 +178,9 @@ public:
         pyClass.def("removeWeapon", py::overload_cast<uint32_t>(&Player::RemoveWeapon));
         pyClass.def("removeWeapon", py::overload_cast<const std::string&>(&Player::RemoveWeapon));
 
+        pyClass.def("getWeaponTintIndex", py::overload_cast<uint32_t>(&Player::GetWeaponTintIndex));
+        pyClass.def("removeWeapon", py::overload_cast<const std::string&>(&Player::GetWeaponTintIndex));
+
         pyClass.def("removeAllWeapons", &Player::RemoveAllWeapons);
 
         pyClass.def_property_readonly("flashlightActive", &Player::IsFlashlightActive);
@@ -206,6 +213,7 @@ public:
         // Aiming
         pyClass.def_property_readonly("entityAimingOffset", &Player::GetEntityAimingOffset);
         pyClass.def_property_readonly("entityAimingAt", &Player::GetEntityAimingAt);
+        pyClass.def_property_readonly("aimPos", &Player::GetAimPos);
 
         // Time
         pyClass.def("setDateTime", &Player::SetDateTime);
