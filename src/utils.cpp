@@ -62,6 +62,9 @@ alt::MValue Utils::ValueToMValue(const py::object& arg) {
     {
         auto rgba = arg.cast<RGBA>();
         mValue = Core->CreateMValueRGBA(alt::RGBA(rgba.r, rgba.g, rgba.b, rgba.a));
+    } else if (type == "Entity") {
+      auto entity = arg.cast<Entity>();
+      mValue = Core->CreateMValueBaseObject(entity.GetBaseObject());
     } else
     {
         mValue = Core->CreateMValueNone();
