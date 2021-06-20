@@ -3,6 +3,7 @@
 #include <utils.h>
 #include <classes/vector3.h>
 #include <classes/base/entity.h>
+#include <classes/base/vehicle.h>
 
 
 class Player : public Entity {
@@ -121,6 +122,11 @@ public:
     void Spawn(Vector3 coords, unsigned int delay);
     void Despawn() { player->Despawn(); }
 
+    // Vehicles
+    bool IsInVehicle() { return player->IsInVehicle(); }
+    Vehicle GetVehicle() { return player->GetVehicle(); }
+    uint8_t GetSeat() { return player->GetSeat(); }
+
     // Events
     void Emit(const std::string& eventName, const py::args& args);
 
@@ -220,6 +226,11 @@ public:
 
         // Weather
         pyClass.def("setWeather", &Player::SetWeather);
+
+        // Vehicle
+        pyClass.def_property_readonly("vehicle", &Player::GetVehicle);
+        pyClass.def_property_readonly("inVehicle", &Player::IsInVehicle);
+        pyClass.def_property_readonly("seat", &Player::GetSeat);
 
         // Event
         pyClass.def("emit", &Player::Emit);
