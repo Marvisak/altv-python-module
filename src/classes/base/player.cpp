@@ -29,3 +29,109 @@ void Player::Emit(const std::string &eventName, const py::args &args) {
     }
     Core->TriggerClientEvent(player, eventName, eventArgs);
 }
+
+
+void RegisterPlayerClass(const py::module_& m) {
+    auto pyClass = py::class_<Player, Entity>(m, "Player");
+
+    // Static
+    pyClass.def_property_readonly_static("all", &Player::GetAllPlayers);
+
+    // Spawning
+    pyClass.def("spawn", py::overload_cast<float, float, float, unsigned int>(&Player::Spawn));
+    pyClass.def("spawn", py::overload_cast<Vector3, unsigned int>(&Player::Spawn));
+    pyClass.def("despawn", &Player::Despawn);
+
+    // Health
+    pyClass.def_property("health", &Player::GetHealth, &Player::SetHealth);
+    pyClass.def_property_readonly("dead", &Player::IsDead);
+
+    // Armour
+    pyClass.def_property("armour", &Player::GetArmour, &Player::SetArmour);
+    pyClass.def_property("maxArmour", &Player::GetMaxArmour, &Player::SetMaxArmour);
+
+    // Speed
+    pyClass.def_property_readonly("speed", &Player::GetMoveSpeed);
+
+    // Model
+    pyClass.def_property("model", &Player::GetModel, &Player::SetModel);
+    pyClass.def("clearBloodDamage", &Player::ClearBloodDamage);
+
+    // Rotation
+    pyClass.def_property_readonly("headRot", &Player::GetHeadRotation);
+
+    // Auth
+    pyClass.def_property_readonly("name", &Player::GetName);
+    pyClass.def_property_readonly("authToken", &Player::GetAuthToken);
+    pyClass.def_property_readonly("hwidHash", &Player::GetHWIDHash);
+    pyClass.def_property_readonly("hwidExHash", &Player::GetHWIDExHash);
+    pyClass.def_property_readonly("ip", &Player::GetIP);
+    pyClass.def_property_readonly("socialId", &Player::GetSocialId);
+
+    // Connection Info
+    pyClass.def_property_readonly("connected", &Player::IsConnected);
+    pyClass.def_property_readonly("ping", &Player::GetPing);
+    pyClass.def("kick", &Player::Kick, py::arg("reason") = "Kicked");
+
+
+    // Weapons
+    pyClass.def_property("currentWeapon", &Player::GetCurrentWeapon, &Player::SetCurrentWeapon);
+    pyClass.def_property_readonly("currentWeaponComponents", &Player::GetCurrentWeaponComponents);
+    pyClass.def_property_readonly("currentWeaponTintIndex", &Player::GetCurrentWeaponTintIndex);
+    pyClass.def("giveWeapon", py::overload_cast<uint32_t, int, bool>(&Player::GiveWeapon));
+    pyClass.def("giveWeapon", py::overload_cast<const std::string&, int, bool>(&Player::GiveWeapon));
+
+    pyClass.def("removeWeapon", py::overload_cast<uint32_t>(&Player::RemoveWeapon));
+    pyClass.def("removeWeapon", py::overload_cast<const std::string&>(&Player::RemoveWeapon));
+
+    pyClass.def("getWeaponTintIndex", py::overload_cast<uint32_t>(&Player::GetWeaponTintIndex));
+    pyClass.def("removeWeapon", py::overload_cast<const std::string&>(&Player::GetWeaponTintIndex));
+
+    pyClass.def("removeAllWeapons", &Player::RemoveAllWeapons);
+
+    pyClass.def_property_readonly("flashlightActive", &Player::IsFlashlightActive);
+
+    pyClass.def("hasWeaponComponent", py::overload_cast<uint32_t, uint32_t>(&Player::HasWeaponComponent));
+    pyClass.def("hasWeaponComponent", py::overload_cast<const std::string&, uint32_t>(&Player::HasWeaponComponent));
+    pyClass.def("hasWeaponComponent", py::overload_cast<uint32_t, const std::string&>(&Player::HasWeaponComponent));
+    pyClass.def("hasWeaponComponent", py::overload_cast<const std::string&, const std::string&>(&Player::HasWeaponComponent));
+
+    pyClass.def("addWeaponComponent", py::overload_cast<uint32_t, uint32_t>(&Player::AddWeaponComponent));
+    pyClass.def("addWeaponComponent", py::overload_cast<const std::string&, uint32_t>(&Player::AddWeaponComponent));
+    pyClass.def("addWeaponComponent", py::overload_cast<uint32_t, const std::string&>(&Player::AddWeaponComponent));
+    pyClass.def("addWeaponComponent", py::overload_cast<const std::string&, const std::string&>(&Player::AddWeaponComponent));
+
+    pyClass.def("removeWeaponComponent", py::overload_cast<uint32_t, uint32_t>(&Player::RemoveWeaponComponent));
+    pyClass.def("removeWeaponComponent", py::overload_cast<const std::string&, uint32_t>(&Player::RemoveWeaponComponent));
+    pyClass.def("removeWeaponComponent", py::overload_cast<uint32_t, const std::string&>(&Player::RemoveWeaponComponent));
+    pyClass.def("removeWeaponComponent", py::overload_cast<const std::string&, const std::string&>(&Player::RemoveWeaponComponent));
+
+    pyClass.def("setWeaponComponent", py::overload_cast<uint32_t, uint8_t>(&Player::SetWeaponTintIndex));
+    pyClass.def("setWeaponComponent", py::overload_cast<const std::string&, uint8_t>(&Player::SetWeaponTintIndex));
+
+    // Actions
+    pyClass.def_property_readonly("jumping", &Player::IsJumping);
+    pyClass.def_property_readonly("inRagdoll", &Player::IsInRagdoll);
+    pyClass.def_property_readonly("aiming", &Player::IsAiming);
+    pyClass.def_property_readonly("shooting", &Player::IsShooting);
+    pyClass.def_property_readonly("reloading", &Player::IsReloading);
+
+    // Aiming
+    pyClass.def_property_readonly("entityAimingOffset", &Player::GetEntityAimingOffset);
+    pyClass.def_property_readonly("entityAimingAt", &Player::GetEntityAimingAt);
+    pyClass.def_property_readonly("aimPos", &Player::GetAimPos);
+
+    // Time
+    pyClass.def("setDateTime", &Player::SetDateTime);
+
+    // Weather
+    pyClass.def("setWeather", &Player::SetWeather);
+
+    // Vehicle
+    pyClass.def_property_readonly("vehicle", &Player::GetVehicle);
+    pyClass.def_property_readonly("inVehicle", &Player::IsInVehicle);
+    pyClass.def_property_readonly("seat", &Player::GetSeat);
+
+    // Event
+    pyClass.def("emit", &Player::Emit);
+}

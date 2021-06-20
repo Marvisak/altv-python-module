@@ -96,36 +96,6 @@ public:
     {
         return Vector3(x * vectorList[0].cast<double>(), y * vectorList[1].cast<double>(), z * vectorList[2].cast<double>());
     }
-
-
-    static void RegisterVector3Class(const pybind11::module_& m)
-    {
-        py::class_<Vector3>(m, "Vector3")
-            .def(py::init([](float _x, float _y, float _z) {return Vector3(_x, _y, _z);}))
-            .def_readwrite("x", &Vector3::x)
-            .def_readwrite("y", &Vector3::y)
-            .def_readwrite("z", &Vector3::z)
-            .def("__str__", &Vector3::ToString)
-
-            .def("toDict", &Vector3::ToDict)
-            .def("toList", &Vector3::ToList)
-            .def("length", &Vector3::Length)
-            .def("distance", &Vector3::Distance)
-
-            .def("add", py::overload_cast<const double>(&Vector3::Add))
-            .def("add", py::overload_cast<const py::list&>(&Vector3::Add))
-            .def("add", py::overload_cast<const double, const double, const double>(&Vector3::Add))
-            .def("add", py::overload_cast<const Vector3&>(&Vector3::Add))
-
-            .def("sub", py::overload_cast<const double>(&Vector3::Sub))
-            .def("sub", py::overload_cast<const py::list&>(&Vector3::Sub))
-            .def("sub", py::overload_cast<const double, const double, const double>(&Vector3::Sub))
-            .def("sub", py::overload_cast<const Vector3&>(&Vector3::Sub))
-
-            .def("mul", py::overload_cast<const double>(&Vector3::Mul))
-            .def("mul", py::overload_cast<const py::list&>(&Vector3::Mul))
-            .def("mul", py::overload_cast<const double, const double, const double>(&Vector3::Mul))
-            .def("mul", py::overload_cast<const Vector3&>(&Vector3::Mul));
-    }
-
 };
+
+void RegisterVector3Class(const pybind11::module_& m);

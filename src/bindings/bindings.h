@@ -16,10 +16,11 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
     RegisterHelpersFunctions(m);
     RegisterEnums(m);
 
-    BaseObject::RegisterBaseObjectClass(m);
-    WorldObject::RegisterWorldObjectClass(m);
-    Entity::RegisterEntityClass(m);
-    Player::RegisterPlayerClass(m);
-    Vector3::RegisterVector3Class(m);
-    RGBA::RegisterRGBAClass(m);
+    RegisterBaseObjectClass(m);
+    RegisterWorldObjectClass(m);
+    RegisterEntityClass(m);
+    RegisterVehicleClass(m);
+    RegisterPlayerClass(m);
+    RegisterVector3Class(m);
+    RegisterRGBAClass(m);
 }

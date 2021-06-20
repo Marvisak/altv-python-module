@@ -19,10 +19,6 @@ public:
     int32_t GetDimension() const { return worldObject->GetDimension(); }
     void SetDimension(int32_t dimension) const { worldObject->SetDimension(dimension); }
 
-    static void RegisterWorldObjectClass(const py::module_& m) {
-        auto pyClass = py::class_<WorldObject, BaseObject>(m, "WorldObject");
-        pyClass.def_property("pos", &WorldObject::GetPosition, &WorldObject::SetPosition);
-        pyClass.def_property("dimension", &WorldObject::GetDimension, &WorldObject::SetDimension);
-    }
-
 };
+
+void RegisterWorldObjectClass(const py::module_& m);
