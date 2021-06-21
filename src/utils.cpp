@@ -132,6 +132,7 @@ py::object Utils::MValueToValue(const alt::MValueConst &mValue) {
                     value = py::cast(Player(dynamic_cast<alt::IPlayer*>(mBaseObject)));
                     break;
                 case alt::IBaseObject::Type::VEHICLE:
+                    value = py::cast(Vehicle(dynamic_cast<alt::IVehicle*>(mBaseObject)));
                     break;
                 case alt::IBaseObject::Type::BLIP:
                     break;
