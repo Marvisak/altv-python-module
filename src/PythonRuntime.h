@@ -1,7 +1,7 @@
 #pragma once
 
-#include <main.h>
-#include <PythonResource.h>
+#include "main.h"
+#include "PythonResource.h"
 
 class PythonRuntime : public alt::IScriptRuntime
 {

@@ -1,9 +1,9 @@
 #pragma once
-#include <main.h>
-#include <utils.h>
-#include <classes/vector3.h>
-#include <classes/base/entity.h>
-#include <classes/base/vehicle.h>
+#include "main.h"
+#include "utils.h"
+#include "classes/vector3.h"
+#include "entity.h"
+#include "vehicle.h"
 
 
 class Player : public Entity {

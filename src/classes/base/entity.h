@@ -1,7 +1,7 @@
 #pragma once
-#include <main.h>
-#include <utils.h>
-#include <classes/base/worldobject.h>
+#include "main.h"
+#include "utils.h"
+#include "worldobject.h"
 
 class Player;
 class Entity : public WorldObject {

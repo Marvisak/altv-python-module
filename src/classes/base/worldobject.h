@@ -1,8 +1,8 @@
 #pragma once
 
-#include <main.h>
-#include <classes/base/baseobject.h>
-#include <classes/vector3.h>
+#include "main.h"
+#include "baseobject.h"
+#include "classes/vector3.h"
 
 class WorldObject : public BaseObject {
 private:

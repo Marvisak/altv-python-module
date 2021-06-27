@@ -1,6 +1,6 @@
-#include <main.h>
-#include <PythonResource.h>
-#include <utils.h>
+#include "main.h"
+#include "PythonResource.h"
+#include "utils.h"
 
 bool PythonResource::Start()
 {

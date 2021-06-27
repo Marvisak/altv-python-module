@@ -1,13 +1,14 @@
-#include <main.h>
-#include <PythonRuntime.h>
-#include <bindings/bindings.h>
-#include <utils.h>
+#include "main.h"
+#include "PythonRuntime.h"
+#include "bindings/bindings.h"
 
 PythonRuntime* PythonRuntime::instance = nullptr;
+
 
 PythonRuntime::PythonRuntime()
 {
     py::initialize_interpreter(false);
+
     instance = this;
 
     RegisterArgGetter(

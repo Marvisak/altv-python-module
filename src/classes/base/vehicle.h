@@ -1,8 +1,8 @@
 #pragma once
 
-#include <main.h>
-#include <classes/vector3.h>
-#include <classes/base/entity.h>
+#include "main.h"
+#include "classes/vector3.h"
+#include "entity.h"
 
 class Vehicle : public Entity {
 private:

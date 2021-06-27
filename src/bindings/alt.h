@@ -1,6 +1,6 @@
 #pragma once
 
-#include <main.h>
+#include "main.h"
 
 unsigned int Hash(const std::string& strToHash) {
     return Core->Hash(strToHash);

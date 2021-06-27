@@ -7,7 +7,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_definitions(-DMODULE_NAME="${PROJECT_MODULE_NAME}")
-add_definitions(-DALT_${MODULE_TYPE}_API)
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
 
@@ -20,9 +19,8 @@ include_directories(
         "${PROJECT_SOURCE_DIR}/vendors/cpython/include"
 )
 
-
 link_directories(
-    "${PROJECT_SOURCE_DIR}/vendors/cpython/lib"
+        "${PROJECT_SOURCE_DIR}/vendors/cpython/lib"
 )
 
 add_library(

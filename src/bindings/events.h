@@ -1,8 +1,8 @@
 #pragma once
 
-#include <main.h>
-#include <utils.h>
-#include <classes/base/player.h>
+#include "main.h"
+#include "utils.h"
+#include "classes/base/player.h"
 
 void On(const std::string& eventName, const py::function& func)
 {

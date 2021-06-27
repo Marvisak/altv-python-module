@@ -1,11 +1,11 @@
 #pragma once
 
-#include <main.h>
-#include <bindings/log.h>
-#include <bindings/events.h>
-#include <classes/classes.h>
-#include <bindings/alt.h>
-#include <classes/enum.h>
+#include "main.h"
+#include "log.h"
+#include "events.h"
+#include "classes/classes.h"
+#include "alt.h"
+#include "classes/enum.h"
 
 
 PYBIND11_EMBEDDED_MODULE(alt, m)
