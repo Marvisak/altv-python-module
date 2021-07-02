@@ -100,6 +100,46 @@ PythonRuntime::PythonRuntime()
             }
     );
 
+    RegisterArgGetter(
+        alt::CEvent::Type::PLAYER_ENTER_VEHICLE,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerEnterVehicleEvent*>(ev);
+            
+            Vehicle vehicle {event->GetTarget()};
+            Player player {event->GetPlayer()};
+            uint8_t seat {event->GetSeat()};
+        
+            py::list args;
+
+            args.append(player);
+            args.append(vehicle);
+            args.append(seat);
+
+            return args;
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::PLAYER_LEAVE_VEHICLE,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerLeaveVehicleEvent*>(ev);
+            
+            Vehicle vehicle {event->GetTarget()};
+            Player player {event->GetPlayer()};
+            uint8_t seat {event->GetSeat()};
+        
+            py::list args;
+
+            args.append(player);
+            args.append(vehicle);
+            args.append(seat);
+
+            return args;
+        }
+    );
+
 }
 
 PythonResource* PythonRuntime::GetPythonResourceFromPath(std::string const &path)
