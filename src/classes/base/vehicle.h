@@ -23,10 +23,12 @@ public:
 
     Vehicle(alt::Ref<alt::IVehicle> vehicle) : vehicle(vehicle), Entity(vehicle) {}
 
-    static py::list GetAllVehicles(const py::object& self) {
+    static py::list GetAllVehicles(const py::object &self)
+    {
         auto vehicles = Core->GetVehicles();
         py::list pyList;
-        for (const auto& vehicle : vehicles) {
+        for (const auto &vehicle : vehicles)
+        {
             pyList.append(py::cast(Vehicle(vehicle)));
         }
         return pyList;
@@ -107,7 +109,7 @@ public:
     bool IsManualEngineControl() { return vehicle->IsManualEngineControl(); }
     std::string GetScriptDataBase64() { return vehicle->GetScriptDataBase64().ToString(); }
 
-    //Player GetDriver() { return vehicle->GetDriver(); }
+    Player GetDriver();
     Vehicle GetAttached() { return vehicle->GetAttached(); }
     Vehicle GetAttachedTo() { return vehicle->GetAttachedTo(); }
 

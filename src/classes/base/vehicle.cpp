@@ -1,6 +1,9 @@
 #include "vehicle.h"
+#include "player.h"
 
-
+Player Vehicle::GetDriver() {
+    return vehicle->GetDriver();
+}
 
 void RegisterVehicleClass(const py::module_& m) {
     auto pyClass = py::class_<Vehicle, Entity>(m, "Vehicle");
@@ -47,7 +50,7 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def_property_readonly("daylightOn", &Vehicle::IsDaylightOn);
     pyClass.def_property_readonly("destroyed", &Vehicle::IsDestroyed);
     pyClass.def_property("dirtLevel", &Vehicle::GetDirtLevel, &Vehicle::SetDirtLevel);
-    //pyClass.def_property_readonly("driver", &Vehicle::GetDriver);
+    pyClass.def_property_readonly("driver", &Vehicle::GetDriver);
     pyClass.def_property("engineHealth", &Vehicle::GetEngineHealth, &Vehicle::SetEngineHealth);
     pyClass.def_property("engineOn", &Vehicle::IsEngineOn, &Vehicle::SetEngineOn);
     pyClass.def_property_readonly("flamethrowerActive", &Vehicle::IsFlamethrowerActive);
