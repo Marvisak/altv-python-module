@@ -47,7 +47,7 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def_property_readonly("daylightOn", &Vehicle::IsDaylightOn);
     pyClass.def_property_readonly("destroyed", &Vehicle::IsDestroyed);
     pyClass.def_property("dirtLevel", &Vehicle::GetDirtLevel, &Vehicle::SetDirtLevel);
-    pyClass.def_property_readonly("driver", &Vehicle::GetDriver);
+    //pyClass.def_property_readonly("driver", &Vehicle::GetDriver);
     pyClass.def_property("engineHealth", &Vehicle::GetEngineHealth, &Vehicle::SetEngineHealth);
     pyClass.def_property("engineOn", &Vehicle::IsEngineOn, &Vehicle::SetEngineOn);
     pyClass.def_property_readonly("flamethrowerActive", &Vehicle::IsFlamethrowerActive);
@@ -125,7 +125,7 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def("setPartDamageLevel", &Vehicle::SetPartDamageLevel, py::arg("partId"), py::arg("level"));
     pyClass.def("setRearWheels", &Vehicle::SetRearWheels, py::arg("wheelId"));
     pyClass.def("setScriptDataBase64", &Vehicle::LoadScriptDataFromBase64, py::arg("base64"));
-    pyClass.def("setSpecialLightDamaged", Vehicle::SetSpecialLightDamaged, py::arg("specialLightId"), py::arg("isDamaged"));
+    pyClass.def("setSpecialLightDamaged", &Vehicle::SetSpecialLightDamaged, py::arg("specialLightId"), py::arg("isDamaged"));
     pyClass.def("setWheelBurst", &Vehicle::SetWheelBurst, py::arg("wheelId"), py::arg("state"));
     pyClass.def("setWheelDetached", &Vehicle::SetWheelDetached, py::arg("wheelId"), py::arg("state"));
     pyClass.def("setWheelFixed", &Vehicle::SetWheelFixed, py::arg("wheelId"));

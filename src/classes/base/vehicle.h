@@ -33,10 +33,8 @@ public:
     }
 
     // Getter
-    uint32_t GetRadioStationIndex() { return vehicle->GetRadioStationIndex(); }
     bool IsDestroyed() { return vehicle->IsDestroyed(); }
     uint8_t GetMod(uint8_t category) { return vehicle->GetMod(category); }
-
     uint8_t GetModsCount(uint8_t category) { return vehicle->GetModsCount(category); }
     uint8_t GetModKitsCount() { return vehicle->GetModKitsCount(); }
     uint8_t GetModKit() { return vehicle->GetModKit(); }
@@ -109,7 +107,7 @@ public:
     bool IsManualEngineControl() { return vehicle->IsManualEngineControl(); }
     std::string GetScriptDataBase64() { return vehicle->GetScriptDataBase64().ToString(); }
 
-    Player GetDriver() { return vehicle->GetDriver(); }
+    //Player GetDriver() { return vehicle->GetDriver(); }
     Vehicle GetAttached() { return vehicle->GetAttached(); }
     Vehicle GetAttachedTo() { return vehicle->GetAttachedTo(); }
 
