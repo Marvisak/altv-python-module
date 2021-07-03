@@ -4,6 +4,7 @@
 #include "classes/vector3.h"
 #include "classes/rgba.h"
 #include "entity.h"
+#include "classes/enum.h"
 
 class Vehicle : public Entity
 {
@@ -71,7 +72,7 @@ public:
     bool IsEngineOn() { return vehicle->IsEngineOn(); }
     bool IsHandbrakeActive() { return vehicle->IsHandbrakeActive(); }
     uint8_t GetHeadlightColor() { return vehicle->GetHeadlightColor(); }
-    uint32_t GetRadioStationIndex() { return vehicle->GetRadioStationIndex(); }
+    RadioStation GetRadioStationIndex() { return static_cast<RadioStation>(vehicle->GetRadioStationIndex()); }
     bool IsSirenActive() { return vehicle->IsSirenActive(); }
     // TODO document available values. Enum?
     uint8_t GetLockState() { return vehicle->GetLockState(); }
