@@ -1,0 +1,74 @@
+name: Build & Deploy
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+        - name: Create Release
+          id: create_release
+          uses: actions/create-release@v1
+          env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+              tag_name: ${{ github.ref }}
+              release_name: Release ${{ github.ref }}
+              draft: false
+
+  build-windows:
+    name: Build Windows server module
+    runs-on: windows-2019
+    needs: [create-release]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          lfs: true
+      
+      - name: Build
+        shell: cmd
+        run: build.bat
+
+      - name: Upload artifacts to release
+        uses: actions/upload-release-asset@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            upload_url: ${{ needs.create_release.outputs.upload_url }}
+            asset_path: ./dist/python-module.dll
+            asset_name: python-module.dll
+            asset_content_type: application/octet-stream
+
+  build-linux:
+    name: Build Linux server module
+    runs-on: ubuntu-20.04
+    needs: [create-release]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          lfs: true
+      
+      - name: Assign script access
+        run: chmod +x ./build.sh
+
+      - name: Build
+        run: ./build.sh
+
+      - name: Upload artifacts to release
+        uses: actions/upload-release-asset@v1
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            upload_url: ${{ needs.create_release.outputs.upload_url }}
+            asset_path: ./dist/python-module.so
+            asset_name: python-module.so
+            asset_content_type: application/octet-stream
