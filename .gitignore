@@ -2,3 +2,4 @@
 build/
 dist/
 cmake-build-debug/
+.vscode
