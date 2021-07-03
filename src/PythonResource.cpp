@@ -6,13 +6,11 @@ bool PythonResource::Start()
 {
     alt::String mainFile = GetFullPath();
     
-    const char* path = resource->GetPath().CStr();
-    size_t newsize = strlen(path) + 1;
-    wchar_t * escapedPath = new wchar_t[newsize];
-    size_t convertedChars = 0;
-    mbstowcs_s(&convertedChars, escapedPath, newsize, path, _TRUNCATE);
+    std::string path = resource->GetPath().ToString();
+    std::wstring escapedPath;
+    escapedPath.assign(path.begin(), path.end());
 
-    PySys_SetPath(escapedPath);
+    PySys_SetPath(escapedPath.c_str());
 
     FILE* fp = fopen(mainFile.CStr(), "r");
     bool crashed = PyRun_SimpleFile(fp, mainFile.CStr());
