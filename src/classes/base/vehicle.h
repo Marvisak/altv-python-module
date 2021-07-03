@@ -168,10 +168,10 @@ public:
     void SetArmoredWindowShootCount(uint8_t windowId, uint8_t count) { vehicle->SetArmoredWindowShootCount(windowId, count); }
     void SetBumperDamageLevel(uint8_t bumperId, uint8_t damageLevel) { vehicle->SetBumperDamageLevel(bumperId, damageLevel); }
     void SetManualEngineControl(bool state) { vehicle->SetManualEngineControl(state); }
-    void LoadDamageDataFromBase64(std::string base64) { vehicle->LoadDamageDataFromBase64(alt::StringView(base64)); }
-    void LoadScriptDataFromBase64(std::string base64) { vehicle->LoadScriptDataFromBase64(alt::StringView(base64)); }
-    void LoadGameStateFromBase64(std::string base64) { vehicle->LoadGameStateFromBase64(alt::StringView(base64)); }
-    void LoadHealthDataFromBase64(std::string base64) { vehicle->LoadHealthDataFromBase64(alt::StringView(base64)); }
+    void LoadDamageDataFromBase64(const std::string& base64) { vehicle->LoadDamageDataFromBase64(alt::StringView(base64)); }
+    void LoadScriptDataFromBase64(const std::string& base64) { vehicle->LoadScriptDataFromBase64(alt::StringView(base64)); }
+    void LoadGameStateFromBase64(const std::string& base64) { vehicle->LoadGameStateFromBase64(alt::StringView(base64)); }
+    void LoadHealthDataFromBase64(const std::string& base64) { vehicle->LoadHealthDataFromBase64(alt::StringView(base64)); }
 };
 
 void RegisterVehicleClass(const py::module_ &m);

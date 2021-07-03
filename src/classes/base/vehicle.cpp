@@ -44,6 +44,8 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def_property("bodyHealth", &Vehicle::GetBodyHealth, &Vehicle::SetBodyHealth);
     pyClass.def_property("customPrimaryColor", &Vehicle::GetPrimaryColorRGB, &Vehicle::SetPrimaryColorRGB);
     pyClass.def_property("customSecondaryColor", &Vehicle::GetSecondaryColorRGB, &Vehicle::SetSecondaryColorRGB);
+    pyClass.def_property_readonly("isPrimaryColorCustom", &Vehicle::IsPrimaryColorRGB);
+    pyClass.def_property_readonly("isSecondaryColorCustom", &Vehicle::IsSecondaryColorRGB);
     pyClass.def_property("customTires", &Vehicle::GetCustomTires, &Vehicle::SetCustomTires);
     pyClass.def_property("darkness", &Vehicle::GetSpecialDarkness, &Vehicle::SetSpecialDarkness);
     pyClass.def_property("dashboardColor", &Vehicle::GetDashboardColor, &Vehicle::SetDashboardColor);
@@ -67,6 +69,7 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def_property_readonly("modKitsCount", &Vehicle::GetModKitsCount);
     pyClass.def_property_readonly("model", &Vehicle::GetModel);
     pyClass.def_property("neon", &Vehicle::GetNeonActive, &Vehicle::SetNeonActive);
+    pyClass.def_property_readonly("neonActive", &Vehicle::IsNeonActive);
     pyClass.def_property("neonColor", &Vehicle::GetNeonColor, &Vehicle::SetNeonColor);
     pyClass.def_property_readonly("nightlightOn", &Vehicle::IsNightlightOn);
     pyClass.def_property("numberPlateIndex", &Vehicle::GetNumberplateIndex, &Vehicle::SetNumberplateIndex);
@@ -81,6 +84,7 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def_property("secondaryColor", &Vehicle::GetSecondaryColor, &Vehicle::SetSecondaryColor);
     pyClass.def_property("sirenActive", &Vehicle::IsSirenActive, &Vehicle::SetSirenActive);
     pyClass.def_property("tireSmokeColor", &Vehicle::GetTireSmokeColor, &Vehicle::SetTireSmokeColor);
+    pyClass.def_property_readonly("tireSmokeColorCustom", &Vehicle::IsTireSmokeColorCustom);
     pyClass.def_property("wheelColor", &Vehicle::GetWheelColor, &Vehicle::SetWheelColor);
     pyClass.def_property_readonly("wheelType", &Vehicle::GetWheelType);
     pyClass.def_property_readonly("wheelsCount", &Vehicle::GetWheelsCount);
