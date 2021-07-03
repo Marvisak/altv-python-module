@@ -5,6 +5,15 @@
 bool PythonResource::Start()
 {
     alt::String mainFile = GetFullPath();
+    
+    const char* path = resource->GetPath().CStr();
+    size_t newsize = strlen(path) + 1;
+    wchar_t * escapedPath = new wchar_t[newsize];
+    size_t convertedChars = 0;
+    mbstowcs_s(&convertedChars, escapedPath, newsize, path, _TRUNCATE);
+
+    PySys_SetPath(escapedPath);
+
     FILE* fp = fopen(mainFile.CStr(), "r");
     bool crashed = PyRun_SimpleFile(fp, mainFile.CStr());
     return !crashed;
