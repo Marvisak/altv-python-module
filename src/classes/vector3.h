@@ -29,7 +29,7 @@ public:
 
     Vector3 ToDegrees() const
     {
-        return Vector3(x * (180 / alt::PI), y * (180 / alt::PI), z * (180 / alt::PI));
+        return Vector3(std::round(x * (180 / alt::PI)), std::round(y * (180 / alt::PI)), std::round(z * (180 / alt::PI)));
     }
 
     Vector3 ToRadians() const
