@@ -10,6 +10,7 @@ void RegisterHelpersFunctions(py::module_ m)
 {
     // Getters
     m.attr("branch") = Core->GetBranch().ToString();
+    m.attr("debug") = Core->IsDebug();
     m.attr("defaultDimension") = alt::DEFAULT_DIMENSION;
     m.attr("globalDimension") = alt::GLOBAL_DIMENSION;
     m.attr("rootDir") = Core->GetRootDirectory().ToString();
