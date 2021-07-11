@@ -8,3 +8,4 @@
 [submodule "vendors/magic_enum"]
 	path = vendors/magic_enum
 	url = https://github.com/Neargye/magic_enum
+    ignore = dirty

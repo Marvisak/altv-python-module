@@ -3,7 +3,6 @@
 #include "main.h"
 
 enum RadioStation {
-    RadioOff = 1,
     LosSantosRockRadio,
     NonStopPopFm,
     RadioLosSantos,
@@ -13,20 +12,17 @@ enum RadioStation {
     SoulwaxFm,
     EastLosFm,
     WestCoastClassics,
-    TheMusicLocker,
+    BlaineCountyRadio,
     TheBlueArk,
     WorldWideFm,
     FlyloFm,
     TheLowdown,
-    TheLab,
     RadioMirrorPark,
-    KultFM,
     Space,
     VinewoodBoulevardRadio,
-    BlondedLosSantosFM,
-    LosSantosUndergroundRadio,
-    IFruitRadio,
-    SelfRadio
+    SelfRadio,
+    TheLab,
+    RadioOff = 255,
 };
 
 void RegisterEnums(const py::module_& m);
