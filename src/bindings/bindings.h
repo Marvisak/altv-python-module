@@ -21,6 +21,7 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
     RegisterEntityClass(m);
     RegisterVehicleClass(m);
     RegisterPlayerClass(m);
+    RegisterVector2Class(m);
     RegisterVector3Class(m);
     RegisterRGBAClass(m);
 }

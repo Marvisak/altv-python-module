@@ -1,5 +1,6 @@
 #pragma once
 
+#include "vector2.h"
 #include "vector3.h"
 #include "rgba.h"
 #include "base/baseobject.h"
