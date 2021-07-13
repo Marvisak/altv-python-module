@@ -85,7 +85,7 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def("removeWeapon", py::overload_cast<const std::string&>(&Player::RemoveWeapon));
 
     pyClass.def("getWeaponTintIndex", py::overload_cast<uint32_t>(&Player::GetWeaponTintIndex));
-    pyClass.def("removeWeapon", py::overload_cast<const std::string&>(&Player::GetWeaponTintIndex));
+    pyClass.def("getWeaponTintIndex", py::overload_cast<const std::string&>(&Player::GetWeaponTintIndex));
 
     pyClass.def("removeAllWeapons", &Player::RemoveAllWeapons);
 
