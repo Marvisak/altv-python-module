@@ -7,3 +7,6 @@
 #include "base/entity.h"
 #include "base/vehicle.h"
 #include "base/player.h"
+
+#include "base/colshape.h"
+#include "base/colshapes/colshapecylinder.h"
