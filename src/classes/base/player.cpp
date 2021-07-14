@@ -106,8 +106,8 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def("removeWeaponComponent", py::overload_cast<uint32_t, const std::string&>(&Player::RemoveWeaponComponent));
     pyClass.def("removeWeaponComponent", py::overload_cast<const std::string&, const std::string&>(&Player::RemoveWeaponComponent));
 
-    pyClass.def("setWeaponComponent", py::overload_cast<uint32_t, uint8_t>(&Player::SetWeaponTintIndex));
-    pyClass.def("setWeaponComponent", py::overload_cast<const std::string&, uint8_t>(&Player::SetWeaponTintIndex));
+    pyClass.def("setWeaponTintIndex", py::overload_cast<uint32_t, uint8_t>(&Player::SetWeaponTintIndex));
+    pyClass.def("setWeaponTintIndex", py::overload_cast<const std::string&, uint8_t>(&Player::SetWeaponTintIndex));
 
     // Actions
     pyClass.def_property_readonly("jumping", &Player::IsJumping);
