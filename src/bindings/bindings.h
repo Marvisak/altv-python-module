@@ -23,4 +23,5 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
     RegisterPlayerClass(m);
     RegisterVector3Class(m);
     RegisterRGBAClass(m);
+    RegisterVoiceChannelClass(m);
 }
