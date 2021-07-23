@@ -27,6 +27,16 @@ public:
         return "Vector3(" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ")";
     }
 
+    Vector3 ToDegrees() const
+    {
+        return Vector3(std::round(x * (180 / alt::PI)), std::round(y * (180 / alt::PI)), std::round(z * (180 / alt::PI)));
+    }
+
+    Vector3 ToRadians() const
+    {
+        return Vector3(x * (alt::PI / 180), y * (alt::PI / 180), z * (alt::PI / 180));
+    }
+
     double Length() const
     {
         return sqrt(x * x + y * y + z * z);

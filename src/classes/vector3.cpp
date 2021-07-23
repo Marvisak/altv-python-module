@@ -30,6 +30,9 @@ void RegisterVector3Class(const pybind11::module_& m) {
     pyClass.def("length", &Vector3::Length);
     pyClass.def("distance", &Vector3::Distance);
 
+    pyClass.def("toDegrees", &Vector3::ToDegrees);
+    pyClass.def("toRadians", &Vector3::ToRadians);
+
     pyClass.def("add", py::overload_cast<const double>(&Vector3::Add));
     pyClass.def("add", py::overload_cast<const py::list&>(&Vector3::Add));
     pyClass.def("add", py::overload_cast<const double, const double, const double>(&Vector3::Add));
