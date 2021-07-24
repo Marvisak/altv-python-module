@@ -3,7 +3,7 @@
 void RegisterVoiceChannelClass(const py::module_& m) {
     auto pyClass = py::class_<VoiceChannel, BaseObject>(m, "VoiceChannel");
     pyClass.def(py::init([](bool isSpatial, float maxDistance) {
-        return VoiceChannel(VoiceChannel::CreateChannel(isSpatial, maxDistance));
+        return VoiceChannel(Core->CreateVoiceChannel(isSpatial, maxDistance));
     }));
 
     // Methods
