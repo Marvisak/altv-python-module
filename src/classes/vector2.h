@@ -4,7 +4,7 @@
 class Vector2
 {
 public:
-    double x, y, z;
+    double x, y;
     Vector2(double x, double y) : x(x), y(y) {}
     Vector2(alt::Position position) : x(position[0]), y(position[1]) {}
     Vector2(alt::Rotation rotation) : x(rotation[0]), y(rotation[1]) {}
@@ -16,6 +16,16 @@ public:
     std::string ToString() const
     {
         return "Vector2(" + std::to_string(x) + ", " + std::to_string(y) + ")";
+    }
+
+    Vector2 ToDegrees() const
+    {
+        return Vector2(std::round(x * (180 / alt::PI)), std::round(y * (180 / alt::PI)));
+    }
+
+    Vector2 ToRadians() const
+    {
+        return Vector2(x * (alt::PI / 180), y * (alt::PI / 180));
     }
 
     double Length() const
