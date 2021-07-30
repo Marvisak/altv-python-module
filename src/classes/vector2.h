@@ -5,7 +5,7 @@
 class Vector2
 {
  public:
-	double x, y, z;
+	double x, y;
 	Vector2(double x, double y) : x(x), y(y){}
 	Vector2(alt::Position position) : x(position[0]), y(position[1]){}
 	Vector2(alt::Rotation rotation) : x(rotation[0]), y(rotation[1]){}
