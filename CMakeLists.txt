@@ -23,9 +23,7 @@ include_directories(
 		"${Python3_INCLUDE_DIRS}"
 )
 
-link_directories(
-        "${Python3_LIBRARY_DIRS}"
-)
+link_libraries("${Python3_LIBRARIES}")
 
 add_library(
         ${PROJECT_MODULE_NAME} SHARED
