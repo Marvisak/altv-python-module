@@ -27,6 +27,9 @@ void RegisterVector2Class(const pybind11::module_& m) {
     pyClass.def("length", &Vector2::Length);
     pyClass.def("distance", &Vector2::Distance);
 
+    pyClass.def("toDegrees", &Vector2::ToDegrees);
+    pyClass.def("toRadians", &Vector2::ToRadians);
+
     pyClass.def("add", py::overload_cast<const double>(&Vector2::Add));
     pyClass.def("add", py::overload_cast<const py::list&>(&Vector2::Add));
     pyClass.def("add", py::overload_cast<const double, const double>(&Vector2::Add));
