@@ -4,6 +4,27 @@
 
 class Vector2
 {
+ private:
+	double GetAngle(const Vector2& other, const bool& boolean) const
+	{
+		double xy = x * other.x + y * other.y;
+		double posALength = sqrt(std::pow(x, 2) + std::pow(y, 2));
+		double posBLength = sqrt(std::pow(other.x, 2) + std::pow(other.y, 2));
+
+		if (posALength == 0 || posBLength == 0)
+		{
+			return -1;
+		}
+
+		double cos = xy / (posALength * posBLength);
+
+		if (boolean) {
+			return std::acos(cos);
+		} else {
+			return std::acos(cos) * (180 / alt::PI);
+		}
+	}
+
  public:
 	double x, y;
 	Vector2(double x, double y) : x(x), y(y){}
@@ -59,6 +80,26 @@ class Vector2
 		return Vector2(x + vectorList[0].cast<double>(), y + vectorList[1].cast<double>());
 	}
 
+	Vector2 Div(const Vector2& other)
+	{
+		return Vector2(x / other.x, y / other.y);
+	}
+
+	Vector2 Div(const double num)
+	{
+		return Vector2(x / num, y / num);
+	}
+
+	Vector2 Div(const double _x, const double _y)
+	{
+		return Vector2(x / _x, y / _y);
+	}
+
+	Vector2 Div(const py::list& vectorList)
+	{
+		return Vector2(x / vectorList[0].cast<double>(), y / vectorList[1].cast<double>());
+	}
+
 	Vector2 Sub(const Vector2& other)
 	{
 		return Vector2(x - other.x, y - other.y);
@@ -97,6 +138,27 @@ class Vector2
 	Vector2 Mul(const py::list& vectorList)
 	{
 		return Vector2(x * vectorList[0].cast<double>(), y * vectorList[1].cast<double>());
+	}
+
+	Vector2 Negative() const
+	{
+		return Vector2(-x, -y);
+	}
+
+	Vector2 Normalize() const
+	{
+		double length = sqrt(x * x + y * y);
+		return Vector2(x / length, y / length);
+	}
+
+	double AngleTo(const Vector2& other, const bool& boolean) const
+	{
+		return GetAngle(other, false);
+	}
+
+	double AngleToDegrees(const Vector2& other, const bool& boolean) const
+	{
+		return GetAngle(other, true);
 	}
 };
 
