@@ -8,3 +8,4 @@
 #include "base/entity.h"
 #include "base/vehicle.h"
 #include "base/player.h"
+#include "base/voicechannel.h"
