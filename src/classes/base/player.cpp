@@ -132,6 +132,10 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def_property_readonly("inVehicle", &Player::IsInVehicle);
     pyClass.def_property_readonly("seat", &Player::GetSeat);
 
+    // Clothes
+    pyClass.def("getClothes", py::overload_cast<uint8_t>(&Player::GetClothes));
+    pyClass.def("setClothes", py::overload_cast<uint8_t, uint16_t, uint8_t, uint8_t>(&Player::SetClothes));
+
     // Event
     pyClass.def("emit", &Player::Emit);
 }

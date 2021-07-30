@@ -4,7 +4,7 @@
 #include "classes/vector3.h"
 #include "entity.h"
 #include "vehicle.h"
-
+#include "../clothes.h"
 
 class Player : public Entity {
     alt::Ref<alt::IPlayer> player;
@@ -126,6 +126,11 @@ public:
     bool IsInVehicle() { return player->IsInVehicle(); }
     Vehicle GetVehicle() { return player->GetVehicle(); }
     uint8_t GetSeat() { return player->GetSeat(); }
+
+    // Clothes
+
+    Clothes GetClothes(uint8_t component) { return player->GetClothes(component); }
+    void SetClothes(uint8_t component, uint16_t drawable, uint8_t texture, uint8_t palette) { player->SetClothes(component, drawable, texture, palette); }
 
     // Events
     void Emit(const std::string& eventName, const py::args& args);

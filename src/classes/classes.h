@@ -2,6 +2,7 @@
 
 #include "vector3.h"
 #include "rgba.h"
+#include "clothes.h"
 #include "base/baseobject.h"
 #include "base/worldobject.h"
 #include "base/entity.h"
