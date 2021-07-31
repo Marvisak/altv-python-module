@@ -25,4 +25,7 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
     RegisterRGBAClass(m);
     RegisterVoiceChannelClass(m);
     RegisterClothesClass(m);
+    RegisterDlcClothesClass(m);
+    RegisterPropClass(m);
+    RegisterDlcPropClass(m);
 }

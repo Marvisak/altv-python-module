@@ -18,6 +18,10 @@ public:
     alt::Cloth toAlt() const {
         return alt::Cloth {drawableId, textureId, paletteId};
     }
+
+    std::string toString() const {
+        return "Cloth(drawable: " + std::to_string(drawableId) + ", texture: " + std::to_string(textureId) + ", palette: " + std::to_string(paletteId) + ")";
+    }
 };
 
 void RegisterClothesClass(const py::module_& m);

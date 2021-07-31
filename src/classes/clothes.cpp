@@ -10,4 +10,5 @@ void RegisterClothesClass(const py::module_& m) {
     pyClass.def_readwrite("drawableId", &Clothes::drawableId);
     pyClass.def_readwrite("textureId", &Clothes::textureId);
     pyClass.def_readwrite("paletteId", &Clothes::paletteId);
+    pyClass.def("__str__", &Clothes::toString);
 }
