@@ -32,11 +32,22 @@ void RegisterVector3Class(const pybind11::module_& m) {
 
     pyClass.def("toDegrees", &Vector3::ToDegrees);
     pyClass.def("toRadians", &Vector3::ToRadians);
+    pyClass.def("isInRange", &Vector3::IsInRange);
 
     pyClass.def("add", py::overload_cast<const double>(&Vector3::Add));
     pyClass.def("add", py::overload_cast<const py::list&>(&Vector3::Add));
     pyClass.def("add", py::overload_cast<const double, const double, const double>(&Vector3::Add));
     pyClass.def("add", py::overload_cast<const Vector3&>(&Vector3::Add));
+
+    pyClass.def("div", py::overload_cast<const double>(&Vector3::Div));
+    pyClass.def("div", py::overload_cast<const py::list&>(&Vector3::Div));
+    pyClass.def("div", py::overload_cast<const double, const double, const double>(&Vector3::Div));
+    pyClass.def("div", py::overload_cast<const Vector3&>(&Vector3::Div));
+
+    pyClass.def("dot", py::overload_cast<const double>(&Vector3::Dot));
+    pyClass.def("dot", py::overload_cast<const py::list&>(&Vector3::Dot));
+    pyClass.def("dot", py::overload_cast<const double, const double, const double>(&Vector3::Dot));
+    pyClass.def("dot", py::overload_cast<const Vector3&>(&Vector3::Dot));
 
     pyClass.def("sub", py::overload_cast<const double>(&Vector3::Sub));
     pyClass.def("sub", py::overload_cast<const py::list&>(&Vector3::Sub));
@@ -47,4 +58,9 @@ void RegisterVector3Class(const pybind11::module_& m) {
     pyClass.def("mul", py::overload_cast<const py::list&>(&Vector3::Mul));
     pyClass.def("mul", py::overload_cast<const double, const double, const double>(&Vector3::Mul));
     pyClass.def("mul", py::overload_cast<const Vector3&>(&Vector3::Mul));
+
+    pyClass.def("negative", &Vector3::Negative);
+    pyClass.def("normalize", &Vector3::Normalize);
+    pyClass.def("angleTo", &Vector3::AngleTo);
+    pyClass.def("angleToDegrees", &Vector3::AngleToDegrees);
 }

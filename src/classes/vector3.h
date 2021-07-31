@@ -3,6 +3,26 @@
 
 class Vector3
 {
+ private:
+	double GetAngle(const Vector3& other, const bool& boolean) const
+	{
+		double xy = x * other.x + y * other.y;
+		double posALength = sqrt(std::pow(x, 2) + std::pow(y, 2));
+		double posBLength = sqrt(std::pow(other.x, 2) + std::pow(other.y, 2));
+
+		if (posALength == 0 || posBLength == 0)
+		{
+			return -1;
+		}
+
+		double cos = xy / (posALength * posBLength);
+
+		if (boolean) {
+			return std::acos(cos);
+		} else {
+			return std::acos(cos) * (180 / alt::PI);
+		}
+	}
 public:
     double x, y, z;
     Vector3(double x, double y, double z) : x(x), y(y), z(z) {}
@@ -47,6 +67,15 @@ public:
         return sqrt(std::pow(x - other.x, 2) + std::pow(y - other.y, 2) + std::pow(z - other.z, 2));
     }
 
+    bool IsInRange(const Vector3& other, const double range) const
+    {
+    	double dx = abs(x - other.x);
+    	double dy = abs(y - other.y);
+    	double dz = abs(z - other.z);
+
+    	return dx <= range && dy <= range && dz <= range && dx * dx + dy * dy + dz * dz <= range * range;;
+    }
+
     Vector3 Add(const Vector3& other)
     {
         return Vector3(x + other.x, y + other.y, z + other.z);
@@ -65,6 +94,46 @@ public:
     Vector3 Add(const py::list& vectorList)
     {
         return Vector3(x + vectorList[0].cast<double>(), y + vectorList[1].cast<double>(), z + vectorList[2].cast<double>());
+    }
+
+    Vector3 Div(const Vector3& other)
+    {
+    	return Vector3(x / other.x, y / other.y, z / other.z);
+    }
+
+    Vector3 Div(const double num)
+    {
+    	return Vector3(x / num, y / num, z / num);
+    }
+
+    Vector3 Div(const double _x, const double _y, const double _z)
+    {
+    	return Vector3(x / _x, y / _y, z / _z);
+    }
+
+    Vector3 Div(const py::list& vectorList)
+    {
+    	return Vector3(x / vectorList[0].cast<double>(), y / vectorList[1].cast<double>(), z / vectorList[2].cast<double>());
+    }
+
+    double Dot(const Vector3& other)
+    {
+    	return x * other.x + y * other.y + z * other.z;
+    }
+
+    double Dot(const double num)
+    {
+    	return x * num + y * num + z * num;
+    }
+
+    double Dot(const double _x, const double _y, const double _z)
+    {
+    	return x * _x + y * _y + z * _z;
+    }
+
+    double Dot(const py::list& vectorList)
+    {
+    	return x * vectorList[0].cast<double>() + y * vectorList[1].cast<double>(), z * vectorList[2].cast<double>();
     }
 
     Vector3 Sub(const Vector3& other)
@@ -105,6 +174,27 @@ public:
     Vector3 Mul(const py::list& vectorList)
     {
         return Vector3(x * vectorList[0].cast<double>(), y * vectorList[1].cast<double>(), z * vectorList[2].cast<double>());
+    }
+
+    Vector3 Negative() const
+    {
+    	return Vector3(-x, -y, -z);
+    }
+
+    Vector3 Normalize() const
+    {
+    	double length = sqrt(x * x + y * y + z * z);
+    	return Vector3(x / length, y / length, z / length);
+    }
+
+    double AngleTo(const Vector3& other, const bool& boolean) const
+    {
+    	return GetAngle(other, false);
+    }
+
+    double AngleToDegrees(const Vector3& other, const bool& boolean) const
+    {
+    	return GetAngle(other, true);
     }
 };
 
