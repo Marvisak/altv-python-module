@@ -60,6 +60,14 @@ class Vector2
 		return sqrt(std::pow(x - other.x, 2) + std::pow(y - other.y, 2));
 	}
 
+	bool IsInRange(const Vector2& other, const double range) const
+	{
+		double dx = abs(x - other.x);
+		double dy = abs(y - other.y);
+
+		return dx <= range && dy <= range && dx * dx + dy * dy <= range * range;
+	}
+
 	Vector2 Add(const Vector2& other)
 	{
 		return Vector2(x + other.x, y + other.y);
