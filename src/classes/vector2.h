@@ -100,6 +100,26 @@ class Vector2
 		return Vector2(x / vectorList[0].cast<double>(), y / vectorList[1].cast<double>());
 	}
 
+	double Dot(const Vector2& other)
+	{
+		return x * other.x + y * other.y;
+	}
+
+	double Dot(const double num)
+	{
+		return x * num + y * num;
+	}
+
+	double Dot(const double _x, const double _y)
+	{
+		return x * _x + y * _y;
+	}
+
+	double Dot(const py::list& vectorList)
+	{
+		return x * vectorList[0].cast<double>() + y * vectorList[1].cast<double>();
+	}
+
 	Vector2 Sub(const Vector2& other)
 	{
 		return Vector2(x - other.x, y - other.y);

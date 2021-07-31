@@ -40,6 +40,11 @@ void RegisterVector2Class(const pybind11::module_& m) {
     pyClass.def("div", py::overload_cast<const double, const double>(&Vector2::Div));
     pyClass.def("div", py::overload_cast<const Vector2&>(&Vector2::Div));
 
+    pyClass.def("dot", py::overload_cast<const double>(&Vector2::Dot));
+    pyClass.def("dot", py::overload_cast<const py::list&>(&Vector2::Dot));
+    pyClass.def("dot", py::overload_cast<const double, const double>(&Vector2::Dot));
+    pyClass.def("dot", py::overload_cast<const Vector2&>(&Vector2::Dot));
+
     pyClass.def("sub", py::overload_cast<const double>(&Vector2::Sub));
     pyClass.def("sub", py::overload_cast<const py::list&>(&Vector2::Sub));
     pyClass.def("sub", py::overload_cast<const double, const double>(&Vector2::Sub));
