@@ -133,21 +133,21 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def_property_readonly("seat", &Player::GetSeat);
 
     // Clothes
-    pyClass.def("getClothes", py::overload_cast<uint8_t>(&Player::GetClothes));
-    pyClass.def("setClothes", py::overload_cast<uint8_t, uint16_t, uint8_t, uint8_t>(&Player::SetClothes));
+    pyClass.def("getClothes", &Player::GetClothes);
+    pyClass.def("setClothes", &Player::SetClothes);
 
-    pyClass.def("getDlcClothes", py::overload_cast<uint8_t>(&Player::GetDlcClothes));
-    pyClass.def("setDlcClothes", py::overload_cast<uint8_t, uint16_t, uint8_t, uint8_t, uint32_t>(&Player::SetDlcClothes));
+    pyClass.def("getDlcClothes", &Player::GetDlcClothes);
+    pyClass.def("setDlcClothes", &Player::SetDlcClothes);
 
     // Props
 
-    pyClass.def("getProps", py::overload_cast<uint8_t>(&Player::GetProps));
-    pyClass.def("setProps", py::overload_cast<uint8_t, uint16_t, uint8_t>(&Player::SetProps));
+    pyClass.def("getProps", &Player::GetProps);
+    pyClass.def("setProps", &Player::SetProps);
 
-    pyClass.def("getDlcProps", py::overload_cast<uint8_t>(&Player::GetDlcProps));
-    pyClass.def("setDlcProps", py::overload_cast<uint8_t, uint8_t, uint8_t, uint32_t>(&Player::SetDlcProps));
+    pyClass.def("getDlcProps", &Player::GetDlcProps);
+    pyClass.def("setDlcProps", &Player::SetDlcProps);
 
-    pyClass.def("clearProps", py::overload_cast<uint8_t>(&Player::ClearProps));
+    pyClass.def("clearProps", &Player::ClearProps);
 
     // Event
     pyClass.def("emit", &Player::Emit);
