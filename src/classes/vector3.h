@@ -96,6 +96,30 @@ public:
         return Vector3(x + vectorList[0].cast<double>(), y + vectorList[1].cast<double>(), z + vectorList[2].cast<double>());
     }
 
+    Vector3 Cross(const Vector3& other)
+    {
+    	return Vector3(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);
+    }
+
+    Vector3 Cross(const double num)
+    {
+    	return Vector3(y * num - z * num, z * num - x * num, x * num - y * num);
+    }
+
+    Vector3 Cross(const double _x, const double _y, const double _z)
+    {
+    	return Vector3(y * _z - z * _y, z * _x - x * _z, x * _y - y * _x);
+    }
+
+    Vector3 Cross(const py::list& vectorList)
+    {
+    	double _x = vectorList[0].cast<double>();
+    	double _y = vectorList[1].cast<double>();
+    	double _z = vectorList[2].cast<double>();
+
+    	return Vector3(y * _z - z * _y, z * _x - x * _z, x * _y - y * _x);
+    }
+
     Vector3 Div(const Vector3& other)
     {
     	return Vector3(x / other.x, y / other.y, z / other.z);

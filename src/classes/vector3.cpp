@@ -39,6 +39,11 @@ void RegisterVector3Class(const pybind11::module_& m) {
     pyClass.def("add", py::overload_cast<const double, const double, const double>(&Vector3::Add));
     pyClass.def("add", py::overload_cast<const Vector3&>(&Vector3::Add));
 
+    pyClass.def("cross", py::overload_cast<const double>(&Vector3::Cross));
+    pyClass.def("cross", py::overload_cast<const py::list&>(&Vector3::Cross));
+    pyClass.def("cross", py::overload_cast<const double, const double, const double>(&Vector3::Cross));
+    pyClass.def("cross", py::overload_cast<const Vector3&>(&Vector3::Cross));
+
     pyClass.def("div", py::overload_cast<const double>(&Vector3::Div));
     pyClass.def("div", py::overload_cast<const py::list&>(&Vector3::Div));
     pyClass.def("div", py::overload_cast<const double, const double, const double>(&Vector3::Div));
