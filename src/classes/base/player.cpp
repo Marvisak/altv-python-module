@@ -132,6 +132,23 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def_property_readonly("inVehicle", &Player::IsInVehicle);
     pyClass.def_property_readonly("seat", &Player::GetSeat);
 
+    // Clothes
+    pyClass.def("getClothes", &Player::GetClothes);
+    pyClass.def("setClothes", &Player::SetClothes);
+
+    pyClass.def("getDlcClothes", &Player::GetDlcClothes);
+    pyClass.def("setDlcClothes", &Player::SetDlcClothes);
+
+    // Props
+
+    pyClass.def("getProps", &Player::GetProps);
+    pyClass.def("setProps", &Player::SetProps);
+
+    pyClass.def("getDlcProps", &Player::GetDlcProps);
+    pyClass.def("setDlcProps", &Player::SetDlcProps);
+
+    pyClass.def("clearProps", &Player::ClearProps);
+
     // Event
     pyClass.def("emit", &Player::Emit);
 }

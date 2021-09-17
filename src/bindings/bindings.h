@@ -26,11 +26,17 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
     RegisterRGBAClass(m);
     RegisterVoiceChannelClass(m);
 
-	// Colshapes
-	RegisterColshapeClass(m);
-	RegisterColshapeCircleClass(m);
-	RegisterColshapeCuboidClass(m);
-	RegisterColshapeCylinderClass(m);
-	RegisterColshapeRectangleClass(m);
-	RegisterColshapeSphereClass(m);
+    // Clothing / Props
+    RegisterClothesClass(m);
+    RegisterDlcClothesClass(m);
+    RegisterPropClass(m);
+    RegisterDlcPropClass(m);
+
+    // Colshapes
+    RegisterColshapeClass(m);
+    RegisterColshapeCircleClass(m);
+    RegisterColshapeCuboidClass(m);
+    RegisterColshapeCylinderClass(m);
+    RegisterColshapeRectangleClass(m);
+    RegisterColshapeSphereClass(m);
 }
