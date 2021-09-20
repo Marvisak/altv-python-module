@@ -101,6 +101,9 @@ public:
     bool IsAiming() { return player->IsAiming(); }
     bool IsReloading() { return player->IsReloading(); }
 
+    bool GetInvincible() { return player->GetInvincible(); }
+    void SetInvincible(bool boolean) { player->SetInvincible(boolean); }
+
     // Time
     void SetDateTime(int second, int minute, int hour, int day, int month, int year) { player->SetDateTime(day, month, year, hour, minute, second); }
 
@@ -129,6 +132,7 @@ public:
     bool IsInVehicle() { return player->IsInVehicle(); }
     Vehicle GetVehicle() { return player->GetVehicle(); }
     uint8_t GetSeat() { return player->GetSeat(); }
+    void SetIntoVehicle(alt::Ref<alt::IVehicle> vehicle, uint8_t seat) { player->SetIntoVehicle(vehicle, seat); }
 
     // Clothes
 

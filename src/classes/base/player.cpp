@@ -45,6 +45,7 @@ void RegisterPlayerClass(const py::module_& m) {
     // Health
     pyClass.def_property("health", &Player::GetHealth, &Player::SetHealth);
     pyClass.def_property_readonly("dead", &Player::IsDead);
+    pyClass.def_property("invincible", &Player::GetInvincible, &Player::SetInvincible);
 
     // Armour
     pyClass.def_property("armour", &Player::GetArmour, &Player::SetArmour);
@@ -131,6 +132,7 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def_property_readonly("vehicle", &Player::GetVehicle);
     pyClass.def_property_readonly("inVehicle", &Player::IsInVehicle);
     pyClass.def_property_readonly("seat", &Player::GetSeat);
+    pyClass.def("setIntoVehicle", &Player::SetIntoVehicle);
 
     // Clothes
     pyClass.def("getClothes", &Player::GetClothes);
