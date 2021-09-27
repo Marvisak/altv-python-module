@@ -211,6 +211,38 @@ public:
     	return Vector3(x / length, y / length, z / length);
     }
 
+    Vector3 zero() {
+        return Vector3(0, 0, 0);
+    }
+
+    Vector3 one() {
+        return Vector3(1, 1, 1);
+    }
+
+    Vector3 up() {
+        return Vector3(0, 1, 0);
+    }
+
+    Vector3 down() {
+        return Vector3(0, -1, 0);
+    }
+
+    Vector3 left() {
+        return Vector3(-1, 0, 0);
+    }
+
+    Vector3 right() {
+        return Vector3(1, 0, 0);
+    }
+
+    Vector3 back() {
+        return Vector3(0, 0, -1);
+    }
+
+    Vector3 forward() {
+        return Vector3(0, 0, 1);
+    }
+
     double AngleTo(const Vector3& other, const bool& boolean) const
     {
     	return GetAngle(other, false);
