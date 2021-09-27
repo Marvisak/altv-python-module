@@ -211,35 +211,35 @@ public:
     	return Vector3(x / length, y / length, z / length);
     }
 
-    Vector3 zeroVector() {
+    Vector3 zero() {
         return Vector3(0, 0, 0);
     }
 
-    Vector3 oneVector() {
+    Vector3 one() {
         return Vector3(1, 1, 1);
     }
 
-    Vector3 upVector() {
+    Vector3 up() {
         return Vector3(0, 1, 0);
     }
 
-    Vector3 downVector() {
+    Vector3 down() {
         return Vector3(0, -1, 0);
     }
 
-    Vector3 leftVector() {
+    Vector3 left() {
         return Vector3(-1, 0, 0);
     }
 
-    Vector3 rightVector() {
+    Vector3 right() {
         return Vector3(1, 0, 0);
     }
 
-    Vector3 backVector() {
+    Vector3 back() {
         return Vector3(0, 0, -1);
     }
 
-    Vector3 forwardVector() {
+    Vector3 forward() {
         return Vector3(0, 0, 1);
     }
 
