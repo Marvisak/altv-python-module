@@ -4,7 +4,10 @@
 #include "classes/vector3.h"
 #include "entity.h"
 #include "vehicle.h"
-
+#include "../clothes.h"
+#include "../dlcclothes.h"
+#include "../props.h"
+#include "../dlcprops.h"
 
 class Player : public Entity {
     alt::Ref<alt::IPlayer> player;
@@ -130,6 +133,24 @@ public:
     Vehicle GetVehicle() { return player->GetVehicle(); }
     uint8_t GetSeat() { return player->GetSeat(); }
     void SetIntoVehicle(alt::Ref<alt::IVehicle> vehicle, uint8_t seat) { player->SetIntoVehicle(vehicle, seat); }
+
+    // Clothes
+
+    Clothes GetClothes(uint8_t component) { return player->GetClothes(component); }
+    void SetClothes(uint8_t component, uint16_t drawable, uint8_t texture, uint8_t palette) { player->SetClothes(component, drawable, texture, palette); }
+
+    DlcClothes GetDlcClothes(uint8_t component) { return player->GetDlcClothes(component); }
+    void SetDlcClothes(uint8_t component, uint16_t drawable, uint8_t texture, uint8_t palette, uint32_t dlc) { player->SetDlcClothes(component, drawable, texture, palette, dlc); }
+
+    // Props
+
+    Props GetProps(uint8_t component) { return player->GetProps(component); }
+    void SetProps(uint8_t component, uint16_t drawable, uint8_t texture) { player->SetProps(component, drawable, texture); }
+
+    DlcProps GetDlcProps(uint8_t component) { return player->GetDlcProps(component); }
+    void SetDlcProps(uint8_t component, uint8_t drawable, uint8_t texture, uint32_t dlc) { player->SetDlcProps(component, drawable, texture, dlc); }
+
+    void ClearProps(uint8_t component) { player->ClearProps(component); }
 
     // Events
     void Emit(const std::string& eventName, const py::args& args);
