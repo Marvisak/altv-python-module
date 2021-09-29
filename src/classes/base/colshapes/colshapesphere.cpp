@@ -4,7 +4,7 @@
 void RegisterColshapeSphereClass(const py::module_ &m) {
 	auto pyClass = py::class_<ColshapeSphere, Colshape>(m, "ColshapeSphere");
 
-	pyClass.def(py::init([](double x, double y, double z, float radius) {
+	pyClass.def(py::init([](float x, float y, float z, float radius) {
 		return ColshapeSphere(ColshapeSphere::Create(x, y, z, radius));
 	}));
 
