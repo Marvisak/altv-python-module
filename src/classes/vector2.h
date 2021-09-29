@@ -4,7 +4,7 @@
 
 class Vector2
 {
- private:
+private:
 	double GetAngle(const Vector2& other, const bool& boolean) const
 	{
 		double xy = x * other.x + y * other.y;
@@ -20,17 +20,18 @@ class Vector2
 
 		if (boolean) {
 			return std::acos(cos);
-		} else {
+		}
+		else {
 			return std::acos(cos) * (180 / alt::PI);
 		}
 	}
 
- public:
+public:
 	double x, y;
-	Vector2(double x, double y) : x(x), y(y){}
-	Vector2(alt::Position position) : x(position[0]), y(position[1]){}
-	Vector2(alt::Rotation rotation) : x(rotation[0]), y(rotation[1]){}
-	Vector2(alt::Vector2f vector) : x(vector[0]), y(vector[1]){}
+	Vector2(double x, double y) : x(x), y(y) {}
+	Vector2(alt::Position position) : x(position[0]), y(position[1]) {}
+	Vector2(alt::Rotation rotation) : x(rotation[0]), y(rotation[1]) {}
+	Vector2(alt::Vector2f vector) : x(vector[0]), y(vector[1]) {}
 
 	py::dict ToDict();
 	py::list ToList();
@@ -180,11 +181,11 @@ class Vector2
 	}
 
 	Vector2 zero() {
-		return Vector2(0, 0, 0);
+		return Vector2(0, 0);
 	}
 
 	Vector2 one() {
-		return Vector2(1, 1, 1);
+		return Vector2(1, 1);
 	}
 
 	Vector2 up() {
