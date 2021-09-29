@@ -45,6 +45,7 @@ void RegisterPlayerClass(const py::module_& m) {
     // Health
     pyClass.def_property("health", &Player::GetHealth, &Player::SetHealth);
     pyClass.def_property_readonly("dead", &Player::IsDead);
+    pyClass.def_property("invincible", &Player::GetInvincible, &Player::SetInvincible);
 
     // Armour
     pyClass.def_property("armour", &Player::GetArmour, &Player::SetArmour);
@@ -85,7 +86,7 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def("removeWeapon", py::overload_cast<const std::string&>(&Player::RemoveWeapon));
 
     pyClass.def("getWeaponTintIndex", py::overload_cast<uint32_t>(&Player::GetWeaponTintIndex));
-    pyClass.def("removeWeapon", py::overload_cast<const std::string&>(&Player::GetWeaponTintIndex));
+    pyClass.def("getWeaponTintIndex", py::overload_cast<const std::string&>(&Player::GetWeaponTintIndex));
 
     pyClass.def("removeAllWeapons", &Player::RemoveAllWeapons);
 
@@ -106,8 +107,8 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def("removeWeaponComponent", py::overload_cast<uint32_t, const std::string&>(&Player::RemoveWeaponComponent));
     pyClass.def("removeWeaponComponent", py::overload_cast<const std::string&, const std::string&>(&Player::RemoveWeaponComponent));
 
-    pyClass.def("setWeaponComponent", py::overload_cast<uint32_t, uint8_t>(&Player::SetWeaponTintIndex));
-    pyClass.def("setWeaponComponent", py::overload_cast<const std::string&, uint8_t>(&Player::SetWeaponTintIndex));
+    pyClass.def("setWeaponTintIndex", py::overload_cast<uint32_t, uint8_t>(&Player::SetWeaponTintIndex));
+    pyClass.def("setWeaponTintIndex", py::overload_cast<const std::string&, uint8_t>(&Player::SetWeaponTintIndex));
 
     // Actions
     pyClass.def_property_readonly("jumping", &Player::IsJumping);
@@ -131,6 +132,24 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def_property_readonly("vehicle", &Player::GetVehicle);
     pyClass.def_property_readonly("inVehicle", &Player::IsInVehicle);
     pyClass.def_property_readonly("seat", &Player::GetSeat);
+    pyClass.def("setIntoVehicle", &Player::SetIntoVehicle);
+
+    // Clothes
+    pyClass.def("getClothes", &Player::GetClothes);
+    pyClass.def("setClothes", &Player::SetClothes);
+
+    pyClass.def("getDlcClothes", &Player::GetDlcClothes);
+    pyClass.def("setDlcClothes", &Player::SetDlcClothes);
+
+    // Props
+
+    pyClass.def("getProps", &Player::GetProps);
+    pyClass.def("setProps", &Player::SetProps);
+
+    pyClass.def("getDlcProps", &Player::GetDlcProps);
+    pyClass.def("setDlcProps", &Player::SetDlcProps);
+
+    pyClass.def("clearProps", &Player::ClearProps);
 
     // Event
     pyClass.def("emit", &Player::Emit);

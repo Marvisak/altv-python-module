@@ -21,6 +21,22 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
     RegisterEntityClass(m);
     RegisterVehicleClass(m);
     RegisterPlayerClass(m);
+    RegisterVector2Class(m);
     RegisterVector3Class(m);
     RegisterRGBAClass(m);
+    RegisterVoiceChannelClass(m);
+
+    // Clothing / Props
+    RegisterClothesClass(m);
+    RegisterDlcClothesClass(m);
+    RegisterPropClass(m);
+    RegisterDlcPropClass(m);
+
+    // Colshapes
+    RegisterColshapeClass(m);
+    RegisterColshapeCircleClass(m);
+    RegisterColshapeCuboidClass(m);
+    RegisterColshapeCylinderClass(m);
+    RegisterColshapeRectangleClass(m);
+    RegisterColshapeSphereClass(m);
 }

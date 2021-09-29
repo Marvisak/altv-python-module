@@ -140,6 +140,27 @@ PythonRuntime::PythonRuntime()
         }
     );
 
+    RegisterArgGetter(
+            alt::CEvent::Type::COLSHAPE_EVENT,
+            [](const alt::CEvent* ev)
+            {
+                auto event = dynamic_cast<const alt::CColShapeEvent*>(ev);
+
+                Colshape colshape {event->GetTarget()};
+                Entity entity {event->GetEntity()};
+
+                py::list args;
+
+                args.append(colshape);
+                args.append(entity);
+
+                // TODO - Remove when the event system is updated to support more than one name
+                args.append(event->GetState());
+
+                return args;
+            }
+    );
+
 }
 
 PythonResource* PythonRuntime::GetPythonResourceFromPath(std::string const &path)
