@@ -179,6 +179,38 @@ class Vector2
 		return Vector2(x / length, y / length);
 	}
 
+	Vector2 zero() {
+		return Vector2(0, 0, 0);
+	}
+
+	Vector2 one() {
+		return Vector2(1, 1, 1);
+	}
+
+	Vector2 up() {
+		return Vector2(0, 1);
+	}
+
+	Vector2 down() {
+		return Vector2(0, -1);
+	}
+
+	Vector2 left() {
+		return Vector2(-1, 0);
+	}
+
+	Vector2 right() {
+		return Vector2(1, 0);
+	}
+
+	Vector2 positiveInfinity() {
+		return Vector2(std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity());
+	}
+
+	Vector2 negativeInfinty() {
+		return Vector2(-std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity());
+	}
+
 	double AngleTo(const Vector2& other, const bool& boolean) const
 	{
 		return GetAngle(other, false);

@@ -56,6 +56,16 @@ void RegisterVector2Class(const pybind11::module_& m) {
     pyClass.def("mul", py::overload_cast<const double, const double>(&Vector2::Mul));
     pyClass.def("mul", py::overload_cast<const Vector2&>(&Vector2::Mul));
 
+    pyClass.def_property_readonly("zero", &Vector2::zero);
+    pyClass.def_property_readonly("one", &Vector2::one);
+    pyClass.def_property_readonly("up", &Vector2::up);
+    pyClass.def_property_readonly("down", &Vector2::down);
+    pyClass.def_property_readonly("left", &Vector2::left);
+    pyClass.def_property_readonly("right", &Vector2::right);
+
+    pyClass.def_property_readonly("postiveInfinity", &Vector2::positiveInfinity);
+    pyClass.def_property_readonly("negativeInfinity", &Vector2::negativeInfinty);
+
     pyClass.def("negative", &Vector2::Negative);
     pyClass.def("normalize", &Vector2::Normalize);
     pyClass.def("angleTo", &Vector2::AngleTo);

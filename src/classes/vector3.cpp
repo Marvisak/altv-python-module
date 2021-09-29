@@ -64,14 +64,17 @@ void RegisterVector3Class(const pybind11::module_& m) {
     pyClass.def("mul", py::overload_cast<const double, const double, const double>(&Vector3::Mul));
     pyClass.def("mul", py::overload_cast<const Vector3&>(&Vector3::Mul));
 
-    pyClass.def_property_readonly("zero", &Vector3::zeroVector);
-    pyClass.def_property_readonly("one", &Vector3::oneVector);
-    pyClass.def_property_readonly("up", &Vector3::upVector);
-    pyClass.def_property_readonly("down", &Vector3::downVector);
-    pyClass.def_property_readonly("left", &Vector3::leftVector);
-    pyClass.def_property_readonly("right", &Vector3::rightVector);
-    pyClass.def_property_readonly("back", &Vector3::backVector);
-    pyClass.def_property_readonly("forward", &Vector3::forwardVector);
+    pyClass.def_property_readonly("zero", &Vector3::zero);
+    pyClass.def_property_readonly("one", &Vector3::one);
+    pyClass.def_property_readonly("up", &Vector3::up);
+    pyClass.def_property_readonly("down", &Vector3::down);
+    pyClass.def_property_readonly("left", &Vector3::left);
+    pyClass.def_property_readonly("right", &Vector3::right);
+    pyClass.def_property_readonly("back", &Vector3::back);
+    pyClass.def_property_readonly("forward", &Vector3::forward);
+
+    pyClass.def_property_readonly("postiveInfinity", &Vector3::positiveInfinity);
+    pyClass.def_property_readonly("negativeInfinity", &Vector3::negativeInfinty);
 
     pyClass.def("negative", &Vector3::Negative);
     pyClass.def("normalize", &Vector3::Normalize);

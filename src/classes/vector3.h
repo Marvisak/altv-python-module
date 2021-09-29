@@ -243,6 +243,14 @@ public:
         return Vector3(0, 0, 1);
     }
 
+    Vector3 positiveInfinity() {
+        return Vector3(std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity());
+    }
+
+    Vector3 negativeInfinty() {
+        return Vector3(-std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity());
+    }
+
     double AngleTo(const Vector3& other, const bool& boolean) const
     {
     	return GetAngle(other, false);
