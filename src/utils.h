@@ -37,6 +37,7 @@ namespace Utils
             "startProjectile",
             "weaponDamage",
             "vehicleDestroy",
+            "vehicleDamage",
 
             "checkpoint",
             "colshape",
