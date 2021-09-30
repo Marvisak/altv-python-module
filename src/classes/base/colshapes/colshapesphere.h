@@ -8,7 +8,7 @@ class ColshapeSphere : public Colshape {
 	alt::Ref<alt::IColShape> colshape;
 
  public:
-	static alt::Ref<alt::IColShape> Create(float x, float y, float z, float radius) {
+	static alt::Ref<alt::IColShape> Create(double x, double y, double z, float radius) {
 		return Core->CreateColShapeSphere(alt::Position(x, y, z), radius);
 	}
 
