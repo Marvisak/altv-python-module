@@ -50,29 +50,11 @@ PythonRuntime::PythonRuntime()
         [](const alt::CEvent* ev)
         {
             auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
-
             py::list args;
-
-            alt::MValueArgs serverArgs = event->GetArgs();
-            uint64_t size = serverArgs.GetSize();
-            if (size == 0) {
-                args.append(event->GetName().CStr());
-                args.append(nullptr);
-                args.append(0);
-            }
-            else {
-#ifdef _WIN32
-                auto constArgs = new alt::MValueConst * [size];
-#endif
-                for (uint64_t i = 0; i < size; i++) {
-                    constArgs[i] = &serverArgs[i];
-                }
-                args.append(event->GetName().CStr());
-                args.append(constArgs);
-                args.append(size);
-#ifdef _WIN32
-                delete[] constArgs;
-#endif
+            for (const auto& arg : event->GetArgs())
+            {
+                auto value = Utils::MValueToValue(arg);
+                args.append(value);
             }
             return args;
         }
@@ -83,29 +65,13 @@ PythonRuntime::PythonRuntime()
         [](const alt::CEvent* ev)
         {
             auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
-
             py::list args;
-
-            alt::MValueArgs clientArgs = event->GetArgs();
-            uint64_t size = clientArgs.GetSize();
-            if (size == 0) {
-                args.append(event->GetName().CStr());
-                args.append(nullptr);
-                args.append(0);
-            }
-            else {
-#ifdef _WIN32
-                auto constArgs = new alt::MValueConst * [size];
-#endif
-                for (uint64_t i = 0; i < size; i++) {
-                    constArgs[i] = &clientArgs[i];
-                }
-                args.append(event->GetName().CStr());
-                args.append(constArgs);
-                args.append(size);
-#ifdef _WIN32
-                delete[] constArgs;
-#endif
+            auto player = event->GetTarget();
+            args.append(Player(player));
+            for (const auto& arg : event->GetArgs())
+            {
+                auto value = Utils::MValueToValue(arg);
+                args.append(value);
             }
             return args;
         }
@@ -131,7 +97,8 @@ PythonRuntime::PythonRuntime()
         {
             auto event = dynamic_cast<const alt::CPlayerDisconnectEvent*>(ev);
             Player player{ event->GetTarget() };
-            alt::StringView reason{ event->GetReason() };
+            alt::String reason{ event->GetReason().ToString() };
+
             py::list args;
 
             args.append(player);
@@ -149,8 +116,8 @@ PythonRuntime::PythonRuntime()
             Player player{ event->GetTarget() };
             Entity attacker{ event->GetAttacker() };
             uint32_t weapon{ event->GetWeapon() };
-            int16_t healthDamage{ event->GetHealthDamage() };
-            int16_t armourDamage{ event->GetArmourDamage() };
+            uint16_t healthDamage{ event->GetHealthDamage() };
+            uint16_t armourDamage{ event->GetArmourDamage() };
 
             py::list args;
 
