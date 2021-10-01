@@ -121,6 +121,28 @@ PythonRuntime::PythonRuntime()
     );
 
     RegisterArgGetter(
+        alt::CEvent::Type::PLAYER_CHANGE_VEHICLE_SEAT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerChangeVehicleSeatEvent*>(ev);
+
+            Vehicle vehicle { event->GetTarget() };
+            Player player { event->GetPlayer() };
+            uint8_t oldSeat { event->GetOldSeat() };
+            uint8_t newSeat { event->GetNewSeat() };
+
+            py::list args;
+
+            args.append(vehicle);
+            args.append(player);
+            args.append(oldSeat);
+            args.append(newSeat);
+
+            return args;
+        }
+    );
+
+    RegisterArgGetter(
         alt::CEvent::Type::PLAYER_LEAVE_VEHICLE,
         [](const alt::CEvent* ev)
         {
