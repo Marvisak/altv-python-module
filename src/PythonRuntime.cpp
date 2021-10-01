@@ -135,6 +135,23 @@ PythonRuntime::PythonRuntime()
     );
 
     RegisterArgGetter(
+        alt::CEvent::Type::PLAYER_DISCONNECT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerDisconnectEvent*>(ev);
+            Player player{ event->GetTarget() };
+            alt::StringView reason{ event->GetReason() };
+            py::list args;
+
+            args.append(player);
+            args.append(reason);
+
+            return args;
+        }
+    );
+
+
+    RegisterArgGetter(
         alt::CEvent::Type::PLAYER_ENTER_VEHICLE,
         [](const alt::CEvent* ev)
         {
