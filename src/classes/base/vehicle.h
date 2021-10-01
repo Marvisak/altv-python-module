@@ -1,8 +1,8 @@
 #pragma once
 
 #include "classes/enums/enum.h"
-#include "classes/rgba.h"
-#include "classes/vector3.h"
+#include "classes/data/rgba.h"
+#include "classes/data/vector3.h"
 #include "entity.h"
 #include "main.h"
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "baseobject.h"
-#include "classes/vector3.h"
+#include "classes/data/vector3.h"
 #include "main.h"
 
 class WorldObject : public BaseObject

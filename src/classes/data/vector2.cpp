@@ -1,4 +1,4 @@
-#include "classes/vector2.h"
+#include "classes/data/vector2.h"
 
 py::dict Vector2::ToDict()
 {
