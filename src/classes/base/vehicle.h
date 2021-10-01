@@ -4,7 +4,7 @@
 #include "classes/vector3.h"
 #include "classes/rgba.h"
 #include "entity.h"
-#include "classes/enum.h"
+#include "classes/enums/enum.h"
 
 class Vehicle : public Entity
 {
