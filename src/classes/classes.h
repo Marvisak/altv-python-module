@@ -1,18 +1,18 @@
 #pragma once
 
-#include "data/vector2.h"
-#include "data/vector3.h"
-#include "data/rgba.h"
+#include "base/baseobject.h"
+#include "base/entity.h"
+#include "base/player.h"
+#include "base/vehicle.h"
+#include "base/voicechannel.h"
+#include "base/worldobject.h"
 #include "data/clothes.h"
 #include "data/dlcclothes.h"
-#include "data/props.h"
 #include "data/dlcprops.h"
-#include "base/baseobject.h"
-#include "base/worldobject.h"
-#include "base/entity.h"
-#include "base/vehicle.h"
-#include "base/player.h"
-#include "base/voicechannel.h"
+#include "data/props.h"
+#include "data/rgba.h"
+#include "data/vector2.h"
+#include "data/vector3.h"
 
 // Colshapes
 #include "base/colshape.h"

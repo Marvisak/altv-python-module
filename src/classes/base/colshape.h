@@ -1,25 +1,42 @@
 #pragma once
-#include "classes/base/worldobject.h"
 #include "classes/base/entity.h"
-#include "classes/vector3.h"
+#include "classes/base/worldobject.h"
+#include "classes/data/vector3.h"
 
 class Colshape : public WorldObject
 {
-private:
+  private:
     alt::Ref<alt::IColShape> colshape;
 
-public:
-    bool IsEntityIn(Entity entity) { return colshape->IsEntityIn(entity.GetBaseObject()); }
-    bool IsPointIn(Vector3 vector) { return colshape->IsPointIn(vector.toAltPos()); };
+  public:
+    bool IsEntityIn(Entity entity)
+    {
+        return colshape->IsEntityIn(entity.GetBaseObject());
+    }
+    bool IsPointIn(Vector3 vector)
+    {
+        return colshape->IsPointIn(vector.toAltPos());
+    };
 
     // Getters
-    bool GetPlayersOnly() { return colshape->IsPlayersOnly(); }
-    uint8_t GetColshapeType() { return static_cast<uint8_t>(colshape->GetColshapeType()); }
+    bool GetPlayersOnly()
+    {
+        return colshape->IsPlayersOnly();
+    }
+    uint8_t GetColshapeType()
+    {
+        return static_cast<uint8_t>(colshape->GetColshapeType());
+    }
 
     // Setters
-    void SetPlayersOnly(bool playerOnly) { colshape->SetPlayersOnly(playerOnly); }
+    void SetPlayersOnly(bool playerOnly)
+    {
+        colshape->SetPlayersOnly(playerOnly);
+    }
 
-    Colshape(alt::Ref<alt::IColShape> colshape) : colshape(colshape), WorldObject(colshape) {}
+    Colshape(alt::Ref<alt::IColShape> colshape) : colshape(colshape), WorldObject(colshape)
+    {
+    }
 };
 
 void RegisterColshapeClass(const py::module_ &m);
