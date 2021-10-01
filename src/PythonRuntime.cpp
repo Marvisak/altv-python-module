@@ -79,6 +79,45 @@ PythonRuntime::PythonRuntime()
 
     #pragma endregion
 
+    #pragma region EntityEvents
+
+    RegisterArgGetter(
+        alt::CEvent::Type::REMOVE_ENTITY_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CRemoveEntityEvent*>(ev);
+            Entity entity{ event->GetEntity() };
+
+            return py::make_tuple(entity);
+        }
+    );
+
+    #pragma endregion
+
+    #pragma region BaseObjectEvent
+
+    RegisterArgGetter(
+        alt::CEvent::Type::CREATE_BASE_OBJECT_EVENT,
+        [](const alt::CEvent* ev) {
+            auto event = dynamic_cast<const alt::CCreateBaseObjectEvent*>(ev);
+            BaseObject object{ event->GetObject() };
+
+            return py::make_tuple(object);
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::REMOVE_BASE_OBJECT_EVENT,
+        [](const alt::CEvent* ev) {
+            auto event = dynamic_cast<const alt::CRemoveBaseObjectEvent*>(ev);
+            BaseObject object{ event->GetObject() };
+
+            return py::make_tuple(object);
+        }
+    );
+
+    #pragma endregion
+
     #pragma region PlayerEvents
 
     RegisterArgGetter(
