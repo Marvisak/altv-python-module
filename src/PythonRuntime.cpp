@@ -148,8 +148,6 @@ PythonRuntime::PythonRuntime()
             auto event = dynamic_cast<const alt::CPlayerDamageEvent*>(ev);
             Player player{ event->GetTarget() };
             Entity attacker{ event->GetAttacker() };
-            alt::IBaseObject::Type attackerType { attacker.GetType() };
-            uint16_t attackerId {attacker.GetID()};
             uint32_t weapon{ event->GetWeapon() };
             int16_t healthDamage{ event->GetHealthDamage() };
             int16_t armourDamage{ event->GetArmourDamage() };
@@ -158,8 +156,6 @@ PythonRuntime::PythonRuntime()
 
             args.append(player);
             args.append(attacker);
-            args.append(attackerType);
-            args.append(attackerId);
             args.append(weapon);
             args.append(healthDamage);
             args.append(armourDamage);
@@ -253,6 +249,80 @@ PythonRuntime::PythonRuntime()
             return args;
         }
     );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::VEHICLE_ATTACH,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CVehicleAttachEvent*>(ev);
+            Vehicle vehicle{ event->GetTarget() };
+            Vehicle attached{ event->GetAttached() };
+
+            py::list args;
+
+            args.append(vehicle);
+            args.append(attached);
+
+            return args;
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::VEHICLE_DAMAGE,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CVehicleDamageEvent*>(ev);
+            Vehicle vehicle{ event->GetTarget() };
+            Entity damager{ event->GetDamager() };
+
+            uint32_t bodyHealthDamage{ event->GetBodyHealthDamage() };
+            uint32_t bodyAdditionalHealthDamage{ event->GetBodyAdditionalHealthDamage() };
+            uint32_t engineHealthDamage{ event->GetEngineHealthDamage() };
+            uint32_t petrolTankHealthDamage{ event->GetPetrolTankHealthDamage() };
+            uint32_t damagedWith{ event->GetDamagedWith() };
+
+            py::list args;
+
+            args.append(vehicle);
+            args.append(damager);
+
+            args.append(bodyHealthDamage);
+            args.append(bodyAdditionalHealthDamage);
+            args.append(engineHealthDamage);
+            args.append(petrolTankHealthDamage);
+            args.append(damagedWith);
+
+            return args;
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::VEHICLE_DESTROY,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CVehicleDestroyEvent*>(ev);
+            Vehicle vehicle{ event->GetTarget() };
+            return py::make_tuple(vehicle);
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::VEHICLE_DETACH,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CVehicleDetachEvent*>(ev);
+            Vehicle vehicle{ event->GetTarget() };
+            Vehicle detached{ event->GetDetached() };
+
+            py::list args;
+
+            args.append(vehicle);
+            args.append(detached);
+
+            return args;
+        }
+    );
+
     #pragma endregion
 
     #pragma region ColshapeEvents
