@@ -5,7 +5,7 @@
 #include "events.h"
 #include "classes/classes.h"
 #include "alt.h"
-#include "classes/enum.h"
+#include "classes/enums/enum.h"
 
 
 PYBIND11_EMBEDDED_MODULE(alt, m)
