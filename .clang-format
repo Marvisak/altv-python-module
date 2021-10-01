@@ -1,0 +1,9 @@
+---
+BasedOnStyle: Microsoft
+IndentWidth: 4
+---
+Language: Cpp
+ColumnLimit: 190
+Standard: c++17
+DeriveLineEnding: true
+UseTab: Never

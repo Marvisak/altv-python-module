@@ -1,4 +1,6 @@
 #pragma once
+#include <utility>
+
 #include "main.h"
 #include "utils.h"
 #include "worldobject.h"
@@ -54,6 +56,12 @@ public:
     void DeleteSyncedMetaData(const std::string& key) { entity->DeleteSyncedMetaData(key); }
     void SetStreamSyncedMetaData(const std::string& key, const py::object& val) { entity->SetStreamSyncedMetaData(key, Utils::ValueToMValue(val)); }
     void DeleteStreamSyncedMetaData(const std::string& key) { entity->DeleteStreamSyncedMetaData(key); }
+
+    void AttachEntityToEntity(alt::Ref<alt::IEntity> otherEntity, int16_t otherBoneIndex, int16_t myBoneIndex, Vector3 position, Vector3 rotation, bool collision, bool noFixedRot) { entity->AttachToEntity(otherEntity, otherBoneIndex, myBoneIndex, position.toAltPos(), rotation.toAltRot(), collision, noFixedRot); }
+    void Detach() { entity->Detach(); }
+
+    void SetStreamed(bool toggle) { entity->SetStreamed(toggle); }
+    bool GetStreamed() const { return entity->GetStreamed(); }
 
     static py::object GetById(uint16_t number) {
         auto entity = Core->GetEntityByID(number);
