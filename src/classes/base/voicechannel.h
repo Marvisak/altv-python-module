@@ -10,6 +10,8 @@ private:
 public:
     VoiceChannel(const alt::Ref<alt::IVoiceChannel> voiceChannel) : voiceChannel(voiceChannel), BaseObject(voiceChannel) {}
 
+    bool IsSpatial() const { return voiceChannel->IsSpatial(); }
+    float GetMaxDistance() const { return voiceChannel->GetMaxDistance(); }
 
     bool HasPlayer(const Player& player) { return voiceChannel->HasPlayer(player.GetBaseObject()); }
     void AddPlayer(const Player& player) { voiceChannel->AddPlayer(player.GetBaseObject()); }

@@ -14,4 +14,7 @@ void RegisterVoiceChannelClass(const py::module_& m) {
     pyClass.def("mutePlayer", &VoiceChannel::MutePlayer, py::arg("player"));
     pyClass.def("unmutePlayer", &VoiceChannel::UnmutePlayer, py::arg("player"));
 
+    // Properties
+    pyClass.def_property_readonly("maxDistance", &VoiceChannel::GetMaxDistance);
+    pyClass.def_property_readonly("isSpatial", &VoiceChannel::IsSpatial);
 }
