@@ -1,6 +1,7 @@
 #include "baseobject.h"
 
-void RegisterBaseObjectClass(const py::module_& m) {
+void RegisterBaseObjectClass(const py::module_ &m)
+{
     auto pyClass = py::class_<BaseObject>(m, "BaseObject");
     pyClass.def_property_readonly("type", &BaseObject::GetType);
     pyClass.def_property_readonly("valid", &BaseObject::IsValid);
