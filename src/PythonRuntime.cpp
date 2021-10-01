@@ -11,6 +11,7 @@ PythonRuntime::PythonRuntime()
 
     instance = this;
 
+    #pragma region ResourceEvents
     RegisterArgGetter(
             alt::CEvent::Type::RESOURCE_ERROR,
             [](const alt::CEvent* ev)
@@ -40,81 +41,195 @@ PythonRuntime::PythonRuntime()
                 return py::make_tuple(resourceName);
             }
     );
+#pragma endregion
+
+    #pragma region ScriptEvents
 
     RegisterArgGetter(
-            alt::CEvent::Type::CONSOLE_COMMAND_EVENT,
-            [](const alt::CEvent* ev)
+        alt::CEvent::Type::SERVER_SCRIPT_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
+            py::list args;
+            for (const auto& arg : event->GetArgs())
             {
-                auto event = dynamic_cast<const alt::CConsoleCommandEvent*>(ev);
-                auto args = event->GetArgs();
-                auto name = event->GetName();
-                py::list pyArgs;
-                pyArgs.append(name.ToString());
-                for (auto arg : args)
-                {
-                    pyArgs.append(arg.ToString());
-                }
-                return pyArgs;
+                auto value = Utils::MValueToValue(arg);
+                args.append(value);
             }
+            return args;
+        }
     );
 
     RegisterArgGetter(
-            alt::CEvent::Type::SERVER_SCRIPT_EVENT,
-            [](const alt::CEvent* ev)
+        alt::CEvent::Type::CLIENT_SCRIPT_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
+            py::list args;
+            auto player = event->GetTarget();
+            args.append(Player(player));
+            for (const auto& arg : event->GetArgs())
             {
-                auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
-                py::list args;
-                for (const auto &arg : event->GetArgs())
-                {
-                    auto value = Utils::MValueToValue(arg);
-                    args.append(value);
-                }
-                return args;
+                auto value = Utils::MValueToValue(arg);
+                args.append(value);
             }
+            return args;
+        }
+    );
+
+    #pragma endregion
+
+    #pragma region PlayerEvents
+
+    RegisterArgGetter(
+        alt::CEvent::Type::PLAYER_CONNECT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerConnectEvent*>(ev);
+            Player player{ event->GetTarget() };
+            return py::make_tuple(player);
+        }
     );
 
     RegisterArgGetter(
-            alt::CEvent::Type::CLIENT_SCRIPT_EVENT,
-            [](const alt::CEvent* ev)
-            {
-                auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
-                py::list args;
-                auto player = event->GetTarget();
-                args.append(Player(player));
-                for (const auto &arg : event->GetArgs())
-                {
-                    auto value = Utils::MValueToValue(arg);
-                    args.append(value);
-                }
-                return args;
-            }
+        alt::CEvent::Type::PLAYER_DISCONNECT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerDisconnectEvent*>(ev);
+            Player player{ event->GetTarget() };
+            alt::String reason{ event->GetReason().ToString() };
+
+            py::list args;
+
+            args.append(player);
+            args.append(reason);
+
+            return args;
+        }
     );
 
     RegisterArgGetter(
-            alt::CEvent::Type::PLAYER_CONNECT,
-            [](const alt::CEvent* ev)
-            {
-                auto event = dynamic_cast<const alt::CPlayerConnectEvent*>(ev);
-                Player player {event->GetTarget()};
-                return py::make_tuple(player);
-            }
+        alt::CEvent::Type::PLAYER_DAMAGE,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerDamageEvent*>(ev);
+            Player player{ event->GetTarget() };
+            Entity attacker{ event->GetAttacker() };
+            uint32_t weapon{ event->GetWeapon() };
+            uint16_t healthDamage{ event->GetHealthDamage() };
+            uint16_t armourDamage{ event->GetArmourDamage() };
+
+            py::list args;
+
+            args.append(player);
+            args.append(attacker);
+            args.append(weapon);
+            args.append(healthDamage);
+            args.append(armourDamage);
+
+            return args;
+        }
     );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::PLAYER_DEATH,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerDeathEvent*>(ev);
+            Player player{ event->GetTarget() };
+            Entity killer{ event->GetKiller() };
+            uint32_t weapon{ event->GetWeapon() };
+
+            py::list args;
+
+            args.append(player);
+            args.append(killer);
+            args.append(weapon);
+
+            return args;
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::PLAYER_WEAPON_CHANGE,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerWeaponChangeEvent*>(ev);
+            Player target{ event->GetTarget() };
+            uint32_t oldWeapon{ event->GetOldWeapon() };
+            uint32_t newWeapon{ event->GetNewWeapon() };
+
+            py::list args;
+
+            args.append(target);
+            args.append(oldWeapon);
+            args.append(newWeapon);
+
+            return args;
+        }
+    );
+
+    #pragma endregion
+
+    #pragma region VehicleEvents
 
     RegisterArgGetter(
         alt::CEvent::Type::PLAYER_ENTER_VEHICLE,
         [](const alt::CEvent* ev)
         {
             auto event = dynamic_cast<const alt::CPlayerEnterVehicleEvent*>(ev);
-            
-            Vehicle vehicle {event->GetTarget()};
-            Player player {event->GetPlayer()};
-            uint8_t seat {event->GetSeat()};
-        
+
+            Vehicle vehicle{ event->GetTarget() };
+            Player player{ event->GetPlayer() };
+            uint8_t seat{ event->GetSeat() };
+
             py::list args;
 
             args.append(player);
             args.append(vehicle);
             args.append(seat);
+
+            return args;
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::PLAYER_ENTERING_VEHICLE,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerEnteringVehicleEvent*>(ev);
+
+            Vehicle vehicle{ event->GetTarget() };
+            Player player{ event->GetPlayer() };
+            uint8_t seat{ event->GetSeat() };
+
+            py::list args;
+
+            args.append(player);
+            args.append(vehicle);
+            args.append(seat);
+
+            return args;
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::PLAYER_CHANGE_VEHICLE_SEAT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerChangeVehicleSeatEvent*>(ev);
+
+            Vehicle vehicle{ event->GetTarget() };
+            Player player{ event->GetPlayer() };
+            uint8_t oldSeat{ event->GetOldSeat() };
+            uint8_t newSeat{ event->GetNewSeat() };
+
+            py::list args;
+
+            args.append(player);
+            args.append(vehicle);
+            args.append(oldSeat);
+            args.append(newSeat);
 
             return args;
         }
@@ -125,11 +240,11 @@ PythonRuntime::PythonRuntime()
         [](const alt::CEvent* ev)
         {
             auto event = dynamic_cast<const alt::CPlayerLeaveVehicleEvent*>(ev);
-            
-            Vehicle vehicle {event->GetTarget()};
-            Player player {event->GetPlayer()};
-            uint8_t seat {event->GetSeat()};
-        
+
+            Vehicle vehicle{ event->GetTarget() };
+            Player player{ event->GetPlayer() };
+            uint8_t seat{ event->GetSeat() };
+
             py::list args;
 
             args.append(player);
@@ -141,25 +256,125 @@ PythonRuntime::PythonRuntime()
     );
 
     RegisterArgGetter(
-            alt::CEvent::Type::COLSHAPE_EVENT,
-            [](const alt::CEvent* ev)
-            {
-                auto event = dynamic_cast<const alt::CColShapeEvent*>(ev);
+        alt::CEvent::Type::VEHICLE_ATTACH,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CVehicleAttachEvent*>(ev);
+            Vehicle vehicle{ event->GetTarget() };
+            Vehicle attached{ event->GetAttached() };
 
-                Colshape colshape {event->GetTarget()};
-                Entity entity {event->GetEntity()};
+            py::list args;
 
-                py::list args;
+            args.append(vehicle);
+            args.append(attached);
 
-                args.append(colshape);
-                args.append(entity);
-
-                // TODO - Remove when the event system is updated to support more than one name
-                args.append(event->GetState());
-
-                return args;
-            }
+            return args;
+        }
     );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::VEHICLE_DAMAGE,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CVehicleDamageEvent*>(ev);
+            Vehicle vehicle{ event->GetTarget() };
+            Entity damager{ event->GetDamager() };
+
+            uint32_t bodyHealthDamage{ event->GetBodyHealthDamage() };
+            uint32_t bodyAdditionalHealthDamage{ event->GetBodyAdditionalHealthDamage() };
+            uint32_t engineHealthDamage{ event->GetEngineHealthDamage() };
+            uint32_t petrolTankHealthDamage{ event->GetPetrolTankHealthDamage() };
+            uint32_t damagedWith{ event->GetDamagedWith() };
+
+            py::list args;
+
+            args.append(vehicle);
+            args.append(damager);
+
+            args.append(bodyHealthDamage);
+            args.append(bodyAdditionalHealthDamage);
+            args.append(engineHealthDamage);
+            args.append(petrolTankHealthDamage);
+            args.append(damagedWith);
+
+            return args;
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::VEHICLE_DESTROY,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CVehicleDestroyEvent*>(ev);
+            Vehicle vehicle{ event->GetTarget() };
+            return py::make_tuple(vehicle);
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::VEHICLE_DETACH,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CVehicleDetachEvent*>(ev);
+            Vehicle vehicle{ event->GetTarget() };
+            Vehicle detached{ event->GetDetached() };
+
+            py::list args;
+
+            args.append(vehicle);
+            args.append(detached);
+
+            return args;
+        }
+    );
+
+    #pragma endregion
+
+    #pragma region ColshapeEvents
+
+    RegisterArgGetter(
+        alt::CEvent::Type::COLSHAPE_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CColShapeEvent*>(ev);
+
+            Colshape colshape{ event->GetTarget() };
+            Entity entity{ event->GetEntity() };
+
+            py::list args;
+
+            args.append(colshape);
+            args.append(entity);
+
+            // TODO - Remove when the event system is updated to support more than one name
+            args.append(event->GetState());
+
+            return args;
+        }
+    );
+
+    #pragma endregion
+
+    #pragma region OtherEvents
+
+    RegisterArgGetter(
+        alt::CEvent::Type::CONSOLE_COMMAND_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CConsoleCommandEvent*>(ev);
+            auto args = event->GetArgs();
+            auto name = event->GetName();
+            py::list pyArgs;
+            pyArgs.append(name.ToString());
+            for (auto arg : args)
+            {
+                pyArgs.append(arg.ToString());
+            }
+            return pyArgs;
+        }
+    );
+
+    #pragma endregion
 
 }
 
