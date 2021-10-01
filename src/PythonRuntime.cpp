@@ -11,6 +11,7 @@ PythonRuntime::PythonRuntime()
 
     instance = this;
 
+    #pragma region ResourceEvents
     RegisterArgGetter(
             alt::CEvent::Type::RESOURCE_ERROR,
             [](const alt::CEvent* ev)
@@ -40,60 +41,46 @@ PythonRuntime::PythonRuntime()
                 return py::make_tuple(resourceName);
             }
     );
+#pragma endregion
+
+    #pragma region ScriptEvents
 
     RegisterArgGetter(
-            alt::CEvent::Type::CONSOLE_COMMAND_EVENT,
-            [](const alt::CEvent* ev)
-            {
-                auto event = dynamic_cast<const alt::CConsoleCommandEvent*>(ev);
-                auto args = event->GetArgs();
-                auto name = event->GetName();
-                py::list pyArgs;
-                pyArgs.append(name.ToString());
-                for (auto arg : args)
-                {
-                    pyArgs.append(arg.ToString());
-                }
-                return pyArgs;
+        alt::CEvent::Type::SERVER_SCRIPT_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
+
+            py::list args;
+
+            alt::MValueArgs serverArgs = event->GetArgs();
+            uint64_t size = serverArgs.GetSize();
+            if (size == 0) {
+                args.append(event->GetName().CStr());
+                args.append(nullptr);
+                args.append(0);
             }
+            else {
+#ifdef _WIN32
+                auto constArgs = new alt::MValueConst * [size];
+#endif
+                for (uint64_t i = 0; i < size; i++) {
+                    constArgs[i] = &serverArgs[i];
+                }
+                args.append(event->GetName().CStr());
+                args.append(constArgs);
+                args.append(size);
+#ifdef _WIN32
+                delete[] constArgs;
+#endif
+            }
+            return args;
+        }
     );
 
     RegisterArgGetter(
-            alt::CEvent::Type::SERVER_SCRIPT_EVENT,
-            [](const alt::CEvent* ev)
-            {
-                auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
-
-                py::list args;
-
-                alt::MValueArgs serverArgs = event->GetArgs();
-                uint64_t size = serverArgs.GetSize();
-                if (size == 0) {
-                    args.append(event->GetName().CStr());
-                    args.append(nullptr);
-                    args.append(0);
-                }
-                else {
-#ifdef _WIN32
-                    auto constArgs = new alt::MValueConst * [size];
-#endif
-                    for (uint64_t i = 0; i < size; i++) {
-                        constArgs[i] = &serverArgs[i];
-                    }
-                    args.append(event->GetName().CStr());
-                    args.append(constArgs);
-                    args.append(size);
-#ifdef _WIN32
-                    delete[] constArgs;
-#endif
-                }
-                return args;
-            }
-    );
-
-    RegisterArgGetter(
-            alt::CEvent::Type::CLIENT_SCRIPT_EVENT,
-            [](const alt::CEvent* ev)
+        alt::CEvent::Type::CLIENT_SCRIPT_EVENT,
+        [](const alt::CEvent* ev)
         {
             auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
 
@@ -124,14 +111,18 @@ PythonRuntime::PythonRuntime()
         }
     );
 
+    #pragma endregion
+
+    #pragma region PlayerEvents
+
     RegisterArgGetter(
-            alt::CEvent::Type::PLAYER_CONNECT,
-            [](const alt::CEvent* ev)
-            {
-                auto event = dynamic_cast<const alt::CPlayerConnectEvent*>(ev);
-                Player player {event->GetTarget()};
-                return py::make_tuple(player);
-            }
+        alt::CEvent::Type::PLAYER_CONNECT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerConnectEvent*>(ev);
+            Player player{ event->GetTarget() };
+            return py::make_tuple(player);
+        }
     );
 
     RegisterArgGetter(
@@ -150,17 +141,19 @@ PythonRuntime::PythonRuntime()
         }
     );
 
+    #pragma endregion
 
+    #pragma region VehicleEvents
     RegisterArgGetter(
         alt::CEvent::Type::PLAYER_ENTER_VEHICLE,
         [](const alt::CEvent* ev)
         {
             auto event = dynamic_cast<const alt::CPlayerEnterVehicleEvent*>(ev);
-            
-            Vehicle vehicle {event->GetTarget()};
-            Player player {event->GetPlayer()};
-            uint8_t seat {event->GetSeat()};
-        
+
+            Vehicle vehicle{ event->GetTarget() };
+            Player player{ event->GetPlayer() };
+            uint8_t seat{ event->GetSeat() };
+
             py::list args;
 
             args.append(vehicle);
@@ -197,10 +190,10 @@ PythonRuntime::PythonRuntime()
         {
             auto event = dynamic_cast<const alt::CPlayerChangeVehicleSeatEvent*>(ev);
 
-            Vehicle vehicle { event->GetTarget() };
-            Player player { event->GetPlayer() };
-            uint8_t oldSeat { event->GetOldSeat() };
-            uint8_t newSeat { event->GetNewSeat() };
+            Vehicle vehicle{ event->GetTarget() };
+            Player player{ event->GetPlayer() };
+            uint8_t oldSeat{ event->GetOldSeat() };
+            uint8_t newSeat{ event->GetNewSeat() };
 
             py::list args;
 
@@ -218,11 +211,11 @@ PythonRuntime::PythonRuntime()
         [](const alt::CEvent* ev)
         {
             auto event = dynamic_cast<const alt::CPlayerLeaveVehicleEvent*>(ev);
-            
-            Vehicle vehicle {event->GetTarget()};
-            Player player {event->GetPlayer()};
-            uint8_t seat {event->GetSeat()};
-        
+
+            Vehicle vehicle{ event->GetTarget() };
+            Player player{ event->GetPlayer() };
+            uint8_t seat{ event->GetSeat() };
+
             py::list args;
 
             args.append(player);
@@ -232,27 +225,54 @@ PythonRuntime::PythonRuntime()
             return args;
         }
     );
+    #pragma endregion
+
+    #pragma region ColshapeEvents
 
     RegisterArgGetter(
-            alt::CEvent::Type::COLSHAPE_EVENT,
-            [](const alt::CEvent* ev)
-            {
-                auto event = dynamic_cast<const alt::CColShapeEvent*>(ev);
+        alt::CEvent::Type::COLSHAPE_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CColShapeEvent*>(ev);
 
-                Colshape colshape {event->GetTarget()};
-                Entity entity {event->GetEntity()};
+            Colshape colshape{ event->GetTarget() };
+            Entity entity{ event->GetEntity() };
 
-                py::list args;
+            py::list args;
 
-                args.append(colshape);
-                args.append(entity);
+            args.append(colshape);
+            args.append(entity);
 
-                // TODO - Remove when the event system is updated to support more than one name
-                args.append(event->GetState());
+            // TODO - Remove when the event system is updated to support more than one name
+            args.append(event->GetState());
 
-                return args;
-            }
+            return args;
+        }
     );
+
+    #pragma endregion
+
+    #pragma region OtherEvents
+
+    RegisterArgGetter(
+        alt::CEvent::Type::CONSOLE_COMMAND_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CConsoleCommandEvent*>(ev);
+            auto args = event->GetArgs();
+            auto name = event->GetName();
+            py::list pyArgs;
+            pyArgs.append(name.ToString());
+            for (auto arg : args)
+            {
+                pyArgs.append(arg.ToString());
+            }
+            return pyArgs;
+        }
+    );
+
+    #pragma endregion
+
 
 }
 
