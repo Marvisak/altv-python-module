@@ -12,3 +12,4 @@ void RegisterClothesClass(const py::module_& m) {
     pyClass.def_readwrite("paletteId", &Clothes::paletteId);
     pyClass.def("__str__", &Clothes::toString);
 }
+

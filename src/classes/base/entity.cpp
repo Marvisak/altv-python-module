@@ -42,4 +42,10 @@ void RegisterEntityClass(const py::module_ &m) {
     pyClass.def("setStreamSyncedMeta", &Entity::SetStreamSyncedMetaData);
     pyClass.def("setSyncedMeta", &Entity::SetSyncedMetaData);
 
+    // Attach
+    pyClass.def("attachEntityToEntity", &Entity::AttachEntityToEntity);
+    pyClass.def("detach", &Entity::Detach);
+
+    // Streamed
+    pyClass.def_property("streamed", &Entity::GetStreamed, &Entity::SetStreamed);
 }
