@@ -5,58 +5,58 @@
 
 namespace Utils
 {
-PythonResource *GetResourceFromFrame(PyFrameObject *frame);
-alt::MValue ValueToMValue(const py::object &arg);
-py::object MValueToValue(const alt::MValueConst &mValue);
-std::string GetTypeOfObject(const py::object &object);
-py::list ArrayToPyList(const alt::Array<uint32_t> &list);
+	PythonResource* GetResourceFromFrame(PyFrameObject* frame);
+	alt::MValue ValueToMValue(const py::object& arg);
+	py::object MValueToValue(const alt::MValueConst& mValue);
+	std::string GetTypeOfObject(const py::object& object);
+	py::list ArrayToPyList(const alt::Array<uint32_t>& list);
 
-const std::vector<std::string> EventTypes{
-    "NONE",
+	const std::vector<std::string> EventTypes{
+		"NONE",
 
-    "playerConnect",
-    "playerDisconnect",
+		"playerConnect",
+		"playerDisconnect",
 
-    "anyResourceStart",
-    "anyResourceStop",
-    "anyResourceError",
+		"anyResourceStart",
+		"anyResourceStop",
+		"anyResourceError",
 
-    "SERVER_SCRIPT_EVENT",
-    "CLIENT_SCRIPT_EVENT",
+		"SERVER_SCRIPT_EVENT",
+		"CLIENT_SCRIPT_EVENT",
 
-    "metaChange",
-    "syncedMetaChange",
-    "streamSyncedMetaChange",
-    "globalMetaChange",
-    "globalSyncedMetaChange",
+		"metaChange",
+		"syncedMetaChange",
+		"streamSyncedMetaChange",
+		"globalMetaChange",
+		"globalSyncedMetaChange",
 
-    "playerDamage",
-    "playerDeath",
-    "startFire",
-    "explosion",
-    "startProjectile",
-    "weaponDamage",
-    "vehicleDestroy",
-    "vehicleDamage",
+		"playerDamage",
+		"playerDeath",
+		"startFire",
+		"explosion",
+		"startProjectile",
+		"weaponDamage",
+		"vehicleDestroy",
+		"vehicleDamage",
 
-    "checkpoint",
-    "colshape",
-    "playerEnterVehicle",
-    "playerEnteringVehicle",
-    "playerLeaveVehicle",
-    "playerChangeVehicleSeat",
-    "playerWeaponChange",
+		"checkpoint",
+		"colshape",
+		"playerEnterVehicle",
+		"playerEnteringVehicle",
+		"playerLeaveVehicle",
+		"playerChangeVehicleSeat",
+		"playerWeaponChange",
 
-    "vehicleAttach",
-    "vehicleDetach",
-    "netOwnerChange",
+		"vehicleAttach",
+		"vehicleDetach",
+		"netOwnerChange",
 
-    "removeEntity",
-    "createBaseObject",
-    "removeBaseObject",
+		"removeEntity",
+		"createBaseObject",
+		"removeBaseObject",
 
-    "dataNodeReceived",
+		"dataNodeReceived",
 
-    "consoleCommand",
-};
-} // namespace Utils
+		"consoleCommand",
+	};
+}// namespace Utils
