@@ -23,7 +23,7 @@ class PythonRuntime : public alt::IScriptRuntime
 		return ArgGetters[eventName];
 	}
 
-	std::string GetEventType(alt::CEvent::Type ev);
+	static std::string GetEventType(alt::CEvent::Type ev);
 
 	alt::IResource::Impl* CreateImpl(alt::IResource* resource) override;
 
