@@ -1,7 +1,8 @@
-#include "classes/base/worldobject.h"
 #include "classes/base/colshape.h"
+#include "classes/base/worldobject.h"
 
-void RegisterColshapeClass(const py::module_& m) {
+void RegisterColshapeClass(const py::module_ &m)
+{
     auto pyClass = py::class_<Colshape, WorldObject>(m, "Colshape");
 
     // Methods

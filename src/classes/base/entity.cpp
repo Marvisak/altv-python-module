@@ -1,15 +1,18 @@
 #include "entity.h"
 #include "player.h"
 
-Player Entity::GetNetOwner() const {
+Player Entity::GetNetOwner() const
+{
     return entity->GetNetworkOwner();
 }
 
-void Entity::SetNetOwner(const Player& player, bool disableMigration) {
+void Entity::SetNetOwner(const Player &player, bool disableMigration)
+{
     entity->SetNetworkOwner(player.GetBaseObject(), disableMigration);
 }
 
-void RegisterEntityClass(const py::module_ &m) {
+void RegisterEntityClass(const py::module_ &m)
+{
     auto pyClass = py::class_<Entity, WorldObject>(m, "Entity");
 
     pyClass.def_property_readonly_static("all", &Entity::GetAllEntities);
