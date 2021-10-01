@@ -164,6 +164,44 @@ PythonRuntime::PythonRuntime()
         }
     );
 
+    RegisterArgGetter(
+        alt::CEvent::Type::PLAYER_DEATH,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerDeathEvent*>(ev);
+            Player player{ event->GetTarget() };
+            Entity killer{ event->GetKiller() };
+            uint32_t weapon{ event->GetWeapon() };
+
+            py::list args;
+
+            args.append(player);
+            args.append(killer);
+            args.append(weapon);
+
+            return args;
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::PLAYER_WEAPON_CHANGE,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerWeaponChangeEvent*>(ev);
+            Player target{ event->GetTarget() };
+            uint32_t oldWeapon{ event->GetOldWeapon() };
+            uint32_t newWeapon{ event->GetNewWeapon() };
+
+            py::list args;
+
+            args.append(target);
+            args.append(oldWeapon);
+            args.append(newWeapon);
+
+            return args;
+        }
+    );
+
     #pragma endregion
 
     #pragma region VehicleEvents
