@@ -505,6 +505,23 @@ PythonRuntime::PythonRuntime()
         }
     );
 
+    RegisterArgGetter(
+        alt::CEvent::Type::NETOWNER_CHANGE,
+        [](const alt::CEvent *ev) {
+            auto event = dynamic_cast<const alt::CNetOwnerChangeEvent *>(ev);
+            Entity entity{event->GetTarget()};
+            Player newOwner{event->GetNewOwner()};
+            Player oldOwner{event->GetOldOwner()};
+
+            py::list args;
+            args.append(entity);
+            args.append(newOwner);
+            args.append(oldOwner);
+
+            return args;
+        }
+    );
+
     #pragma endregion
 
 }

@@ -36,8 +36,6 @@ namespace Utils
             "explosion",
             "startProjectile",
             "weaponDamage",
-            "vehicleDestroy",
-            "vehicleDamage",
 
             "checkpoint",
             "colshape",
@@ -48,7 +46,10 @@ namespace Utils
             "playerWeaponChange",
 
             "vehicleAttach",
+            "vehicleDestroy",
+            "vehicleDamage",
             "vehicleDetach",
+
             "netOwnerChange",
 
             "removeEntity",
