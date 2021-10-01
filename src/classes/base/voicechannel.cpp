@@ -1,10 +1,9 @@
 #include "voicechannel.h"
 
-void RegisterVoiceChannelClass(const py::module_& m) {
+void RegisterVoiceChannelClass(const py::module_ &m)
+{
     auto pyClass = py::class_<VoiceChannel, BaseObject>(m, "VoiceChannel");
-    pyClass.def(py::init([](bool isSpatial, float maxDistance) {
-        return VoiceChannel(Core->CreateVoiceChannel(isSpatial, maxDistance));
-    }));
+    pyClass.def(py::init([](bool isSpatial, float maxDistance) { return VoiceChannel(Core->CreateVoiceChannel(isSpatial, maxDistance)); }));
 
     // Methods
     pyClass.def("hasPlayer", &VoiceChannel::HasPlayer, py::arg("player"));

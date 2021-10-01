@@ -1,9 +1,9 @@
 #include "main.h"
 #include "PythonRuntime.h"
 
-alt::ICore* Core;
+alt::ICore *Core;
 
-EXPORT bool altMain(alt::ICore* core)
+EXPORT bool altMain(alt::ICore *core)
 {
     alt::ICore::SetInstance(core);
     Core = core;
@@ -13,7 +13,6 @@ EXPORT bool altMain(alt::ICore* core)
 
     core->LogInfo("Python module successfully loaded");
     return true;
-
 }
 
 EXPORT uint32_t GetSDKVersion()

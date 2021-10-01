@@ -4,7 +4,8 @@
 
 #include "dlcprops.h"
 
-void RegisterDlcPropClass(const py::module_& m) {
+void RegisterDlcPropClass(const py::module_ &m)
+{
     auto pyClass = py::class_<DlcProps>(m, "dlcProps");
     pyClass.def(py::init([](uint32_t _dlc, uint8_t _drawableId, uint8_t _textureId) { return DlcProps(_dlc, _drawableId, _textureId); }));
     pyClass.def_readwrite("dlc", &DlcProps::dlc);

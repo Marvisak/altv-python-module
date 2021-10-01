@@ -1,6 +1,7 @@
 #include "classes/vector3.h"
 
-py::dict Vector3::ToDict() {
+py::dict Vector3::ToDict()
+{
     py::dict dict;
     dict["x"] = x;
     dict["y"] = y;
@@ -17,9 +18,10 @@ py::list Vector3::ToList()
     return list;
 }
 
-void RegisterVector3Class(const pybind11::module_& m) {
+void RegisterVector3Class(const pybind11::module_ &m)
+{
     auto pyClass = py::class_<Vector3>(m, "Vector3");
-    pyClass.def(py::init([](float _x, float _y, float _z) {return Vector3(_x, _y, _z);}));
+    pyClass.def(py::init([](float _x, float _y, float _z) { return Vector3(_x, _y, _z); }));
     pyClass.def_readwrite("x", &Vector3::x);
     pyClass.def_readwrite("y", &Vector3::y);
     pyClass.def_readwrite("z", &Vector3::z);
@@ -35,34 +37,34 @@ void RegisterVector3Class(const pybind11::module_& m) {
     pyClass.def("isInRange", &Vector3::IsInRange);
 
     pyClass.def("add", py::overload_cast<const double>(&Vector3::Add));
-    pyClass.def("add", py::overload_cast<const py::list&>(&Vector3::Add));
+    pyClass.def("add", py::overload_cast<const py::list &>(&Vector3::Add));
     pyClass.def("add", py::overload_cast<const double, const double, const double>(&Vector3::Add));
-    pyClass.def("add", py::overload_cast<const Vector3&>(&Vector3::Add));
+    pyClass.def("add", py::overload_cast<const Vector3 &>(&Vector3::Add));
 
     pyClass.def("cross", py::overload_cast<const double>(&Vector3::Cross));
-    pyClass.def("cross", py::overload_cast<const py::list&>(&Vector3::Cross));
+    pyClass.def("cross", py::overload_cast<const py::list &>(&Vector3::Cross));
     pyClass.def("cross", py::overload_cast<const double, const double, const double>(&Vector3::Cross));
-    pyClass.def("cross", py::overload_cast<const Vector3&>(&Vector3::Cross));
+    pyClass.def("cross", py::overload_cast<const Vector3 &>(&Vector3::Cross));
 
     pyClass.def("div", py::overload_cast<const double>(&Vector3::Div));
-    pyClass.def("div", py::overload_cast<const py::list&>(&Vector3::Div));
+    pyClass.def("div", py::overload_cast<const py::list &>(&Vector3::Div));
     pyClass.def("div", py::overload_cast<const double, const double, const double>(&Vector3::Div));
-    pyClass.def("div", py::overload_cast<const Vector3&>(&Vector3::Div));
+    pyClass.def("div", py::overload_cast<const Vector3 &>(&Vector3::Div));
 
     pyClass.def("dot", py::overload_cast<const double>(&Vector3::Dot));
-    pyClass.def("dot", py::overload_cast<const py::list&>(&Vector3::Dot));
+    pyClass.def("dot", py::overload_cast<const py::list &>(&Vector3::Dot));
     pyClass.def("dot", py::overload_cast<const double, const double, const double>(&Vector3::Dot));
-    pyClass.def("dot", py::overload_cast<const Vector3&>(&Vector3::Dot));
+    pyClass.def("dot", py::overload_cast<const Vector3 &>(&Vector3::Dot));
 
     pyClass.def("sub", py::overload_cast<const double>(&Vector3::Sub));
-    pyClass.def("sub", py::overload_cast<const py::list&>(&Vector3::Sub));
+    pyClass.def("sub", py::overload_cast<const py::list &>(&Vector3::Sub));
     pyClass.def("sub", py::overload_cast<const double, const double, const double>(&Vector3::Sub));
-    pyClass.def("sub", py::overload_cast<const Vector3&>(&Vector3::Sub));
+    pyClass.def("sub", py::overload_cast<const Vector3 &>(&Vector3::Sub));
 
     pyClass.def("mul", py::overload_cast<const double>(&Vector3::Mul));
-    pyClass.def("mul", py::overload_cast<const py::list&>(&Vector3::Mul));
+    pyClass.def("mul", py::overload_cast<const py::list &>(&Vector3::Mul));
     pyClass.def("mul", py::overload_cast<const double, const double, const double>(&Vector3::Mul));
-    pyClass.def("mul", py::overload_cast<const Vector3&>(&Vector3::Mul));
+    pyClass.def("mul", py::overload_cast<const Vector3 &>(&Vector3::Mul));
 
     pyClass.def_property_readonly("zero", &Vector3::zero);
     pyClass.def_property_readonly("one", &Vector3::one);
