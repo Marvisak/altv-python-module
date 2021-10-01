@@ -374,10 +374,34 @@ PythonRuntime::PythonRuntime()
         {
             pyArgs.append(arg.ToString());
         }
-        return pyArgs;
-    });
+    );
 
-#pragma endregion
+    RegisterArgGetter(
+        alt::CEvent::Type::WEAPON_DAMAGE_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CWeaponDamageEvent*>(ev);
+            Player player{event->GetSource()};
+            Entity target{event->GetTarget()};
+            uint32_t weaponHash{event->GetWeaponHash()};
+            uint16_t damageValue{event->GetDamageValue()};
+            alt::Vector3f shotOffset{ event->GetShotOffset() };
+            alt::CWeaponDamageEvent::BodyPart bodyPart{event->GetBodyPart()};
+
+            py::list args;
+
+            args.append(player);
+            args.append(target);
+            args.append(weaponHash);
+            args.append(damageValue);
+            args.append(shotOffset);
+            args.append(bodyPart);
+
+            return args;
+        }
+    );
+
+     #pragma endregion
 }
 
 PythonResource *PythonRuntime::GetPythonResourceFromPath(std::string const &path)
