@@ -63,11 +63,29 @@ PythonRuntime::PythonRuntime()
             [](const alt::CEvent* ev)
             {
                 auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
+
                 py::list args;
-                for (const auto &arg : event->GetArgs())
-                {
-                    auto value = Utils::MValueToValue(arg);
-                    args.append(value);
+
+                alt::MValueArgs serverArgs = event->GetArgs();
+                uint64_t size = serverArgs.GetSize();
+                if (size == 0) {
+                    args.append(event->GetName().CStr());
+                    args.append(nullptr);
+                    args.append(0);
+                }
+                else {
+#ifdef _WIN32
+                    auto constArgs = new alt::MValueConst * [size];
+#endif
+                    for (uint64_t i = 0; i < size; i++) {
+                        constArgs[i] = &serverArgs[i];
+                    }
+                    args.append(event->GetName().CStr());
+                    args.append(constArgs);
+                    args.append(size);
+#ifdef _WIN32
+                    delete[] constArgs;
+#endif
                 }
                 return args;
             }
@@ -76,18 +94,34 @@ PythonRuntime::PythonRuntime()
     RegisterArgGetter(
             alt::CEvent::Type::CLIENT_SCRIPT_EVENT,
             [](const alt::CEvent* ev)
-            {
-                auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
-                py::list args;
-                auto player = event->GetTarget();
-                args.append(Player(player));
-                for (const auto &arg : event->GetArgs())
-                {
-                    auto value = Utils::MValueToValue(arg);
-                    args.append(value);
-                }
-                return args;
+        {
+            auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
+
+            py::list args;
+
+            alt::MValueArgs clientArgs = event->GetArgs();
+            uint64_t size = clientArgs.GetSize();
+            if (size == 0) {
+                args.append(event->GetName().CStr());
+                args.append(nullptr);
+                args.append(0);
             }
+            else {
+#ifdef _WIN32
+                auto constArgs = new alt::MValueConst * [size];
+#endif
+                for (uint64_t i = 0; i < size; i++) {
+                    constArgs[i] = &clientArgs[i];
+                }
+                args.append(event->GetName().CStr());
+                args.append(constArgs);
+                args.append(size);
+#ifdef _WIN32
+                delete[] constArgs;
+#endif
+            }
+            return args;
+        }
     );
 
     RegisterArgGetter(
@@ -112,8 +146,8 @@ PythonRuntime::PythonRuntime()
         
             py::list args;
 
-            args.append(player);
             args.append(vehicle);
+            args.append(player);
             args.append(seat);
 
             return args;
@@ -133,8 +167,8 @@ PythonRuntime::PythonRuntime()
 
             py::list args;
 
-            args.append(vehicle);
             args.append(player);
+            args.append(vehicle);
             args.append(oldSeat);
             args.append(newSeat);
 
