@@ -19,7 +19,8 @@ find_package (Python3 COMPONENTS Development)
 include_directories(
         "${PROJECT_SOURCE_DIR}/src"
         "${PROJECT_SOURCE_DIR}/vendors/cpp-sdk"
-        "${PROJECT_SOURCE_DIR}/vendors/pybind11/include"
+		"${PROJECT_SOURCE_DIR}/vendors/pybind11/include"
+		"${PROJECT_SOURCE_DIR}/vendors/magic_enum/include"
 		"${Python3_INCLUDE_DIRS}"
 )
 
