@@ -141,9 +141,37 @@ PythonRuntime::PythonRuntime()
         }
     );
 
+    RegisterArgGetter(
+        alt::CEvent::Type::PLAYER_DAMAGE,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CPlayerDamageEvent*>(ev);
+            Player player{ event->GetTarget() };
+            Entity attacker{ event->GetAttacker() };
+            alt::IBaseObject::Type attackerType { attacker.GetType() };
+            uint16_t attackerId {attacker.GetID()};
+            uint32_t weapon{ event->GetWeapon() };
+            int16_t healthDamage{ event->GetHealthDamage() };
+            int16_t armourDamage{ event->GetArmourDamage() };
+
+            py::list args;
+
+            args.append(player);
+            args.append(attacker);
+            args.append(attackerType);
+            args.append(attackerId);
+            args.append(weapon);
+            args.append(healthDamage);
+            args.append(armourDamage);
+
+            return args;
+        }
+    );
+
     #pragma endregion
 
     #pragma region VehicleEvents
+
     RegisterArgGetter(
         alt::CEvent::Type::PLAYER_ENTER_VEHICLE,
         [](const alt::CEvent* ev)
@@ -156,8 +184,8 @@ PythonRuntime::PythonRuntime()
 
             py::list args;
 
-            args.append(vehicle);
             args.append(player);
+            args.append(vehicle);
             args.append(seat);
 
             return args;
@@ -272,7 +300,6 @@ PythonRuntime::PythonRuntime()
     );
 
     #pragma endregion
-
 
 }
 
