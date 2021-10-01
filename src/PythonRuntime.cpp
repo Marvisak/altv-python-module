@@ -79,6 +79,45 @@ PythonRuntime::PythonRuntime()
 
     #pragma endregion
 
+    #pragma region EntityEvents
+
+    RegisterArgGetter(
+        alt::CEvent::Type::REMOVE_ENTITY_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CRemoveEntityEvent*>(ev);
+            Entity entity{ event->GetEntity() };
+
+            return py::make_tuple(entity);
+        }
+    );
+
+    #pragma endregion
+
+    #pragma region BaseObjectEvent
+
+    RegisterArgGetter(
+        alt::CEvent::Type::CREATE_BASE_OBJECT_EVENT,
+        [](const alt::CEvent* ev) {
+            auto event = dynamic_cast<const alt::CCreateBaseObjectEvent*>(ev);
+            BaseObject object{ event->GetObject() };
+
+            return py::make_tuple(object);
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::REMOVE_BASE_OBJECT_EVENT,
+        [](const alt::CEvent* ev) {
+            auto event = dynamic_cast<const alt::CRemoveBaseObjectEvent*>(ev);
+            BaseObject object{ event->GetObject() };
+
+            return py::make_tuple(object);
+        }
+    );
+
+    #pragma endregion
+
     #pragma region PlayerEvents
 
     RegisterArgGetter(
@@ -348,6 +387,73 @@ PythonRuntime::PythonRuntime()
 
             // TODO - Remove when the event system is updated to support more than one name
             args.append(event->GetState());
+
+            return args;
+        }
+    );
+
+    #pragma endregion
+
+    #pragma region WorldEvents
+
+    RegisterArgGetter(
+        alt::CEvent::Type::EXPLOSION_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CExplosionEvent*>(ev);
+            Player source{ event->GetSource() };
+            alt::CExplosionEvent::ExplosionType explosionType{ event->GetExplosionType() };
+            alt::Position position{ event->GetPosition() };
+            uint32_t explosionFX {event->GetExplosionFX() };
+            Entity target{ event->GetTarget() };
+
+            py::list args;
+
+            args.append(source);
+            args.append(target);
+            args.append(explosionType);
+            args.append(position);
+            args.append(explosionFX);
+
+            return args;
+        }
+    );
+
+    RegisterArgGetter(
+        alt::CEvent::Type::FIRE_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CFireEvent*>(ev);
+            Player source{ event->GetSource() };
+            alt::Array<alt::CFireEvent::FireInfo> fireInfo { event->GetFires() };
+
+            py::list args;
+
+            args.append(source);
+            args.append(fireInfo);
+
+            return args;
+        }
+    );
+    
+    RegisterArgGetter(
+        alt::CEvent::Type::START_PROJECTILE_EVENT,
+        [](const alt::CEvent* ev)
+        {
+            auto event = dynamic_cast<const alt::CStartProjectileEvent*>(ev);
+            Player source{event->GetSource()};
+            alt::Position startPosition{ event->GetStartPosition() };
+            alt::Vector3f direction{ event->GetDirection() };
+            uint32_t ammoHash{ event->GetAmmoHash() };
+            uint32_t weaponHash{ event->GetWeaponHash() };
+
+            py::list args;
+
+            args.append(source);
+            args.append(startPosition);
+            args.append(direction);
+            args.append(ammoHash);
+            args.append(weaponHash);
 
             return args;
         }
