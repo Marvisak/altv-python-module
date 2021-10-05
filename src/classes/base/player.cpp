@@ -122,6 +122,9 @@ void RegisterPlayerClass(const py::module_& m)
 	pyClass.def_property_readonly("aiming", &Player::IsAiming);
 	pyClass.def_property_readonly("shooting", &Player::IsShooting);
 	pyClass.def_property_readonly("reloading", &Player::IsReloading);
+	pyClass.def_property_readonly("isSuperJumpEnabled", &Player::IsSuperJumpEnabled);
+	pyClass.def_property_readonly("isCrouching", &Player::IsCrouching);
+	pyClass.def_property_readonly("isStealthy", &Player::IsStealthy);
 
 	// Aiming
 	pyClass.def_property_readonly("entityAimingOffset", &Player::GetEntityAimingOffset);
