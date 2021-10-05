@@ -3,9 +3,9 @@
 #define ALT_SERVER_API
 
 #ifdef _WIN32
-static const char *preferred_separator = "\\";
+static const char* preferred_separator = "\\";
 #else
-static const char *preferred_separator = "/";
+static const char* preferred_separator = "/";
 #endif
 
 // Standard C++ stuff
@@ -21,4 +21,4 @@ static const char *preferred_separator = "/";
 
 namespace py = pybind11;
 
-extern alt::ICore *Core;
+extern alt::ICore* Core;
