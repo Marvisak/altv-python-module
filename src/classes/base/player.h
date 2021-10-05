@@ -253,6 +253,18 @@ class Player : public Entity
 	{
 		return player->IsReloading();
 	}
+    bool IsSuperJumpEnabled()
+    {
+        return player->IsSuperJumpEnabled();
+    }
+    bool IsCrouching()
+    {
+        return player->IsCrouching();
+    }
+    bool IsStealthy()
+    {
+        return player->IsStealthy();
+    }
 
 	bool GetInvincible()
 	{
