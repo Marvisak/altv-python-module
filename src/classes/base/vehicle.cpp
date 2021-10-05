@@ -74,6 +74,7 @@ void RegisterVehicleClass(const py::module_ &m)
     pyClass.def_property("sirenActive", &Vehicle::IsSirenActive, &Vehicle::SetSirenActive);
     pyClass.def_property("tireSmokeColor", &Vehicle::GetTireSmokeColor, &Vehicle::SetTireSmokeColor);
     pyClass.def_property_readonly("tireSmokeColorCustom", &Vehicle::IsTireSmokeColorCustom);
+    pyClass.def_property_readonly("velocity", &Vehicle::GetVelocity);
     pyClass.def_property("wheelColor", &Vehicle::GetWheelColor, &Vehicle::SetWheelColor);
     pyClass.def_property_readonly("wheelType", &Vehicle::GetWheelType);
     pyClass.def_property_readonly("wheelsCount", &Vehicle::GetWheelsCount);
