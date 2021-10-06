@@ -274,6 +274,10 @@ class Player : public Entity
 	{
 		player->SetInvincible(boolean);
 	}
+	void PlayAmbientSpeech(std::string speechName, std::string speechParam, uint32_t speechDictHash)
+	{
+		player->PlayAmbientSpeech(alt::StringView(speechName), alt::StringView(speechParam), speechDictHash);
+	}
 
 	// Time
 	void SetDateTime(int second, int minute, int hour, int day, int month, int year)

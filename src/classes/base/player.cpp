@@ -125,6 +125,7 @@ void RegisterPlayerClass(const py::module_& m)
 	pyClass.def_property_readonly("isSuperJumpEnabled", &Player::IsSuperJumpEnabled);
 	pyClass.def_property_readonly("isCrouching", &Player::IsCrouching);
 	pyClass.def_property_readonly("isStealthy", &Player::IsStealthy);
+	pyClass.def("playAmbientSpeech", &Player::PlayAmbientSpeech);
 
 	// Aiming
 	pyClass.def_property_readonly("entityAimingOffset", &Player::GetEntityAimingOffset);
