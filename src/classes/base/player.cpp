@@ -117,11 +117,11 @@ void RegisterPlayerClass(const py::module_& m)
 	pyClass.def("setWeaponTintIndex", py::overload_cast<const std::string&, uint8_t>(&Player::SetWeaponTintIndex));
 
 	// Actions
-	pyClass.def_property_readonly("jumping", &Player::IsJumping);
+	pyClass.def_property_readonly("isJumping", &Player::IsJumping);
 	pyClass.def_property_readonly("inRagdoll", &Player::IsInRagdoll);
-	pyClass.def_property_readonly("aiming", &Player::IsAiming);
-	pyClass.def_property_readonly("shooting", &Player::IsShooting);
-	pyClass.def_property_readonly("reloading", &Player::IsReloading);
+	pyClass.def_property_readonly("isAiming", &Player::IsAiming);
+	pyClass.def_property_readonly("isShooting", &Player::IsShooting);
+	pyClass.def_property_readonly("isReloading", &Player::IsReloading);
 	pyClass.def_property_readonly("isSuperJumpEnabled", &Player::IsSuperJumpEnabled);
 	pyClass.def_property_readonly("isCrouching", &Player::IsCrouching);
 	pyClass.def_property_readonly("isStealthy", &Player::IsStealthy);
