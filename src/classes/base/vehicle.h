@@ -575,6 +575,133 @@ class Vehicle : public Entity
 	{
 		vehicle->LoadHealthDataFromBase64(alt::StringView(base64));
 	}
+
+	// Train Setters / Getters
+	bool IsTrainMissionTrain() {
+		return vehicle->IsTrainMissionTrain();
+	}
+
+	void SetTrainMissionTrain(bool missionTrain) {
+		vehicle->SetTrainMissionTrain(missionTrain);
+	}
+
+	int8_t GetTrainTrackId() {
+		return vehicle->GetTrainTrackId();
+	}
+
+	void SetTrainTrackId(int8_t trackId) {
+		return vehicle->SetTrainTrackId(trackId);
+	}
+
+	alt::Ref<alt::IVehicle> GetTrainEngineId() {
+		return vehicle->GetTrainEngineId();
+	}
+
+	static void setTrainEngineId(const alt::Ref<alt::IVehicle>& vehicle) {
+		return vehicle->SetTrainEngineId(vehicle);
+	}
+
+	int8_t GetTrainConfigIndex()
+	{
+		return vehicle->GetTrainConfigIndex();
+	}
+
+	void SetTrainConfigIndex(int8_t trainConfigIndex)
+	{
+		return vehicle->SetTrainConfigIndex(trainConfigIndex);
+	}
+
+	float GetTrainDistanceFromEngine()
+	{
+		return vehicle->GetTrainDistanceFromEngine();
+	}
+
+	void SetTrainDistanceFromEngine(float trainConfigIndex)
+	{
+		return vehicle->SetTrainDistanceFromEngine(trainConfigIndex);
+	}
+
+	bool IsTrainEngine() {
+		return vehicle->IsTrainEngine();
+	}
+
+	void SetTrainEngine(bool isEngine) {
+		vehicle->SetTrainIsEngine(isEngine);
+	}
+
+	bool IsTrainCaboose() {
+		return vehicle->IsTrainCaboose();
+	}
+
+	void SetTrainCaboose(bool isEngine) {
+		vehicle->SetTrainIsCaboose(isEngine);
+	}
+
+	bool GetTrainDirection() {
+		return vehicle->GetTrainDirection();
+	}
+
+	void SetTrainDirection(bool direction) {
+		vehicle->SetTrainDirection(direction);
+	}
+
+	bool HasTrainPassengerCarriages() {
+		return vehicle->HasTrainPassengerCarriages();
+	}
+
+	void SetTrainHasPassengerCarriages(bool hasPassengerCarriages) {
+		vehicle->SetTrainHasPassengerCarriages(hasPassengerCarriages);
+	}
+
+	bool GetTrainRenderDerailed() {
+		return vehicle->GetTrainRenderDerailed();
+	}
+
+	void SetTrainRenderDerailed(bool renderDerailed) {
+		vehicle->SetTrainRenderDerailed(renderDerailed);
+	}
+
+	bool GetTrainForceDoorsOpen() {
+		return vehicle->GetTrainForceDoorsOpen();
+	}
+
+	void SetTrainForceDoorsOpen(bool forceDoorsOpen) {
+		vehicle->SetTrainForceDoorsOpen(forceDoorsOpen);
+	}
+
+	float GetTrainCruiseSpeed() {
+		return vehicle->GetTrainCruiseSpeed();
+	}
+
+	void SetTrainCruiseSpeed(float cruiseSpeed) {
+		vehicle->SetTrainCruiseSpeed(cruiseSpeed);
+	}
+
+	int8_t GetTrainCarriageConfigIndex()
+	{
+		return vehicle->GetTrainCarriageConfigIndex();
+	}
+
+	void SetTrainCarriageConfigIndex(int8_t carriageConfigIndex)
+	{
+		return vehicle->SetTrainCarriageConfigIndex(carriageConfigIndex);
+	}
+
+	alt::Ref<alt::IVehicle> GetTrainLinkedToBackwardId() {
+		return vehicle->GetTrainLinkedToBackwardId();
+	}
+
+	void SetTrainLinkedToBackwardId(alt::Ref<alt::IVehicle>& veh) {
+		vehicle->SetTrainLinkedToBackwardId(veh);
+	}
+
+	alt::Ref<alt::IVehicle> GetTrainLinkedToForwardId() {
+		return vehicle->GetTrainLinkedToForwardId();
+	}
+
+	void SetTrainLinkedToForwardId(alt::Ref<alt::IVehicle>& veh) {
+		vehicle->SetTrainLinkedToForwardId(veh);
+	}
 };
 
 void RegisterVehicleClass(const py::module_& m);
