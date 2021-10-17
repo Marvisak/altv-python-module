@@ -110,7 +110,7 @@ class Vehicle : public Entity
 
   Vector3 GetVelocity()
   {
-      return vehicle->IsTireSmokeColorCustom();
+      return vehicle->GetVelocity();
   }
 
   uint8_t GetWheelType()
