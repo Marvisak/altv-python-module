@@ -1,7 +1,8 @@
 # altv-python-module
 alt:V Multiplayer Python Module
 
-This is a module which will make you able to write alt:V scripts in Python. The module is in a complete beginning, and it will take a long time to get it to a usable level
+## State of the module
+I started working on the module again (maybe), I am currently not happy with most of the code written and will have to rewrite it. I want to thank all the contributors which tried to keep the module alive, you've done a great job. 
 
 ## How to install
 1) Download and Install Python 3.9.6 from [Python](https://python.org) 
