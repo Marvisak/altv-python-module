@@ -17,12 +17,9 @@ void OnClient(const std::string& eventName, const py::function& func)
 	PythonResource* resource = Utils::GetResourceFromFrame(frame);
 	resource->AddRemoteEvent(eventName, func);
 }
-/*
+
 void Emit(const std::string& eventName, const py::args& args)
 {
-	// If trying to emit native event, return
-	if (std::find(Utils::EventTypes.begin(), Utils::EventTypes.end(), eventName) != Utils::EventTypes.end())
-		return;
 	alt::MValueArgs eventArgs;
 	for (const py::handle& arg : *args)
 	{
@@ -30,13 +27,9 @@ void Emit(const std::string& eventName, const py::args& args)
 	}
 	Core->TriggerLocalEvent(eventName, eventArgs);
 }
-*/
-/*
+
 void EmitClient(const Player& player, const std::string& eventName, const py::args& args)
 {
-	// If trying to emit native event, return
-	if (std::find(Utils::EventTypes.begin(), Utils::EventTypes.end(), eventName) != Utils::EventTypes.end())
-		return;
 	alt::MValueArgs eventArgs;
 	for (const py::handle& arg : *args)
 	{
@@ -44,14 +37,12 @@ void EmitClient(const Player& player, const std::string& eventName, const py::ar
 	}
 	Core->TriggerClientEvent(player.GetBaseObject(), eventName, eventArgs);
 }
-*/
+
 
 void RegisterEventFunctions(py::module_ m)
 {
 	m.def("on", &On, "Listens to event");
 	m.def("onClient", &OnClient, "Listens to client event");
-    /*
 	m.def("emit", &Emit, "Emits event");
 	m.def("emitClient", &EmitClient, "Emits client event");
-     */
 }
