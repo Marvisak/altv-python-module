@@ -5,12 +5,12 @@
 class PythonRuntime;
 class PythonResource : public alt::IResource::Impl
 {
-	PythonRuntime* runtime;
-	alt::IResource* resource;
+	PythonRuntime* Runtime;
+	alt::IResource* Resource;
 	typedef std::vector<py::function> EventsVector;
 	typedef std::map<std::string, EventsVector> EventsMap;
-	EventsMap ServerEvents;
-	EventsMap ClientEvents;
+	EventsMap LocalEvents;
+	EventsMap RemoteEvents;
 
 	std::unordered_map<alt::IBaseObject::Type, alt::Ref<alt::IBaseObject>> objects;
 
@@ -18,7 +18,7 @@ class PythonResource : public alt::IResource::Impl
 
  public:
 	PythonResource(PythonRuntime* runtime, alt::IResource* resource)
-		: runtime(runtime), resource(resource)
+		: Runtime(runtime), Resource(resource)
 	{
 	}
 
@@ -36,27 +36,9 @@ class PythonResource : public alt::IResource::Impl
 
 	void OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) override;
 
-	void AddEvent(const std::string& eventName, const py::function& eventFunc);
+	void AddLocalEvent(const std::string& eventName, const py::function& eventFunc);
 
-	void AddClientEvent(const std::string& eventName, const py::function& eventFunc);
-
-	EventsVector GetEventList(const alt::CEvent*& ev, const std::string& eventName)
-	{
-		if (eventName == "SERVER_SCRIPT_EVENT")
-		{
-			auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
-			return ServerEvents[event->GetName().ToString()];
-		}
-		else if (eventName == "CLIENT_SCRIPT_EVENT")
-		{
-			auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
-			return ClientEvents[event->GetName().ToString()];
-		}
-		else
-		{
-			return ServerEvents[eventName];
-		}
-	}
+	void AddRemoteEvent(const std::string& eventName, const py::function& eventFunc);
 
 	class PythonFunction : public alt::IMValueFunction::Impl
 	{

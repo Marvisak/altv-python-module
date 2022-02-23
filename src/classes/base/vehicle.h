@@ -131,10 +131,6 @@ class Vehicle : public Entity
 	{
 		return vehicle->GetNumberplateIndex();
 	}
-	std::string GetNumberplateText()
-	{
-		return vehicle->GetNumberplateText().ToString();
-	}
 	uint8_t GetWindowTint()
 	{
 		return vehicle->GetWindowTint();
@@ -166,10 +162,6 @@ class Vehicle : public Entity
 	uint8_t GetRoofLivery()
 	{
 		return vehicle->GetRoofLivery();
-	}
-	std::string GetAppearanceDataBase64()
-	{
-		return vehicle->GetAppearanceDataBase64().ToString();
 	}
 	bool IsEngineOn()
 	{
@@ -225,10 +217,6 @@ class Vehicle : public Entity
 	{
 		return vehicle->GetLightsMultiplier();
 	}
-	std::string GetGameStateBase64()
-	{
-		return vehicle->GetGameStateBase64().ToString();
-	}
 	int32_t GetEngineHealth()
 	{
 		return vehicle->GetEngineHealth();
@@ -273,10 +261,6 @@ class Vehicle : public Entity
 	{
 		return vehicle->GetBodyAdditionalHealth();
 	}
-	std::string GetHealthDataBase64()
-	{
-		return vehicle->GetHealthDataBase64().ToString();
-	}
 	uint8_t GetPartDamageLevel(uint8_t partId)
 	{
 		return vehicle->GetPartDamageLevel(partId);
@@ -313,17 +297,9 @@ class Vehicle : public Entity
 	{
 		return vehicle->GetBumperDamageLevel(bumperId);
 	}
-	std::string GetDamageDataBase64()
-	{
-		return vehicle->GetDamageDataBase64().ToString();
-	}
 	bool IsManualEngineControl()
 	{
 		return vehicle->IsManualEngineControl();
-	}
-	std::string GetScriptDataBase64()
-	{
-		return vehicle->GetScriptDataBase64().ToString();
 	}
 
 	Player GetDriver();
@@ -437,10 +413,6 @@ class Vehicle : public Entity
 	{
 		vehicle->SetRoofLivery(roofLivery);
 	}
-	void LoadAppearanceDataFromBase64(const std::string& base64)
-	{
-		vehicle->LoadAppearanceDataFromBase64(alt::StringView(base64));
-	}
 	void SetEngineOn(bool state)
 	{
 		vehicle->SetEngineOn(state);
@@ -552,22 +524,6 @@ class Vehicle : public Entity
 	void SetManualEngineControl(bool state)
 	{
 		vehicle->SetManualEngineControl(state);
-	}
-	void LoadDamageDataFromBase64(const std::string& base64)
-	{
-		vehicle->LoadDamageDataFromBase64(alt::StringView(base64));
-	}
-	void LoadScriptDataFromBase64(const std::string& base64)
-	{
-		vehicle->LoadScriptDataFromBase64(alt::StringView(base64));
-	}
-	void LoadGameStateFromBase64(const std::string& base64)
-	{
-		vehicle->LoadGameStateFromBase64(alt::StringView(base64));
-	}
-	void LoadHealthDataFromBase64(const std::string& base64)
-	{
-		vehicle->LoadHealthDataFromBase64(alt::StringView(base64));
 	}
 };
 

@@ -1,6 +1,8 @@
 #include "enum.h"
 #include <magic_enum.hpp>
 
+
+
 template<typename E>
 py::enum_<E> export_enum(const pybind11::handle& scope, const char* enumName)
 {
@@ -9,7 +11,6 @@ py::enum_<E> export_enum(const pybind11::handle& scope, const char* enumName)
 	{
 		enum_type.value(name.data(), value);
 	}
-	std::cout << "Enum Registered : " << enumName << std::endl;
 	return enum_type;
 }
 
