@@ -30,7 +30,11 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
             callbacks = LocalEvents[eventName];
         }
         for (const auto& callback : callbacks) {
-            callback(*eventArgs);
+            try {
+                callback(*eventArgs);
+            } catch (py::error_already_set& e) {
+                py::print(e.what());
+            }
         }
     }
     return true;
