@@ -7,15 +7,15 @@
 #include "log.h"
 #include "main.h"
 
-PYBIND11_EMBEDDED_MODULE(alt, m)
-{
-	m.doc() = "AltV Python Module";
+
+PYBIND11_EMBEDDED_MODULE(alt, m){
+	m.doc() = "alt:V Python Module";
 	RegisterLogFunctions(m);
 	RegisterEventFunctions(m);
 	RegisterHelpersFunctions(m);
 	RegisterEnums(m);
 
-	RegisterBaseObjectClass(m);
+    RegisterBaseObjectClass(m);
 	RegisterWorldObjectClass(m);
 	RegisterEntityClass(m);
 	RegisterVehicleClass(m);

@@ -51,13 +51,11 @@ void SetSyncedMeta(const std::string& key, const py::object& value)
 void RegisterHelpersFunctions(py::module_ m)
 {
 	// Getters
-	m.attr("branch") = Core->GetBranch().ToString();
 	m.attr("debug") = Core->IsDebug();
 	m.attr("defaultDimension") = alt::DEFAULT_DIMENSION;
 	m.attr("globalDimension") = alt::GLOBAL_DIMENSION;
 	m.attr("rootDir") = Core->GetRootDirectory().ToString();
 	m.attr("sdkVersion") = Core->SDK_VERSION;
-	m.attr("version") = Core->GetVersion().ToString();
 
 	// Methods
 	m.def("hash", &Hash, "Hashes string");

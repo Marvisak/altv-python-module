@@ -78,15 +78,6 @@ class Player : public Entity
 		player->ClearBloodDamage();
 	}
 
-	// Authentication
-	std::string GetName() const
-	{
-		return player->GetName().ToString();
-	}
-	std::string GetAuthToken() const
-	{
-		return player->GetAuthToken().ToString();
-	}
 	uint64_t GetHWIDHash() const
 	{
 		return player->GetHwidHash();
@@ -94,10 +85,6 @@ class Player : public Entity
 	uint64_t GetHWIDExHash() const
 	{
 		return player->GetHwidExHash();
-	}
-	std::string GetIP() const
-	{
-		return player->GetIP().ToString();
 	}
 	uint64_t GetSocialId() const
 	{

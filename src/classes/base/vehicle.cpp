@@ -62,7 +62,6 @@ void RegisterVehicleClass(const py::module_& m)
 	pyClass.def_property("neonColor", &Vehicle::GetNeonColor, &Vehicle::SetNeonColor);
 	pyClass.def_property_readonly("nightlightOn", &Vehicle::IsNightlightOn);
 	pyClass.def_property("numberPlateIndex", &Vehicle::GetNumberplateIndex, &Vehicle::SetNumberplateIndex);
-	pyClass.def_property("numberPlateText", &Vehicle::GetNumberplateText, &Vehicle::SetNumberplateText);
 	pyClass.def_property("pearlColor", &Vehicle::GetPearlColor, &Vehicle::SetPearlColor);
 	pyClass.def_property("petrolTankHealth", &Vehicle::GetPetrolTankHealth, &Vehicle::SetPetrolTankHealth);
 	pyClass.def_property("primaryColor", &Vehicle::GetPrimaryColor, &Vehicle::SetPrimaryColor);
@@ -105,22 +104,17 @@ void RegisterVehicleClass(const py::module_& m)
 
 	// Methods
 	pyClass.def("doesWheelHasTire", &Vehicle::DoesWheelHasTire, py::arg("wheelId"));
-	pyClass.def("getAppearanceDataBase64", &Vehicle::GetAppearanceDataBase64);
 	pyClass.def("getArmoredWindowHealth", &Vehicle::GetArmoredWindowHealth, py::arg("windowId"));
 	pyClass.def("getArmoredWindowShootCount", &Vehicle::GetArmoredWindowShootCount, py::arg("windowId"));
 	pyClass.def("getAttached", &Vehicle::GetAttached);
 	pyClass.def("getAttachedTo", &Vehicle::GetAttachedTo);
 	pyClass.def("getBumperDamageLevel", &Vehicle::GetBumperDamageLevel, py::arg("bumperId"));
-	pyClass.def("getDamageStatusBase64", &Vehicle::GetDamageDataBase64);
 	pyClass.def("getDoorState", &Vehicle::GetDoorState, py::arg("doorId"));
 	pyClass.def("getExtra", &Vehicle::IsExtraOn, py::arg("extraId"));
-	pyClass.def("getGamestateDataBase64", &Vehicle::GetGameStateBase64);
-	pyClass.def("getHealthDataBase64", &Vehicle::GetHealthDataBase64);
 	pyClass.def("getMod", &Vehicle::GetMod, py::arg("modType"));
 	pyClass.def("getModsCount", &Vehicle::GetModsCount, py::arg("modType"));
 	pyClass.def("getPartBulletHoles", &Vehicle::GetPartBulletHoles, py::arg("partId"));
 	pyClass.def("getPartDamageLevel", &Vehicle::GetPartDamageLevel, py::arg("partId"));
-	pyClass.def("getScriptDataBase64", &Vehicle::GetScriptDataBase64);
 	pyClass.def("getWheelHealth", &Vehicle::GetWheelHealth, py::arg("wheelId"));
 	pyClass.def("isLightDamaged", &Vehicle::IsLightDamaged, py::arg("lightId"));
 	pyClass.def("isSpecialLightDamaged", &Vehicle::IsSpecialLightDamaged, py::arg("specialLightId"));
@@ -130,21 +124,16 @@ void RegisterVehicleClass(const py::module_& m)
 	pyClass.def("isWindowDamaged", &Vehicle::IsWindowDamaged, py::arg("windowId"));
 	pyClass.def("isWindowOpened", &Vehicle::IsWindowOpened, py::arg("windowId"));
 	pyClass.def("repair", &Vehicle::SetFixed);
-	pyClass.def("setAppearanceDataBase64", &Vehicle::LoadAppearanceDataFromBase64, py::arg("base64"));
 	pyClass.def("setArmoredWindowHealth", &Vehicle::SetArmoredWindowHealth, py::arg("windowId"), py::arg("health"));
 	pyClass.def("setArmoredWindowShootCount", &Vehicle::SetArmoredWindowShootCount, py::arg("windowId"), py::arg("shootCount"));
 	pyClass.def("setBumperDamageLevel", &Vehicle::SetBumperDamageLevel, py::arg("bumperId"), py::arg("damageLevel"));
-	pyClass.def("setDamageStatusBase64", &Vehicle::LoadDamageDataFromBase64, py::arg("base64"));
 	pyClass.def("setDoorState", &Vehicle::SetDoorState, py::arg("doorId"), py::arg("doorState"));
 	pyClass.def("setExtra", &Vehicle::ToggleExtra, py::arg("extraId"), py::arg("state"));
-	pyClass.def("setGamestateDataBase64", &Vehicle::LoadGameStateFromBase64, py::arg("base64"));
-	pyClass.def("setHealthDataBase64", &Vehicle::LoadHealthDataFromBase64, py::arg("base64"));
 	pyClass.def("setLightDamaged", &Vehicle::SetLightDamaged, py::arg("lightId"), py::arg("isDamaged"));
 	pyClass.def("setMod", &Vehicle::SetMod, py::arg("modType"), py::arg("modId"));
 	pyClass.def("setPartBulletHoles", &Vehicle::SetPartBulletHoles, py::arg("partId"), py::arg("count"));
 	pyClass.def("setPartDamageLevel", &Vehicle::SetPartDamageLevel, py::arg("partId"), py::arg("level"));
 	pyClass.def("setRearWheels", &Vehicle::SetRearWheels, py::arg("wheelId"));
-	pyClass.def("setScriptDataBase64", &Vehicle::LoadScriptDataFromBase64, py::arg("base64"));
 	pyClass.def("setSpecialLightDamaged", &Vehicle::SetSpecialLightDamaged, py::arg("specialLightId"), py::arg("isDamaged"));
 	pyClass.def("setWheelBurst", &Vehicle::SetWheelBurst, py::arg("wheelId"), py::arg("state"));
 	pyClass.def("setWheelDetached", &Vehicle::SetWheelDetached, py::arg("wheelId"), py::arg("state"));

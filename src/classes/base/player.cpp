@@ -25,6 +25,7 @@ void Player::SetModel(const py::object& model)
 	}
 }
 
+/*
 void Player::Emit(const std::string& eventName, const py::args& args)
 {
 	if (std::find(Utils::EventTypes.begin(), Utils::EventTypes.end(), eventName) != Utils::EventTypes.end())
@@ -36,6 +37,7 @@ void Player::Emit(const std::string& eventName, const py::args& args)
 	}
 	Core->TriggerClientEvent(player, eventName, eventArgs);
 }
+ */
 
 void RegisterPlayerClass(const py::module_& m)
 {
@@ -69,11 +71,8 @@ void RegisterPlayerClass(const py::module_& m)
 	pyClass.def_property_readonly("headRot", &Player::GetHeadRotation);
 
 	// Auth
-	pyClass.def_property_readonly("name", &Player::GetName);
-	pyClass.def_property_readonly("authToken", &Player::GetAuthToken);
 	pyClass.def_property_readonly("hwidHash", &Player::GetHWIDHash);
 	pyClass.def_property_readonly("hwidExHash", &Player::GetHWIDExHash);
-	pyClass.def_property_readonly("ip", &Player::GetIP);
 	pyClass.def_property_readonly("socialId", &Player::GetSocialId);
 
 	// Connection Info
@@ -162,5 +161,5 @@ void RegisterPlayerClass(const py::module_& m)
 	pyClass.def("clearProps", &Player::ClearProps);
 
 	// Event
-	pyClass.def("emit", &Player::Emit);
+	//pyClass.def("emit", &Player::Emit);
 }

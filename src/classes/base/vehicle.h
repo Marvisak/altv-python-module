@@ -38,75 +38,269 @@ class Vehicle : public Entity
 		return pyList;
 	}
 
-  // Getter
-  bool IsDestroyed()
-  {
-      return vehicle->IsDestroyed();
-  }
-  uint8_t GetMod(uint8_t category)
-  {
-      return vehicle->GetMod(category);
-  }
-  uint8_t GetModsCount(uint8_t category)
-  {
-      return vehicle->GetModsCount(category);
-  }
-  uint8_t GetModKitsCount()
-  {
-      return vehicle->GetModKitsCount();
-  }
-  uint8_t GetModKit()
-  {
-      return vehicle->GetModKit();
-  }
-  bool IsPrimaryColorRGB()
-  {
-      return vehicle->IsPrimaryColorRGB();
-  }
-  uint8_t GetPrimaryColor()
-  {
-      return vehicle->GetPrimaryColor();
-  }
-  RGBA GetPrimaryColorRGB()
-  {
-      return vehicle->GetPrimaryColorRGB();
-  }
-  bool IsSecondaryColorRGB()
-  {
-      return vehicle->IsSecondaryColorRGB();
-  }
-  uint8_t GetSecondaryColor()
-  {
-      return vehicle->GetSecondaryColor();
-  }
-  RGBA GetSecondaryColorRGB()
-  {
-      return vehicle->GetSecondaryColorRGB();
-  }
-  uint8_t GetPearlColor()
-  {
-      return vehicle->GetPearlColor();
-  }
-  uint8_t GetWheelColor()
-  {
-      return vehicle->GetWheelColor();
-  }
-  uint8_t GetInteriorColor()
-  {
-      return vehicle->GetInteriorColor();
-  }
-  uint8_t GetDashboardColor()
-  {
-      return vehicle->GetDashboardColor();
-  }
-  bool IsTireSmokeColorCustom()
-  {
-      return vehicle->IsTireSmokeColorCustom();
-  }
-  RGBA GetTireSmokeColor()
-  {
-      return vehicle->GetTireSmokeColor();
-  }
+	// Getter
+	bool IsDestroyed()
+	{
+		return vehicle->IsDestroyed();
+	}
+	uint8_t GetMod(uint8_t category)
+	{
+		return vehicle->GetMod(category);
+	}
+	uint8_t GetModsCount(uint8_t category)
+	{
+		return vehicle->GetModsCount(category);
+	}
+	uint8_t GetModKitsCount()
+	{
+		return vehicle->GetModKitsCount();
+	}
+	uint8_t GetModKit()
+	{
+		return vehicle->GetModKit();
+	}
+	bool IsPrimaryColorRGB()
+	{
+		return vehicle->IsPrimaryColorRGB();
+	}
+	uint8_t GetPrimaryColor()
+	{
+		return vehicle->GetPrimaryColor();
+	}
+	RGBA GetPrimaryColorRGB()
+	{
+		return vehicle->GetPrimaryColorRGB();
+	}
+	bool IsSecondaryColorRGB()
+	{
+		return vehicle->IsSecondaryColorRGB();
+	}
+	uint8_t GetSecondaryColor()
+	{
+		return vehicle->GetSecondaryColor();
+	}
+	RGBA GetSecondaryColorRGB()
+	{
+		return vehicle->GetSecondaryColorRGB();
+	}
+	uint8_t GetPearlColor()
+	{
+		return vehicle->GetPearlColor();
+	}
+	uint8_t GetWheelColor()
+	{
+		return vehicle->GetWheelColor();
+	}
+	uint8_t GetInteriorColor()
+	{
+		return vehicle->GetInteriorColor();
+	}
+	uint8_t GetDashboardColor()
+	{
+		return vehicle->GetDashboardColor();
+	}
+	bool IsTireSmokeColorCustom()
+	{
+		return vehicle->IsTireSmokeColorCustom();
+	}
+	RGBA GetTireSmokeColor()
+	{
+		return vehicle->GetTireSmokeColor();
+	}
+	uint8_t GetWheelType()
+	{
+		return vehicle->GetWheelType();
+	}
+	uint8_t GetWheelVariation()
+	{
+		return vehicle->GetWheelVariation();
+	}
+	uint8_t GetRearWheelVariation()
+	{
+		return vehicle->GetRearWheelVariation();
+	}
+	bool GetCustomTires()
+	{
+		return vehicle->GetCustomTires();
+	}
+	uint8_t GetSpecialDarkness()
+	{
+		return vehicle->GetSpecialDarkness();
+	}
+	uint32_t GetNumberplateIndex()
+	{
+		return vehicle->GetNumberplateIndex();
+	}
+	uint8_t GetWindowTint()
+	{
+		return vehicle->GetWindowTint();
+	}
+	uint8_t GetDirtLevel()
+	{
+		return vehicle->GetDirtLevel();
+	}
+	bool IsExtraOn(uint8_t extraID)
+	{
+		return vehicle->IsExtraOn(extraID);
+	}
+	bool IsNeonActive()
+	{
+		return vehicle->IsNeonActive();
+	}
+	void GetNeonActive(bool* left, bool* right, bool* front, bool* back)
+	{
+		return vehicle->GetNeonActive(left, right, front, back);
+	}
+	RGBA GetNeonColor()
+	{
+		return vehicle->GetNeonColor();
+	}
+	uint8_t GetLivery()
+	{
+		return vehicle->GetLivery();
+	}
+	uint8_t GetRoofLivery()
+	{
+		return vehicle->GetRoofLivery();
+	}
+	bool IsEngineOn()
+	{
+		return vehicle->IsEngineOn();
+	}
+	bool IsHandbrakeActive()
+	{
+		return vehicle->IsHandbrakeActive();
+	}
+	uint8_t GetHeadlightColor()
+	{
+		return vehicle->GetHeadlightColor();
+	}
+	RadioStation GetRadioStationIndex()
+	{
+		return static_cast<RadioStation>(vehicle->GetRadioStationIndex());
+	}
+	bool IsSirenActive()
+	{
+		return vehicle->IsSirenActive();
+	}
+	// TODO document available values. Enum?
+	uint8_t GetLockState()
+	{
+		return vehicle->GetLockState();
+	}
+	// TODO document available values. Enum?
+	uint8_t GetDoorState(uint8_t doorId)
+	{
+		return vehicle->GetDoorState(doorId);
+	}
+	bool IsWindowOpened(uint8_t windowId)
+	{
+		return vehicle->IsWindowOpened(windowId);
+	}
+	bool IsDaylightOn()
+	{
+		return vehicle->IsDaylightOn();
+	}
+	bool IsNightlightOn()
+	{
+		return vehicle->IsNightlightOn();
+	}
+	uint8_t GetRoofState()
+	{
+		return vehicle->GetRoofState();
+	}
+	bool IsFlamethrowerActive()
+	{
+		return vehicle->IsFlamethrowerActive();
+	}
+	float GetLightsMultiplier()
+	{
+		return vehicle->GetLightsMultiplier();
+	}
+	int32_t GetEngineHealth()
+	{
+		return vehicle->GetEngineHealth();
+	}
+	int32_t GetPetrolTankHealth()
+	{
+		return vehicle->GetPetrolTankHealth();
+	}
+	uint8_t GetWheelsCount()
+	{
+		return vehicle->GetWheelsCount();
+	}
+	bool IsWheelBurst(uint8_t wheelId)
+	{
+		return vehicle->IsWheelBurst(wheelId);
+	}
+	bool DoesWheelHasTire(uint8_t wheelId)
+	{
+		return vehicle->DoesWheelHasTire(wheelId);
+	}
+	bool IsWheelDetached(uint8_t wheelId)
+	{
+		return vehicle->IsWheelDetached(wheelId);
+	}
+	bool IsWheelOnFire(uint8_t wheelId)
+	{
+		return vehicle->IsWheelOnFire(wheelId);
+	}
+	float GetWheelHealth(uint8_t wheelId)
+	{
+		return vehicle->GetWheelHealth(wheelId);
+	}
+	uint8_t GetRepairsCount()
+	{
+		return vehicle->GetRepairsCount();
+	}
+	uint32_t GetBodyHealth()
+	{
+		return vehicle->GetBodyHealth();
+	}
+	uint32_t GetBodyAdditionalHealth()
+	{
+		return vehicle->GetBodyAdditionalHealth();
+	}
+	uint8_t GetPartDamageLevel(uint8_t partId)
+	{
+		return vehicle->GetPartDamageLevel(partId);
+	}
+	uint8_t GetPartBulletHoles(uint8_t partId)
+	{
+		return vehicle->GetPartBulletHoles(partId);
+	}
+	bool IsLightDamaged(uint8_t lightId)
+	{
+		return vehicle->IsLightDamaged(lightId);
+	}
+	bool IsWindowDamaged(uint8_t windowId)
+	{
+		return vehicle->IsWindowDamaged(windowId);
+	}
+	bool IsSpecialLightDamaged(uint8_t specialLightId)
+	{
+		return vehicle->IsSpecialLightDamaged(specialLightId);
+	}
+	bool HasArmoredWindows()
+	{
+		return vehicle->HasArmoredWindows();
+	}
+	float GetArmoredWindowHealth(uint8_t windowId)
+	{
+		return vehicle->GetArmoredWindowHealth(windowId);
+	}
+	uint8_t GetArmoredWindowShootCount(uint8_t windowId)
+	{
+		return vehicle->GetArmoredWindowShootCount(windowId);
+	}
+	uint8_t GetBumperDamageLevel(uint8_t bumperId)
+	{
+		return vehicle->GetBumperDamageLevel(bumperId);
+	}
+	bool IsManualEngineControl()
+	{
+		return vehicle->IsManualEngineControl();
+	}
 
   Vector3 GetVelocity()
   {
@@ -443,10 +637,6 @@ class Vehicle : public Entity
 	{
 		vehicle->SetRoofLivery(roofLivery);
 	}
-	void LoadAppearanceDataFromBase64(const std::string& base64)
-	{
-		vehicle->LoadAppearanceDataFromBase64(alt::StringView(base64));
-	}
 	void SetEngineOn(bool state)
 	{
 		vehicle->SetEngineOn(state);
@@ -558,149 +748,6 @@ class Vehicle : public Entity
 	void SetManualEngineControl(bool state)
 	{
 		vehicle->SetManualEngineControl(state);
-	}
-	void LoadDamageDataFromBase64(const std::string& base64)
-	{
-		vehicle->LoadDamageDataFromBase64(alt::StringView(base64));
-	}
-	void LoadScriptDataFromBase64(const std::string& base64)
-	{
-		vehicle->LoadScriptDataFromBase64(alt::StringView(base64));
-	}
-	void LoadGameStateFromBase64(const std::string& base64)
-	{
-		vehicle->LoadGameStateFromBase64(alt::StringView(base64));
-	}
-	void LoadHealthDataFromBase64(const std::string& base64)
-	{
-		vehicle->LoadHealthDataFromBase64(alt::StringView(base64));
-	}
-
-	// Train Setters / Getters
-	bool IsTrainMissionTrain() {
-		return vehicle->IsTrainMissionTrain();
-	}
-
-	void SetTrainMissionTrain(bool missionTrain) {
-		vehicle->SetTrainMissionTrain(missionTrain);
-	}
-
-	int8_t GetTrainTrackId() {
-		return vehicle->GetTrainTrackId();
-	}
-
-	void SetTrainTrackId(int8_t trackId) {
-		return vehicle->SetTrainTrackId(trackId);
-	}
-
-	alt::Ref<alt::IVehicle> GetTrainEngineId() {
-		return vehicle->GetTrainEngineId();
-	}
-
-	static void setTrainEngineId(const alt::Ref<alt::IVehicle>& vehicle) {
-		return vehicle->SetTrainEngineId(vehicle);
-	}
-
-	int8_t GetTrainConfigIndex()
-	{
-		return vehicle->GetTrainConfigIndex();
-	}
-
-	void SetTrainConfigIndex(int8_t trainConfigIndex)
-	{
-		return vehicle->SetTrainConfigIndex(trainConfigIndex);
-	}
-
-	float GetTrainDistanceFromEngine()
-	{
-		return vehicle->GetTrainDistanceFromEngine();
-	}
-
-	void SetTrainDistanceFromEngine(float trainConfigIndex)
-	{
-		return vehicle->SetTrainDistanceFromEngine(trainConfigIndex);
-	}
-
-	bool IsTrainEngine() {
-		return vehicle->IsTrainEngine();
-	}
-
-	void SetTrainEngine(bool isEngine) {
-		vehicle->SetTrainIsEngine(isEngine);
-	}
-
-	bool IsTrainCaboose() {
-		return vehicle->IsTrainCaboose();
-	}
-
-	void SetTrainCaboose(bool isEngine) {
-		vehicle->SetTrainIsCaboose(isEngine);
-	}
-
-	bool GetTrainDirection() {
-		return vehicle->GetTrainDirection();
-	}
-
-	void SetTrainDirection(bool direction) {
-		vehicle->SetTrainDirection(direction);
-	}
-
-	bool HasTrainPassengerCarriages() {
-		return vehicle->HasTrainPassengerCarriages();
-	}
-
-	void SetTrainHasPassengerCarriages(bool hasPassengerCarriages) {
-		vehicle->SetTrainHasPassengerCarriages(hasPassengerCarriages);
-	}
-
-	bool GetTrainRenderDerailed() {
-		return vehicle->GetTrainRenderDerailed();
-	}
-
-	void SetTrainRenderDerailed(bool renderDerailed) {
-		vehicle->SetTrainRenderDerailed(renderDerailed);
-	}
-
-	bool GetTrainForceDoorsOpen() {
-		return vehicle->GetTrainForceDoorsOpen();
-	}
-
-	void SetTrainForceDoorsOpen(bool forceDoorsOpen) {
-		vehicle->SetTrainForceDoorsOpen(forceDoorsOpen);
-	}
-
-	float GetTrainCruiseSpeed() {
-		return vehicle->GetTrainCruiseSpeed();
-	}
-
-	void SetTrainCruiseSpeed(float cruiseSpeed) {
-		vehicle->SetTrainCruiseSpeed(cruiseSpeed);
-	}
-
-	int8_t GetTrainCarriageConfigIndex()
-	{
-		return vehicle->GetTrainCarriageConfigIndex();
-	}
-
-	void SetTrainCarriageConfigIndex(int8_t carriageConfigIndex)
-	{
-		return vehicle->SetTrainCarriageConfigIndex(carriageConfigIndex);
-	}
-
-	alt::Ref<alt::IVehicle> GetTrainLinkedToBackwardId() {
-		return vehicle->GetTrainLinkedToBackwardId();
-	}
-
-	void SetTrainLinkedToBackwardId(alt::Ref<alt::IVehicle>& veh) {
-		vehicle->SetTrainLinkedToBackwardId(veh);
-	}
-
-	alt::Ref<alt::IVehicle> GetTrainLinkedToForwardId() {
-		return vehicle->GetTrainLinkedToForwardId();
-	}
-
-	void SetTrainLinkedToForwardId(alt::Ref<alt::IVehicle>& veh) {
-		vehicle->SetTrainLinkedToForwardId(veh);
 	}
 };
 

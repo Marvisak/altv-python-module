@@ -8,14 +8,13 @@ EXPORT bool altMain(alt::ICore* core)
 	alt::ICore::SetInstance(core);
 	Core = core;
 
-	try
-	{
+	try {
 		auto runtime = new PythonRuntime();
 		core->RegisterScriptRuntime("py", runtime);
 	}
-	catch (std::exception& e)
-	{
-		std::cout << e.what() << std::endl;
+	catch (std::exception& e) {
+		core->LogError(e.what());
+        return false;
 	}
 
 	core->LogInfo("Python module successfully loaded");
