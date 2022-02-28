@@ -1,4 +1,4 @@
-#include "events.h"
+#include "events.hpp"
 
 EventHandler playerConnect(alt::CEvent::Type::PLAYER_CONNECT, "playerConnect", [](const alt::CEvent* ev) {
     py::list args;

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "PythonResource.h"
-#include "main.h"
-#include "events/events.h"
+#include "PythonResource.hpp"
+#include "main.hpp"
+#include "events/events.hpp"
 
 class PythonRuntime : public alt::IScriptRuntime
 {

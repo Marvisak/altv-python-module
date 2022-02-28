@@ -1,4 +1,4 @@
-#include "classes/classes.h"
+#include "classes/classes.hpp"
 
 std::string ToString(alt::HeadOverlay _this) {
     return "HeadOverlay(index: " + std::to_string(_this.index) + ", opacity: " + std::to_string(_this.opacity) + ", colorType: " + std::to_string(_this.colorType) + ", colorIndex: " + std::to_string(_this.colorIndex) + ", secondColorIndex: " + std::to_string(_this.secondColorIndex) + ")";

@@ -1,5 +1,5 @@
-#include "classes/classes.h"
-#include "vector3.h"
+#include "classes/classes.hpp"
+#include "vector3.hpp"
 
 double Vector3::GetAngle(const Vector3 &other, const bool &boolean) {
     double xy = x * other.x + y * other.y;

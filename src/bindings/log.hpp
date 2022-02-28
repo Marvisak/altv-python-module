@@ -1,6 +1,6 @@
 #pragma once
 
-#include "main.h"
+#include "main.hpp"
 
 void Log(const py::object& object)
 {

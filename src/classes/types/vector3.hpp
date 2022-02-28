@@ -1,5 +1,5 @@
 #pragma once
-#include "main.h"
+#include "main.hpp"
 
 class Vector3 {
     double GetAngle(const Vector3& other, const bool& boolean);

@@ -1,4 +1,4 @@
-#include "classes/classes.h"
+#include "classes/classes.hpp"
 
 std::string ToString(alt::Weapon _this) {
     return "Weapon(hash: " + std::to_string(_this.hash) + ", tintIndex: " + std::to_string(_this.tintIndex) + ", components: " + std::to_string(_this.components.size()) + ")";

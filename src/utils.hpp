@@ -1,7 +1,7 @@
 #pragma once
 
-#include "PythonRuntime.h"
-#include "main.h"
+#include "PythonRuntime.hpp"
+#include "main.hpp"
 
 namespace Utils
 {

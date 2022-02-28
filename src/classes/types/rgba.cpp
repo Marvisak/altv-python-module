@@ -1,4 +1,4 @@
-#include "classes/classes.h"
+#include "classes/classes.hpp"
 
 std::string ToString(alt::RGBA _this) {
     return "RGBA(" + std::to_string(_this.r) + ", " + std::to_string(_this.g) + ", " + std::to_string(_this.b) + ", " + std::to_string(_this.a) + ")";

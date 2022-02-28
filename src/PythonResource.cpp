@@ -1,5 +1,5 @@
-#include "PythonResource.h"
-#include "utils.h"
+#include "PythonResource.hpp"
+#include "utils.hpp"
 
 bool PythonResource::Start() {
 	alt::String mainFile = GetFullPath();

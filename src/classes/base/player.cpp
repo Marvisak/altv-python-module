@@ -1,6 +1,6 @@
-#include "classes/types/vector3.h"
-#include "classes/classes.h"
-#include "utils.h"
+#include "classes/types/vector3.hpp"
+#include "classes/classes.hpp"
+#include "utils.hpp"
 
 PYBIND11_DECLARE_HOLDER_TYPE(T, alt::Ref<T>, true)
 

@@ -1,6 +1,6 @@
-#include "classes/classes.h"
+#include "classes/classes.hpp"
 #include "magic_enum.hpp"
-#include "enums.h"
+#include "enums.hpp"
 
 template<typename E>
 void export_enum(const py::module_& m, const char* enumName)

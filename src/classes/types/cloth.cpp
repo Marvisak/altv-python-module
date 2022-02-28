@@ -1,4 +1,4 @@
-#include "classes/classes.h"
+#include "classes/classes.hpp"
 
 std::string ToString(alt::Cloth _this) {
     return "Cloth(drawable: " + std::to_string(_this.drawableId) + ", texture: " + std::to_string(_this.textureId) + ", palette: " + std::to_string(_this.paletteId) + ")";

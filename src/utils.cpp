@@ -1,6 +1,6 @@
-#include "utils.h"
-#include "classes/types/vector3.h"
-#include "classes/classes.h"
+#include "utils.hpp"
+#include "classes/types/vector3.hpp"
+#include "classes/classes.hpp"
 
 PythonResource* Utils::GetResourceFromFrame(PyFrameObject* frame)
 {

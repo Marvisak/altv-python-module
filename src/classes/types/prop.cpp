@@ -1,4 +1,4 @@
-#include "classes/classes.h"
+#include "classes/classes.hpp"
 
 std::string ToString(alt::Prop _this) {
     return "Prop(drawable: " + std::to_string(_this.drawableId) + ", texture: " + std::to_string(_this.textureId) + ")";

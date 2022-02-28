@@ -1,5 +1,5 @@
-#include "PythonRuntime.h"
-#include "bindings/bindings.h"
+#include "PythonRuntime.hpp"
+#include "bindings/bindings.hpp"
 
 PythonRuntime* PythonRuntime::Instance = nullptr;
 

@@ -1,5 +1,5 @@
-#include "classes/classes.h"
-#include "utils.h"
+#include "classes/classes.hpp"
+#include "utils.hpp"
 
 PYBIND11_DECLARE_HOLDER_TYPE(T, alt::Ref<T>, true)
 

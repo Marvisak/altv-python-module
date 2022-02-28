@@ -1,5 +1,5 @@
 #pragma once
-#include "main.h"
+#include "main.hpp"
 
 class EventHandler {
     static std::unordered_map<alt::CEvent::Type, EventHandler*>& all()

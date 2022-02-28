@@ -1,7 +1,7 @@
 #pragma once
 
-#include "main.h"
-#include "utils.h"
+#include "main.hpp"
+#include "utils.hpp"
 
 void On(const std::string& eventName, const py::function& func)
 {

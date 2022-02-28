@@ -1,5 +1,5 @@
-#include "events.h"
-#include "utils.h"
+#include "events.hpp"
+#include "utils.hpp"
 
 EventHandler serverScriptEvent(alt::CEvent::Type::SERVER_SCRIPT_EVENT, [](const alt::CEvent* ev) {
     auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);

@@ -1,5 +1,5 @@
-#include "main.h"
-#include "PythonRuntime.h"
+#include "main.hpp"
+#include "PythonRuntime.hpp"
 
 EXPORT bool altMain(alt::ICore* core)
 {

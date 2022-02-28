@@ -1,4 +1,4 @@
-#include "classes/classes.h"
+#include "classes/classes.hpp"
 
 std::string ToString(alt::HeadBlendData _this) {
     return "HeadBlendData(shapeFirstID: " + std::to_string(_this.shapeFirstID) + ", shapeSecondID: " + std::to_string(_this.shapeSecondID) + ", shapeThirdID: " + std::to_string(_this.shapeThirdID) + ", skinFirstID: " + std::to_string(_this.skinFirstID) + ", skinSecondID: " + std::to_string(_this.skinSecondID) + ", skinThirdID: " + std::to_string(_this.skinThirdID) + ", shapeMix: " + std::to_string(_this.shapeMix) + ", skinMix: " + std::to_string(_this.shapeMix) + ", thirdMix: " + std::to_string(_this.thirdMix) + ")";
