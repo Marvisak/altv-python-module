@@ -1,0 +1,73 @@
+The system is: Windows - 10.0.19043 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Optimalizující kompilátor C/C++ společnosti Microsoft (R) verze 19.29.30139 pro procesory x64
+Copyright (C) Microsoft Corporation. Všechna práva vyhrazena.
+
+CMakeCCompilerId.c
+Microsoft (R) Incremental Linker Version 14.29.30139.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:CMakeCCompilerId.exe 
+CMakeCCompilerId.obj 
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.exe"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.obj"
+
+The C compiler identification is MSVC, found in "D:/Projects/altv-python-module/cmake-build-release/CMakeFiles/3.21.1/CompilerIdC/CMakeCCompilerId.exe"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Optimalizující kompilátor C/C++ společnosti Microsoft (R) verze 19.29.30139 pro procesory x64
+Copyright (C) Microsoft Corporation. Všechna práva vyhrazena.
+
+CMakeCXXCompilerId.cpp
+Microsoft (R) Incremental Linker Version 14.29.30139.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:CMakeCXXCompilerId.exe 
+CMakeCXXCompilerId.obj 
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.exe"
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
+
+The CXX compiler identification is MSVC, found in "D:/Projects/altv-python-module/cmake-build-release/CMakeFiles/3.21.1/CompilerIdCXX/CMakeCXXCompilerId.exe"
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: D:/Projects/altv-python-module/cmake-build-release/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_e8f82\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX64\x64\nmake.exe"  -f CMakeFiles\cmTC_e8f82.dir\build.make /nologo -L                  CMakeFiles\cmTC_e8f82.dir\build
+Building C object CMakeFiles/cmTC_e8f82.dir/CMakeCCompilerABI.c.obj
+	D:\JetBrains\apps\CLion\ch-0\213.6461.75\bin\cmake\win\bin\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_e8f82.dir\CMakeCCompilerABI.c.obj.d --working-dir=D:\Projects\altv-python-module\cmake-build-release\CMakeFiles\CMakeTmp --filter-prefix="Poznßmka: VŔetný souboru: " -- C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1429~1.301\bin\Hostx64\x64\cl.exe @C:\Users\kukuc\AppData\Local\Temp\nmE10F.tmp
+CMakeCCompilerABI.c
+Linking C executable cmTC_e8f82.exe
+	D:\JetBrains\apps\CLion\ch-0\213.6461.75\bin\cmake\win\bin\cmake.exe -E vs_link_exe --intdir=CMakeFiles\cmTC_e8f82.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\mt.exe --manifests -- C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1429~1.301\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\cmTC_e8f82.dir\objects1.rsp @C:\Users\kukuc\AppData\Local\Temp\nmE1DB.tmp
+
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: D:/Projects/altv-python-module/cmake-build-release/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake -f Makefile /nologo cmTC_b68da\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX64\x64\nmake.exe"  -f CMakeFiles\cmTC_b68da.dir\build.make /nologo -L                  CMakeFiles\cmTC_b68da.dir\build
+Building CXX object CMakeFiles/cmTC_b68da.dir/CMakeCXXCompilerABI.cpp.obj
+	D:\JetBrains\apps\CLion\ch-0\213.6461.75\bin\cmake\win\bin\cmake.exe -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_b68da.dir\CMakeCXXCompilerABI.cpp.obj.d --working-dir=D:\Projects\altv-python-module\cmake-build-release\CMakeFiles\CMakeTmp --filter-prefix="Poznßmka: VŔetný souboru: " -- C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1429~1.301\bin\Hostx64\x64\cl.exe @C:\Users\kukuc\AppData\Local\Temp\nmE4D8.tmp
+CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_b68da.exe
+	D:\JetBrains\apps\CLion\ch-0\213.6461.75\bin\cmake\win\bin\cmake.exe -E vs_link_exe --intdir=CMakeFiles\cmTC_b68da.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\mt.exe --manifests -- C:\PROGRA~2\MICROS~2\2019\COMMUN~1\VC\Tools\MSVC\1429~1.301\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\cmTC_b68da.dir\objects1.rsp @C:\Users\kukuc\AppData\Local\Temp\nmE594.tmp
+
+
+

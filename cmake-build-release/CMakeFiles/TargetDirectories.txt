@@ -1,0 +1,3 @@
+D:/Projects/altv-python-module/cmake-build-release/CMakeFiles/python-module.dir
+D:/Projects/altv-python-module/cmake-build-release/CMakeFiles/edit_cache.dir
+D:/Projects/altv-python-module/cmake-build-release/CMakeFiles/rebuild_cache.dir

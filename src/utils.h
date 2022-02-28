@@ -9,5 +9,13 @@ namespace Utils
 	alt::MValue ValueToMValue(const py::object& arg);
 	py::object MValueToValue(const alt::MValueConst& mValue);
 	std::string GetTypeOfObject(const py::object& object);
-	py::list ArrayToPyList(const alt::Array<uint32_t>& list);
+    py::object GetBaseObject(const alt::Ref<alt::IBaseObject>& baseObject);
+    template <class T>
+    py::list ArrayToPyList(const alt::Array<T>& array) {
+        py::list pyList;
+        for (auto element : array) {
+            pyList.append(element);
+        }
+        return pyList;
+    }
 }

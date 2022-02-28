@@ -1,12 +1,9 @@
 #include "main.h"
 #include "PythonRuntime.h"
 
-alt::ICore* Core;
-
 EXPORT bool altMain(alt::ICore* core)
 {
 	alt::ICore::SetInstance(core);
-	Core = core;
 
 	try {
 		auto runtime = new PythonRuntime();

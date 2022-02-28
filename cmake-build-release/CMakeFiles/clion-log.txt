@@ -1,0 +1,4 @@
+D:\JetBrains\apps\CLion\ch-0\213.6461.75\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - NMake Makefiles" D:\Projects\altv-python-module
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/Projects/altv-python-module/cmake-build-release

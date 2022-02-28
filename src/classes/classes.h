@@ -1,23 +1,18 @@
 #pragma once
+#include "main.h"
 
-#include "base/baseobject.h"
-#include "base/entity.h"
-#include "base/player.h"
-#include "base/vehicle.h"
-#include "base/voicechannel.h"
-#include "base/worldobject.h"
-#include "data/clothes.h"
-#include "data/dlcclothes.h"
-#include "data/dlcprops.h"
-#include "data/props.h"
-#include "data/rgba.h"
-#include "data/vector2.h"
-#include "data/vector3.h"
-
-// Colshapes
-#include "base/colshape.h"
-#include "base/colshapes/colshapecircle.h"
-#include "base/colshapes/colshapecuboid.h"
-#include "base/colshapes/colshapecylinder.h"
-#include "base/colshapes/colshaperectangle.h"
-#include "base/colshapes/colshapesphere.h"
+void RegisterEnums(const py::module_& m);
+void RegisterRGBAClass(const py::module_& m);
+void RegisterHeadOverlayClass(const py::module_& m);
+void RegisterHeadBlendData(const py::module_& m);
+void RegisterWeaponClass(const py::module_& m);
+void RegisterClothClass(const py::module_& m);
+void RegisterDlcClothClass(const py::module_& m);
+void RegisterPropClass(const py::module_& m);
+void RegisterDlcPropClass(const py::module_& m);
+void RegisterVector3Class(const py::module_& m);
+void RegisterBaseObjectClass(const py::module_& m);
+void RegisterWorldObjectClass(const py::module_& m);
+void RegisterEntityClass(const py::module_& m);
+void RegisterPlayerClass(const py::module_& m);
+void RegisterVehicleClass(const py::module_& m);

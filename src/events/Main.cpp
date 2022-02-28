@@ -20,6 +20,7 @@ EventHandler clientScriptEvent(alt::CEvent::Type::CLIENT_SCRIPT_EVENT, [](const 
 }, [](const alt::CEvent* ev) {
     py::list args;
     auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
+    args.append(event->GetTarget().Get());
     for (const auto& arg : event->GetArgs()) {
         auto value = Utils::MValueToValue(arg);
         args.append(value);

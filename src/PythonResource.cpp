@@ -5,10 +5,11 @@ bool PythonResource::Start() {
 	alt::String mainFile = GetFullPath();
 
 	std::string path = Resource->GetPath().ToString();
-	std::wstring escapedPath;
-	escapedPath.assign(path.begin(), path.end());
 
-	PySys_SetPath(escapedPath.c_str());
+    // Makes importing local files possible
+    PyObject* sys = PyImport_ImportModule("sys");
+    PyObject* pyPath = PyObject_GetAttrString(sys, "path");
+    PyList_Append(pyPath, PyUnicode_FromString(path.c_str()));
 
 	FILE* fp = fopen(mainFile.CStr(), "r");
 	bool crashed = PyRun_SimpleFile(fp, mainFile.CStr());
@@ -61,10 +62,6 @@ bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject>& object) {
 	auto range = objects.equal_range(object->GetType());
 	for (auto it = range.first; it != range.second; it++)
 		if (it->second == object) return true;
-	for (const auto& player : Core->GetPlayers())
-		if (player == object) return true;
-	for (const auto& entity : Core->GetEntities())
-		if (entity == object) return true;
 	return false;
 }
 

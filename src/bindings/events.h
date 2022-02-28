@@ -1,6 +1,5 @@
 #pragma once
 
-#include "classes/base/player.h"
 #include "main.h"
 #include "utils.h"
 
@@ -25,17 +24,17 @@ void Emit(const std::string& eventName, const py::args& args)
 	{
 		eventArgs.Push(Utils::ValueToMValue(arg.cast<py::object>()));
 	}
-	Core->TriggerLocalEvent(eventName, eventArgs);
+	alt::ICore::Instance().TriggerLocalEvent(eventName, eventArgs);
 }
 
-void EmitClient(const Player& player, const std::string& eventName, const py::args& args)
+void EmitClient(alt::IPlayer* player, const std::string& eventName, const py::args& args)
 {
 	alt::MValueArgs eventArgs;
 	for (const py::handle& arg : *args)
 	{
 		eventArgs.Push(Utils::ValueToMValue(arg.cast<py::object>()));
 	}
-	Core->TriggerClientEvent(player.GetBaseObject(), eventName, eventArgs);
+    alt::ICore::Instance().TriggerClientEvent(player, eventName, eventArgs);
 }
 
 
