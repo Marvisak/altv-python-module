@@ -1,6 +1,7 @@
 build/
 dist/
 cmake-build-debug/
+cmake-build-release/
 
 ### IDE ###
 .idea
