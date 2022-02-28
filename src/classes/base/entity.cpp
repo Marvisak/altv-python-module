@@ -32,7 +32,7 @@ void SetRotation(alt::IEntity* _this, Vector3 rot) {
     _this->SetRotation(rot.ToAltRot());
 }
 
-void AttachToEntity(alt::IEntity* _this, alt::Ref<alt::IEntity> entity, int16_t entityBoneId, int16_t ownBoneId, Vector3 pos, Vector3 rot, bool enableCollision, bool fixedRotation) {
+void AttachToEntity(alt::IEntity* _this, alt::IEntity* entity, int16_t entityBoneId, int16_t ownBoneId, Vector3 pos, Vector3 rot, bool enableCollision, bool fixedRotation) {
     _this->AttachToEntity(entity, entityBoneId, ownBoneId, pos.ToAltPos(), rot.ToAltRot(), enableCollision, fixedRotation);
 }
 

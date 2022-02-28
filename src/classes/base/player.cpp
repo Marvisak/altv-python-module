@@ -75,19 +75,22 @@ Vector3 GetEntityAimOffset(alt::IPlayer* _this) {
     return Vector3(_this->GetEntityAimOffset());
 }
 
-/*
-void Player::Emit(const std::string& eventName, const py::args& args)
-{
-	if (std::find(Utils::EventTypes.begin(), Utils::EventTypes.end(), eventName) != Utils::EventTypes.end())
-		return;
+py::object GetLocalMeta(alt::IPlayer* _this, const std::string& key) {
+    return Utils::MValueToValue(_this->GetLocalMetaData(key));
+}
+
+void SetLocalMeta(alt::IPlayer* _this, const std::string& key, const py::object& value) {
+    _this->SetLocalMetaData(key, Utils::ValueToMValue(value));
+}
+
+void Emit(alt::IPlayer* _this, const std::string& eventName, const py::args& args) {
 	alt::MValueArgs eventArgs;
 	for (const py::handle& arg : *args)
 	{
 		eventArgs.Push(Utils::ValueToMValue(arg.cast<py::object>()));
 	}
-	Core->TriggerClientEvent(player, eventName, eventArgs);
+	alt::ICore::Instance().TriggerClientEvent(_this, eventName, eventArgs);
 }
-*/
 
 void RegisterPlayerClass(const py::module_& m) {
     auto pyClass = py::class_<alt::IPlayer, alt::IEntity, alt::Ref<alt::IPlayer>>(m, "Player", py::multiple_inheritance());
@@ -95,6 +98,9 @@ void RegisterPlayerClass(const py::module_& m) {
     // Static
     pyClass.def_property_readonly_static("all", &GetAllPlayers);
     pyClass.def_static("get_by_id", &GetById, py::arg("id"));
+
+    // Events
+    pyClass.def("emit", &Emit, py::arg("event_name"));
 
     // Player Data
     pyClass.def_property_readonly("name", &alt::IPlayer::GetName);
@@ -199,5 +205,11 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def("spawn", py::overload_cast<alt::IPlayer*, Vector3, uint32_t>(&Spawn), py::arg("pos"), py::arg("delay") = 0);
     pyClass.def("spawn", py::overload_cast<alt::IPlayer*, float, float, float, uint32_t>(&Spawn), py::arg("x"), py::arg("y"), py::arg("z"), py::arg("delay") = 0);
     pyClass.def("despawn", &alt::IPlayer::Despawn);
+
+    // Local MetaData
+    pyClass.def("get_local_meta", &GetLocalMeta, py::arg("key"));
+    pyClass.def("has_local_meta", &alt::IPlayer::HasLocalMetaData, py::arg("key"));
+    pyClass.def("set_local_meta", &SetLocalMeta, py::arg("key"), py::arg("value"));
+    pyClass.def("delete_local_meta", &alt::IPlayer::DeleteLocalMetaData, py::arg("key"));
 }
 
