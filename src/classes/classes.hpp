@@ -2,6 +2,7 @@
 #include "main.hpp"
 
 void RegisterEnums(const py::module_& m);
+void RegisterVehicleNeonStruct(const py::module_& m);
 void RegisterRGBAClass(const py::module_& m);
 void RegisterHeadOverlayClass(const py::module_& m);
 void RegisterHeadBlendData(const py::module_& m);

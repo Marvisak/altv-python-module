@@ -32,6 +32,7 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
         }
         for (const auto& callback : callbacks) {
             try {
+                // TODO Figure out somehow how to call async function
                 callback(*eventArgs);
             } catch (py::error_already_set& e) {
                 py::print(e.what());

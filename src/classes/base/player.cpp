@@ -1,4 +1,5 @@
 #include "classes/types/vector3.hpp"
+#include "classes/types/enums.hpp"
 #include "classes/classes.hpp"
 #include "utils.hpp"
 
@@ -70,6 +71,9 @@ py::object GetEntityAimingAt(alt::IPlayer* _this) {
     return Utils::GetBaseObject(_this->GetEntityAimingAt());
 }
 
+WeaponTint GetCurrentWeaponTintIndex(alt::IPlayer* _this) {
+    return (WeaponTint)(_this->GetCurrentWeaponTintIndex());
+}
 
 Vector3 GetEntityAimOffset(alt::IPlayer* _this) {
     return Vector3(_this->GetEntityAimOffset());
@@ -144,14 +148,14 @@ void RegisterPlayerClass(const py::module_& m) {
 
     // Weapons
     pyClass.def_property("current_weapon", &alt::IPlayer::GetCurrentWeapon, &alt::IPlayer::SetCurrentWeapon);
-    pyClass.def("give_weapon", &alt::IPlayer::GiveWeapon, py::arg("weaponHash"), py::arg("ammo"), py::arg("equip_now"));
-    pyClass.def("remove_weapon", &alt::IPlayer::RemoveWeapon, py::arg("weaponHash"));
+    pyClass.def("give_weapon", &alt::IPlayer::GiveWeapon, py::arg("weapon_hash"), py::arg("ammo"), py::arg("equip_now"));
+    pyClass.def("remove_weapon", &alt::IPlayer::RemoveWeapon, py::arg("weapon_hash"));
     pyClass.def("remove_all_weapons", &alt::IPlayer::RemoveAllWeapons);
-    pyClass.def("set_weapon_tint_index", &alt::IPlayer::SetWeaponTintIndex, py::arg("weaponHash"), py::arg("tint_index"));
-    pyClass.def_property_readonly("current_weapon_tint_index", &alt::IPlayer::GetCurrentWeaponTintIndex);
+    pyClass.def("set_weapon_tint_index", &alt::IPlayer::SetWeaponTintIndex, py::arg("weapon_hash"), py::arg("tint_index"));
+    pyClass.def_property_readonly("current_weapon_tint_index", &GetCurrentWeaponTintIndex);
     pyClass.def_property_readonly("current_weapon_components", &GetCurrentWeaponComponents);
-    pyClass.def("add_weapon_component", &alt::IPlayer::AddWeaponComponent, py::arg("weaponHash"), py::arg("component"));
-    pyClass.def("remove_weapon_component", &alt::IPlayer::RemoveWeaponComponent, py::arg("weaponHash"), py::arg("component"));
+    pyClass.def("add_weapon_component", &alt::IPlayer::AddWeaponComponent, py::arg("weapon_hash"), py::arg("component"));
+    pyClass.def("remove_weapon_component", &alt::IPlayer::RemoveWeaponComponent, py::arg("weapon_hash"), py::arg("component"));
     pyClass.def_property_readonly("weapons", &GetWeapons);
 
     // Current Status

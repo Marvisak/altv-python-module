@@ -10,6 +10,7 @@ PYBIND11_EMBEDDED_MODULE(alt, m){
 	m.doc() = "alt:V Python Module";
 
     RegisterEnums(m);
+    RegisterVehicleNeonStruct(m);
     RegisterVector3Class(m);
     RegisterRGBAClass(m);
     RegisterHeadOverlayClass(m);
