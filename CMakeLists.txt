@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
+include(vendors/cpp-sdk/CMakeLists.txt)
+
 project(python-module)
 set(PROJECT_MODULE_NAME python-module)
 
@@ -30,3 +32,6 @@ add_library(
         ${PROJECT_MODULE_NAME} SHARED
         ${PROJECT_SOURCE_FILES}
 )
+
+add_dependencies(${PROJECT_MODULE_NAME} alt-sdk)
+
