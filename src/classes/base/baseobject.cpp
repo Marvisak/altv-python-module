@@ -6,7 +6,7 @@ PYBIND11_DECLARE_HOLDER_TYPE(T, alt::Ref<T>, true)
 uint64_t GetRefCount(alt::IBaseObject* _this) {
     if (alt::ICore::Instance().IsDebug())
         return _this->GetRefCount();
-    throw std::exception("ref_count is only available in debug mode");
+    throw std::runtime_error("ref_count is only available in debug mode");
 }
 
 bool GetValid(alt::IBaseObject* _this) {

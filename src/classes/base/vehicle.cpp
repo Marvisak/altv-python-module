@@ -1,4 +1,3 @@
-#pragma once
 #include "classes/types/vehicleneon.hpp"
 #include "classes/types/vector3.hpp"
 #include "classes/types/enums.hpp"
@@ -18,7 +17,7 @@ py::list GetAllVehicles(const py::object& type) {
     return Utils::ArrayToPyList<alt::Ref<alt::IVehicle>>(alt::ICore::Instance().GetVehicles());
 }
 
-alt::IVehicle* GetById(uint16_t id) {
+alt::IVehicle* GetVehicleById(uint16_t id) {
     auto entity = alt::ICore::Instance().GetEntityByID(id);
     if (entity && entity->GetType() == alt::IBaseObject::Type::VEHICLE)
         return dynamic_cast<alt::IVehicle*>(entity.Get());
@@ -29,7 +28,7 @@ alt::IVehicle* CreateVehicle(uint32_t hash, alt::Position pos, alt::Rotation rot
     auto vehicle = alt::ICore::Instance().CreateVehicle(hash, pos, rot);
     if (vehicle)
         return vehicle.Get();
-    throw std::exception("Failed to create vehicle");
+    throw std::runtime_error("Failed to create vehicle");
 }
 
 WindowTint GetWindowTint(alt::IVehicle* _this) {
@@ -96,7 +95,7 @@ void RegisterVehicleClass(const py::module_& m) {
     }));
 
     pyClass.def_property_readonly_static("all", &GetAllVehicles);
-    pyClass.def_static("get_by_id", &GetById, py::arg("id"));
+    pyClass.def_static("get_by_id", &GetVehicleById, py::arg("id"));
 
     pyClass.def("get_mod", &alt::IVehicle::GetMod, py::arg("mod_type"));
     pyClass.def("set_mod", &alt::IVehicle::SetMod, py::arg("mod_type"), py::arg("mod_id"));

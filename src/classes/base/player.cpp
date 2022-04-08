@@ -17,7 +17,7 @@ py::list GetAllPlayers(const py::object& type) {
     return Utils::ArrayToPyList<alt::Ref<alt::IPlayer>>(alt::ICore::Instance().GetPlayers());
 }
 
-alt::IPlayer* GetById(uint16_t id) {
+alt::IPlayer* GetPlayerById(uint16_t id) {
     auto entity = alt::ICore::Instance().GetEntityByID(id);
     if (entity && entity->GetType() == alt::IBaseObject::Type::PLAYER)
         return dynamic_cast<alt::IPlayer*>(entity.Get());
@@ -101,7 +101,7 @@ void RegisterPlayerClass(const py::module_& m) {
 
     // Static
     pyClass.def_property_readonly_static("all", &GetAllPlayers);
-    pyClass.def_static("get_by_id", &GetById, py::arg("id"));
+    pyClass.def_static("get_by_id", &GetPlayerById, py::arg("id"));
 
     // Events
     pyClass.def("emit", &Emit, py::arg("event_name"));
@@ -200,10 +200,6 @@ void RegisterPlayerClass(const py::module_& m) {
     // Streaming Range
     pyClass.def("is_entity_in_streaming_range", py::overload_cast<alt::Ref<alt::IEntity>>(&alt::IPlayer::IsEntityInStreamingRange), py::arg("entity"));
     pyClass.def("is_entity_in_streaming_range", py::overload_cast<uint16_t>(&alt::IPlayer::IsEntityInStreamingRange), py::arg("id"));
-
-    // Model
-    pyClass.def_property("model", &alt::IPlayer::GetModel, py::overload_cast<unsigned int>(&alt::IPlayer::SetModel));
-    pyClass.def_property("model", &alt::IPlayer::GetModel, py::overload_cast<alt::IPlayer*, const std::string&>(&SetModel));
 
     // Spawn
     pyClass.def("spawn", py::overload_cast<alt::IPlayer*, Vector3, uint32_t>(&Spawn), py::arg("pos"), py::arg("delay") = 0);

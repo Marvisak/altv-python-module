@@ -20,7 +20,7 @@ py::list GetAllEntities(const py::object& type) {
     return list;
 }
 
-py::object GetById(uint16_t id) {
+py::object GetEntityById(uint16_t id) {
     return Utils::GetBaseObject(alt::ICore::Instance().GetEntityByID(id));
 }
 
@@ -61,11 +61,10 @@ void RegisterEntityClass(const py::module_& m) {
 
     // Static
     pyClass.def_property_readonly_static("all", &GetAllEntities);
-    pyClass.def_static("get_by_id", &GetById, py::arg("id"));
+    pyClass.def_static("get_by_id", &GetEntityById, py::arg("id"));
 
     // Entity Data
     pyClass.def_property_readonly("id", &alt::IEntity::GetID);
-    pyClass.def_property_readonly("model", &alt::IEntity::GetModel);
     pyClass.def_property("rot", &GetRotation, &SetRotation);
     pyClass.def_property("streamed", &alt::IEntity::GetStreamed, &alt::IEntity::SetStreamed);
     pyClass.def_property("visible", &alt::IEntity::GetVisible, &alt::IEntity::SetVisible);

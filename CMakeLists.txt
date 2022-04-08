@@ -16,22 +16,24 @@ add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
 file(GLOB_RECURSE PROJECT_SOURCE_FILES "./src/*.h" "./src/*.hpp" "./src/*.cpp")
 
-find_package (Python3 COMPONENTS Development)
 
 include_directories(
         "${PROJECT_SOURCE_DIR}/src"
         "${PROJECT_SOURCE_DIR}/vendors/cpp-sdk"
-		"${PROJECT_SOURCE_DIR}/vendors/pybind11/include"
 		"${PROJECT_SOURCE_DIR}/vendors/magic_enum/include"
-		"${Python3_INCLUDE_DIRS}"
 )
 
-link_libraries("${Python3_LIBRARIES}")
+add_subdirectory(
+		${PROJECT_SOURCE_DIR}/vendors/pybind11
+)
 
 add_library(
         ${PROJECT_MODULE_NAME} SHARED
         ${PROJECT_SOURCE_FILES}
 )
+
+
+target_link_libraries(${PROJECT_MODULE_NAME} PRIVATE pybind11::embed)
 
 add_dependencies(${PROJECT_MODULE_NAME} alt-sdk)
 
