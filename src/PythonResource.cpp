@@ -30,26 +30,58 @@ bool PythonResource::Stop() {
 }
 
 bool PythonResource::OnEvent(const alt::CEvent* event) {
-	auto eventHandler = EventHandler::Get(event);
-    if (eventHandler) {
-        auto eventName = eventHandler->GetEventName(event);
-        auto eventArgs = eventHandler->GetEventArgs(event);
-        EventsVector callbacks;
-        if (event->GetType() == alt::CEvent::Type::CLIENT_SCRIPT_EVENT) {
-            callbacks = RemoteEvents[eventName];
-        } else {
-            callbacks = LocalEvents[eventName];
-        }
-        for (const auto& callback : callbacks) {
-            try {
-                // TODO Figure out somehow how to call async function
-                callback(*eventArgs);
-            } catch (py::error_already_set& e) {
-                py::print(e.what());
-            }
-        }
-    }
+	auto eventType = event->GetType();
+	if (eventType == alt::CEvent::Type::SERVER_SCRIPT_EVENT || eventType == alt::CEvent::Type::CLIENT_SCRIPT_EVENT)
+		HandleCustomEvent(event);
+	else {
+		auto eventHandler = EventHandler::Get(event);
+		if (eventHandler) {
+			auto eventArgs = eventHandler->GetEventArgs(event);
+			EventsVector callbacks = LocalEvents[eventType];
+			for (const auto& callback : callbacks) {
+				try {
+					callback(*eventArgs);
+				} catch (py::error_already_set& e) {
+					py::print(e.what());
+					e.restore();
+				}
+			}
+		}
+	}
     return true;
+}
+
+void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
+	py::list eventArgs;
+	EventsVector callbacks;
+	if (ev->GetType() == alt::CEvent::Type::SERVER_SCRIPT_EVENT) {
+		auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
+		std::string name = event->GetName().ToString();
+		callbacks = LocalCustomEvents[name];
+		for (const auto& arg : event->GetArgs())
+		{
+			auto value = Utils::MValueToValue(arg);
+			eventArgs.append(value);
+		}
+	} else {
+		auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
+		std::string name = event->GetName().ToString();
+		callbacks = RemoteEvents[name];
+		eventArgs.append(event->GetTarget().Get());
+		for (const auto& arg : event->GetArgs())
+		{
+			auto value = Utils::MValueToValue(arg);
+			eventArgs.append(value);
+		}
+	}
+	for (const auto& callback : callbacks) {
+		try {
+			callback(*eventArgs);
+		} catch (py::error_already_set& e) {
+			py::print(e.what());
+			e.restore();
+		}
+	}
 }
 
 void PythonResource::OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) {
@@ -76,8 +108,12 @@ bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject>& object) {
 	return false;
 }
 
-void PythonResource::AddLocalEvent(const std::string& eventName, const py::function& eventFunc) {
-    LocalEvents[eventName].push_back(eventFunc);
+void PythonResource::AddLocalEvent(const alt::CEvent::Type& type, const py::function& eventFunc) {
+	LocalEvents[type].push_back(eventFunc);
+}
+
+void PythonResource::AddLocalCustomEvent(const std::string& eventName, const py::function& eventFunc) {
+    LocalCustomEvents[eventName].push_back(eventFunc);
 }
 
 void PythonResource::AddRemoteEvent(const std::string& eventName, const py::function& eventFunc) {

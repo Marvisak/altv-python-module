@@ -2,6 +2,7 @@
 #include "classes/classes.hpp"
 #include "events.hpp"
 #include "log.hpp"
+#include "events/events.hpp"
 #include "main.hpp"
 
 
@@ -29,4 +30,6 @@ PYBIND11_EMBEDDED_MODULE(alt, m){
     RegisterLogFunctions(m);
     RegisterEventFunctions(m);
     RegisterHelpersFunctions(m);
+
+	EventHandler::RegisterEvents(m);
 }

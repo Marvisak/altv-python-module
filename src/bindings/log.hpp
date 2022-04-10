@@ -25,7 +25,7 @@ void LogWarning(const py::object& object)
 void RegisterLogFunctions(py::module_ m)
 {
 	m.def("log", &Log, "Logs text to the console");
-	m.def("logError", &LogError, "Logs error to the console");
-	m.def("logDebug", &LogDebug, "Logs debug message to the console");
-	m.def("logWarning", &LogWarning, "Logs warning to the console");
+	m.def("log_error", &LogError, "Logs error to the console");
+	m.def("log_debug", &LogDebug, "Logs debug message to the console");
+	m.def("log_warning", &LogWarning, "Logs warning to the console");
 }

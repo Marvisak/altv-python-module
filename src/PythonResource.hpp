@@ -9,9 +9,11 @@ class PythonResource : public alt::IResource::Impl
 	alt::IResource* Resource;
 	PyThreadState* Interpreter;
 	typedef std::vector<py::function> EventsVector;
-	typedef std::map<std::string, EventsVector> EventsMap;
+	typedef std::map<alt::CEvent::Type, EventsVector> EventsMap;
+	typedef std::map<std::string, EventsVector> CustomEventsMap;
 	EventsMap LocalEvents;
-	EventsMap RemoteEvents;
+	CustomEventsMap LocalCustomEvents;
+	CustomEventsMap RemoteEvents;
 
 	std::unordered_map<alt::IBaseObject::Type, alt::Ref<alt::IBaseObject>> objects;
 
@@ -35,9 +37,13 @@ class PythonResource : public alt::IResource::Impl
 
 	void OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) override;
 
-	void AddLocalEvent(const std::string& eventName, const py::function& eventFunc);
+	void AddLocalEvent(const alt::CEvent::Type& type, const py::function& eventFunc);
+
+	void AddLocalCustomEvent(const std::string& eventName, const py::function& eventFunc);
 
 	void AddRemoteEvent(const std::string& eventName, const py::function& eventFunc);
+
+	void HandleCustomEvent(const alt::CEvent* event);
 
 	class PythonFunction : public alt::IMValueFunction::Impl
 	{

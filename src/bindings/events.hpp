@@ -6,7 +6,7 @@
 void On(const std::string& eventName, const py::function& func) {
 	PyThreadState* interp = PyThreadState_Get();
 	PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
-	resource->AddLocalEvent(eventName, func);
+	resource->AddLocalCustomEvent(eventName, func);
 }
 
 void OnClient(const std::string& eventName, const py::function& func) {
@@ -34,7 +34,7 @@ void EmitClient(alt::IPlayer* player, const std::string& eventName, const py::ar
 
 void RegisterEventFunctions(py::module_ m) {
 	m.def("on", &On, "Listens to event");
-	m.def("onClient", &OnClient, "Listens to client event");
+	m.def("on_client", &OnClient, "Listens to client event");
 	m.def("emit", &Emit, "Emits event");
-	m.def("emitClient", &EmitClient, "Emits client event");
+	m.def("emit_client", &EmitClient, "Emits client event");
 }
