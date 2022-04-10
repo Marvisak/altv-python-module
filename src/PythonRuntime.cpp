@@ -1,21 +1,18 @@
 #include "PythonRuntime.hpp"
-#include "bindings/bindings.hpp"
 
 PythonRuntime* PythonRuntime::Instance = nullptr;
 
 PythonRuntime::PythonRuntime() {
 	py::initialize_interpreter(false);
+	py::module_::import("alt");
+	MainInterpreter = PyThreadState_Get();
 	Instance = this;
 }
 
-PythonResource* PythonRuntime::GetPythonResourceFromPath(std::string const& path) {
+PythonResource* PythonRuntime::GetPythonResourceFromInterp(PyThreadState* interp) {
 	for (PythonResource* resource : Resources)
-	{
-		if (path.find(resource->Resource->GetPath().ToString() + preferred_separator) != std::string::npos)
-		{
+		if (resource->Interpreter == interp)
 			return resource;
-		}
-	}
 	return nullptr;
 }
 
@@ -40,6 +37,7 @@ void PythonRuntime::DestroyImpl(alt::IResource::Impl* impl) {
 
 
 void PythonRuntime::OnDispose() {
+	PyThreadState_Swap(MainInterpreter);
 	py::finalize_interpreter();
 }
 

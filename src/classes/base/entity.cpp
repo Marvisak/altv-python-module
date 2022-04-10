@@ -56,6 +56,15 @@ void ResetNetOwner(alt::IEntity* _this, bool disable_migration) {
     _this->SetNetworkOwner(nullptr, disable_migration);
 }
 
+void SetModel(alt::IPlayer* _this, uint32_t model) {
+	_this->SetModel(model);
+}
+
+void SetModel(alt::IPlayer* _this, const std::string& model) {
+	uint32_t modelHash = alt::ICore::Instance().Hash(model);
+	_this->SetModel(modelHash);
+}
+
 void RegisterEntityClass(const py::module_& m) {
     auto pyClass = py::class_<alt::IEntity, alt::IWorldObject, alt::Ref<alt::IEntity>>(m, "Entity");
 
@@ -68,6 +77,10 @@ void RegisterEntityClass(const py::module_& m) {
     pyClass.def_property("rot", &GetRotation, &SetRotation);
     pyClass.def_property("streamed", &alt::IEntity::GetStreamed, &alt::IEntity::SetStreamed);
     pyClass.def_property("visible", &alt::IEntity::GetVisible, &alt::IEntity::SetVisible);
+
+	// Model
+	pyClass.def_property("model", &alt::IEntity::GetModel, py::overload_cast<alt::IPlayer*, uint32_t>(&SetModel));
+	pyClass.def_property("model", &alt::IEntity::GetModel, py::overload_cast<alt::IPlayer*, const std::string&>(&SetModel));
 
     // NetOwner
     pyClass.def_property_readonly("net_owner", &alt::IEntity::GetNetworkOwner);

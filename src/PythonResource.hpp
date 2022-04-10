@@ -7,6 +7,7 @@ class PythonResource : public alt::IResource::Impl
 {
 	PythonRuntime* Runtime;
 	alt::IResource* Resource;
+	PyThreadState* Interpreter;
 	typedef std::vector<py::function> EventsVector;
 	typedef std::map<std::string, EventsVector> EventsMap;
 	EventsMap LocalEvents;
@@ -27,8 +28,6 @@ class PythonResource : public alt::IResource::Impl
 	bool Stop() override;
 
 	bool OnEvent(const alt::CEvent* ev) override;
-
-	alt::String GetFullPath();
 
 	bool IsObjectValid(const alt::Ref<alt::IBaseObject>& object);
 

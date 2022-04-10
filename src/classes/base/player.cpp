@@ -33,12 +33,6 @@ void Spawn(alt::IPlayer* _this, Vector3 pos, uint32_t delay = 0) {
     _this->Spawn(pos.ToAltPos(), delay);
 }
 
-void SetModel(alt::IPlayer* _this, const std::string& model)
-{
-    uint32_t modelHash = alt::ICore::Instance().Hash(py::str(model).cast<std::string>());
-    _this->SetModel(modelHash);
-}
-
 py::list GetCurrentWeaponComponents(alt::IPlayer* _this) {
     return Utils::ArrayToPyList<uint32_t>(_this->GetCurrentWeaponComponents());
 }

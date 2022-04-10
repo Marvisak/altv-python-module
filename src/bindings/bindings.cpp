@@ -1,10 +1,9 @@
-#pragma once
-
 #include "alt.hpp"
 #include "classes/classes.hpp"
 #include "events.hpp"
 #include "log.hpp"
 #include "main.hpp"
+
 
 PYBIND11_EMBEDDED_MODULE(alt, m){
 	m.doc() = "alt:V Python Module";

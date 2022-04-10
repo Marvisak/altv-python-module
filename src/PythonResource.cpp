@@ -1,21 +1,31 @@
 #include "PythonResource.hpp"
+#include <filesystem>
 #include "utils.hpp"
 
 bool PythonResource::Start() {
-	alt::String mainFile = GetFullPath();
+	PyThreadState_Swap(Runtime->GetInterpreter());
+	Interpreter = Py_NewInterpreter();
 
+	auto separator = std::filesystem::path::preferred_separator;
 	std::string path = Resource->GetPath().ToString();
+	std::string main = Resource->GetMain().ToString();
+	std::string fullPath = path + separator + main;
 
     // Makes importing local files possible
-    PyObject* sys = PyImport_ImportModule("sys");
-    PyObject* pyPath = PyObject_GetAttrString(sys, "path");
-    PyList_Append(pyPath, PyUnicode_FromString(path.c_str()));
+    py::module_ sys = py::module_::import("sys");
+    py::list pyPath = sys.attr("path");
+	pyPath.append(path);
 
-	FILE* fp = fopen(mainFile.CStr(), "r");
-	bool crashed = PyRun_SimpleFile(fp, mainFile.CStr());
+	FILE* fp = fopen(fullPath.c_str(), "r");
+	bool crashed = PyRun_SimpleFile(fp, fullPath.c_str());
+
+	PyThreadState_Swap(Runtime->GetInterpreter());
 	return !crashed;
 }
 bool PythonResource::Stop() {
+	PyThreadState_Swap(Interpreter);
+	Py_EndInterpreter(Interpreter);
+	PyThreadState_Swap(Runtime->GetInterpreter());
 	return true;
 }
 
@@ -72,12 +82,6 @@ void PythonResource::AddLocalEvent(const std::string& eventName, const py::funct
 
 void PythonResource::AddRemoteEvent(const std::string& eventName, const py::function& eventFunc) {
     RemoteEvents[eventName].push_back(eventFunc);
-}
-
-alt::String PythonResource::GetFullPath() {
-	alt::String path = Resource->GetPath();
-	alt::String fullPath = path + preferred_separator + Resource->GetMain();
-	return fullPath;
 }
 
 alt::MValue PythonResource::PythonFunction::Call(alt::MValueArgs args) const {

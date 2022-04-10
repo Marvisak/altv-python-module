@@ -2,12 +2,6 @@
 
 #define ALT_SERVER_API
 
-#ifdef _WIN32
-static const char* preferred_separator = "\\";
-#else
-static const char* preferred_separator = "/";
-#endif
-
 // Standard C++ stuff
 #include <iostream>
 #include <map>

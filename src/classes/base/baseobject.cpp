@@ -10,8 +10,8 @@ uint64_t GetRefCount(alt::IBaseObject* _this) {
 }
 
 bool GetValid(alt::IBaseObject* _this) {
-    PyFrameObject* frame = PyEval_GetFrame();
-    PythonResource* resource = Utils::GetResourceFromFrame(frame);
+	PyThreadState* interp = PyThreadState_Get();
+	PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
     return resource->IsObjectValid(_this);
 }
 
