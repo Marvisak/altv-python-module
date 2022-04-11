@@ -99,7 +99,7 @@ py::object Utils::MValueToValue(const alt::MValueConst& mValue)
             value = py::float_(mValue.As<alt::IMValueDouble>()->Value());
             break;
         case alt::IMValue::Type::STRING:
-            value = py::str(mValue.As<alt::IMValueString>()->Value().ToString());
+            value = py::str(mValue.As<alt::IMValueString>()->Value());
             break;
         case alt::IMValue::Type::LIST: {
             auto mList = mValue.As<alt::IMValueList>();
@@ -118,7 +118,7 @@ py::object Utils::MValueToValue(const alt::MValueConst& mValue)
             for (auto item = mDict->Begin(); item; item = mDict->Next())
             {
                 auto dictVal = MValueToValue(item->GetValue().Get());
-                pyDict[item->GetKey().CStr()] = dictVal;
+                pyDict[item->GetKey().c_str()] = dictVal;
             }
             value = pyDict;
             break;

@@ -7,8 +7,8 @@ bool PythonResource::Start() {
 	Interpreter = Py_NewInterpreter();
 
 	auto separator = std::filesystem::path::preferred_separator;
-	std::string path = Resource->GetPath().ToString();
-	std::string main = Resource->GetMain().ToString();
+	std::string path = Resource->GetPath();
+	std::string main = Resource->GetMain();
 	std::string fullPath = path + separator + main;
 
     // Makes importing local files possible
@@ -56,7 +56,7 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 	EventsVector callbacks;
 	if (ev->GetType() == alt::CEvent::Type::SERVER_SCRIPT_EVENT) {
 		auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
-		std::string name = event->GetName().ToString();
+		std::string name = event->GetName();
 		callbacks = LocalCustomEvents[name];
 		for (const auto& arg : event->GetArgs())
 		{
@@ -65,7 +65,7 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 		}
 	} else {
 		auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
-		std::string name = event->GetName().ToString();
+		std::string name = event->GetName();
 		callbacks = RemoteEvents[name];
 		eventArgs.append(event->GetTarget().Get());
 		for (const auto& arg : event->GetArgs())
@@ -130,7 +130,7 @@ alt::MValue PythonResource::PythonFunction::Call(alt::MValueArgs args) const {
 	return Utils::ValueToMValue(returnValue);
 }
 
-bool PythonResource::MakeClient(alt::IResource::CreationInfo* info, alt::Array<alt::String> files) {
+bool PythonResource::MakeClient(alt::IResource::CreationInfo* info, alt::Array<std::string> files) {
 	info->type = "js";
 	return true;
 }
