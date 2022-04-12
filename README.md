@@ -1,5 +1,8 @@
-# altv-python-module
-alt:V Multiplayer Python Module
+<p align="center">
+    <img width="200" src="https://user-images.githubusercontent.com/40175773/162998616-a79410f7-5053-431d-afe8-c68b11a48c32.png" alt="Module Logo">
+    <h1 align="center">alt:V Python Module</h1>
+    <p align="center">Adds alt:V serverside language support for Python</p>
+</p>
 
 ## State of the module
 I started working on the module again (maybe), I am currently not happy with most of the code written and will have to rewrite it. I want to thank all the contributors which tried to keep the module alive, you've done a great job. 
