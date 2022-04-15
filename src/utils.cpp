@@ -4,39 +4,25 @@
 alt::MValue Utils::ValueToMValue(const py::object& arg)
 {
 	alt::MValue mValue;
-	auto type = Utils::GetTypeOfObject(arg);
 	auto valueStr = py::str(arg).cast<std::string>();
-	if (type == "str")
-	{
+	if (py::isinstance<py::str>(arg))
 		mValue = alt::ICore::Instance().CreateMValueString(valueStr);
-	}
-	else if (type == "int")
-	{
+	else if (py::isinstance<py::int_>(arg))
 		mValue = alt::ICore::Instance().CreateMValueInt(std::stoi(valueStr));
-	}
-	else if (type == "NoneType")
-	{
+	else if (py::isinstance<py::none>(arg))
 		mValue = alt::ICore::Instance().CreateMValueNil();
-	}
-	else if (type == "bool")
-	{
+	else if (py::isinstance<py::bool_>(arg))
 		mValue = alt::ICore::Instance().CreateMValueBool(valueStr != "0");
-	}
-	else if (type == "float")
-	{
+	else if (py::isinstance<py::float_>(arg))
 		mValue = alt::ICore::Instance().CreateMValueDouble(std::stod(valueStr));
-	}
-	else if (type == "list")
-	{
+	else if (py::isinstance<py::list>(arg)) {
 		auto tempList = alt::ICore::Instance().CreateMValueList();
 		for (auto element : arg)
 		{
 			tempList->Push(ValueToMValue(element.cast<py::object>()));
 		}
 		mValue = tempList;
-	}
-	else if (type == "dict")
-	{
+	} else if (py::isinstance<py::dict>(arg)) {
 		auto tempDict = alt::ICore::Instance().CreateMValueDict();
 		auto dict = arg.cast<py::dict>();
 		for (auto item : dict)
@@ -44,36 +30,17 @@ alt::MValue Utils::ValueToMValue(const py::object& arg)
 			tempDict->Set(item.first.cast<std::string>(), ValueToMValue(item.second.cast<py::object>()));
 		}
 		mValue = tempDict;
-	}
-	else if (type == "Vector3")
-	{
-		auto vector3 = arg.cast<Vector3>();
-		mValue = alt::ICore::Instance().CreateMValueVector3(alt::Vector3f(vector3.x, vector3.y, vector3.z));
-	}
-	else if (type == "function")
-	{
+	} else if (py::isinstance<Vector3>(arg))
+		mValue = alt::ICore::Instance().CreateMValueVector3(arg.cast<Vector3>().ToAltPos());
+	else if (py::isinstance<py::function>(arg)) {
 		auto func = arg.cast<py::function>();
 		mValue = alt::ICore::Instance().CreateMValueFunction(new PythonResource::PythonFunction(func));
-	}
-	else if (type == "Player")
-	{
-		auto player = arg.cast<alt::IPlayer*>();
-		mValue = alt::ICore::Instance().CreateMValueBaseObject(player);
-	}
-	else if (type == "RGBA")
-	{
-		auto rgba = arg.cast<alt::RGBA>();
-		mValue = alt::ICore::Instance().CreateMValueRGBA(alt::RGBA(rgba.r, rgba.g, rgba.b, rgba.a));
-	}
-	else if (type == "Entity")
-	{
-		auto entity = arg.cast<alt::IEntity*>();
-		mValue = alt::ICore::Instance().CreateMValueBaseObject(entity);
-	}
+	} else if (py::isinstance<alt::RGBA>(arg))
+		mValue = alt::ICore::Instance().CreateMValueRGBA(arg.cast<alt::RGBA>());
+	else if (py::isinstance<alt::IBaseObject>(arg))
+		mValue = alt::ICore::Instance().CreateMValueBaseObject(arg.cast<alt::IBaseObject*>());
 	else
-	{
 		mValue = alt::ICore::Instance().CreateMValueNone();
-	}
 	return mValue;
 }
 
@@ -178,8 +145,4 @@ py::object Utils::GetBaseObject(const alt::Ref<alt::IBaseObject>& baseObject) {
             break;
     }
     return py::none();
-}
-
-std::string Utils::GetTypeOfObject(const py::object& object) {
-	return py::type::of(object).attr("__name__").cast<std::string>();
 }
