@@ -2,15 +2,6 @@
 #include "classes/types/vector3.hpp"
 #include "utils.hpp"
 
-PYBIND11_DECLARE_HOLDER_TYPE(T, alt::Ref<T>, true)
-
-namespace pybind11::detail {
-    template <typename T>
-    struct holder_helper<alt::Ref<T>> {
-        static const T* get(const alt::Ref<T> &p) { return p.Get(); }
-    };
-}
-
 py::list GetAllEntities(const py::object& type) {
     py::list list;
     auto array = alt::ICore::Instance().GetEntities();

@@ -1,8 +1,6 @@
 #include "classes/classes.hpp"
 #include "utils.hpp"
 
-PYBIND11_DECLARE_HOLDER_TYPE(T, alt::Ref<T>, true)
-
 uint64_t GetRefCount(alt::IBaseObject* _this) {
     if (alt::ICore::Instance().IsDebug())
         return _this->GetRefCount();

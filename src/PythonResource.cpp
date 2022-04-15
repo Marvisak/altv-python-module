@@ -6,7 +6,7 @@ bool PythonResource::Start() {
 	PyThreadState_Swap(Runtime->GetInterpreter());
 	Interpreter = Py_NewInterpreter();
 
-	auto separator = std::filesystem::path::preferred_separator;
+	char separator = std::filesystem::path::preferred_separator;
 	std::string path = Resource->GetPath();
 	std::string main = Resource->GetMain();
 	std::string fullPath = path + separator + main;
