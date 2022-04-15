@@ -46,8 +46,7 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 				try {
 					callback(*eventArgs);
 				} catch (py::error_already_set& e) {
-					py::print(e.what());
-					e.restore();
+					alt::ICore::Instance().LogError(e.what());
 				}
 			}
 		}
@@ -82,8 +81,7 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 		try {
 			callback(*eventArgs);
 		} catch (py::error_already_set& e) {
-			py::print(e.what());
-			e.restore();
+			alt::ICore::Instance().LogError(e.what());
 		}
 	}
 }

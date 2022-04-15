@@ -75,9 +75,7 @@ void SetLocalMeta(alt::IPlayer* _this, const std::string& key, const py::object&
 void Emit(alt::IPlayer* _this, const std::string& eventName, const py::args& args) {
 	alt::MValueArgs eventArgs;
 	for (const py::handle& arg : *args)
-	{
 		eventArgs.Push(Utils::ValueToMValue(arg.cast<py::object>()));
-	}
 	alt::ICore::Instance().TriggerClientEvent(_this, eventName, eventArgs);
 }
 
