@@ -173,11 +173,58 @@ enum class VehicleBumperDamage : uint8_t {
     Nothing,
 };
 
-enum NumberPlateStyle : uint32_t {
+enum class NumberPlateStyle : uint32_t {
     BlueWhite,
     BlueWhite2,
     BlueWhite3,
     Yankton,
     YellowBlack,
     YellowBlue
+};
+
+enum class Event : uint16_t {
+	ServerStarted = 1,
+
+	PlayerConnect,
+	PlayerBeforeConnect,
+	PlayerDisconnect,
+
+	ConnectionQueueAdd,
+	ConnectionQueueRemove,
+
+	ResourceStart,
+	ResourceStop,
+	ResourceError,
+
+	SyncedMetaChange = 13,
+	StreamSyncedMetaChange,
+	GlobalMetaChange,
+	GlobalSyncedMetaChange,
+	LocalMetaChange,
+
+	PlayerDamage,
+	PlayerDeath,
+	Fire,
+	Explosion,
+	StartProjectile,
+	WeaponDamage,
+	VehicleDestroy,
+	VehicleDamage,
+
+	ColshapeEvent = 27,
+
+	PlayerEnterVehicle,
+	PlayerEnteringVehicle,
+	PlayerLeftVehicle,
+	PlayerChangeVehicleSeat,
+	PlayerWeaponChange,
+	PlayerRequestControl,
+
+	VehicleAttach,
+	VehicleDetach,
+	NetOwnerChange,
+
+	RemoveEntity,
+
+	ConsoleCommand = 41,
 };

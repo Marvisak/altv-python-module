@@ -9,12 +9,11 @@ class EventHandler {
     }
     using ArgsGetter = std::function<py::list(const alt::CEvent*)>;
     std::optional<ArgsGetter> argsGetter;
-    std::string name;
 public:
-    EventHandler(alt::CEvent::Type eventType, std::string name, ArgsGetter argsGetter);
-    EventHandler(alt::CEvent::Type eventType, std::string name);
+    EventHandler(alt::CEvent::Type eventType, ArgsGetter argsGetter);
+	// TODO probably remove this
+	explicit EventHandler(alt::CEvent::Type eventType); // This is kinda useless, currently it's only used to know that the event is registered, might be removed in the future, but I'll keep it here now
     py::list GetEventArgs(const alt::CEvent* event);
 
-	static void RegisterEvents(py::module_ m);
     static EventHandler* Get(const alt::CEvent* event);
 };

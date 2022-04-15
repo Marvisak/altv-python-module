@@ -26,4 +26,5 @@ void RegisterEnums(const py::module_& m) {
     export_enum<VehicleBumper>(m, "VehicleBumper");
     export_enum<VehicleBumperDamage>(m, "VehicleBumperDamage");
     export_enum<NumberPlateStyle>(m, "NumberPlateStyle");
+	export_enum<Event>(m, "Event");
 }

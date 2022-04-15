@@ -30,6 +30,4 @@ PYBIND11_EMBEDDED_MODULE(alt, m){
     RegisterLogFunctions(m);
     RegisterEventFunctions(m);
     RegisterHelpersFunctions(m);
-
-	EventHandler::RegisterEvents(m);
 }

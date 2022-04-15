@@ -2,17 +2,31 @@
 
 #include "main.hpp"
 #include "utils.hpp"
+#include "classes/types/enums.hpp"
 
-void On(const std::string& eventName, const py::function& func) {
-	PyThreadState* interp = PyThreadState_Get();
-	PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
-	resource->AddLocalCustomEvent(eventName, func);
+py::cpp_function Event(Event event) {
+	return [event](const py::function& func) {
+		PyThreadState* interp = PyThreadState_Get();
+		PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
+		auto castEvent = static_cast<alt::CEvent::Type>(event);
+		resource->AddLocalEvent(castEvent, func);
+	};
 }
 
-void OnClient(const std::string& eventName, const py::function& func) {
-	PyThreadState* interp = PyThreadState_Get();
-	PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
-	resource->AddRemoteEvent(eventName, func);
+py::cpp_function CustomEvent(const std::string& eventName) {
+	return [eventName](const py::function& func) {
+		PyThreadState* interp = PyThreadState_Get();
+		PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
+		resource->AddLocalCustomEvent(eventName, func);
+	};
+}
+
+py::cpp_function ClientEvent(const std::string& eventName) {
+	return [eventName](const py::function& func) {
+		PyThreadState* interp = PyThreadState_Get();
+		PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
+		resource->AddRemoteEvent(eventName, func);
+	};
 }
 
 void Emit(const std::string& eventName, const py::args& args) {
@@ -33,8 +47,9 @@ void EmitClient(alt::IPlayer* player, const std::string& eventName, const py::ar
 
 
 void RegisterEventFunctions(py::module_ m) {
-	m.def("on", &On, "Listens to event");
-	m.def("on_client", &OnClient, "Listens to client event");
+	m.def("event", &Event, py::arg("event"), "Decorator for registering event listener");
+	m.def("custom_event", &CustomEvent, py::arg("event"), "Decorator for registering custom event listener");
+	m.def("client_event", &ClientEvent, py::arg("event"), "Decorator for registering client event listener");
 	m.def("emit", &Emit, "Emits event");
 	m.def("emit_client", &EmitClient, "Emits client event");
 }

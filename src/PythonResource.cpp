@@ -23,6 +23,10 @@ bool PythonResource::Start() {
 	return !crashed;
 }
 bool PythonResource::Stop() {
+	LocalEvents.clear();
+	LocalCustomEvents.clear();
+	RemoteEvents.clear();
+
 	PyThreadState_Swap(Interpreter);
 	Py_EndInterpreter(Interpreter);
 	PyThreadState_Swap(Runtime->GetInterpreter());
