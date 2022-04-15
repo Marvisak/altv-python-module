@@ -2,24 +2,34 @@
 
 #include "main.hpp"
 
-void Log(const py::object& object)
-{
-    alt::ICore::Instance().LogColored(py::str(object).cast<std::string>());
+void Log(const py::args& args, const std::string& separator = " ") {
+	std::string str;
+	for (const py::handle& arg : *args) {
+		str += py::str(arg).cast<std::string>() + separator;
+	}
+	alt::ICore::Instance().LogColored(str);
+
 }
 
-void LogError(const py::object& object)
-{
-    alt::ICore::Instance().LogError(py::str(object).cast<std::string>());
+void LogError(const py::args& args, const std::string& separator = " ") {
+	std::string str;
+	for (const py::handle& arg : *args) {
+		str += py::str(arg).cast<std::string>() + separator;
+	}
+	alt::ICore::Instance().LogError(str);
 }
 
-void LogWarning(const py::object& object)
-{
-    alt::ICore::Instance().LogWarning(py::str(object).cast<std::string>());
+void LogWarning(const py::args& args, const std::string& separator = " ") {
+	std::string str;
+	for (const py::handle& arg : *args) {
+		str += py::str(arg).cast<std::string>() + separator;
+	}
+	alt::ICore::Instance().LogWarning(str);
 }
 
 void RegisterLogFunctions(py::module_ m)
 {
-	m.def("log", &Log, "Logs text to the console");
-	m.def("log_error", &LogError, "Logs error to the console");
-	m.def("log_warning", &LogWarning, "Logs warning to the console");
+	m.def("log", &Log, py::arg("sep") = " ", "Logs text to the console");
+	m.def("log_error", &LogError, py::arg("sep") = " ", "Logs error to the console");
+	m.def("log_warning", &LogWarning, py::arg("sep") = " ", "Logs warning to the console");
 }

@@ -2,7 +2,6 @@
 #include "classes/classes.hpp"
 #include "events.hpp"
 #include "log.hpp"
-#include "events/events.hpp"
 #include "main.hpp"
 
 
