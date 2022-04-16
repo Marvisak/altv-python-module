@@ -29,7 +29,16 @@ py::list GetCurrentWeaponComponents(alt::IPlayer* _this) {
 }
 
 py::list GetWeapons(alt::IPlayer* _this) {
-    return Utils::ArrayToPyList<alt::Weapon>(_this->GetWeapons());
+	py::list list;
+	alt::Array<alt::Weapon> weapons = _this->GetWeapons();
+	for (const alt::Weapon& weapon : weapons) {
+		py::dict dict;
+		dict["hash"] = weapon.hash;
+		dict["tint_index"] = weapon.tintIndex;
+		dict["components"] = weapon.components;
+		list.append(dict);
+	}
+    return list;
 }
 
 void SetDlcClothes(alt::IPlayer* _this, uint32_t dlc, uint8_t component, uint16_t drawable, uint8_t texture, uint8_t palette = 2) {
@@ -64,6 +73,69 @@ Vector3 GetEntityAimOffset(alt::IPlayer* _this) {
     return Vector3(_this->GetEntityAimOffset());
 }
 
+py::dict GetClothes(alt::IPlayer* _this, uint8_t component) {
+	alt::Cloth cloth = _this->GetClothes(component);
+	py::dict dict;
+	dict["drawable"] = cloth.drawableId;
+	dict["texture"] = cloth.textureId;
+	dict["palette"] = cloth.paletteId;
+	return dict;
+}
+
+py::dict GetDlcClothes(alt::IPlayer* _this, uint8_t component) {
+	alt::DlcCloth dlcCloth = _this->GetDlcClothes(component);
+	py::dict dict;
+	dict["dlc"] = dlcCloth.dlc;
+	dict["drawable"] = dlcCloth.drawableId;
+	dict["texture"] = dlcCloth.textureId;
+	dict["palette"] = dlcCloth.paletteId;
+	return dict;
+}
+
+py::dict GetDlcProp(alt::IPlayer* _this, uint8_t component) {
+	alt::DlcProp dlcProp = _this->GetDlcProps(component);
+	py::dict dict;
+	dict["dlc"] = dlcProp.dlc;
+	dict["drawable"] = dlcProp.drawableId;
+	dict["texture"] = dlcProp.textureId;
+	return dict;
+}
+
+py::dict GetHeadBlendData(alt::IPlayer* _this) {
+	alt::HeadBlendData headBlendData = _this->GetHeadBlendData();
+	py::dict dict;
+	dict["shape_first_id"] = headBlendData.shapeFirstID;
+	dict["shape_second_id"] = headBlendData.shapeSecondID;
+	dict["shape_third_id"] = headBlendData.shapeThirdID;
+	dict["skin_first_id"] = headBlendData.skinFirstID;
+	dict["skin_second_id"] = headBlendData.skinSecondID;
+	dict["skin_third_id"] = headBlendData.skinThirdID;
+	dict["shape_mix"] = headBlendData.shapeMix;
+	dict["skin_mix"] = headBlendData.skinMix;
+	dict["third_mix"] = headBlendData.thirdMix;
+	return dict;
+}
+
+py::dict GetHeadOverlay(alt::IPlayer* _this, uint8_t overlayId) {
+	alt::HeadOverlay headOverlay = _this->GetHeadOverlay(overlayId);
+	py::dict dict;
+	dict["index"] = headOverlay.index;
+	dict["opacity"] = headOverlay.opacity;
+	dict["color_type"] = headOverlay.colorType;
+	dict["color_index"] = headOverlay.colorIndex;
+	dict["second_color_index"] = headOverlay.secondColorIndex;
+	return dict;
+}
+
+py::dict GetProps(alt::IPlayer* _this, uint8_t component) {
+	alt::Prop prop = _this->GetProps(component);
+	py::dict dict;
+	dict["drawable"] = prop.drawableId;
+	dict["texture"] = prop.textureId;
+	return dict;
+}
+
+
 py::object GetLocalMeta(alt::IPlayer* _this, const std::string& key) {
     return Utils::MValueToValue(_this->GetLocalMetaData(key));
 }
@@ -78,6 +150,7 @@ void Emit(alt::IPlayer* _this, const std::string& eventName, const py::args& arg
 		eventArgs.Push(Utils::ValueToMValue(arg.cast<py::object>()));
 	alt::ICore::Instance().TriggerClientEvent(_this, eventName, eventArgs);
 }
+
 
 void RegisterPlayerClass(const py::module_& m) {
     auto pyClass = py::class_<alt::IPlayer, alt::IEntity, alt::Ref<alt::IPlayer>>(m, "Player", py::multiple_inheritance());
@@ -157,26 +230,26 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def("set_head_overlay", &alt::IPlayer::SetHeadOverlay, py::arg("overlay_id"), py::arg("index"), py::arg("opacity"));
     pyClass.def("remove_head_overlay", &alt::IPlayer::RemoveHeadOverlay, py::arg("overlay_id"));
     pyClass.def("set_head_overlay_color", &alt::IPlayer::SetHeadOverlayColor, py::arg("overlay_id"), py::arg("color_type"), py::arg("color_index"), py::arg("second_color_index"));
-    pyClass.def("get_head_overlay", &alt::IPlayer::GetHeadOverlay, py::arg("overlay_id"));
+    pyClass.def("get_head_overlay", &GetHeadOverlay, py::arg("overlay_id"));
     pyClass.def("set_face_feature", &alt::IPlayer::SetFaceFeature, py::arg("index"), py::arg("scale"));
     pyClass.def("get_face_feature_scale", &alt::IPlayer::GetFaceFeatureScale, py::arg("index"));
     pyClass.def("remove_face_feature", &alt::IPlayer::RemoveFaceFeature, py::arg("index"));
     pyClass.def("set_head_blend_palette_color", &alt::IPlayer::SetHeadBlendPaletteColor, py::arg("id"), py::arg("red"), py::arg("green"), py::arg("blue"));
     pyClass.def("get_head_blend_palette_color", &alt::IPlayer::GetHeadBlendPaletteColor, py::arg("id"));
     pyClass.def("set_head_blend_data", &alt::IPlayer::SetHeadBlendData, py::arg("shape_first_id"), py::arg("shape_second_id"), py::arg("shape_third_id"), py::arg("skin_first_id"), py::arg("skin_second_id"), py::arg("skin_third_id"), py::arg("shape_mix"), py::arg("skin_mix"), py::arg("third_mix"));
-    pyClass.def_property_readonly("head_blend_data", &alt::IPlayer::GetHeadBlendData);
+    pyClass.def_property_readonly("head_blend_data", &GetHeadBlendData);
     pyClass.def_property("eye_color", &alt::IPlayer::GetEyeColor, &alt::IPlayer::SetEyeColor);
     pyClass.def_property("hair_color", &alt::IPlayer::GetHairColor, &alt::IPlayer::SetHairColor);
     pyClass.def_property("hair_highlight_color", &alt::IPlayer::GetHairHighlightColor, &alt::IPlayer::SetHairHighlightColor);
 
     // Clothing & Props
-    pyClass.def("get_clothes", &alt::IPlayer::GetClothes, py::arg("component"));
+    pyClass.def("get_clothes", &GetClothes, py::arg("component"));
     pyClass.def("set_clothes", &alt::IPlayer::SetClothes, py::arg("component"), py::arg("drawable"), py::arg("texture"), py::arg("palette") = 0);
-    pyClass.def("get_dlc_clothes", &alt::IPlayer::GetDlcClothes, py::arg("component"));
+    pyClass.def("get_dlc_clothes", &GetDlcClothes, py::arg("component"));
     pyClass.def("set_dlc_clothes", &SetDlcClothes, py::arg("dlc"), py::arg("component"), py::arg("drawable"), py::arg("texture"), py::arg("palette") = 2);
-    pyClass.def("get_prop", &alt::IPlayer::GetProps, py::arg("component"));
+    pyClass.def("get_prop", &GetProps, py::arg("component"));
     pyClass.def("set_prop", &alt::IPlayer::SetProps, py::arg("component"), py::arg("drawable"), py::arg("texture"));
-    pyClass.def("get_dlc_prop", &alt::IPlayer::GetDlcProps, py::arg("component"));
+    pyClass.def("get_dlc_prop", &GetDlcProp, py::arg("component"));
     pyClass.def("set_dlc_prop", &SetDlcProps, py::arg("dlc"), py::arg("component"), py::arg("drawable"), py::arg("texture"));
     pyClass.def("clear_props", &alt::IPlayer::ClearProps);
 

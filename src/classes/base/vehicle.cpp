@@ -1,4 +1,3 @@
-#include "classes/types/vehicleneon.hpp"
 #include "classes/types/vector3.hpp"
 #include "classes/types/enums.hpp"
 #include "classes/classes.hpp"
@@ -27,14 +26,19 @@ WindowTint GetWindowTint(alt::IVehicle* _this) {
     return (WindowTint)(_this->GetWindowTint());
 }
 
-VehicleNeon GetNeonActive(alt::IVehicle* _this) {
+py::dict GetNeonActive(alt::IVehicle* _this) {
+	py::dict dict;
     bool left, right, front, back;
     _this->GetNeonActive(&left, &right, &front, &back);
-    return {left, right, front, back};
+	dict["left"] = left;
+	dict["right"] = right;
+	dict["front"] = front;
+	dict["back"] = back;
+    return dict;
 }
 
-void SetNeonActive(alt::IVehicle* _this, VehicleNeon neon) {
-    _this->SetNeonActive(neon.left, neon.right, neon.front, neon.back);
+void SetNeonActive(alt::IVehicle* _this, const py::dict& neon) {
+    _this->SetNeonActive(neon["left"].cast<bool>(), neon["right"].cast<bool>(), neon["front"].cast<bool>(), neon["back"].cast<bool>());
 }
 
 RadioStation GetRadioStationIndex(alt::IVehicle* _this) {
@@ -74,17 +78,17 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def(py::init<>([](const std::string& model, float x, float y, float z, float rx, float ry, float rz) {
         auto hash = alt::ICore::Instance().Hash(model);
         return CreateVehicle(hash, alt::Position(x, y, z), alt::Rotation(rx, ry, rz));
-    }));
+    }), py::arg("model"), py::arg("x"), py::arg("y"), py::arg("z"), py::arg("rx"), py::arg("ry"), py::arg("rz"));
     pyClass.def(py::init<>([](uint32_t hash, float x, float y, float z, float rx, float ry, float rz) {
         return CreateVehicle(hash, alt::Position(x, y, z), alt::Rotation(rx, ry, rz));
-    }));
+    }), py::arg("hash"), py::arg("x"), py::arg("y"), py::arg("z"), py::arg("rx"), py::arg("ry"), py::arg("rz"));
     pyClass.def(py::init<>([](const std::string& model, Vector3 pos, Vector3 rot) {
         auto hash = alt::ICore::Instance().Hash(model);
         return CreateVehicle(hash, pos.ToAltPos(), rot.ToAltRot());
-    }));
+    }), py::arg("model"), py::arg("pos"), py::arg("rot"));
     pyClass.def(py::init<>([](uint32_t hash, Vector3 pos, Vector3 rot) {
         return CreateVehicle(hash, pos.ToAltPos(), rot.ToAltRot());
-    }));
+    }), py::arg("hash"), py::arg("pos"), py::arg("rot"));
 
     pyClass.def_property_readonly_static("all", &GetAllVehicles);
     pyClass.def_static("get_by_id", &GetVehicleById, py::arg("id"));

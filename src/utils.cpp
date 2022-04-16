@@ -7,12 +7,12 @@ alt::MValue Utils::ValueToMValue(const py::object& arg)
 	auto valueStr = py::str(arg).cast<std::string>();
 	if (py::isinstance<py::str>(arg))
 		mValue = alt::ICore::Instance().CreateMValueString(valueStr);
+	else if (py::isinstance<py::bool_>(arg))
+		mValue = alt::ICore::Instance().CreateMValueBool(valueStr != "0");
 	else if (py::isinstance<py::int_>(arg))
 		mValue = alt::ICore::Instance().CreateMValueInt(std::stoi(valueStr));
 	else if (py::isinstance<py::none>(arg))
 		mValue = alt::ICore::Instance().CreateMValueNil();
-	else if (py::isinstance<py::bool_>(arg))
-		mValue = alt::ICore::Instance().CreateMValueBool(valueStr != "0");
 	else if (py::isinstance<py::float_>(arg))
 		mValue = alt::ICore::Instance().CreateMValueDouble(std::stod(valueStr));
 	else if (py::isinstance<py::list>(arg)) {
