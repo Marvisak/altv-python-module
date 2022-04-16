@@ -40,11 +40,16 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 	else {
 		auto eventHandler = EventHandler::Get(event);
 		if (eventHandler) {
-			auto eventArgs = eventHandler->GetEventArgs(event);
+			py::list eventArgs;
+			eventHandler->GetEventArgs(event, eventArgs);
 			EventsVector callbacks = LocalEvents[eventType];
 			for (const auto& callback : callbacks) {
 				try {
-					callback(*eventArgs);
+					py::object returnValue = callback(*eventArgs);
+					if (py::isinstance<py::bool_>(returnValue) && !returnValue.cast<bool>())
+						event->Cancel();
+					else if (py::isinstance<py::str>(returnValue) && eventType == alt::CEvent::Type::PLAYER_BEFORE_CONNECT)
+						reinterpret_cast<alt::CPlayerBeforeConnectEvent*>(const_cast<alt::CEvent*>(event))->Cancel(returnValue.cast<std::string>());
 				} catch (py::error_already_set& e) {
 					alt::ICore::Instance().LogError(e.what());
 				}
@@ -61,8 +66,7 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 		auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
 		std::string name = event->GetName();
 		callbacks = LocalCustomEvents[name];
-		for (const auto& arg : event->GetArgs())
-		{
+		for (const auto& arg : event->GetArgs()) {
 			auto value = Utils::MValueToValue(arg);
 			eventArgs.append(value);
 		}
@@ -71,8 +75,7 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 		std::string name = event->GetName();
 		callbacks = RemoteEvents[name];
 		eventArgs.append(event->GetTarget().Get());
-		for (const auto& arg : event->GetArgs())
-		{
+		for (const auto& arg : event->GetArgs()) {
 			auto value = Utils::MValueToValue(arg);
 			eventArgs.append(value);
 		}
@@ -94,13 +97,10 @@ void PythonResource::OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) {
 void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) {
 	auto range = objects.equal_range(object->GetType());
 	for (auto it = range.first; it != range.second; it++)
-	{
-		if (it->second == object)
-		{
+		if (it->second == object) {
 			objects.erase(it);
 			break;
 		}
-	}
 }
 
 bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject>& object) {
@@ -125,9 +125,7 @@ void PythonResource::AddRemoteEvent(const std::string& eventName, const py::func
 alt::MValue PythonResource::PythonFunction::Call(alt::MValueArgs args) const {
 	py::list funcArgs;
 	for (const auto& arg : args)
-	{
 		funcArgs.append(Utils::MValueToValue(arg));
-	}
 	auto returnValue = func(*funcArgs);
 	return Utils::ValueToMValue(returnValue);
 }

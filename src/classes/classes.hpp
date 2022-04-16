@@ -12,6 +12,7 @@ namespace pybind11::detail {
 
 void RegisterEnums(const py::module_& m);
 void RegisterRGBAClass(const py::module_& m);
+void RegisterConnectionInfoClass(const py::module_& m);
 void RegisterVector3Class(const py::module_& m);
 void RegisterBaseObjectClass(const py::module_& m);
 void RegisterWorldObjectClass(const py::module_& m);

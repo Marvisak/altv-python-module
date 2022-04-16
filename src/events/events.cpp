@@ -13,8 +13,7 @@ EventHandler* EventHandler::Get(const alt::CEvent* event) {
     return all()[event->GetType()];
 }
 
-py::list EventHandler::GetEventArgs(const alt::CEvent* event) {
+void EventHandler::GetEventArgs(const alt::CEvent* event, py::list& args) {
     if (argsGetter.has_value())
-        return argsGetter.value()(event);
-    return py::list {};
+		argsGetter.value()(event, args);
 }
