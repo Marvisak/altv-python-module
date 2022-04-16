@@ -15,27 +15,28 @@ alt::MValue Utils::ValueToMValue(const py::object& arg)
 		mValue = alt::ICore::Instance().CreateMValueNil();
 	else if (py::isinstance<py::float_>(arg))
 		mValue = alt::ICore::Instance().CreateMValueDouble(std::stod(valueStr));
-	else if (py::isinstance<py::list>(arg)) {
+	else if (py::isinstance<py::list>(arg) || py::isinstance<py::tuple>(arg)) {
 		auto tempList = alt::ICore::Instance().CreateMValueList();
 		for (auto element : arg)
-		{
 			tempList->Push(ValueToMValue(element.cast<py::object>()));
-		}
 		mValue = tempList;
 	} else if (py::isinstance<py::dict>(arg)) {
 		auto tempDict = alt::ICore::Instance().CreateMValueDict();
 		auto dict = arg.cast<py::dict>();
 		for (auto item : dict)
-		{
 			tempDict->Set(item.first.cast<std::string>(), ValueToMValue(item.second.cast<py::object>()));
-		}
 		mValue = tempDict;
-	} else if (py::isinstance<Vector3>(arg))
-		mValue = alt::ICore::Instance().CreateMValueVector3(arg.cast<Vector3>().ToAltPos());
-	else if (py::isinstance<py::function>(arg)) {
+	} else if (py::isinstance<py::function>(arg)) {
 		auto func = arg.cast<py::function>();
 		mValue = alt::ICore::Instance().CreateMValueFunction(new PythonResource::PythonFunction(func));
-	} else if (py::isinstance<alt::RGBA>(arg))
+	} else if (py::isinstance<py::bytes>(arg))
+		mValue = alt::ICore::Instance().CreateMValueString(arg.cast<py::bytes>().cast<std::string>());
+	else if (py::isinstance<py::bytearray>(arg)) {
+		auto byteArray = arg.cast<py::bytearray>();
+		mValue = alt::ICore::Instance().CreateMValueByteArray(reinterpret_cast<const uint8_t*>(byteArray.cast<std::string>().c_str()), byteArray.size());
+	} else if (py::isinstance<Vector3>(arg))
+		mValue = alt::ICore::Instance().CreateMValueVector3(arg.cast<Vector3>().ToAltPos());
+	else if (py::isinstance<alt::RGBA>(arg))
 		mValue = alt::ICore::Instance().CreateMValueRGBA(arg.cast<alt::RGBA>());
 	else if (py::isinstance<alt::IBaseObject>(arg))
 		mValue = alt::ICore::Instance().CreateMValueBaseObject(arg.cast<alt::IBaseObject*>());
@@ -72,9 +73,7 @@ py::object Utils::MValueToValue(const alt::MValueConst& mValue)
             auto mList = mValue.As<alt::IMValueList>();
             py::list pyList;
             for (uint64_t i = 0; i < mList->GetSize(); i++)
-            {
                 pyList.append(MValueToValue(mList->Get(i)));
-            }
             value = pyList;
             break;
         }
@@ -82,8 +81,7 @@ py::object Utils::MValueToValue(const alt::MValueConst& mValue)
         case alt::IMValue::Type::DICT: {
             auto mDict = mValue.As<alt::IMValueDict>();
             py::dict pyDict;
-            for (auto item = mDict->Begin(); item; item = mDict->Next())
-            {
+            for (auto item = mDict->Begin(); item; item = mDict->Next()) {
                 auto dictVal = MValueToValue(item->GetValue().Get());
                 pyDict[item->GetKey().c_str()] = dictVal;
             }
@@ -107,9 +105,7 @@ py::object Utils::MValueToValue(const alt::MValueConst& mValue)
             py::cpp_function pyFunc = [mFunc](const py::args& args) {
                 alt::MValueArgs funcArgs;
                 for (auto arg : args)
-                {
                     funcArgs.Push(Utils::ValueToMValue(arg.cast<py::object>()));
-                }
                 auto returnValue = mFunc->Call(funcArgs);
                 return MValueToValue(returnValue);
             };
@@ -121,6 +117,11 @@ py::object Utils::MValueToValue(const alt::MValueConst& mValue)
             value = py::cast(mRGBA);
             break;
         }
+		case alt::IMValue::Type::BYTE_ARRAY: {
+			auto mByteArray = mValue.As<alt::IMValueByteArray>();
+			value = py::bytearray(reinterpret_cast<const char*>(mByteArray->GetData()), mByteArray->GetSize());
+			break;
+		}
         default:
             value = py::none();
             break;
