@@ -15,49 +15,44 @@ public:
     py::dict ToDict();
     py::list ToList();
 
-    alt::Position ToAltPos();
-    alt::Rotation ToAltRot();
-    std::string ToString();
+    alt::Position ToAltPos() const;
+    alt::Rotation ToAltRot() const;
+    std::string ToString() const;
 
-    Vector3 ToDegrees();
-    Vector3 ToRadians();
+    Vector3 ToDegrees() const;
+    Vector3 ToRadians() const;
 
-    double Length();
-    double Distance(Vector3& other);
-    bool IsInRange(const Vector3& other, double range);
+    double Length() const;
+    double Distance(Vector3& other) const;
+    bool IsInRange(const Vector3& other, double range) const;
 
-    Vector3 Add(const Vector3& other);
-    Vector3 Add(double num);
-    Vector3 Add(double _x, double _y, double _z);
-    Vector3 Add(const py::list& vectorList);
+	Vector3 operator+(const Vector3& other) const;
+	Vector3 operator+(double num) const;
+	Vector3 operator+(const py::list& vectorList) const;
 
-    Vector3 Cross(const Vector3& other);
-    Vector3 Cross(double num);
-    Vector3 Cross(double _x, double _y, double _z);
-    Vector3 Cross(const py::list& vectorList);
+	Vector3 operator-(const Vector3& other) const;
+	Vector3 operator-(double num) const;
+	Vector3 operator-(const py::list& vectorList) const;
 
-    Vector3 Div(const Vector3& other);
-    Vector3 Div(double num);
-    Vector3 Div(double _x, double _y, double _z);
-    Vector3 Div(const py::list& vectorList);
+	Vector3 operator/(const Vector3& other) const;
+	Vector3 operator/(double num) const;
+	Vector3 operator/(const py::list& vectorList) const;
 
-    double Dot(const Vector3& other);
-    double Dot(double num);
-    double Dot(double _x, double _y, double _z);
-    double Dot(const py::list& vectorList);
+	Vector3 operator*(const Vector3& other) const;
+	Vector3 operator*(double num) const;
+	Vector3 operator*(const py::list& vectorList) const;
 
-    Vector3 Sub(const Vector3& other);
-    Vector3 Sub(double num);
-    Vector3 Sub(double _x, double _y, double _z);
-    Vector3 Sub(const py::list& vectorList);
 
-    Vector3 Mul(const Vector3& other);
-    Vector3 Mul(double num);
-    Vector3 Mul(double _x, double _y, double _z);
-    Vector3 Mul(const py::list& vectorList);
+	Vector3 Cross(const Vector3& other) const;
+	Vector3 Cross(double num) const;
+	Vector3 Cross(const py::list& vectorList) const;
 
-    Vector3 Negative();
-    Vector3 Normalize();
+	double Dot(const Vector3& other) const;
+	double Dot(double num) const;
+	double Dot(const py::list& vectorList) const;
+
+    Vector3 Negative() const;
+    Vector3 Normalize() const;
 
     static Vector3 Zero(const py::object& _this);
     static Vector3 One(const py::object& _this);
