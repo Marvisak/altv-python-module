@@ -11,4 +11,3 @@ IF NOT EXIST dist\ (
     mkdir dist
 )
 copy build\Release\python-module.dll dist
-pause

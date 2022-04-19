@@ -1,21 +1,25 @@
-#include "main.h"
-#include "PythonRuntime.h"
+#include "main.hpp"
+#include "PythonRuntime.hpp"
+#include "version/version.h"
 
-alt::ICore *Core;
-
-EXPORT bool altMain(alt::ICore *core)
+EXPORT bool altMain(alt::ICore* core)
 {
-    alt::ICore::SetInstance(core);
-    Core = core;
-    auto runtime = new PythonRuntime();
+	alt::ICore::SetInstance(core);
 
-    core->RegisterScriptRuntime("py", runtime);
+	try {
+		auto runtime = new PythonRuntime();
+		core->RegisterScriptRuntime("py", runtime);
+	}
+	catch (std::exception& e) {
+		core->LogError(e.what());
+        return false;
+	}
 
-    core->LogInfo("Python module successfully loaded");
-    return true;
+	core->LogInfo("Python module successfully loaded");
+	return true;
 }
 
-EXPORT uint32_t GetSDKVersion()
+EXPORT const char* GetSDKHash()
 {
-    return alt::ICore::SDK_VERSION;
+	return ALT_SDK_VERSION;
 }

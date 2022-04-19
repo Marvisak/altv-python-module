@@ -1,126 +1,136 @@
-#include "PythonResource.h"
-#include "main.h"
-#include "utils.h"
+#include "PythonResource.hpp"
+#include <filesystem>
+#include "utils.hpp"
 
-bool PythonResource::Start()
-{
-    alt::String mainFile = GetFullPath();
+bool PythonResource::Start() {
+	PyThreadState_Swap(Runtime->GetInterpreter());
+	Interpreter = Py_NewInterpreter();
 
-    std::string path = resource->GetPath().ToString();
-    std::wstring escapedPath;
-    escapedPath.assign(path.begin(), path.end());
+	char separator = std::filesystem::path::preferred_separator;
+	std::string path = Resource->GetPath();
+	std::string main = Resource->GetMain();
+	std::string fullPath = path + separator + main;
 
-    PySys_SetPath(escapedPath.c_str());
+    // Makes importing local files possible
+    py::module_ sys = py::module_::import("sys");
+    py::list pyPath = sys.attr("path");
+	pyPath.append(path);
 
-    FILE *fp = fopen(mainFile.CStr(), "r");
-    bool crashed = PyRun_SimpleFile(fp, mainFile.CStr());
-    return !crashed;
+	FILE* fp = fopen(fullPath.c_str(), "r");
+	bool crashed = PyRun_SimpleFile(fp, fullPath.c_str());
+
+	PyThreadState_Swap(Runtime->GetInterpreter());
+	return !crashed;
 }
-bool PythonResource::Stop()
-{
+bool PythonResource::Stop() {
+	LocalEvents.clear();
+	LocalCustomEvents.clear();
+	RemoteEvents.clear();
+
+	PyThreadState_Swap(Interpreter);
+	Py_EndInterpreter(Interpreter);
+	PyThreadState_Swap(Runtime->GetInterpreter());
+	return true;
+}
+
+bool PythonResource::OnEvent(const alt::CEvent* event) {
+	auto eventType = event->GetType();
+	if (eventType == alt::CEvent::Type::SERVER_SCRIPT_EVENT || eventType == alt::CEvent::Type::CLIENT_SCRIPT_EVENT)
+		HandleCustomEvent(event);
+	else {
+		auto eventHandler = EventHandler::Get(event);
+		if (eventHandler) {
+			py::list eventArgs;
+			eventHandler->GetEventArgs(event, eventArgs);
+			EventsVector callbacks = LocalEvents[eventType];
+			for (const auto& callback : callbacks) {
+				try {
+					py::object returnValue = callback(*eventArgs);
+					if (py::isinstance<py::bool_>(returnValue) && !returnValue.cast<bool>())
+						event->Cancel();
+					else if (py::isinstance<py::str>(returnValue) && eventType == alt::CEvent::Type::PLAYER_BEFORE_CONNECT)
+						reinterpret_cast<alt::CPlayerBeforeConnectEvent*>(const_cast<alt::CEvent*>(event))->Cancel(returnValue.cast<std::string>());
+				} catch (py::error_already_set& e) {
+					alt::ICore::Instance().LogError(e.what());
+				}
+			}
+		}
+	}
     return true;
 }
 
-bool PythonResource::OnEvent(const alt::CEvent *ev)
-{
-    auto type = runtime->GetEventType(ev->GetType());
-    if (runtime->GetEventArgs(type))
-    {
-        auto getter = GetEventList(ev, type);
-        auto arguments = runtime->GetEventArgs(type)(ev);
-        for (const auto &listener : getter)
-        {
-            try
-            {
-                listener(*arguments);
-            }
-            catch (py::error_already_set &e)
-            {
-                py::print(e.what());
-            }
-        }
-    }
-    else
-    {
-        for (const auto &listener : ServerEvents[type])
-        {
-            try
-            {
-                listener();
-            }
-            catch (py::error_already_set &e)
-            {
-                py::print(e.what());
-            }
-        }
-    }
-    return true;
+void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
+	py::list eventArgs;
+	EventsVector callbacks;
+	if (ev->GetType() == alt::CEvent::Type::SERVER_SCRIPT_EVENT) {
+		auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
+		std::string name = event->GetName();
+		callbacks = LocalCustomEvents[name];
+		for (const auto& arg : event->GetArgs()) {
+			auto value = Utils::MValueToValue(arg);
+			eventArgs.append(value);
+		}
+	} else {
+		auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
+		std::string name = event->GetName();
+		callbacks = RemoteEvents[name];
+		eventArgs.append(event->GetTarget().Get());
+		for (const auto& arg : event->GetArgs()) {
+			auto value = Utils::MValueToValue(arg);
+			eventArgs.append(value);
+		}
+	}
+	for (const auto& callback : callbacks) {
+		try {
+			callback(*eventArgs);
+		} catch (py::error_already_set& e) {
+			alt::ICore::Instance().LogError(e.what());
+		}
+	}
 }
 
-void PythonResource::OnCreateBaseObject(alt::Ref<alt::IBaseObject> object)
-{
-    object->AddRef();
-    objects.insert({object->GetType(), object});
+void PythonResource::OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) {
+	object->AddRef();
+	objects.insert({object->GetType(), object});
 }
 
-void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object)
-{
-    auto range = objects.equal_range(object->GetType());
-    for (auto it = range.first; it != range.second; it++)
-    {
-        if (it->second == object)
-        {
-            objects.erase(it);
-            break;
-        }
-    }
+void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) {
+	auto range = objects.equal_range(object->GetType());
+	for (auto it = range.first; it != range.second; it++)
+		if (it->second == object) {
+			objects.erase(it);
+			break;
+		}
 }
 
-bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject> &object)
-{
-    auto range = objects.equal_range(object->GetType());
-    for (auto it = range.first; it != range.second; it++)
-        if (it->second == object)
-            return true;
-    for (const auto &player : Core->GetPlayers())
-        if (player == object)
-            return true;
-    for (const auto &entity : Core->GetEntities())
-        if (entity == object)
-            return true;
-    return false;
+bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject>& object) {
+	auto range = objects.equal_range(object->GetType());
+	for (auto it = range.first; it != range.second; it++)
+		if (it->second == object) return true;
+	return false;
 }
 
-void PythonResource::AddEvent(const std::string &eventName, const py::function &eventFunc)
-{
-    ServerEvents[eventName].push_back(eventFunc);
+void PythonResource::AddLocalEvent(const alt::CEvent::Type& type, const py::function& eventFunc) {
+	LocalEvents[type].push_back(eventFunc);
 }
 
-void PythonResource::AddClientEvent(const std::string &eventName, const py::function &eventFunc)
-{
-    ClientEvents[eventName].push_back(eventFunc);
+void PythonResource::AddLocalCustomEvent(const std::string& eventName, const py::function& eventFunc) {
+    LocalCustomEvents[eventName].push_back(eventFunc);
 }
 
-alt::String PythonResource::GetFullPath()
-{
-    alt::String path = resource->GetPath();
-    alt::String fullPath = path + preferred_separator + resource->GetMain();
-    return fullPath;
+void PythonResource::AddRemoteEvent(const std::string& eventName, const py::function& eventFunc) {
+    RemoteEvents[eventName].push_back(eventFunc);
 }
 
-alt::MValue PythonResource::PythonFunction::Call(alt::MValueArgs args) const
-{
-    py::list funcArgs;
-    for (const auto &arg : args)
-    {
-        funcArgs.append(Utils::MValueToValue(arg));
-    }
-    auto returnValue = func(*funcArgs);
-    return Utils::ValueToMValue(returnValue);
+alt::MValue PythonResource::PythonFunction::Call(alt::MValueArgs args) const {
+	py::list funcArgs;
+	for (const auto& arg : args)
+		funcArgs.append(Utils::MValueToValue(arg));
+	auto returnValue = func(*funcArgs);
+	return Utils::ValueToMValue(returnValue);
 }
 
-bool PythonResource::MakeClient(alt::IResource::CreationInfo *info, alt::Array<alt::String> files)
-{
-    info->type = "js";
-    return true;
+bool PythonResource::MakeClient(alt::IResource::CreationInfo* info, alt::Array<std::string> files) {
+	info->type = "js";
+	return true;
 }
