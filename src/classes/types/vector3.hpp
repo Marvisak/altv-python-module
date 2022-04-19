@@ -33,6 +33,7 @@ public:
 	Vector3 operator-(const Vector3& other) const;
 	Vector3 operator-(double num) const;
 	Vector3 operator-(const py::list& vectorList) const;
+	Vector3 operator-() const;
 
 	Vector3 operator/(const Vector3& other) const;
 	Vector3 operator/(double num) const;
@@ -51,7 +52,6 @@ public:
 	double Dot(double num) const;
 	double Dot(const py::list& vectorList) const;
 
-    Vector3 Negative() const;
     Vector3 Normalize() const;
 
     static Vector3 Zero(const py::object& _this);
