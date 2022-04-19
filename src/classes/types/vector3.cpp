@@ -148,7 +148,7 @@ double Vector3::Dot(const py::list &vectorList) const {
 	return x * vectorList[0].cast<double>() + y * vectorList[1].cast<double>(), z * vectorList[2].cast<double>();
 }
 
-Vector3 Vector3::Negative() const {
+Vector3 Vector3::operator-() const {
     return {-x, -y, -z};
 }
 
@@ -241,6 +241,8 @@ void RegisterVector3Class(const py::module_ &m) {
 	pyClass.def(py::self * py::list());
 	pyClass.def(py::self / py::list());
 
+	pyClass.def(-py::self);
+
     pyClass.def("cross", static_cast<Vector3 (Vector3::*)(const Vector3&) const>(&Vector3::Cross));
     pyClass.def("cross", static_cast<Vector3 (Vector3::*)(double) const>(&Vector3::Cross));
     pyClass.def("cross", static_cast<Vector3 (Vector3::*)(const py::list&) const>(&Vector3::Cross));
@@ -260,7 +262,6 @@ void RegisterVector3Class(const py::module_ &m) {
     pyClass.def_property_readonly_static("positive_infinity", &Vector3::PositiveInfinity);
     pyClass.def_property_readonly_static("negative_infinity", &Vector3::NegativeInfinity);
 
-    pyClass.def("negative", &Vector3::Negative);
     pyClass.def("normalize", &Vector3::Normalize);
     pyClass.def("angle_to", &Vector3::AngleTo);
     pyClass.def("angle_to_degrees", &Vector3::AngleToDegrees);
