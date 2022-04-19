@@ -36,35 +36,35 @@ py::list Vector3::ToList() {
     return list;
 }
 
-alt::Position Vector3::ToAltPos() {
+alt::Position Vector3::ToAltPos() const {
     return alt::Position{x, y, z};
 }
 
-alt::Rotation Vector3::ToAltRot() {
+alt::Rotation Vector3::ToAltRot() const {
     return alt::Rotation{x, y, z};
 }
 
-std::string Vector3::ToString() {
+std::string Vector3::ToString() const {
     return "Vector3(" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ")";
 }
 
-Vector3 Vector3::ToDegrees() {
+Vector3 Vector3::ToDegrees() const {
     return {x * (180 / alt::PI), y * (180 / alt::PI), z * (180 / alt::PI)};
 }
 
-Vector3 Vector3::ToRadians() {
+Vector3 Vector3::ToRadians() const {
     return {x * (alt::PI / 180), y * (alt::PI / 180), z * (alt::PI / 180)};
 }
 
-double Vector3::Length() {
+double Vector3::Length() const {
     return sqrt(x * x + y * y + z * z);
 }
 
-double Vector3::Distance(Vector3 &other) {
+double Vector3::Distance(Vector3 &other) const {
     return sqrt(std::pow(x - other.x, 2) + std::pow(y - other.y, 2) + std::pow(z - other.z, 2));
 }
 
-bool Vector3::IsInRange(const Vector3 &other, double range) {
+bool Vector3::IsInRange(const Vector3 &other, double range) const {
     double dx = abs(x - other.x);
     double dy = abs(y - other.y);
     double dz = abs(z - other.z);
@@ -72,111 +72,87 @@ bool Vector3::IsInRange(const Vector3 &other, double range) {
     return dx <= range && dy <= range && dz <= range && dx * dx + dy * dy + dz * dz <= range * range;
 }
 
-Vector3 Vector3::Add(const Vector3 &other) {
+Vector3 Vector3::operator+(const Vector3 &other) const {
     return {x + other.x, y + other.y, z + other.z};
 }
 
-Vector3 Vector3::Add(double num) {
+Vector3 Vector3::operator+(double num) const {
     return {x + num, y + num, z + num};
 }
 
-Vector3 Vector3::Add(double _x, double _y, double _z) {
-    return {x + _x, y + _y, z + _z};
-}
-
-Vector3 Vector3::Add(const py::list &vectorList) {
+Vector3 Vector3::operator+(const py::list &vectorList) const {
     return {x + vectorList[0].cast<double>(), y + vectorList[1].cast<double>(), z + vectorList[2].cast<double>()};
 }
 
-Vector3 Vector3::Cross(const Vector3 &other) {
-    return {y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x};
+Vector3 Vector3::operator-(const Vector3 &other) const {
+	return {x - other.x, y - other.y, z - other.z};
 }
 
-Vector3 Vector3::Cross(double num) {
-    return {y * num - z * num, z * num - x * num, x * num - y * num};
+Vector3 Vector3::operator-(double num) const {
+	return {x - num, y - num, z - num};
 }
 
-Vector3 Vector3::Cross(double _x, double _y, double _z) {
-    return {y * _z - z * _y, z * _x - x * _z, x * _y - y * _x};
+Vector3 Vector3::operator-(const py::list &vectorList) const {
+	return {x - vectorList[0].cast<double>(), y - vectorList[1].cast<double>(), z - vectorList[2].cast<double>()};
 }
 
-Vector3 Vector3::Cross(const py::list &vectorList) {
-    auto _x = vectorList[0].cast<double>();
-    auto _y = vectorList[1].cast<double>();
-    auto _z = vectorList[2].cast<double>();
-
-    return {y * _z - z * _y, z * _x - x * _z, x * _y - y * _x};
-}
-
-Vector3 Vector3::Div(const Vector3 &other) {
+Vector3 Vector3::operator/(const Vector3 &other) const {
     return {x / other.x, y / other.y, z / other.z};
 }
 
-Vector3 Vector3::Div(double num) {
+Vector3 Vector3::operator/(double num) const {
     return {x / num, y / num, z / num};
 }
 
-Vector3 Vector3::Div(double _x, double _y, double _z) {
-    return {x / _x, y / _y, z / _z};
-}
-
-Vector3 Vector3::Div(const py::list &vectorList) {
+Vector3 Vector3::operator/(const py::list &vectorList) const {
     return {x / vectorList[0].cast<double>(), y / vectorList[1].cast<double>(), z / vectorList[2].cast<double>()};
 }
 
-double Vector3::Dot(const Vector3 &other) {
-    return x * other.x + y * other.y + z * other.z;
-}
-
-double Vector3::Dot(double num) {
-    return x * num + y * num + z * num;
-}
-
-double Vector3::Dot(double _x, double _y, double _z) {
-    return x * _x + y * _y + z * _z;
-}
-
-double Vector3::Dot(const py::list &vectorList) {
-    return x * vectorList[0].cast<double>() + y * vectorList[1].cast<double>(), z * vectorList[2].cast<double>();
-}
-
-Vector3 Vector3::Sub(const Vector3 &other) {
-    return {x - other.x, y - other.y, z - other.z};
-}
-
-Vector3 Vector3::Sub(double num) {
-    return {x - num, y - num, z - num};
-}
-
-Vector3 Vector3::Sub(double _x, double _y, double _z) {
-    return {x - _x, y - _y, z - _z};
-}
-
-Vector3 Vector3::Sub(const py::list &vectorList) {
-    return {x - vectorList[0].cast<double>(), y - vectorList[1].cast<double>(), z - vectorList[2].cast<double>()};
-}
-
-Vector3 Vector3::Mul(const Vector3 &other) {
+Vector3 Vector3::operator*(const Vector3 &other) const {
     return {x * other.x, y * other.y, z * other.z};
 }
 
-Vector3 Vector3::Mul(double num) {
+Vector3 Vector3::operator*(double num) const {
     return {x * num, y * num, z * num};
 }
 
-Vector3 Vector3::Mul(double _x, double _y, double _z) {
-    return {x * _x, y * _y, z * _z};
-}
-
-Vector3 Vector3::Mul(const py::list &vectorList) {
+Vector3 Vector3::operator*(const py::list &vectorList) const {
     return {x * vectorList[0].cast<double>(), y * vectorList[1].cast<double>(), z * vectorList[2].cast<double>()};
 }
 
-Vector3 Vector3::Negative() {
+Vector3 Vector3::Cross(const Vector3 &other) const {
+	return {y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x};
+}
+
+Vector3 Vector3::Cross(double num) const {
+	return {y * num - z * num, z * num - x * num, x * num - y * num};
+}
+
+Vector3 Vector3::Cross(const py::list &vectorList) const {
+	auto _x = vectorList[0].cast<double>();
+	auto _y = vectorList[1].cast<double>();
+	auto _z = vectorList[2].cast<double>();
+
+	return {y * _z - z * _y, z * _x - x * _z, x * _y - y * _x};
+}
+
+double Vector3::Dot(const Vector3 &other) const {
+	return x * other.x + y * other.y + z * other.z;
+}
+
+double Vector3::Dot(double num) const {
+	return x * num + y * num + z * num;
+}
+
+double Vector3::Dot(const py::list &vectorList) const {
+	return x * vectorList[0].cast<double>() + y * vectorList[1].cast<double>(), z * vectorList[2].cast<double>();
+}
+
+Vector3 Vector3::Negative() const {
     return {-x, -y, -z};
 }
 
-Vector3 Vector3::Normalize() {
+Vector3 Vector3::Normalize() const {
     double length = sqrt(x * x + y * y + z * z);
     return {x / length, y / length, z / length};
 }
@@ -250,35 +226,28 @@ void RegisterVector3Class(const py::module_ &m) {
     pyClass.def("to_radians", &Vector3::ToRadians);
     pyClass.def("is_in_range", &Vector3::IsInRange);
 
-    pyClass.def("add", py::overload_cast<double>(&Vector3::Add));
-    pyClass.def("add", py::overload_cast<const py::list &>(&Vector3::Add));
-    pyClass.def("add", py::overload_cast<const double, const double, const double>(&Vector3::Add));
-    pyClass.def("add", py::overload_cast<const Vector3 &>(&Vector3::Add));
+	pyClass.def(py::self + py::self);
+	pyClass.def(py::self - py::self);
+	pyClass.def(py::self * py::self);
+	pyClass.def(py::self / py::self);
 
-    pyClass.def("cross", py::overload_cast<const double>(&Vector3::Cross));
-    pyClass.def("cross", py::overload_cast<const py::list &>(&Vector3::Cross));
-    pyClass.def("cross", py::overload_cast<const double, const double, const double>(&Vector3::Cross));
-    pyClass.def("cross", py::overload_cast<const Vector3 &>(&Vector3::Cross));
+	pyClass.def(py::self + double());
+	pyClass.def(py::self - double());
+	pyClass.def(py::self * double());
+	pyClass.def(py::self / double());
 
-    pyClass.def("div", py::overload_cast<const double>(&Vector3::Div));
-    pyClass.def("div", py::overload_cast<const py::list &>(&Vector3::Div));
-    pyClass.def("div", py::overload_cast<const double, const double, const double>(&Vector3::Div));
-    pyClass.def("div", py::overload_cast<const Vector3 &>(&Vector3::Div));
+	pyClass.def(py::self + py::list());
+	pyClass.def(py::self - py::list());
+	pyClass.def(py::self * py::list());
+	pyClass.def(py::self / py::list());
 
-    pyClass.def("dot", py::overload_cast<const double>(&Vector3::Dot));
-    pyClass.def("dot", py::overload_cast<const py::list &>(&Vector3::Dot));
-    pyClass.def("dot", py::overload_cast<const double, const double, const double>(&Vector3::Dot));
-    pyClass.def("dot", py::overload_cast<const Vector3 &>(&Vector3::Dot));
+    pyClass.def("cross", static_cast<Vector3 (Vector3::*)(const Vector3&) const>(&Vector3::Cross));
+    pyClass.def("cross", static_cast<Vector3 (Vector3::*)(double) const>(&Vector3::Cross));
+    pyClass.def("cross", static_cast<Vector3 (Vector3::*)(const py::list&) const>(&Vector3::Cross));
 
-    pyClass.def("sub", py::overload_cast<const double>(&Vector3::Sub));
-    pyClass.def("sub", py::overload_cast<const py::list &>(&Vector3::Sub));
-    pyClass.def("sub", py::overload_cast<const double, const double, const double>(&Vector3::Sub));
-    pyClass.def("sub", py::overload_cast<const Vector3 &>(&Vector3::Sub));
-
-    pyClass.def("mul", py::overload_cast<const double>(&Vector3::Mul));
-    pyClass.def("mul", py::overload_cast<const py::list &>(&Vector3::Mul));
-    pyClass.def("mul", py::overload_cast<const double, const double, const double>(&Vector3::Mul));
-    pyClass.def("mul", py::overload_cast<const Vector3 &>(&Vector3::Mul));
+	pyClass.def("dot", static_cast<double (Vector3::*)(double) const>(&Vector3::Dot));
+	pyClass.def("dot", static_cast<double (Vector3::*)(const py::list&) const>(&Vector3::Dot));
+	pyClass.def("dot", static_cast<double (Vector3::*)(const Vector3&) const>(&Vector3::Dot));
 
     pyClass.def_property_readonly_static("zero", &Vector3::Zero);
     pyClass.def_property_readonly_static("one", &Vector3::One);
