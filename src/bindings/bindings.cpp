@@ -9,6 +9,7 @@ PYBIND11_EMBEDDED_MODULE(alt, m){
 	m.doc() = "alt:V Python Module";
 
     RegisterEnums(m);
+    RegisterVector2Class(m);
     RegisterVector3Class(m);
     RegisterRGBAClass(m);
 	RegisterConnectionInfoClass(m);
