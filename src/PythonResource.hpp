@@ -17,8 +17,11 @@ class PythonResource : public alt::IResource::Impl
 	CustomEventsMap LocalCustomEvents;
 	CustomEventsMap RemoteEvents;
 
+	int intervalId = 0;
 	typedef std::vector<Interval*> TaskVector;
+	typedef std::map<int, Interval*> TimerMap;
 	TaskVector Tasks;
+	TimerMap Timers;
 
 	std::unordered_map<alt::IBaseObject::Type, alt::Ref<alt::IBaseObject>> objects;
 
@@ -43,6 +46,10 @@ class PythonResource : public alt::IResource::Impl
 	void OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) override;
 
 	void OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) override;
+
+	int AddTimer(double milliseconds, const py::function& func);
+
+	void ClearTimer(int timerId);
 
 	void AddTask(double milliseconds, const py::function& func);
 

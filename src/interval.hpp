@@ -26,7 +26,7 @@ class Interval {
 		milliseconds = newMilliseconds;
 	}
 
-	void Update();
+	bool Update();
 
 	static long GetTime() {
 		return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count();

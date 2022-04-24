@@ -37,6 +37,20 @@ py::cpp_function Task(double milliseconds=0, double seconds=0, double minutes=0,
 	};
 }
 
+int Timer(const py::function& func, double milliseconds) {
+	PyThreadState* interp = PyThreadState_Get();
+	PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
+	return resource->AddTimer(milliseconds, func);
+}
+
+void ClearTimer(int timerId) {
+	PyThreadState* interp = PyThreadState_Get();
+	PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
+	resource->ClearTimer(timerId);
+}
+
 void RegisterIntervalFunction(py::module_ m) {
-	m.def("task", &Task, py::kw_only(), py::arg("milliseconds") = 0, py::arg("seconds") = 0, py::arg("minutes") = 0, py::arg("hours") = 0);
+	m.def("task", &Task, py::kw_only(), py::arg("milliseconds") = 0, py::arg("seconds") = 0, py::arg("minutes") = 0, py::arg("hours") = 0, "Decorator for creating task");
+	m.def("timer", &Timer, py::arg("func"), py::arg("milliseconds"));
+	m.def("clear_timer", &ClearTimer, py::arg("timerId"));
 }

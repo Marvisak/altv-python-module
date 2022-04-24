@@ -4,9 +4,11 @@ Interval::Interval(double milliseconds, py::function function) : milliseconds(mi
 	nextTime = GetTime() + (long)milliseconds;
 }
 
-void Interval::Update() {
+bool Interval::Update() {
 	if (GetTime() >= nextTime && running) {
 		function();
 		nextTime = GetTime() + (long)milliseconds;
+		return true;
 	}
+	return false;
 }

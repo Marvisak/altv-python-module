@@ -29,7 +29,9 @@ bool PythonResource::Stop() {
 	objects.clear();
 
 	for (const auto& task : Tasks) delete task;
+	for (const auto& timer : Timers) delete timer.second;
 	Tasks.clear();
+	Timers.clear();
 
 	PyThreadState_Swap(Interpreter);
 	Py_EndInterpreter(Interpreter);
@@ -65,6 +67,12 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 
 void PythonResource::OnTick() {
 	for (auto task : Tasks) task->Update();
+	for (auto it = Timers.cbegin(); it != Timers.cend();)
+		if (it->second->Update()) {
+			delete it->second;
+			it = Timers.erase(it);
+		} else
+			it = std::next(it);
 }
 
 void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
@@ -116,6 +124,19 @@ bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject>& object) {
 	for (auto it = range.first; it != range.second; it++)
 		if (it->second == object) return true;
 	return false;
+}
+
+int PythonResource::AddTimer(double milliseconds, const py::function& func) {
+	auto task = new Interval(milliseconds, func);
+	intervalId++;
+	Timers[intervalId] = task;
+	return intervalId;
+}
+
+void PythonResource::ClearTimer(int timerId) {
+	auto interval = Timers[timerId];
+	Timers.erase(timerId);
+	delete interval;
 }
 
 void PythonResource::AddTask(double milliseconds, const py::function& func) {
