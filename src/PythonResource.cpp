@@ -28,8 +28,8 @@ bool PythonResource::Stop() {
 	RemoteEvents.clear();
 	objects.clear();
 
-	for (const auto& interval : Intervals) delete interval;
-	Intervals.clear();
+	for (const auto& task : Tasks) delete task;
+	Tasks.clear();
 
 	PyThreadState_Swap(Interpreter);
 	Py_EndInterpreter(Interpreter);
@@ -64,7 +64,7 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 }
 
 void PythonResource::OnTick() {
-	for (auto interval : Intervals) interval->Update();
+	for (auto task : Tasks) task->Update();
 }
 
 void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
@@ -118,15 +118,15 @@ bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject>& object) {
 	return false;
 }
 
-void PythonResource::AddInterval(double milliseconds, const py::function& func) {
-	auto interval = new Interval(milliseconds, func);
-	Intervals.push_back(interval);
+void PythonResource::AddTask(double milliseconds, const py::function& func) {
+	auto task = new Interval(milliseconds, func);
+	Tasks.push_back(task);
 }
 
 Interval* PythonResource::GetInterval(const py::function& func) {
-	for (int i{}; i<Intervals.size(); i++)
-		if (Intervals[i]->GetFunc().is(func))
-			return Intervals[i];
+	for (int i{}; i<Tasks.size(); i++)
+		if (Tasks[i]->GetFunc().is(func))
+			return Tasks[i];
 	return nullptr;
 }
 

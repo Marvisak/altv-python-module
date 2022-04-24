@@ -1,9 +1,9 @@
+#include "alt.hpp"
 #include "classes/classes.hpp"
 #include "events.hpp"
-#include "timers.hpp"
+#include "intervals.hpp"
 #include "log.hpp"
 #include "main.hpp"
-#include "alt.hpp"
 
 PYBIND11_EMBEDDED_MODULE(alt, m){
 	m.doc() = "alt:V Python Module";
@@ -23,5 +23,5 @@ PYBIND11_EMBEDDED_MODULE(alt, m){
     RegisterLogFunctions(m);
     RegisterEventFunctions(m);
     RegisterHelpersFunctions(m);
-	RegisterTimerFunctions(m);
+	RegisterIntervalFunction(m);
 }
