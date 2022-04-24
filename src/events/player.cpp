@@ -1,6 +1,8 @@
-#include "events/CPlayerRequestControlEvent.h"
 #include "events.hpp"
 #include "utils.hpp"
+
+// TODO Remove after alt:V update
+#include "events/CPlayerRequestControlEvent.h"
 
 EventHandler playerConnect(alt::CEvent::Type::PLAYER_CONNECT, [](const alt::CEvent* ev, py::list& args) {
     auto event = dynamic_cast<const alt::CPlayerConnectEvent*>(ev);

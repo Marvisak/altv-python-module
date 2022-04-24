@@ -1,9 +1,6 @@
 #include "events.hpp"
 #include "utils.hpp"
 
-// TODO Remove after alt:V update
-#include "events/CLocalMetaDataChangeEvent.h"
-
 EventHandler syncedMetaChange(alt::CEvent::Type::SYNCED_META_CHANGE, [](const alt::CEvent* ev, py::list& args) {
 	auto event = dynamic_cast<const alt::CSyncedMetaDataChangeEvent*>(ev);
 	args.append(Utils::GetBaseObject(event->GetTarget().Get()));

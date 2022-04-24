@@ -1,6 +1,7 @@
 #pragma once
 
 #include "main.hpp"
+#include "interval.hpp"
 
 class PythonRuntime;
 class PythonResource : public alt::IResource::Impl
@@ -8,12 +9,16 @@ class PythonResource : public alt::IResource::Impl
 	PythonRuntime* Runtime;
 	alt::IResource* Resource;
 	PyThreadState* Interpreter;
+
 	typedef std::vector<py::function> EventsVector;
 	typedef std::map<alt::CEvent::Type, EventsVector> EventsMap;
 	typedef std::map<std::string, EventsVector> CustomEventsMap;
 	EventsMap LocalEvents;
 	CustomEventsMap LocalCustomEvents;
 	CustomEventsMap RemoteEvents;
+
+	typedef std::vector<Interval*> IntervalVector;
+	IntervalVector Intervals;
 
 	std::unordered_map<alt::IBaseObject::Type, alt::Ref<alt::IBaseObject>> objects;
 
@@ -33,9 +38,15 @@ class PythonResource : public alt::IResource::Impl
 
 	bool IsObjectValid(const alt::Ref<alt::IBaseObject>& object);
 
+	void OnTick() override;
+
 	void OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) override;
 
 	void OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) override;
+
+	void AddInterval(double milliseconds, const py::function& func);
+
+	Interval* GetInterval(const py::function& func);
 
 	void AddLocalEvent(const alt::CEvent::Type& type, const py::function& eventFunc);
 

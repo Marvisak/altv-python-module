@@ -26,6 +26,10 @@ bool PythonResource::Stop() {
 	LocalEvents.clear();
 	LocalCustomEvents.clear();
 	RemoteEvents.clear();
+	objects.clear();
+
+	for (const auto& interval : Intervals) delete interval;
+	Intervals.clear();
 
 	PyThreadState_Swap(Interpreter);
 	Py_EndInterpreter(Interpreter);
@@ -57,6 +61,10 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 		}
 	}
     return true;
+}
+
+void PythonResource::OnTick() {
+	for (auto interval : Intervals) interval->Update();
 }
 
 void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
@@ -109,6 +117,19 @@ bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject>& object) {
 		if (it->second == object) return true;
 	return false;
 }
+
+void PythonResource::AddInterval(double milliseconds, const py::function& func) {
+	auto interval = new Interval(milliseconds, func);
+	Intervals.push_back(interval);
+}
+
+Interval* PythonResource::GetInterval(const py::function& func) {
+	for (int i{}; i<Intervals.size(); i++)
+		if (Intervals[i]->GetFunc().is(func))
+			return Intervals[i];
+	return nullptr;
+}
+
 
 void PythonResource::AddLocalEvent(const alt::CEvent::Type& type, const py::function& eventFunc) {
 	LocalEvents[type].push_back(eventFunc);
