@@ -29,4 +29,5 @@ void RegisterEnums(const py::module_& m) {
 	export_enum<Event>(m, "Event");
 	export_enum<ExplosionType>(m, "ExplosionType");
 	export_enum<BodyPart>(m, "BodyPart");
+	export_enum<VehicleType>(m, "VehicleType");
 }

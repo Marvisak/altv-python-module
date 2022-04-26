@@ -272,7 +272,7 @@ enum class ExplosionType : int8_t {
 	Unknown = -1,
 };
 
-enum class BodyPart : int8_t{
+enum class BodyPart : int8_t {
 	Pelvis,
 	LeftHip,
 	LeftLeg,
@@ -295,5 +295,26 @@ enum class BodyPart : int8_t{
 	Neck,
 	Head,
 	Unknown = -1,
+};
+
+enum class VehicleType : uint8_t {
+	Invalid,
+	Ped,
+	Automobile,
+	Plane,
+	Trailer,
+	QuadBike,
+	SubmarineCar,
+	AmphibiousAutomobile,
+	AmphibiousQuadBike,
+	Heli,
+	Blimp,
+	AutoGyro,
+	Bike,
+	BMX,
+	Boat,
+	Train,
+	Submarine,
+	Object
 };
 

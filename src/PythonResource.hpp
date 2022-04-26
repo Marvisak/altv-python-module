@@ -24,9 +24,6 @@ class PythonResource : public alt::IResource::Impl
 	TimerMap Timers;
 
 	std::unordered_map<alt::IBaseObject::Type, alt::Ref<alt::IBaseObject>> objects;
-
-	friend PythonRuntime;
-
  public:
 	PythonResource(PythonRuntime* runtime, alt::IResource* resource)
 		: Runtime(runtime), Resource(resource)
@@ -62,6 +59,14 @@ class PythonResource : public alt::IResource::Impl
 	void AddRemoteEvent(const std::string& eventName, const py::function& eventFunc);
 
 	void HandleCustomEvent(const alt::CEvent* event);
+
+	alt::IResource* GetResource() {
+		return Resource;
+	}
+
+	PyThreadState* GetInterpreter() {
+		return Interpreter;
+	}
 
 	class PythonFunction : public alt::IMValueFunction::Impl
 	{

@@ -51,6 +51,6 @@ void ClearTimer(int timerId) {
 
 void RegisterIntervalFunction(py::module_ m) {
 	m.def("task", &Task, py::kw_only(), py::arg("milliseconds") = 0, py::arg("seconds") = 0, py::arg("minutes") = 0, py::arg("hours") = 0, "Decorator for creating task");
-	m.def("timer", &Timer, py::arg("func"), py::arg("milliseconds"));
-	m.def("clear_timer", &ClearTimer, py::arg("timerId"));
+	m.def("timer", &Timer, py::arg("func"), py::arg("milliseconds"), "Creates timer and returns it's id");
+	m.def("clear_timer", &ClearTimer, py::arg("timer_id"), "Clears the timer by it's id");
 }

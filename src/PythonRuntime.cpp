@@ -11,7 +11,7 @@ PythonRuntime::PythonRuntime() {
 
 PythonResource* PythonRuntime::GetPythonResourceFromInterp(PyThreadState* interp) {
 	for (PythonResource* resource : Resources)
-		if (resource->Interpreter == interp)
+		if (resource->GetInterpreter() == interp)
 			return resource;
 	return nullptr;
 }
@@ -26,7 +26,7 @@ void PythonRuntime::DestroyImpl(alt::IResource::Impl* impl) {
 	auto* resource = dynamic_cast<PythonResource*>(impl);
 	for (int i{}; i < Resources.size(); i++)
 	{
-		if (Resources[i]->Resource->GetName() == resource->Resource->GetName())
+		if (Resources[i]->GetResource()->GetName() == resource->GetResource()->GetName())
 		{
 			Resources.erase(Resources.begin() + i);
 			break;

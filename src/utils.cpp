@@ -1,8 +1,7 @@
 #include "classes/types/vector3.hpp"
 #include "utils.hpp"
 
-alt::MValue Utils::ValueToMValue(const py::object& arg)
-{
+alt::MValue Utils::ValueToMValue(const py::object& arg) {
 	alt::MValue mValue;
 	auto valueStr = py::str(arg).cast<std::string>();
 	if (py::isinstance<py::str>(arg))
@@ -45,8 +44,7 @@ alt::MValue Utils::ValueToMValue(const py::object& arg)
 	return mValue;
 }
 
-py::object Utils::MValueToValue(const alt::MValueConst& mValue)
-{
+py::object Utils::MValueToValue(const alt::MValueConst& mValue) {
 	py::object value;
 	switch (mValue->GetType())
 	{
@@ -126,6 +124,44 @@ py::object Utils::MValueToValue(const alt::MValueConst& mValue)
             value = py::none();
             break;
         }
+	return value;
+}
+
+py::object Utils::ConfigNodeToValue(alt::config::Node& node) {
+	py::object value;
+	switch (node.GetType()) {
+		case alt::config::Node::Type::NONE:
+			value = py::none();
+			break;
+		case alt::config::Node::Type::SCALAR: {
+			try {
+				value = py::bool_(node.ToBool());
+			} catch (alt::config::Error&) {
+				try {
+					value = py::float_(node.ToNumber());
+				} catch (alt::config::Error&) {
+					value = py::str(node.ToString());
+				}
+			}
+			break;
+		}
+		case alt::config::Node::Type::LIST: {
+			alt::config::Node::List list = node.ToList();
+			py::list pyList;
+			for (auto val : list)
+				pyList.append(ConfigNodeToValue(val));
+			value = pyList;
+			break;
+		}
+		case alt::config::Node::Type::DICT: {
+			alt::config::Node::Dict dict = node.ToDict();
+			py::dict pyDict;
+			for (auto& pair : dict)
+				pyDict[pair.first.c_str()] = ConfigNodeToValue(pair.second);
+			value = pyDict;
+			break;
+		}
+	}
 	return value;
 }
 

@@ -134,7 +134,7 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def("set_bumper_damage_level", &alt::IVehicle::SetBumperDamageLevel, py::arg("bumper_id"), py::arg("level"));
     pyClass.def("set_search_light_to", &SetSearchLightTo);
 
-    pyClass.def_property("mod_kit", &alt::IVehicle::GetModKit, &alt::IVehicle::SetModKit);
+    pyClass.def_property("modkit", &alt::IVehicle::GetModKit, &alt::IVehicle::SetModKit);
     pyClass.def_property("primary_color", &alt::IVehicle::GetPrimaryColor, &alt::IVehicle::SetPrimaryColor);
     pyClass.def_property("primary_color_rgb", &alt::IVehicle::GetPrimaryColorRGB, &alt::IVehicle::SetPrimaryColorRGB);
     pyClass.def_property("secondary_color", &alt::IVehicle::GetSecondaryColor, &alt::IVehicle::SetSecondaryColor);
@@ -194,7 +194,7 @@ void RegisterVehicleClass(const py::module_& m) {
 
     pyClass.def_property_readonly("driver", &alt::IVehicle::GetDriver);
     pyClass.def_property_readonly("destroyed", &alt::IVehicle::IsDestroyed);
-    pyClass.def_property_readonly("mod_kits_count", &alt::IVehicle::GetModKitsCount);
+    pyClass.def_property_readonly("modkits_count", &alt::IVehicle::GetModKitsCount);
     pyClass.def_property_readonly("is_primary_color_rgb", &alt::IVehicle::IsPrimaryColorRGB);
     pyClass.def_property_readonly("is_secondary_color_rgb", &alt::IVehicle::IsSecondaryColorRGB);
     pyClass.def_property_readonly("is_tire_smoke_color_custom", &alt::IVehicle::IsTireSmokeColorCustom);
