@@ -12,7 +12,7 @@ void export_enum(const py::module_& m, const char* enumName) {
 }
 
 void RegisterEnums(const py::module_& m) {
-    export_enum<alt::IBaseObject::Type>(m, "BaseObjectType");
+    export_enum<BaseObjectType>(m, "BaseObjectType");
     export_enum<WeatherType>(m, "WeatherType");
     export_enum<WeaponTint>(m, "WeaponTint");
     export_enum<VehicleModType>(m, "VehicleModType");
@@ -30,4 +30,5 @@ void RegisterEnums(const py::module_& m) {
 	export_enum<ExplosionType>(m, "ExplosionType");
 	export_enum<BodyPart>(m, "BodyPart");
 	export_enum<VehicleType>(m, "VehicleType");
+	export_enum<ColShapeType>(m, "ColShapeType");
 }

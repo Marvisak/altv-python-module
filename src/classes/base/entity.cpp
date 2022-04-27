@@ -20,11 +20,11 @@ Vector3 GetRotation(alt::IEntity* _this) {
 }
 
 void SetRotation(alt::IEntity* _this, Vector3 rot) {
-    _this->SetRotation(rot.ToAltRot());
+    _this->SetRotation(rot.ToAlt());
 }
 
 void AttachToEntity(alt::IEntity* _this, alt::IEntity* entity, int16_t entityBoneId, int16_t ownBoneId, Vector3 pos, Vector3 rot, bool enableCollision, bool fixedRotation) {
-    _this->AttachToEntity(entity, entityBoneId, ownBoneId, pos.ToAltPos(), rot.ToAltRot(), enableCollision, fixedRotation);
+    _this->AttachToEntity(entity, entityBoneId, ownBoneId, pos.ToAlt(), rot.ToAlt(), enableCollision, fixedRotation);
 }
 
 py::object GetSyncedMeta(alt::IEntity* _this, const std::string& key) {

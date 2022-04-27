@@ -211,7 +211,7 @@ enum class Event : uint16_t {
 	VehicleDestroy,
 	VehicleDamage,
 
-	ColshapeEvent = 27, // TODO Implement
+	ColShapeEvent = 27,
 
 	PlayerEnterVehicle,
 	PlayerEnteringVehicle,
@@ -316,5 +316,31 @@ enum class VehicleType : uint8_t {
 	Train,
 	Submarine,
 	Object
+};
+
+enum class ColShapeType : uint8_t {
+	Sphere,
+	Cylinder,
+	Circle,
+	Cuboid,
+	Rect,
+	CheckpointCylinder,
+	Polygon
+};
+
+enum class BaseObjectType : uint8_t {
+	Player,
+	Vehicle,
+	Blip,
+	WebView,
+	VoiceChannel,
+	ColShape,
+	Checkpoint,
+	WebSocketClient,
+	HttpClient,
+	Audio,
+	RmlElement,
+	RmlDocument,
+	LocalPlayer
 };
 

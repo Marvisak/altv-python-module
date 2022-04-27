@@ -7,7 +7,7 @@ Vector3 GetPosition(alt::IWorldObject* _this) {
 }
 
 void SetPosition(alt::IWorldObject* _this, Vector3 pos) {
-    _this->SetPosition(pos.ToAltPos());
+    _this->SetPosition(pos.ToAlt());
 }
 
 void RegisterWorldObjectClass(const py::module_& m) {

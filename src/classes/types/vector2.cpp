@@ -34,6 +34,10 @@ py::list Vector2::ToList() {
     return list;
 }
 
+alt::Position Vector2::ToAlt() const {
+	return {x, y, 0};
+}
+
 std::string Vector2::ToString() const {
     return "Vector2(" + std::to_string(x) + ", " + std::to_string(y) + ")";
 }
@@ -185,7 +189,7 @@ double Vector2::AngleToDegrees(const Vector2 &other, const bool &boolean) {
 
 void RegisterVector2Class(const py::module_ &m) {
     auto pyClass = py::class_<Vector2>(m, "Vector2");
-    pyClass.def(py::init([](double _x, double _y, double _z) { return Vector2(_x, _y); }));
+    pyClass.def(py::init([](double _x, double _y) { return Vector2(_x, _y); }));
     pyClass.def(py::init([](const py::list &vectorList) { return Vector2(vectorList); }));
 
     pyClass.def_readwrite("x", &Vector2::x);

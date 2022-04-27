@@ -36,12 +36,8 @@ py::list Vector3::ToList() {
     return list;
 }
 
-alt::Position Vector3::ToAltPos() const {
+alt::Position Vector3::ToAlt() const {
     return alt::Position{x, y, z};
-}
-
-alt::Rotation Vector3::ToAltRot() const {
-    return alt::Rotation{x, y, z};
 }
 
 std::string Vector3::ToString() const {

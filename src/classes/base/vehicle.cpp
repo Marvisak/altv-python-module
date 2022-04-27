@@ -84,10 +84,10 @@ void RegisterVehicleClass(const py::module_& m) {
     }), py::arg("hash"), py::arg("x"), py::arg("y"), py::arg("z"), py::arg("rx"), py::arg("ry"), py::arg("rz"));
     pyClass.def(py::init<>([](const std::string& model, Vector3 pos, Vector3 rot) {
         auto hash = alt::ICore::Instance().Hash(model);
-        return CreateVehicle(hash, pos.ToAltPos(), rot.ToAltRot());
+        return CreateVehicle(hash, pos.ToAlt(), rot.ToAlt());
     }), py::arg("model"), py::arg("pos"), py::arg("rot"));
     pyClass.def(py::init<>([](uint32_t hash, Vector3 pos, Vector3 rot) {
-        return CreateVehicle(hash, pos.ToAltPos(), rot.ToAltRot());
+        return CreateVehicle(hash, pos.ToAlt(), rot.ToAlt());
     }), py::arg("hash"), py::arg("pos"), py::arg("rot"));
 
     pyClass.def_property_readonly_static("all", &GetAllVehicles);

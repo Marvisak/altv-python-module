@@ -1,10 +1,15 @@
 #include "classes/classes.hpp"
+#include "classes/types/enums.hpp"
 #include "utils.hpp"
 
 uint64_t GetRefCount(alt::IBaseObject* _this) {
     if (alt::ICore::Instance().IsDebug())
         return _this->GetRefCount();
     throw std::runtime_error("ref_count is only available in debug mode");
+}
+
+BaseObjectType GetBaseObjectType(alt::IBaseObject* _this) {
+	return (BaseObjectType)_this->GetType();
 }
 
 bool GetValid(alt::IBaseObject* _this) {
@@ -30,7 +35,7 @@ void RegisterBaseObjectClass(const py::module_& m) {
 
     pyClass.def_property_readonly("ref_count", &GetRefCount);
     pyClass.def_property_readonly("valid", &GetValid);
-    pyClass.def_property_readonly("type", &alt::IBaseObject::GetType);
+    pyClass.def_property_readonly("type", &GetBaseObjectType);
 
     // Meta
     pyClass.def("delete_meta", &alt::IBaseObject::DeleteMetaData, py::arg("key"));

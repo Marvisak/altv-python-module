@@ -15,8 +15,7 @@ public:
     py::dict ToDict();
     py::list ToList();
 
-    alt::Position ToAltPos() const;
-    alt::Rotation ToAltRot() const;
+    alt::Position ToAlt() const;
     std::string ToString() const;
 
     Vector3 ToDegrees() const;

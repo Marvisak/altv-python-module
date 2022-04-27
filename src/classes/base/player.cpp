@@ -21,7 +21,7 @@ void Spawn(alt::IPlayer* _this, float x, float y, float z, uint32_t delay = 0) {
 }
 
 void Spawn(alt::IPlayer* _this, Vector3 pos, uint32_t delay = 0) {
-    _this->Spawn(pos.ToAltPos(), delay);
+    _this->Spawn(pos.ToAlt(), delay);
 }
 
 py::list GetCurrentWeaponComponents(alt::IPlayer* _this) {
@@ -153,7 +153,7 @@ void Emit(alt::IPlayer* _this, const std::string& eventName, const py::args& arg
 
 
 void RegisterPlayerClass(const py::module_& m) {
-    auto pyClass = py::class_<alt::IPlayer, alt::IEntity, alt::Ref<alt::IPlayer>>(m, "Player", py::multiple_inheritance());
+    auto pyClass = py::class_<alt::IPlayer, alt::IEntity, alt::Ref<alt::IPlayer>>(m, "Player");
 
     // Static
     pyClass.def_property_readonly_static("all", &GetAllPlayers);

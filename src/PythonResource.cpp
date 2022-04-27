@@ -57,7 +57,7 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 					else if (py::isinstance<py::str>(returnValue) && eventType == alt::CEvent::Type::PLAYER_BEFORE_CONNECT)
 						reinterpret_cast<alt::CPlayerBeforeConnectEvent*>(const_cast<alt::CEvent*>(event))->Cancel(returnValue.cast<std::string>());
 				} catch (py::error_already_set& e) {
-					alt::ICore::Instance().LogError(e.what());
+					py::print(e.what());
 				}
 			}
 		}
@@ -100,7 +100,7 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 		try {
 			callback(*eventArgs);
 		} catch (py::error_already_set& e) {
-			alt::ICore::Instance().LogError(e.what());
+			py::print(e.what());
 		}
 	}
 }

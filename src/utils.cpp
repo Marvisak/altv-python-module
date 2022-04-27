@@ -34,7 +34,7 @@ alt::MValue Utils::ValueToMValue(const py::object& arg) {
 		auto byteArray = arg.cast<py::bytearray>();
 		mValue = alt::ICore::Instance().CreateMValueByteArray(reinterpret_cast<const uint8_t*>(byteArray.cast<std::string>().c_str()), byteArray.size());
 	} else if (py::isinstance<Vector3>(arg))
-		mValue = alt::ICore::Instance().CreateMValueVector3(arg.cast<Vector3>().ToAltPos());
+		mValue = alt::ICore::Instance().CreateMValueVector3(arg.cast<Vector3>().ToAlt());
 	else if (py::isinstance<alt::RGBA>(arg))
 		mValue = alt::ICore::Instance().CreateMValueRGBA(arg.cast<alt::RGBA>());
 	else if (py::isinstance<alt::IBaseObject>(arg))
