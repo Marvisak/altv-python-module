@@ -14,6 +14,7 @@ PYBIND11_EMBEDDED_MODULE(alt, m){
     RegisterRGBAClass(m);
 	RegisterConnectionInfoClass(m);
 	RegisterVehicleModelInfoClass(m);
+	RegisterResourceClass(m);
 
     RegisterBaseObjectClass(m);
     RegisterWorldObjectClass(m);

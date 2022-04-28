@@ -8,41 +8,8 @@ uint32_t Hash(const std::string& str) {
     return alt::ICore::Instance().Hash(str);
 }
 
-py::list GetAllResources() {
-	std::vector<alt::IResource*> resources = alt::ICore::Instance().GetAllResources();
-	py::list list;
-	for (auto resource : resources) {
-		py::dict dict;
-		dict["name"] = resource->GetName();
-		dict["type"] = resource->GetType();
-		list.append(dict);
-	}
-	return list;
-}
-
 uint32_t GetNetTime() {
 	return alt::ICore::Instance().GetNetTime();
-}
-
-py::object GetResourceExports(const std::string& resourceName) {
-	alt::IResource* resource = alt::ICore::Instance().GetResource(resourceName);
-	if (resource != nullptr)
-		return Utils::MValueToValue(resource->GetExports());
-	throw std::runtime_error("Resource does not exist");
-}
-
-std::string GetResourceMain(const std::string& resourceName) {
-	alt::IResource* resource = alt::ICore::Instance().GetResource(resourceName);
-	if (resource != nullptr)
-		return resource->GetMain();
-	throw std::runtime_error("Resource does not exist");
-}
-
-std::string GetResourcePath(const std::string& resourceName) {
-	alt::IResource* resource = alt::ICore::Instance().GetResource(resourceName);
-	if (resource != nullptr)
-		return resource->GetPath();
-	throw std::runtime_error("Resource does not exist");
 }
 
 py::object GetServerConfig() {
@@ -52,11 +19,6 @@ py::object GetServerConfig() {
 
 alt::VehicleModelInfo GetVehicleModelInfoByHash(uint32_t vehicleHash) {
 	return alt::ICore::Instance().GetVehicleModelByHash(vehicleHash);
-}
-
-bool HasResource(const std::string& resourceName) {
-	alt::IResource* resource = alt::ICore::Instance().GetResource(resourceName);
-	return resource && resource->IsStarted();
 }
 
 uint64_t HashServerPassword(const std::string& password) {
@@ -81,12 +43,6 @@ void SetPassword(const std::string& password) {
 
 void StopServer() {
 	alt::ICore::Instance().StopServer();
-}
-
-std::string GetResourceName() {
-	PyThreadState* interp = PyThreadState_Get();
-	PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
-	return resource->GetResource()->GetName();
 }
 
 std::string StringToSHA256(const std::string& str) {
@@ -143,15 +99,9 @@ void RegisterHelpersFunctions(py::module_ m) {
 	m.def("stop_server", &StopServer);
 	m.def("string_to_sha256", &StringToSHA256, py::arg("str"));
 
-	m.def("get_all_resources", &GetAllResources);
-	m.def("get_resource_exports", &GetResourceExports, py::arg("resource_name"));
-	m.def("get_resource_main", &GetResourceMain, py::arg("resource_name"));
-	m.def("get_resource_path", &GetResourcePath, py::arg("resource_name"));
-	m.def("has_resource", &HasResource, py::arg("resource_name"));
 	m.def("restart_resource", &RestartResource, py::arg("resource_name"));
 	m.def("start_resource", &StartResource, py::arg("resource_name"));
 	m.def("stop_resource", &StopResource, py::arg("resource_name"));
-	m.def("get_resource_name", &GetResourceName);
 
 	m.def("get_meta", &GetMeta, py::arg("key"));
 	m.def("set_meta", &SetMeta, py::arg("key"), py::arg("value"));

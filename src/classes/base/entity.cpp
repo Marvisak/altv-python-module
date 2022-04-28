@@ -5,9 +5,8 @@
 py::list GetAllEntities(const py::object& type) {
     py::list list;
     auto array = alt::ICore::Instance().GetEntities();
-    for (const auto& entity : array) {
+    for (const auto& entity : array)
         list.append(Utils::GetBaseObject(entity));
-    }
     return list;
 }
 

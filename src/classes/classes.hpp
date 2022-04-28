@@ -22,3 +22,4 @@ void RegisterEntityClass(const py::module_& m);
 void RegisterPlayerClass(const py::module_& m);
 void RegisterVehicleClass(const py::module_& m);
 void RegisterColShapeClass(const py::module_& m);
+void RegisterResourceClass(const py::module_& m);
