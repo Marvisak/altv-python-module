@@ -51,7 +51,9 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 			EventsVector callbacks = LocalEvents[eventType];
 			for (const auto& callback : callbacks) {
 				try {
+					PyThreadState_Swap(Interpreter);
 					py::object returnValue = callback(*eventArgs);
+					PyThreadState_Swap(Runtime->GetInterpreter());
 					if (py::isinstance<py::bool_>(returnValue) && !returnValue.cast<bool>())
 						event->Cancel();
 					else if (py::isinstance<py::str>(returnValue) && eventType == alt::CEvent::Type::PLAYER_BEFORE_CONNECT)
@@ -98,7 +100,9 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 	}
 	for (const auto& callback : callbacks) {
 		try {
+			PyThreadState_Swap(Interpreter);
 			callback(*eventArgs);
+			PyThreadState_Swap(Runtime->GetInterpreter());
 		} catch (py::error_already_set& e) {
 			py::print(e.what());
 		}
