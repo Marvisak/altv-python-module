@@ -31,4 +31,6 @@ void RegisterEnums(const py::module_& m) {
 	export_enum<BodyPart>(m, "BodyPart");
 	export_enum<VehicleType>(m, "VehicleType");
 	export_enum<ColShapeType>(m, "ColShapeType");
+	export_enum<BlipColor>(m, "BlipColor");
+	export_enum<BlipSprite>(m, "BlipSprite");
 }

@@ -23,3 +23,4 @@ void RegisterPlayerClass(const py::module_& m);
 void RegisterVehicleClass(const py::module_& m);
 void RegisterColShapeClass(const py::module_& m);
 void RegisterResourceClass(const py::module_& m);
+void RegisterBlipClass(const py::module_& m);

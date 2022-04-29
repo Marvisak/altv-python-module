@@ -22,6 +22,7 @@ PYBIND11_EMBEDDED_MODULE(alt, m){
     RegisterVehicleClass(m);
     RegisterPlayerClass(m);
     RegisterColShapeClass(m);
+    RegisterBlipClass(m);
 
     RegisterLogFunctions(m);
     RegisterEventFunctions(m);
