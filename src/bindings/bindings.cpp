@@ -24,6 +24,7 @@ PYBIND11_EMBEDDED_MODULE(alt, m){
     RegisterColShapeClass(m);
     RegisterBlipClass(m);
     RegisterCheckpointClass(m);
+    RegisterVoiceChannelClass(m);
 
     RegisterLogFunctions(m);
     RegisterEventFunctions(m);
