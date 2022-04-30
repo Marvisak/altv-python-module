@@ -42,11 +42,10 @@ py::list GetWeapons(alt::IPlayer* _this) {
 }
 
 void SetDlcClothes(alt::IPlayer* _this, uint32_t dlc, uint8_t component, uint16_t drawable, uint8_t texture, uint8_t palette = 2) {
-    if (drawable < 128) {
+    if (drawable < 128)
         _this->SetDlcClothes(component, drawable, texture, palette, dlc);
-    } else {
+    else
         throw py::value_error("Drawable can't be higher than 127");
-    }
 }
 
 void SetDlcProps(alt::IPlayer* _this, uint32_t dlc, uint8_t component, uint8_t drawable, uint8_t texture ) {
@@ -54,11 +53,11 @@ void SetDlcProps(alt::IPlayer* _this, uint32_t dlc, uint8_t component, uint8_t d
 }
 
 Vector3 GetAimPos(alt::IPlayer* _this) {
-    return Vector3(_this->GetAimPos());
+    return (Vector3)_this->GetAimPos();
 }
 
 Vector3 GetHeadRot(alt::IPlayer* _this) {
-    return Vector3(_this->GetHeadRotation());
+    return (Vector3)_this->GetHeadRotation();
 }
 
 py::object GetEntityAimingAt(alt::IPlayer* _this) {
@@ -66,11 +65,11 @@ py::object GetEntityAimingAt(alt::IPlayer* _this) {
 }
 
 WeaponTint GetCurrentWeaponTintIndex(alt::IPlayer* _this) {
-    return (WeaponTint)(_this->GetCurrentWeaponTintIndex());
+    return (WeaponTint)_this->GetCurrentWeaponTintIndex();
 }
 
 Vector3 GetEntityAimOffset(alt::IPlayer* _this) {
-    return Vector3(_this->GetEntityAimOffset());
+    return (Vector3)_this->GetEntityAimOffset();
 }
 
 py::dict GetClothes(alt::IPlayer* _this, uint8_t component) {

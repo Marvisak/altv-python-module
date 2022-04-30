@@ -83,8 +83,8 @@ EventHandler consoleCommand(alt::CEvent::Type::CONSOLE_COMMAND_EVENT, [](const a
 
 EventHandler colShapeEvent(alt::CEvent::Type::COLSHAPE_EVENT, [](const alt::CEvent* ev, py::list& args) {
 	auto event = dynamic_cast<const alt::CColShapeEvent*>(ev);
-	args.append(event->GetTarget().Get());
-	args.append(event->GetEntity().Get());
+	args.append(Utils::GetBaseObject(event->GetTarget().Get()));
+	args.append(Utils::GetBaseObject(event->GetEntity().Get()));
 	args.append(event->GetState());
 });
 

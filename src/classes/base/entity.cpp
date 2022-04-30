@@ -15,7 +15,7 @@ py::object GetEntityById(uint16_t id) {
 }
 
 Vector3 GetRotation(alt::IEntity* _this) {
-    return Vector3(_this->GetRotation());
+    return (Vector3)_this->GetRotation();
 }
 
 void SetRotation(alt::IEntity* _this, Vector3 rot) {

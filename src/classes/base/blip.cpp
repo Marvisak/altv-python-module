@@ -18,7 +18,7 @@ void SetBlipScale(alt::IBlip* _this, float scale) {
 }
 
 Vector2 GetSize(alt::IBlip* _this) {
-	return Vector2(_this->GetScaleXY());
+	return (Vector2)_this->GetScaleXY();
 }
 
 void SetSize(alt::IBlip* _this, Vector2 size) {

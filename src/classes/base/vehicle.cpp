@@ -23,7 +23,7 @@ alt::IVehicle* CreateVehicle(uint32_t hash, alt::Position pos, alt::Rotation rot
 }
 
 WindowTint GetWindowTint(alt::IVehicle* _this) {
-    return (WindowTint)(_this->GetWindowTint());
+    return (WindowTint)_this->GetWindowTint();
 }
 
 py::dict GetNeonActive(alt::IVehicle* _this) {
@@ -42,23 +42,23 @@ void SetNeonActive(alt::IVehicle* _this, const py::dict& neon) {
 }
 
 RadioStation GetRadioStationIndex(alt::IVehicle* _this) {
-    return (RadioStation)(_this->GetRadioStationIndex());
+    return (RadioStation)_this->GetRadioStationIndex();
 }
 
 VehicleLockState GetLockState(alt::IVehicle* _this) {
-    return (VehicleLockState)(_this->GetLockState());
+    return (VehicleLockState)_this->GetLockState();
 }
 
 VehicleDoorState GetDoorState(alt::IVehicle* _this, uint8_t doorId) {
-    return (VehicleDoorState)(_this->GetDoorState(doorId));
+    return (VehicleDoorState)_this->GetDoorState(doorId);
 }
 
 VehiclePartDamage GetPartDamageLevel(alt::IVehicle* _this, uint8_t partId) {
-    return (VehiclePartDamage)(_this->GetPartDamageLevel(partId));
+    return (VehiclePartDamage)_this->GetPartDamageLevel(partId);
 }
 
 VehicleBumper GetBumperDamageLevel(alt::IVehicle* _this, uint8_t bumperId) {
-    return (VehicleBumper)(_this->GetBumperDamageLevel(bumperId));
+    return (VehicleBumper)_this->GetBumperDamageLevel(bumperId);
 }
 
 void SetSearchLightTo(alt::IVehicle* _this, alt::IEntity* entity, bool state) {
@@ -66,11 +66,11 @@ void SetSearchLightTo(alt::IVehicle* _this, alt::IEntity* entity, bool state) {
 }
 
 NumberPlateStyle GetNumberplateIndex(alt::IVehicle* _this) {
-    return (NumberPlateStyle)(_this->GetNumberplateIndex());
+    return (NumberPlateStyle)_this->GetNumberplateIndex();
 }
 
 Vector3 GetVelocity(alt::IVehicle* _this) {
-    return (Vector3)(_this->GetVelocity());
+    return (Vector3)_this->GetVelocity();
 }
 
 void RegisterVehicleClass(const py::module_& m) {

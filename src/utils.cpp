@@ -173,11 +173,11 @@ py::object Utils::GetBaseObject(const alt::Ref<alt::IBaseObject>& baseObject) {
         case alt::IBaseObject::Type::VEHICLE:
             return py::cast(dynamic_cast<alt::IVehicle*>(baseObject.Get()));
         case alt::IBaseObject::Type::BLIP:
-            break;
+            return py::cast(dynamic_cast<alt::IBlip*>(baseObject.Get()));
         case alt::IBaseObject::Type::COLSHAPE:
-            break;
+			return py::cast(dynamic_cast<alt::IColShape*>(baseObject.Get()));
         case alt::IBaseObject::Type::CHECKPOINT:
-            break;
+			return py::cast(dynamic_cast<alt::ICheckpoint*>(baseObject.Get()));
         case alt::IBaseObject::Type::VOICE_CHANNEL:
             break;
     }
