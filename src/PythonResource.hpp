@@ -6,27 +6,22 @@
 class PythonRuntime;
 class PythonResource : public alt::IResource::Impl
 {
-	PythonRuntime* Runtime;
-	alt::IResource* Resource;
-	PyThreadState* Interpreter;
+	PythonRuntime* runtime;
+	alt::IResource* resource;
+	PyThreadState* interpreter;
 
-	typedef std::vector<py::function> EventsVector;
-	typedef std::map<alt::CEvent::Type, EventsVector> EventsMap;
-	typedef std::map<std::string, EventsVector> CustomEventsMap;
-	EventsMap LocalEvents;
-	CustomEventsMap LocalCustomEvents;
-	CustomEventsMap RemoteEvents;
+	std::map<alt::CEvent::Type, std::vector<py::function>> localEvents;
+	std::map<std::string, std::vector<py::function>> localCustomEvents;
+	std::map<std::string, std::vector<py::function>> remoteEvents;
 
 	int intervalId = 0;
-	typedef std::vector<Interval*> TaskVector;
-	typedef std::map<int, Interval*> TimerMap;
-	TaskVector Tasks;
-	TimerMap Timers;
+	std::vector<Interval*> tasks;
+	std::map<int, Interval*> timers;
 
 	std::unordered_map<alt::IBaseObject::Type, alt::Ref<alt::IBaseObject>> objects;
  public:
 	PythonResource(PythonRuntime* runtime, alt::IResource* resource)
-		: Runtime(runtime), Resource(resource)
+		: runtime(runtime), resource(resource)
 	{
 	}
 
@@ -61,11 +56,11 @@ class PythonResource : public alt::IResource::Impl
 	void HandleCustomEvent(const alt::CEvent* event);
 
 	alt::IResource* GetResource() {
-		return Resource;
+		return resource;
 	}
 
 	PyThreadState* GetInterpreter() {
-		return Interpreter;
+		return interpreter;
 	}
 
 	class PythonFunction : public alt::IMValueFunction::Impl

@@ -3,12 +3,12 @@
 #include "utils.hpp"
 
 bool PythonResource::Start() {
-	PyThreadState_Swap(Runtime->GetInterpreter());
-	Interpreter = Py_NewInterpreter();
+	PyThreadState_Swap(runtime->GetInterpreter());
+	interpreter = Py_NewInterpreter();
 
 	char separator = std::filesystem::path::preferred_separator;
-	std::string path = Resource->GetPath();
-	std::string main = Resource->GetMain();
+	std::string path = resource->GetPath();
+	std::string main = resource->GetMain();
 	std::string fullPath = path + separator + main;
 
     // Makes importing local files possible
@@ -19,23 +19,23 @@ bool PythonResource::Start() {
 	FILE* fp = fopen(fullPath.c_str(), "r");
 	bool crashed = PyRun_SimpleFile(fp, fullPath.c_str());
 
-	PyThreadState_Swap(Runtime->GetInterpreter());
+	PyThreadState_Swap(runtime->GetInterpreter());
 	return !crashed;
 }
 bool PythonResource::Stop() {
-	LocalEvents.clear();
-	LocalCustomEvents.clear();
-	RemoteEvents.clear();
+	localEvents.clear();
+	localCustomEvents.clear();
+	remoteEvents.clear();
 	objects.clear();
 
-	for (const auto& task : Tasks) delete task;
-	for (const auto& timer : Timers) delete timer.second;
-	Tasks.clear();
-	Timers.clear();
+	for (const auto& task : tasks) delete task;
+	for (const auto& timer : timers) delete timer.second;
+	tasks.clear();
+	timers.clear();
 
-	PyThreadState_Swap(Interpreter);
-	Py_EndInterpreter(Interpreter);
-	PyThreadState_Swap(Runtime->GetInterpreter());
+	PyThreadState_Swap(interpreter);
+	Py_EndInterpreter(interpreter);
+	PyThreadState_Swap(runtime->GetInterpreter());
 	return true;
 }
 
@@ -48,12 +48,12 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 		if (eventHandler) {
 			py::list eventArgs;
 			eventHandler->GetEventArgs(event, eventArgs);
-			EventsVector callbacks = LocalEvents[eventType];
+			auto callbacks = localEvents[eventType];
 			for (const auto& callback : callbacks) {
 				try {
-					PyThreadState_Swap(Interpreter);
+					PyThreadState_Swap(interpreter);
 					py::object returnValue = callback(*eventArgs);
-					PyThreadState_Swap(Runtime->GetInterpreter());
+					PyThreadState_Swap(runtime->GetInterpreter());
 					if (py::isinstance<py::bool_>(returnValue) && !returnValue.cast<bool>())
 						event->Cancel();
 					else if (py::isinstance<py::str>(returnValue) && eventType == alt::CEvent::Type::PLAYER_BEFORE_CONNECT)
@@ -68,18 +68,18 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 }
 
 void PythonResource::OnTick() {
-	for (auto task : Tasks) {
+	for (auto task : tasks) {
 		long time = alt::ICore::Instance().GetNetTime();
 		if (task->Update(time) && (alt::ICore::Instance().GetNetTime() - time) > 10)
-			task->TimeWarning(time, Resource->GetName());
+			task->TimeWarning(time, resource->GetName());
 	}
-	for (auto it = Timers.cbegin(); it != Timers.cend();) {
+	for (auto it = timers.cbegin(); it != timers.cend();) {
 		long time = alt::ICore::Instance().GetNetTime();
 		if (it->second->Update(time)) {
 			if ((alt::ICore::Instance().GetNetTime() - time) > 10)
-				it->second->TimeWarning(time, Resource->GetName());
+				it->second->TimeWarning(time, resource->GetName());
 			delete it->second;
-			it = Timers.erase(it);
+			it = timers.erase(it);
 		} else
 			it = std::next(it);
 
@@ -89,11 +89,11 @@ void PythonResource::OnTick() {
 
 void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 	py::list eventArgs;
-	EventsVector callbacks;
+	std::vector<py::function> callbacks;
 	if (ev->GetType() == alt::CEvent::Type::SERVER_SCRIPT_EVENT) {
 		auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
 		std::string name = event->GetName();
-		callbacks = LocalCustomEvents[name];
+		callbacks = localCustomEvents[name];
 		for (const auto& arg : event->GetArgs()) {
 			auto value = Utils::MValueToValue(arg);
 			eventArgs.append(value);
@@ -101,7 +101,7 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 	} else {
 		auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
 		std::string name = event->GetName();
-		callbacks = RemoteEvents[name];
+		callbacks = remoteEvents[name];
 		eventArgs.append(event->GetTarget().Get());
 		for (const auto& arg : event->GetArgs()) {
 			auto value = Utils::MValueToValue(arg);
@@ -110,9 +110,9 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 	}
 	for (const auto& callback : callbacks) {
 		try {
-			PyThreadState_Swap(Interpreter);
+			PyThreadState_Swap(interpreter);
 			callback(*eventArgs);
-			PyThreadState_Swap(Runtime->GetInterpreter());
+			PyThreadState_Swap(runtime->GetInterpreter());
 		} catch (py::error_already_set& e) {
 			py::print(e.what());
 		}
@@ -143,39 +143,39 @@ bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject>& object) {
 int PythonResource::AddTimer(double milliseconds, const py::function& func) {
 	auto task = new Interval(milliseconds, func);
 	intervalId++;
-	Timers[intervalId] = task;
+	timers[intervalId] = task;
 	return intervalId;
 }
 
 void PythonResource::ClearTimer(int timerId) {
-	auto interval = Timers[timerId];
-	Timers.erase(timerId);
+	auto interval = timers[timerId];
+	timers.erase(timerId);
 	delete interval;
 }
 
 void PythonResource::AddTask(double milliseconds, const py::function& func) {
 	auto task = new Interval(milliseconds, func);
-	Tasks.push_back(task);
+	tasks.push_back(task);
 }
 
 Interval* PythonResource::GetInterval(const py::function& func) {
-	for (int i{}; i<Tasks.size(); i++)
-		if (Tasks[i]->GetFunc().is(func))
-			return Tasks[i];
+	for (int i{}; i<tasks.size(); i++)
+		if (tasks[i]->GetFunc().is(func))
+			return tasks[i];
 	return nullptr;
 }
 
 
 void PythonResource::AddLocalEvent(const alt::CEvent::Type& type, const py::function& eventFunc) {
-	LocalEvents[type].push_back(eventFunc);
+	localEvents[type].push_back(eventFunc);
 }
 
 void PythonResource::AddLocalCustomEvent(const std::string& eventName, const py::function& eventFunc) {
-    LocalCustomEvents[eventName].push_back(eventFunc);
+    localCustomEvents[eventName].push_back(eventFunc);
 }
 
 void PythonResource::AddRemoteEvent(const std::string& eventName, const py::function& eventFunc) {
-    RemoteEvents[eventName].push_back(eventFunc);
+    remoteEvents[eventName].push_back(eventFunc);
 }
 
 alt::MValue PythonResource::PythonFunction::Call(alt::MValueArgs args) const {

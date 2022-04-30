@@ -1,16 +1,16 @@
 #include "PythonRuntime.hpp"
 
-PythonRuntime* PythonRuntime::Instance = nullptr;
+PythonRuntime* PythonRuntime::instance = nullptr;
 
 PythonRuntime::PythonRuntime() {
 	py::initialize_interpreter(false);
 	py::module_::import("alt");
-	MainInterpreter = PyThreadState_Get();
-	Instance = this;
+	mainInterpreter = PyThreadState_Get();
+	instance = this;
 }
 
 PythonResource* PythonRuntime::GetPythonResourceFromInterp(PyThreadState* interp) {
-	for (PythonResource* resource : Resources)
+	for (PythonResource* resource : resources)
 		if (resource->GetInterpreter() == interp)
 			return resource;
 	return nullptr;
@@ -18,17 +18,17 @@ PythonResource* PythonRuntime::GetPythonResourceFromInterp(PyThreadState* interp
 
 alt::IResource::Impl* PythonRuntime::CreateImpl(alt::IResource* impl) {
 	auto* resource = new PythonResource(this, impl);
-	Resources.push_back(resource);
+	resources.push_back(resource);
 	return resource;
 }
 
 void PythonRuntime::DestroyImpl(alt::IResource::Impl* impl) {
 	auto* resource = dynamic_cast<PythonResource*>(impl);
-	for (int i{}; i < Resources.size(); i++)
+	for (int i{}; i < resources.size(); i++)
 	{
-		if (Resources[i]->GetResource()->GetName() == resource->GetResource()->GetName())
+		if (resources[i]->GetResource()->GetName() == resource->GetResource()->GetName())
 		{
-			Resources.erase(Resources.begin() + i);
+			resources.erase(resources.begin() + i);
 			break;
 		}
 	}
@@ -37,7 +37,7 @@ void PythonRuntime::DestroyImpl(alt::IResource::Impl* impl) {
 
 
 void PythonRuntime::OnDispose() {
-	PyThreadState_Swap(MainInterpreter);
+	PyThreadState_Swap(mainInterpreter);
 	py::finalize_interpreter();
 }
 

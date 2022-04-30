@@ -6,9 +6,9 @@
 
 class PythonRuntime : public alt::IScriptRuntime
 {
-	std::vector<PythonResource*> Resources{};
-	PyThreadState* MainInterpreter;
-	static PythonRuntime* Instance;
+	std::vector<PythonResource*> resources{};
+	PyThreadState* mainInterpreter;
+	static PythonRuntime* instance;
 public:
 	PythonRuntime();
 	alt::IResource::Impl* CreateImpl(alt::IResource* resource) override;
@@ -17,11 +17,11 @@ public:
 	PythonResource* GetPythonResourceFromInterp(PyThreadState* state);
 
 	PyThreadState* GetInterpreter() {
-		return MainInterpreter;
+		return mainInterpreter;
 	}
 
 	static PythonRuntime* GetInstance()
 	{
-		return Instance;
+		return instance;
 	}
 };
