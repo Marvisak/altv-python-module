@@ -58,7 +58,10 @@ class Resource {
 	}
 
 	static Resource GetByName(const std::string& resourceName) {
-		return {alt::ICore::Instance().GetResource(resourceName)};
+		auto resource = alt::ICore::Instance().GetResource(resourceName);
+		if (resource != nullptr)
+			return {resource};
+		return nullptr;
 	}
 
 	static py::list GetAllResources(const py::object& type) {

@@ -49,6 +49,13 @@ std::string StringToSHA256(const std::string& str) {
 	return alt::ICore::Instance().StringToSHA256(str);
 }
 
+void Export(const std::string& name, const py::object& object) {
+	PyThreadState* interp = PyThreadState_Get();
+	PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
+	auto exports = resource->GetResource()->GetExports();
+	exports->Set(name, Utils::ValueToMValue(object));
+}
+
 py::object GetMeta(const std::string& key) {
 	return Utils::MValueToValue(alt::ICore::Instance().GetMetaData(key));
 }
@@ -98,6 +105,7 @@ void RegisterHelpersFunctions(py::module_ m) {
 	m.def("set_password", &SetPassword, py::arg("password"));
 	m.def("stop_server", &StopServer);
 	m.def("string_to_sha256", &StringToSHA256, py::arg("str"));
+	m.def("export", &Export, py::arg("name"), py::arg("object"));
 
 	m.def("restart_resource", &RestartResource, py::arg("resource_name"));
 	m.def("start_resource", &StartResource, py::arg("resource_name"));
