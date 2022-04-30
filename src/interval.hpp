@@ -26,5 +26,7 @@ class Interval {
 		milliseconds = newMilliseconds;
 	}
 
-	bool Update();
+	void TimeWarning(long time, const std::string& resourceName);
+
+	bool Update(long time);
 };

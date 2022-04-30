@@ -68,13 +68,23 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 }
 
 void PythonResource::OnTick() {
-	for (auto task : Tasks) task->Update();
-	for (auto it = Timers.cbegin(); it != Timers.cend();)
-		if (it->second->Update()) {
+	for (auto task : Tasks) {
+		long time = alt::ICore::Instance().GetNetTime();
+		if (task->Update(time) && (alt::ICore::Instance().GetNetTime() - time) > 10)
+			task->TimeWarning(time, Resource->GetName());
+	}
+	for (auto it = Timers.cbegin(); it != Timers.cend();) {
+		long time = alt::ICore::Instance().GetNetTime();
+		if (it->second->Update(time)) {
+			if ((alt::ICore::Instance().GetNetTime() - time) > 10)
+				it->second->TimeWarning(time, Resource->GetName());
 			delete it->second;
 			it = Timers.erase(it);
 		} else
 			it = std::next(it);
+
+	}
+
 }
 
 void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {

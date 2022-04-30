@@ -4,10 +4,17 @@ Interval::Interval(double milliseconds, py::function function) : milliseconds(mi
 	nextTime = alt::ICore::Instance().GetNetTime() + (long)milliseconds;
 }
 
-bool Interval::Update() {
-	if (alt::ICore::Instance().GetNetTime() >= nextTime && running) {
+void Interval::TimeWarning(long time, const std::string& resourceName) {
+	auto inspect = py::module_::import("inspect");
+	auto path = inspect.attr("getfile")(function).cast<std::string>();
+	std::stringstream ss = std::stringstream() << "Interval at " << resourceName << ":" << path.substr(path.find_last_of("/\\") + 1) << " at function " << function.attr("__name__").cast<std::string>() << " was too long " << alt::ICore::Instance().GetNetTime() - time << "ms";
+	alt::ICore::Instance().LogWarning(ss.str());
+}
+
+bool Interval::Update(long time) {
+	if (time >= nextTime && running) {
 		function();
-		nextTime = alt::ICore::Instance().GetNetTime() + (long)milliseconds;
+		nextTime = time + (long)milliseconds;
 		return true;
 	}
 	return false;
