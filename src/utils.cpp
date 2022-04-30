@@ -179,7 +179,7 @@ py::object Utils::GetBaseObject(const alt::Ref<alt::IBaseObject>& baseObject) {
         case alt::IBaseObject::Type::CHECKPOINT:
 			return py::cast(dynamic_cast<alt::ICheckpoint*>(baseObject.Get()));
         case alt::IBaseObject::Type::VOICE_CHANNEL:
-            break;
+            return py::cast(dynamic_cast<alt::IVoiceChannel*>(baseObject.Get()));
     }
     return py::none();
 }

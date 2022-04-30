@@ -13,7 +13,11 @@ void Interval::TimeWarning(long time, const std::string& resourceName) {
 
 bool Interval::Update(long time) {
 	if (time >= nextTime && running) {
-		function();
+		try {
+			function();
+		} catch (const py::error_already_set& e) {
+			py::print(e.what());
+		}
 		nextTime = time + (long)milliseconds;
 		return true;
 	}
