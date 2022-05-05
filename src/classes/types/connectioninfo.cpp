@@ -15,6 +15,7 @@ void RegisterConnectionInfoClass(const py::module_& m) {
 	pyClass.def_property_readonly("password_hash", &alt::IConnectionInfo::GetPasswordHash);
 	pyClass.def_property_readonly("ip", &alt::IConnectionInfo::GetIp);
 	pyClass.def_property_readonly("discord_user_id", &alt::IConnectionInfo::GetDiscordUserID);
+	pyClass.def_property_readonly("accepted", &alt::IConnectionInfo::IsAccepted);
 
 	pyClass.def("accept", &alt::IConnectionInfo::Accept);
 	pyClass.def("decline", &alt::IConnectionInfo::Decline, py::arg("reason"));
