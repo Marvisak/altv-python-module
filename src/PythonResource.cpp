@@ -1,19 +1,17 @@
 #include "PythonResource.hpp"
-#include <filesystem>
 #include "utils.hpp"
 
 bool PythonResource::Start() {
 	PyThreadState_Swap(runtime->GetInterpreter());
 	interpreter = Py_NewInterpreter();
 
-	char separator = std::filesystem::path::preferred_separator;
 	std::string path = resource->GetPath();
 	std::string main = resource->GetMain();
-	std::string fullPath = path + separator + main;
+	std::string fullPath = path + SEPARATOR + main;
 
-    // Makes importing local files possible
-    py::module_ sys = py::module_::import("sys");
-    py::list pyPath = sys.attr("path");
+	// Makes importing local files possible
+	py::module_ sys = py::module_::import("sys");
+	py::list pyPath = sys.attr("path");
 	pyPath.append(path);
 
 	FILE* fp = fopen(fullPath.c_str(), "r");
@@ -60,11 +58,12 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 						reinterpret_cast<alt::CPlayerBeforeConnectEvent*>(const_cast<alt::CEvent*>(event))->Cancel(returnValue.cast<std::string>());
 				} catch (py::error_already_set& e) {
 					py::print(e.what());
+					e.restore();
 				}
 			}
 		}
 	}
-    return true;
+	return true;
 }
 
 void PythonResource::OnTick() {
@@ -115,6 +114,7 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 			PyThreadState_Swap(runtime->GetInterpreter());
 		} catch (py::error_already_set& e) {
 			py::print(e.what());
+			e.restore();
 		}
 	}
 }
@@ -171,11 +171,11 @@ void PythonResource::AddLocalEvent(const alt::CEvent::Type& type, const py::func
 }
 
 void PythonResource::AddLocalCustomEvent(const std::string& eventName, const py::function& eventFunc) {
-    localCustomEvents[eventName].push_back(eventFunc);
+	localCustomEvents[eventName].push_back(eventFunc);
 }
 
 void PythonResource::AddRemoteEvent(const std::string& eventName, const py::function& eventFunc) {
-    remoteEvents[eventName].push_back(eventFunc);
+	remoteEvents[eventName].push_back(eventFunc);
 }
 
 alt::MValue PythonResource::PythonFunction::Call(alt::MValueArgs args) const {

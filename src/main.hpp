@@ -2,6 +2,12 @@
 
 #define ALT_SERVER_API
 
+#ifdef _WIN32
+static char SEPARATOR = '\\';
+#else
+static char SEPARATOR = '/';
+#endif
+
 // Standard C++ stuff
 #include <iostream>
 #include <map>

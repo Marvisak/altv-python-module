@@ -9,6 +9,9 @@ class PythonRuntime : public alt::IScriptRuntime
 	std::vector<PythonResource*> resources{};
 	PyThreadState* mainInterpreter;
 	static PythonRuntime* instance;
+#ifdef __linux__
+	void* python;
+#endif
 public:
 	PythonRuntime();
 	alt::IResource::Impl* CreateImpl(alt::IResource* resource) override;
