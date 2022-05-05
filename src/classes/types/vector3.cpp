@@ -92,6 +92,10 @@ Vector3 Vector3::operator-(const py::list &vectorList) const {
 	return {x - vectorList[0].cast<double>(), y - vectorList[1].cast<double>(), z - vectorList[2].cast<double>()};
 }
 
+Vector3 Vector3::operator-() const {
+	return {-x, -y, -z};
+}
+
 Vector3 Vector3::operator/(const Vector3 &other) const {
     return {x / other.x, y / other.y, z / other.z};
 }
@@ -142,10 +146,6 @@ double Vector3::Dot(double num) const {
 
 double Vector3::Dot(const py::list &vectorList) const {
 	return x * vectorList[0].cast<double>() + y * vectorList[1].cast<double>(), z * vectorList[2].cast<double>();
-}
-
-Vector3 Vector3::operator-() const {
-    return {-x, -y, -z};
 }
 
 Vector3 Vector3::Normalize() const {
@@ -223,21 +223,21 @@ void RegisterVector3Class(const py::module_ &m) {
     pyClass.def("is_in_range", &Vector3::IsInRange);
 
 	pyClass.def(py::self + py::self);
-	pyClass.def(py::self - py::self);
-	pyClass.def(py::self * py::self);
-	pyClass.def(py::self / py::self);
-
 	pyClass.def(py::self + double());
-	pyClass.def(py::self - double());
-	pyClass.def(py::self * double());
-	pyClass.def(py::self / double());
-
 	pyClass.def(py::self + py::list());
-	pyClass.def(py::self - py::list());
-	pyClass.def(py::self * py::list());
-	pyClass.def(py::self / py::list());
 
+	pyClass.def(py::self - py::self);
+	pyClass.def(py::self - double());
+	pyClass.def(py::self - py::list());
 	pyClass.def(-py::self);
+
+	pyClass.def(py::self * py::self);
+	pyClass.def(py::self * double());
+	pyClass.def(py::self * py::list());
+
+	pyClass.def(py::self / py::list());
+	pyClass.def(py::self / double());
+	pyClass.def(py::self / py::self);
 
     pyClass.def("cross", static_cast<Vector3 (Vector3::*)(const Vector3&) const>(&Vector3::Cross));
     pyClass.def("cross", static_cast<Vector3 (Vector3::*)(double) const>(&Vector3::Cross));

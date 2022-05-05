@@ -77,10 +77,6 @@ Vector2 Vector2::operator+(const py::list &vectorList) const {
     return {x + vectorList[0].cast<double>(), y + vectorList[1].cast<double>()};
 }
 
-Vector2 Vector2::operator+() const {
-    return { +x, +y };
-}
-
 Vector2 Vector2::operator-(const Vector2 &other) const {
 	return {x - other.x, y - other.y};
 }
@@ -208,7 +204,6 @@ void RegisterVector2Class(const py::module_ &m) {
 	pyClass.def(py::self + py::self);
     pyClass.def(py::self + double());
     pyClass.def(py::self + py::list());
-    pyClass.def(+py::self);
 
 	pyClass.def(py::self - py::self);
     pyClass.def(py::self - double());
