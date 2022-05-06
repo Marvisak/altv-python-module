@@ -48,8 +48,8 @@ void SetDlcClothes(alt::IPlayer* _this, uint32_t dlc, uint8_t component, uint16_
         throw py::value_error("Drawable can't be higher than 127");
 }
 
-void SetDlcProps(alt::IPlayer* _this, uint32_t dlc, uint8_t component, uint8_t drawable, uint8_t texture ) {
-    _this->SetDlcProps(component, drawable, texture, dlc);
+bool SetDlcProps(alt::IPlayer* _this, uint32_t dlc, uint8_t component, uint8_t drawable, uint8_t texture ) {
+    return _this->SetDlcProps(component, drawable, texture, dlc);
 }
 
 Vector3 GetAimPos(alt::IPlayer* _this) {
