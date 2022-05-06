@@ -13,7 +13,7 @@ void RegisterResourceClass(const py::module_& m) {
 	pyClass.def_property_readonly("required_permissions", &Resource::GetRequiredPermissions);
 	pyClass.def_property_readonly("optional_permissions", &Resource::GetOptionalPermissions);
 
-	pyClass.def_static("get_by_name", &Resource::GetByName);
+	pyClass.def_static("get_by_name", &Resource::GetByName, py::arg("resource_name"));
 	pyClass.def_property_readonly_static("all", &Resource::GetAllResources);
 	pyClass.def_property_readonly_static("current", &Resource::GetCurrent);
 }

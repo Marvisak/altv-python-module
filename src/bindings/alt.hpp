@@ -12,7 +12,7 @@ uint32_t GetNetTime() {
 	return alt::ICore::Instance().GetNetTime();
 }
 
-py::object GetServerConfig() {
+py::dict GetServerConfig() {
 	alt::config::Node config = alt::ICore::Instance().GetServerConfig();
 	return Utils::ConfigNodeToValue(config);
 }
@@ -97,14 +97,14 @@ void RegisterHelpersFunctions(py::module_ m) {
 	m.attr("sdk_version") = ALT_SDK_VERSION;
 	m.attr("version") = alt::ICore::Instance().GetVersion();
 
-    m.def("hash", &Hash, py::arg("str"));
+    m.def("hash", &Hash, py::arg("value"));
 	m.def("get_net_time", &GetNetTime);
 	m.def("get_server_config", &GetServerConfig);
 	m.def("get_vehicle_model_info_by_hash", &GetVehicleModelInfoByHash, py::arg("vehicle_hash"));
 	m.def("hash_server_password", &HashServerPassword, py::arg("password"));
 	m.def("set_password", &SetPassword, py::arg("password"));
 	m.def("stop_server", &StopServer);
-	m.def("string_to_sha256", &StringToSHA256, py::arg("str"));
+	m.def("string_to_sha256", &StringToSHA256, py::arg("value"));
 	m.def("export", &Export, py::arg("name"), py::arg("object"));
 
 	m.def("restart_resource", &RestartResource, py::arg("resource_name"));

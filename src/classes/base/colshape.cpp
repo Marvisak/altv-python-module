@@ -64,7 +64,7 @@ void RegisterColShapeClass(const py::module_& m) {
 		for (auto point : points)
 			parsed_points.emplace_back(point.ToAlt());
 		return alt::ICore::Instance().CreateColShapePolygon(minZ, maxZ, parsed_points);
-	}, py::arg("minZ"), py::arg("maxZ"), py::arg("points"));
+	}, py::arg("min_z"), py::arg("max_z"), py::arg("points"));
 
 	pyClass.def_property_readonly("colshape_type", &GetColShapeType);
 	pyClass.def_property("players_only", &alt::IColShape::IsPlayersOnly, &alt::IColShape::SetPlayersOnly);
