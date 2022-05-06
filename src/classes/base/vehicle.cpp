@@ -81,14 +81,14 @@ void RegisterVehicleClass(const py::module_& m) {
     }), py::arg("model"), py::arg("x"), py::arg("y"), py::arg("z"), py::arg("rx"), py::arg("ry"), py::arg("rz"));
     pyClass.def(py::init<>([](uint32_t hash, float x, float y, float z, float rx, float ry, float rz) {
         return CreateVehicle(hash, alt::Position(x, y, z), alt::Rotation(rx, ry, rz));
-    }), py::arg("hash"), py::arg("x"), py::arg("y"), py::arg("z"), py::arg("rx"), py::arg("ry"), py::arg("rz"));
+    }), py::arg("model"), py::arg("x"), py::arg("y"), py::arg("z"), py::arg("rx"), py::arg("ry"), py::arg("rz"));
     pyClass.def(py::init<>([](const std::string& model, Vector3 pos, Vector3 rot) {
         auto hash = alt::ICore::Instance().Hash(model);
         return CreateVehicle(hash, pos.ToAlt(), rot.ToAlt());
     }), py::arg("model"), py::arg("pos"), py::arg("rot"));
     pyClass.def(py::init<>([](uint32_t hash, Vector3 pos, Vector3 rot) {
         return CreateVehicle(hash, pos.ToAlt(), rot.ToAlt());
-    }), py::arg("hash"), py::arg("pos"), py::arg("rot"));
+    }), py::arg("model"), py::arg("pos"), py::arg("rot"));
 
     pyClass.def_property_readonly_static("all", &GetAllVehicles);
     pyClass.def_static("get_by_id", &GetVehicleById, py::arg("id"));
@@ -108,7 +108,7 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def("is_wheel_on_fire", &alt::IVehicle::IsWheelOnFire, py::arg("wheel_id"));
     pyClass.def("get_wheel_health", &alt::IVehicle::GetWheelHealth, py::arg("wheel_id"));
     pyClass.def("set_wheel_health", &alt::IVehicle::SetWheelHealth, py::arg("wheel_id"), py::arg("health"));
-    pyClass.def("get_part_damage_level", &GetPartDamageLevel);
+    pyClass.def("get_part_damage_level", &GetPartDamageLevel, py::arg("part_id"));
     pyClass.def("get_part_bullet_holes", &alt::IVehicle::GetPartBulletHoles, py::arg("part_id"));
     pyClass.def("is_light_damaged", &alt::IVehicle::IsLightDamaged, py::arg("light_id"));
     pyClass.def("is_window_damaged", &alt::IVehicle::IsWindowDamaged, py::arg("window_id"));
@@ -117,8 +117,8 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def("get_armored_window_shoot_count", &alt::IVehicle::GetArmoredWindowShootCount, py::arg("window_id"));
     pyClass.def("get_bumper_damage_level", &GetBumperDamageLevel, py::arg("bumper_id"));
     pyClass.def("repair", &alt::IVehicle::SetFixed);
-    pyClass.def("set_wheels", &alt::IVehicle::SetWheels);
-    pyClass.def("set_rear_wheels", &alt::IVehicle::SetRearWheels);
+    pyClass.def("set_wheels", &alt::IVehicle::SetWheels, py::arg("type"), py::arg("variation"));
+    pyClass.def("set_rear_wheels", &alt::IVehicle::SetRearWheels, py::arg("variation"));
     pyClass.def("set_wheel_burst", &alt::IVehicle::SetWheelBurst, py::arg("wheel_id"), py::arg("state"));
     pyClass.def("set_wheel_has_tire", &alt::IVehicle::SetWheelHasTire, py::arg("wheel_id"), py::arg("state"));
     pyClass.def("set_wheel_detached", &alt::IVehicle::SetWheelDetached, py::arg("wheel_id"), py::arg("state"));
@@ -132,7 +132,7 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def("set_armored_window_health", &alt::IVehicle::SetArmoredWindowHealth, py::arg("window_id"), py::arg("health"));
     pyClass.def("set_armored_window_shoot_count", &alt::IVehicle::SetArmoredWindowShootCount, py::arg("window_id"), py::arg("count"));
     pyClass.def("set_bumper_damage_level", &alt::IVehicle::SetBumperDamageLevel, py::arg("bumper_id"), py::arg("level"));
-    pyClass.def("set_search_light_to", &SetSearchLightTo);
+    pyClass.def("set_search_light_to", &SetSearchLightTo, py::arg("entity"), py::arg("state"));
 
     pyClass.def_property("modkit", &alt::IVehicle::GetModKit, &alt::IVehicle::SetModKit);
     pyClass.def_property("primary_color", &alt::IVehicle::GetPrimaryColor, &alt::IVehicle::SetPrimaryColor);
@@ -165,7 +165,7 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def_property("siren_active", &alt::IVehicle::IsSirenActive, &alt::IVehicle::SetSirenActive);
     pyClass.def_property("lock_state", &GetLockState, &alt::IVehicle::SetLockState);
     pyClass.def_property("roof_state", &alt::IVehicle::GetRoofState, &alt::IVehicle::SetRoofState);
-    pyClass.def_property("lights_multiplayer", &alt::IVehicle::GetLightsMultiplier, &alt::IVehicle::SetLightsMultiplier);
+    pyClass.def_property("lights_multiplier", &alt::IVehicle::GetLightsMultiplier, &alt::IVehicle::SetLightsMultiplier);
     pyClass.def_property("engine_health", &alt::IVehicle::GetEngineHealth, &alt::IVehicle::SetEngineHealth);
     pyClass.def_property("petrol_tank_health", &alt::IVehicle::GetPetrolTankHealth, &alt::IVehicle::SetPetrolTankHealth);
     pyClass.def_property("body_health", &alt::IVehicle::GetBodyHealth, &alt::IVehicle::SetBodyHealth);
@@ -211,5 +211,5 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def_property_readonly("has_armored_windows", &alt::IVehicle::HasArmoredWindows);
     pyClass.def_property_readonly("velocity", &GetVelocity);
     pyClass.def_property_readonly("attached", &alt::IVehicle::GetAttached);
-    pyClass.def_property_readonly("attachedTo", &alt::IVehicle::GetAttachedTo);
+    pyClass.def_property_readonly("attached_to", &alt::IVehicle::GetAttachedTo);
 }
