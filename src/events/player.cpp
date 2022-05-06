@@ -83,5 +83,5 @@ EventHandler playerWeaponChange(alt::CEvent::Type::PLAYER_WEAPON_CHANGE, [](cons
 EventHandler playerRequestControl(alt::CEvent::Type::PLAYER_REQUEST_CONTROL, [](const alt::CEvent* ev, py::list& args) {
 	auto event = dynamic_cast<const alt::CPlayerRequestControlEvent*>(ev);
 	args.append(event->GetPlayer().Get());
-	args.append(event->GetTarget().Get());
+	args.append(Utils::GetBaseObject(event->GetTarget().Get()));
 });
