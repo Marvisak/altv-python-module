@@ -67,6 +67,8 @@ void RegisterEntityClass(const py::module_& m) {
     pyClass.def_property("rot", &GetRotation, &SetRotation);
     pyClass.def_property("streamed", &alt::IEntity::GetStreamed, &alt::IEntity::SetStreamed);
     pyClass.def_property("visible", &alt::IEntity::GetVisible, &alt::IEntity::SetVisible);
+	pyClass.def_property("collision", &alt::IEntity::HasCollision, &alt::IEntity::SetCollision);
+	pyClass.def_property("frozen", &alt::IEntity::IsFrozen, &alt::IEntity::SetFrozen);
 
 	// Model
 	pyClass.def_property("model", &alt::IEntity::GetModel, py::overload_cast<alt::IPlayer*, uint32_t>(&SetModel));
