@@ -4,8 +4,10 @@
 
 void Log(const py::args& args, const std::string& separator = " ") {
 	std::string str;
-	for (const py::handle& arg : *args) {
-		str += py::str(arg).cast<std::string>() + separator;
+	for (const py::handle& arg : args) {
+		if (!str.empty())
+			str += separator;
+		str += py::str(arg).cast<std::string>();
 	}
 	alt::ICore::Instance().LogColored(str);
 
@@ -13,16 +15,20 @@ void Log(const py::args& args, const std::string& separator = " ") {
 
 void LogError(const py::args& args, const std::string& separator = " ") {
 	std::string str;
-	for (const py::handle& arg : *args) {
-		str += py::str(arg).cast<std::string>() + separator;
+	for (const py::handle& arg : args) {
+		if (!str.empty())
+			str += separator;
+		str += py::str(arg).cast<std::string>();
 	}
 	alt::ICore::Instance().LogError(str);
 }
 
 void LogWarning(const py::args& args, const std::string& separator = " ") {
 	std::string str;
-	for (const py::handle& arg : *args) {
-		str += py::str(arg).cast<std::string>() + separator;
+	for (const py::handle& arg : args) {
+		if (!str.empty())
+			str += separator;
+		str += py::str(arg).cast<std::string>();
 	}
 	alt::ICore::Instance().LogWarning(str);
 }
