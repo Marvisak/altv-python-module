@@ -12,7 +12,7 @@ bool PythonResource::Start() {
 	// Makes importing local files possible
 	py::module_ sys = py::module_::import("sys");
 	py::list pyPath = sys.attr("path");
-	pyPath.append(path);
+	pyPath.append(fullPath.substr(0, fullPath.find_last_of("\\/")));
 
 	FILE* fp = fopen(fullPath.c_str(), "r");
 	bool crashed = PyRun_SimpleFile(fp, fullPath.c_str());
@@ -30,7 +30,6 @@ bool PythonResource::Stop() {
 	for (const auto& timer : timers) delete timer.second;
 	tasks.clear();
 	timers.clear();
-
 	PyThreadState_Swap(interpreter);
 	Py_EndInterpreter(interpreter);
 	PyThreadState_Swap(runtime->GetInterpreter());
