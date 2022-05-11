@@ -16,8 +16,10 @@ theme:
   icon:
     repo: fontawesome/brands/github-alt
 
+docs_dir: articles
 repo_name: Marvisak/altv-python-module
 repo_url: https://github.com/Marvisak/altv-python-module
+edit_uri: edit/dev/docs/articles
 
 extra_css:
   - stylesheets/extra.css
