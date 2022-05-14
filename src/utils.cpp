@@ -1,4 +1,5 @@
 #include "classes/types/vector3.hpp"
+#include "classes/types/vector2.hpp"
 #include "utils.hpp"
 
 alt::MValue Utils::ValueToMValue(const py::object& arg) {
@@ -35,6 +36,8 @@ alt::MValue Utils::ValueToMValue(const py::object& arg) {
 		mValue = alt::ICore::Instance().CreateMValueByteArray(reinterpret_cast<const uint8_t*>(byteArray.cast<std::string>().c_str()), byteArray.size());
 	} else if (py::isinstance<Vector3>(arg))
 		mValue = alt::ICore::Instance().CreateMValueVector3(arg.cast<Vector3>().ToAlt());
+	else if (py::isinstance<Vector2>(arg))
+		mValue = alt::ICore::Instance().CreateMValueVector2(arg.cast<Vector2>().ToAlt());
 	else if (py::isinstance<alt::RGBA>(arg))
 		mValue = alt::ICore::Instance().CreateMValueRGBA(arg.cast<alt::RGBA>());
 	else if (py::isinstance<alt::IBaseObject>(arg))
@@ -92,6 +95,12 @@ py::object Utils::MValueToValue(const alt::MValueConst& mValue) {
             value = py::cast(mVector3);
             break;
         }
+
+		case alt::IMValue::Type::VECTOR2: {
+			Vector2 mVector2 = Vector2(mValue.As<alt::IMValueVector2>()->Value());
+			value = py::cast(mVector2);
+			break;
+		}
 
         case alt::IMValue::Type::BASE_OBJECT: {
             auto mBaseObject = mValue.As<alt::IMValueBaseObject>()->Value();
