@@ -24,7 +24,7 @@ It is embedded right into the module, so you don't have to install anything.
 
 If you don't need alt:V API in your file you don't have to import it, but most of the thing module does are only usable through this import, so without it, you are going to write plain Python.
 
-Your IDE won't show you any typehints for the alt module, if you want to have them, you can find info about them and much more at [General Recommendations](general-recommendations.md) chapter
+Your IDE won't show you any typehints for the alt module, if you want to have them, you can find info about them and much more at [Additional Information](additional-information.md) article
 
 ## Log into the console
 
@@ -49,7 +49,7 @@ Outputs simply: `My First Python Resource Started!`
 While our original code outputs: `[17:38:44] My First Python Resource Started!`
 
 ??? note
-In the rest of articles when we will use this function, the timestamp is going to be removed
+    In the rest of articles when we will use this function, the timestamp is going to be removed
 
 ---
 

@@ -9,7 +9,7 @@ alt:V Python Module adds server-side language support for Python
 
 By installing Python Module you will be able to fully use alt:V server-side API from your Python code
 
-This documentation only explains the Python module itself and assumes you are familiar with the alt:V, and it's API's already.
+This documentation only explains the Python module itself and assumes you are familiar with alt:V and how to use it.
 
 ---
 
@@ -59,7 +59,10 @@ resources/python/resource.cfg
 resources/python/main.py
 ```
 
-As Python is supported only on server-side we are going to create only server files, your gamemode would probably also have client files, but for the sake of this tutorial we are going to skip that
+??? note
+    Python is currently only supported on server-side, so in this documentation we are only going to create server files, your gamemode will probably have some client files in order to function
+
+    There will be few places where we will need to have some client code, in that case we are going to use JavaScript
 
 ```yaml title="resource.cfg"
 type: py
@@ -89,4 +92,5 @@ Congratulations, you have just created your first alt:V Python Resource
 ## What's next
 
 In the next few articles you are going to learn how the Python module works and how can you use it
+
 After you read through this documentation you should have solid understanding of how the module works and how to use it.
