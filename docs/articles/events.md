@@ -211,4 +211,4 @@ def player_before_connect(connection_info: alt.ConnectionInfo):
 
 Now you should know what events are and how to use them
 
-In the next few articles we are going to learn about Vectors
+In the next article we are going to learn about Tasks and Timers

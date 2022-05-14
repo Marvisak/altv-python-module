@@ -36,3 +36,5 @@ nav:
   - Home: "index.md"
   - Intro: "intro.md"
   - Events: "events.md"
+  - Tasks and Timers: "tasks.md"
+  - Vectors: "vectors.md"

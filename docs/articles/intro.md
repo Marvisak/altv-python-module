@@ -46,7 +46,7 @@ print("My First Python Resource Started!")
 
 Outputs simply: `My First Python Resource Started!`
 
-While our original code outputs: `[17:38:44] My First Python Resource Started!`
+While our original code outputs: `[XX:XX:XX] My First Python Resource Started!`
 
 ??? note
     In the rest of articles when we will use this function, the timestamp is going to be removed
