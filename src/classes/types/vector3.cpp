@@ -1,7 +1,7 @@
 #include "classes/classes.hpp"
 #include "vector3.hpp"
 
-double Vector3::GetAngle(const Vector3 &other, const bool &boolean) {
+double Vector3::GetAngle(const Vector3 &other, const bool& degrees) const {
     double xy = x * other.x + y * other.y;
     double posALength = sqrt(std::pow(x, 2) + std::pow(y, 2));
     double posBLength = sqrt(std::pow(other.x, 2) + std::pow(other.y, 2));
@@ -12,11 +12,10 @@ double Vector3::GetAngle(const Vector3 &other, const bool &boolean) {
 
     double cos = xy / (posALength * posBLength);
 
-    if (boolean) {
+    if (degrees)
         return std::acos(cos);
-    } else {
+    else
         return std::acos(cos) * (180 / alt::PI);
-    }
 }
 
 
@@ -56,8 +55,12 @@ double Vector3::Length() const {
     return sqrt(x * x + y * y + z * z);
 }
 
-double Vector3::Distance(Vector3 &other) const {
-    return sqrt(std::pow(x - other.x, 2) + std::pow(y - other.y, 2) + std::pow(z - other.z, 2));
+double Vector3::Distance(Vector3& other) const {
+	return sqrt(DistanceSquared(other));
+}
+
+double Vector3::DistanceSquared(Vector3& other) const {
+	return std::pow(x - other.x, 2) + std::pow(y - other.y, 2) + std::pow(z - other.z, 2);
 }
 
 bool Vector3::IsInRange(const Vector3 &other, double range) const {
@@ -66,6 +69,13 @@ bool Vector3::IsInRange(const Vector3 &other, double range) const {
     double dz = abs(z - other.z);
 
     return dx <= range && dy <= range && dz <= range && dx * dx + dy * dy + dz * dz <= range * range;
+}
+
+Vector3 Vector3::Lerp(Vector3 other, double ratio) const {
+	double x1 = x + (other.x - x) * ratio;
+	double y1 = y + (other.y - y) * ratio;
+	double z1 = z + (other.z - z) * ratio;
+	return {x1, y1, z1};
 }
 
 Vector3 Vector3::operator+(const Vector3 &other) const {
@@ -120,6 +130,10 @@ Vector3 Vector3::operator*(const py::list &vectorList) const {
     return {x * vectorList[0].cast<double>(), y * vectorList[1].cast<double>(), z * vectorList[2].cast<double>()};
 }
 
+bool Vector3::operator==(const Vector3& other) const {
+	return x == other.x && y == other.y && z == other.z;
+}
+
 Vector3 Vector3::Cross(const Vector3 &other) const {
 	return {y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x};
 }
@@ -145,7 +159,7 @@ double Vector3::Dot(double num) const {
 }
 
 double Vector3::Dot(const py::list &vectorList) const {
-	return x * vectorList[0].cast<double>() + y * vectorList[1].cast<double>(), z * vectorList[2].cast<double>();
+	return x * vectorList[0].cast<double>() + y * vectorList[1].cast<double>() + z * vectorList[2].cast<double>();
 }
 
 Vector3 Vector3::Normalize() const {
@@ -195,18 +209,18 @@ Vector3 Vector3::NegativeInfinity(const py::object& _this) {
             -std::numeric_limits<double>::infinity()};
 }
 
-double Vector3::AngleTo(const Vector3 &other, const bool &boolean) {
+double Vector3::AngleTo(const Vector3 &other) {
     return GetAngle(other, false);
 }
 
-double Vector3::AngleToDegrees(const Vector3 &other, const bool &boolean) {
+double Vector3::AngleToDegrees(const Vector3 &other) {
     return GetAngle(other, true);
 }
 
 void RegisterVector3Class(const py::module_ &m) {
     auto pyClass = py::class_<Vector3>(m, "Vector3");
-    pyClass.def(py::init([](double _x, double _y, double _z) { return Vector3(_x, _y, _z); }));
-    pyClass.def(py::init([](const py::list &vectorList) { return Vector3(vectorList); }));
+    pyClass.def(py::init([](double _x, double _y, double _z) { return Vector3(_x, _y, _z); }), py::arg("x"), py::arg("y"), py::arg("z"));
+    pyClass.def(py::init([](const py::list &vectorList) { return Vector3(vectorList); }), py::arg("vector_list"));
 
     pyClass.def_readwrite("x", &Vector3::x);
     pyClass.def_readwrite("y", &Vector3::y);
@@ -216,11 +230,13 @@ void RegisterVector3Class(const py::module_ &m) {
     pyClass.def("to_dict", &Vector3::ToDict);
     pyClass.def("to_list", &Vector3::ToList);
     pyClass.def("length", &Vector3::Length);
-    pyClass.def("distance", &Vector3::Distance);
+    pyClass.def("distance", &Vector3::Distance, py::arg("vector"));
+    pyClass.def("distance_squared", &Vector3::DistanceSquared, py::arg("vector"));
 
     pyClass.def("to_degrees", &Vector3::ToDegrees);
     pyClass.def("to_radians", &Vector3::ToRadians);
-    pyClass.def("is_in_range", &Vector3::IsInRange);
+    pyClass.def("is_in_range", &Vector3::IsInRange, py::arg("vector"), py::arg("range"));
+	pyClass.def("lerp", &Vector3::Lerp, py::arg("vector"), py::arg("ratio"));
 
 	pyClass.def(py::self + py::self);
 	pyClass.def(py::self + double());
@@ -239,13 +255,15 @@ void RegisterVector3Class(const py::module_ &m) {
 	pyClass.def(py::self / double());
 	pyClass.def(py::self / py::self);
 
-    pyClass.def("cross", static_cast<Vector3 (Vector3::*)(const Vector3&) const>(&Vector3::Cross));
-    pyClass.def("cross", static_cast<Vector3 (Vector3::*)(double) const>(&Vector3::Cross));
-    pyClass.def("cross", static_cast<Vector3 (Vector3::*)(const py::list&) const>(&Vector3::Cross));
+	pyClass.def(py::self == py::self);
 
-	pyClass.def("dot", static_cast<double (Vector3::*)(double) const>(&Vector3::Dot));
-	pyClass.def("dot", static_cast<double (Vector3::*)(const py::list&) const>(&Vector3::Dot));
-	pyClass.def("dot", static_cast<double (Vector3::*)(const Vector3&) const>(&Vector3::Dot));
+    pyClass.def("cross", static_cast<Vector3 (Vector3::*)(const Vector3&) const>(&Vector3::Cross), py::arg("vector"));
+    pyClass.def("cross", static_cast<Vector3 (Vector3::*)(double) const>(&Vector3::Cross), py::arg("num"));
+    pyClass.def("cross", static_cast<Vector3 (Vector3::*)(const py::list&) const>(&Vector3::Cross), py::arg("vector_list"));
+
+	pyClass.def("dot", static_cast<double (Vector3::*)(double) const>(&Vector3::Dot), py::arg("num"));
+	pyClass.def("dot", static_cast<double (Vector3::*)(const py::list&) const>(&Vector3::Dot), py::arg("vector_list"));
+	pyClass.def("dot", static_cast<double (Vector3::*)(const Vector3&) const>(&Vector3::Dot), py::arg("vector"));
 
     pyClass.def_property_readonly_static("zero", &Vector3::Zero);
     pyClass.def_property_readonly_static("one", &Vector3::One);
@@ -259,6 +277,6 @@ void RegisterVector3Class(const py::module_ &m) {
     pyClass.def_property_readonly_static("negative_infinity", &Vector3::NegativeInfinity);
 
     pyClass.def("normalize", &Vector3::Normalize);
-    pyClass.def("angle_to", &Vector3::AngleTo);
-    pyClass.def("angle_to_degrees", &Vector3::AngleToDegrees);
+    pyClass.def("angle_to", &Vector3::AngleTo, py::arg("vector"));
+    pyClass.def("angle_to_degrees", &Vector3::AngleToDegrees, py::arg("vector"));
 }

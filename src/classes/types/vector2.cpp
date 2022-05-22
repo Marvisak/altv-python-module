@@ -1,7 +1,7 @@
 #include "classes/classes.hpp"
 #include "vector2.hpp"
 
-double Vector2::GetAngle(const Vector2 &other, const bool &boolean) {
+double Vector2::GetAngle(const Vector2 &other, const bool& degrees) const {
     double xy = x * other.x + y * other.y;
     double posALength = sqrt(std::pow(x, 2) + std::pow(y, 2));
     double posBLength = sqrt(std::pow(other.x, 2) + std::pow(other.y, 2));
@@ -12,11 +12,10 @@ double Vector2::GetAngle(const Vector2 &other, const bool &boolean) {
 
     double cos = xy / (posALength * posBLength);
 
-    if (boolean) {
+    if (degrees)
         return std::acos(cos);
-    } else {
+    else
         return std::acos(cos) * (180 / alt::PI);
-    }
 }
 
 
@@ -54,8 +53,18 @@ double Vector2::Length() const {
     return sqrt(x * x + y * y);
 }
 
-double Vector2::Distance(Vector2 &other) const {
-    return sqrt(std::pow(x - other.x, 2) + std::pow(y - other.y, 2));
+double Vector2::Distance(Vector2& other) const {
+    return sqrt(DistanceSquared(other));
+}
+
+double Vector2::DistanceSquared(Vector2& other) const {
+	return std::pow(x - other.x, 2) + std::pow(y - other.y, 2);
+}
+
+Vector2 Vector2::Lerp(Vector2 other, double ratio) const {
+	double x1 = x + (other.x - x) * ratio;
+	double y1 = y + (other.y - y) * ratio;
+	return {x1, y1};
 }
 
 bool Vector2::IsInRange(const Vector2 &other, double range) const {
@@ -117,6 +126,9 @@ Vector2 Vector2::operator*(const py::list &vectorList) const {
     return {x * vectorList[0].cast<double>(), y * vectorList[1].cast<double>()};
 }
 
+bool Vector2::operator==(const Vector2& other) const {
+	return x == other.x && y == other.y;
+}
 
 double Vector2::Dot(const Vector2 &other) const {
 	return x * other.x + y * other.y;
@@ -159,14 +171,6 @@ Vector2 Vector2::Right(const py::object& _this) {
     return { 1, 0 };
 }
 
-Vector2 Vector2::Back(const py::object& _this) {
-    return { 0, 0 };
-}
-
-Vector2 Vector2::Forward(const py::object& _this) {
-    return { 0, 0 };
-}
-
 Vector2 Vector2::PositiveInfinity(const py::object& _this) {
     return { std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity() };
 }
@@ -175,18 +179,18 @@ Vector2 Vector2::NegativeInfinity(const py::object& _this) {
     return { -std::numeric_limits<double>::infinity(), -std::numeric_limits<double>::infinity() };
 }
 
-double Vector2::AngleTo(const Vector2 &other, const bool &boolean) {
+double Vector2::AngleTo(const Vector2 &other) {
     return GetAngle(other, false);
 }
 
-double Vector2::AngleToDegrees(const Vector2 &other, const bool &boolean) {
+double Vector2::AngleToDegrees(const Vector2 &other) {
     return GetAngle(other, true);
 }
 
 void RegisterVector2Class(const py::module_ &m) {
     auto pyClass = py::class_<Vector2>(m, "Vector2");
-    pyClass.def(py::init([](double _x, double _y) { return Vector2(_x, _y); }));
-    pyClass.def(py::init([](const py::list &vectorList) { return Vector2(vectorList); }));
+    pyClass.def(py::init([](double _x, double _y) { return Vector2(_x, _y); }), py::arg("x"), py::arg("y"));
+    pyClass.def(py::init([](const py::list &vectorList) { return Vector2(vectorList); }), py::arg("vector_list"));
 
     pyClass.def_readwrite("x", &Vector2::x);
     pyClass.def_readwrite("y", &Vector2::y);
@@ -195,11 +199,13 @@ void RegisterVector2Class(const py::module_ &m) {
     pyClass.def("to_dict", &Vector2::ToDict);
     pyClass.def("to_list", &Vector2::ToList);
     pyClass.def("length", &Vector2::Length);
-    pyClass.def("distance", &Vector2::Distance);
+    pyClass.def("distance", &Vector2::Distance, py::arg("vector"));
+	pyClass.def("distance_squared", &Vector2::DistanceSquared, py::arg("vector"));
+	pyClass.def("lerp", &Vector2::Lerp, py::arg("vector"), py::arg("ratio"));
 
     pyClass.def("to_degrees", &Vector2::ToDegrees);
     pyClass.def("to_radians", &Vector2::ToRadians);
-    pyClass.def("is_in_range", &Vector2::IsInRange);
+    pyClass.def("is_in_range", &Vector2::IsInRange, py::arg("vector"), py::arg("range"));
 
 	pyClass.def(py::self + py::self);
     pyClass.def(py::self + double());
@@ -218,9 +224,11 @@ void RegisterVector2Class(const py::module_ &m) {
 	pyClass.def(py::self / double());
 	pyClass.def(py::self / py::list());
 
-	pyClass.def("dot", static_cast<double (Vector2::*)(double) const>(&Vector2::Dot));
-	pyClass.def("dot", static_cast<double (Vector2::*)(const py::list&) const>(&Vector2::Dot));
-	pyClass.def("dot", static_cast<double (Vector2::*)(const Vector2&) const>(&Vector2::Dot));
+	pyClass.def(py::self == py::self);
+
+	pyClass.def("dot", static_cast<double (Vector2::*)(double) const>(&Vector2::Dot), py::arg("num"));
+	pyClass.def("dot", static_cast<double (Vector2::*)(const py::list&) const>(&Vector2::Dot), py::arg("vector_list"));
+	pyClass.def("dot", static_cast<double (Vector2::*)(const Vector2&) const>(&Vector2::Dot), py::arg("vector"));
 
     pyClass.def_property_readonly_static("zero", &Vector2::Zero);
     pyClass.def_property_readonly_static("one", &Vector2::One);
@@ -228,12 +236,10 @@ void RegisterVector2Class(const py::module_ &m) {
     pyClass.def_property_readonly_static("down", &Vector2::Down);
     pyClass.def_property_readonly_static("left", &Vector2::Left);
     pyClass.def_property_readonly_static("right", &Vector2::Right);
-    pyClass.def_property_readonly_static("back", &Vector2::Back);
-    pyClass.def_property_readonly_static("forward", &Vector2::Forward);
     pyClass.def_property_readonly_static("positive_infinity", &Vector2::PositiveInfinity);
     pyClass.def_property_readonly_static("negative_infinity", &Vector2::NegativeInfinity);
 
     pyClass.def("normalize", &Vector2::Normalize);
-    pyClass.def("angle_to", &Vector2::AngleTo);
-    pyClass.def("angle_to_degrees", &Vector2::AngleToDegrees);
+    pyClass.def("angle_to", &Vector2::AngleTo, py::arg("vector"));
+    pyClass.def("angle_to_degrees", &Vector2::AngleToDegrees, py::arg("vector"));
 }

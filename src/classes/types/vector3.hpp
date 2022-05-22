@@ -2,7 +2,7 @@
 #include "main.hpp"
 
 class Vector3 {
-    double GetAngle(const Vector3& other, const bool& boolean);
+    double GetAngle(const Vector3& other, const bool& boolean) const;
 public:
     double x, y, z;
 
@@ -23,7 +23,9 @@ public:
 
     double Length() const;
     double Distance(Vector3& other) const;
+	double DistanceSquared(Vector3& other) const;
     bool IsInRange(const Vector3& other, double range) const;
+	Vector3 Lerp(Vector3 other, double ratio) const;
 
 	Vector3 operator+(const Vector3& other) const;
 	Vector3 operator+(double num) const;
@@ -42,6 +44,7 @@ public:
 	Vector3 operator*(double num) const;
 	Vector3 operator*(const py::list& vectorList) const;
 
+	bool operator==(const Vector3& other) const;
 
 	Vector3 Cross(const Vector3& other) const;
 	Vector3 Cross(double num) const;
@@ -65,6 +68,6 @@ public:
     static Vector3 PositiveInfinity(const py::object& _this);
     static Vector3 NegativeInfinity(const py::object& _this);
 
-    double AngleTo(const Vector3& other, const bool& boolean);
-    double AngleToDegrees(const Vector3& other, const bool& boolean);
+    double AngleTo(const Vector3& other);
+    double AngleToDegrees(const Vector3& other);
 };

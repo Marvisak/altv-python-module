@@ -24,6 +24,21 @@ edit_uri: edit/dev/docs/articles
 extra_css:
   - stylesheets/extra.css
 
+plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          import:
+            - https://docs.python.org/3/objects.inv
+            - https://mkdocstrings.github.io/objects.inv
+            - https://mkdocstrings.github.io/griffe/objects.inv
+          rendering:
+            show_if_no_docstring: True
+            show_source: False
+            show_signature_annotations: True
+            merge_init_into_class: True
+            members_order: source
+
 markdown_extensions:
   - md_in_html
   - admonition
@@ -38,3 +53,6 @@ nav:
   - Events: "events.md"
   - Tasks and Timers: "tasks.md"
   - Vectors: "vectors.md"
+  - API Reference:
+      Events: "api-reference/events.md"
+      API: "api-reference/api.md"

@@ -14,7 +14,7 @@ CheckpointType GetCheckpointType(alt::ICheckpoint* _this) {
 }
 
 void RegisterCheckpointClass(const py::module_& m) {
-	auto pyClass = py::class_<alt::ICheckpoint, alt::Ref<alt::ICheckpoint>>(m, "Checkpoint");
+	auto pyClass = py::class_<alt::ICheckpoint, alt::Ref<alt::ICheckpoint>, alt::IColShape>(m, "Checkpoint");
 
 	pyClass.def(py::init<>([](uint8_t type, double x, double y, double z, float radius, float height, uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 		return CreateCheckpoint(type, alt::Position(x, y, z), radius, height, alt::RGBA(r, g, b, a));

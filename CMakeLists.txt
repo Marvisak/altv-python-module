@@ -37,6 +37,7 @@ endif(UNIX)
 
 if (WIN32)
 	include_directories("${CMAKE_CURRENT_BINARY_DIR}/Python-${PYTHON_VERSION}/PC")
+	set(CMAKE_VS_PLATFORM_TOOLSET_HOST_ARCHITECTURE, x64)
 endif(WIN32)
 
 add_library(

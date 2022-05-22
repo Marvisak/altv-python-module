@@ -8,16 +8,12 @@ ColShapeType GetColShapeType(alt::IColShape* _this) {
 	return (ColShapeType)_this->GetColshapeType();
 }
 
-bool IsPointIn(alt::IColShape* _this, double x, double y, double z) {
-	return _this->IsPointIn({x, y, z});
-}
-
 bool IsPointIn(alt::IColShape* _this, Vector3 pos) {
 	return _this->IsPointIn(pos.ToAlt());
 }
 
 void RegisterColShapeClass(const py::module_& m) {
-	auto pyClass = py::class_<alt::IColShape, alt::IWorldObject, alt::Ref<alt::IColShape>>(m, "ColShape");
+	auto pyClass = py::class_<alt::IColShape, alt::IWorldObject, alt::Ref<alt::IColShape>>(m, "ColShape", py::multiple_inheritance());
 
 	pyClass.def_static("circle", [](double x, double y, float radius) {
 		return alt::ICore::Instance().CreateColShapeCircle({x, y, 0}, radius);
@@ -70,6 +66,5 @@ void RegisterColShapeClass(const py::module_& m) {
 	pyClass.def_property("players_only", &alt::IColShape::IsPlayersOnly, &alt::IColShape::SetPlayersOnly);
 
 	pyClass.def("is_entity_in", &alt::IColShape::IsEntityIn, py::arg("entity"));
-	pyClass.def("is_point_in", py::overload_cast<alt::IColShape*, double, double, double>(&IsPointIn), py::arg("x"), py::arg("y"), py::arg("z"));
-	pyClass.def("is_point_in", py::overload_cast<alt::IColShape*, Vector3>(&IsPointIn), py::arg("pos"));
+	pyClass.def("is_point_in", &IsPointIn, py::arg("pos"));
 }

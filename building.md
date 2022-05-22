@@ -2,7 +2,7 @@
 
 ## Requirements
 
-1) C++ Compiler, has to be Visual Studio on Windows
+1) C++ Compiler, has to be Visual Studio 2019 on Windows
 2) CMake 3.1 or higher
 
 Then after you have everything installed just execute this command:

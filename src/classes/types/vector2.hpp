@@ -2,7 +2,7 @@
 #include "main.hpp"
 
 class Vector2 {
-    double GetAngle(const Vector2& other, const bool& boolean);
+    double GetAngle(const Vector2& other, const bool& degrees) const;
 public:
     double x, y;
 
@@ -23,7 +23,9 @@ public:
 
     double Length() const;
     double Distance(Vector2& other) const;
+	double DistanceSquared(Vector2& other) const;
     bool IsInRange(const Vector2& other, double range) const;
+	Vector2 Lerp(Vector2 other, double ratio) const;
 
     Vector2 operator+(const Vector2& other) const;
 	Vector2 operator+(double num) const;
@@ -42,6 +44,8 @@ public:
 	Vector2 operator*(double num) const;
 	Vector2 operator*(const py::list& vectorList) const;
 
+	bool operator==(const Vector2& other) const;
+
 	double Dot(const Vector2& other) const;
 	double Dot(double num) const;
 	double Dot(const py::list& vectorList) const;
@@ -54,12 +58,10 @@ public:
     static Vector2 Down(const py::object& _this);
     static Vector2 Left(const py::object& _this);
     static Vector2 Right(const py::object& _this);
-    static Vector2 Back(const py::object& _this);
-    static Vector2 Forward(const py::object& _this);
 
     static Vector2 PositiveInfinity(const py::object& _this);
     static Vector2 NegativeInfinity(const py::object& _this);
 
-    double AngleTo(const Vector2& other, const bool& boolean);
-    double AngleToDegrees(const Vector2& other, const bool& boolean);
+    double AngleTo(const Vector2& other);
+    double AngleToDegrees(const Vector2& other);
 };

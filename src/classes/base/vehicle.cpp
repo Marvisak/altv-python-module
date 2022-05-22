@@ -117,8 +117,8 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def("get_armored_window_shoot_count", &alt::IVehicle::GetArmoredWindowShootCount, py::arg("window_id"));
     pyClass.def("get_bumper_damage_level", &GetBumperDamageLevel, py::arg("bumper_id"));
     pyClass.def("repair", &alt::IVehicle::SetFixed);
-    pyClass.def("set_wheels", &alt::IVehicle::SetWheels, py::arg("type"), py::arg("variation"));
-    pyClass.def("set_rear_wheels", &alt::IVehicle::SetRearWheels, py::arg("variation"));
+    pyClass.def("set_wheels", &alt::IVehicle::SetWheels, py::arg("wheel_type"), py::arg("wheel_id"));
+    pyClass.def("set_rear_wheels", &alt::IVehicle::SetRearWheels, py::arg("wheel_id"));
     pyClass.def("set_wheel_burst", &alt::IVehicle::SetWheelBurst, py::arg("wheel_id"), py::arg("state"));
     pyClass.def("set_wheel_has_tire", &alt::IVehicle::SetWheelHasTire, py::arg("wheel_id"), py::arg("state"));
     pyClass.def("set_wheel_detached", &alt::IVehicle::SetWheelDetached, py::arg("wheel_id"), py::arg("state"));
@@ -199,8 +199,8 @@ void RegisterVehicleClass(const py::module_& m) {
     pyClass.def_property_readonly("is_secondary_color_rgb", &alt::IVehicle::IsSecondaryColorRGB);
     pyClass.def_property_readonly("is_tire_smoke_color_custom", &alt::IVehicle::IsTireSmokeColorCustom);
     pyClass.def_property_readonly("wheel_type", &alt::IVehicle::GetWheelType);
-    pyClass.def_property_readonly("front_wheel", &alt::IVehicle::GetWheelVariation);
-    pyClass.def_property_readonly("rear_wheel", &alt::IVehicle::GetRearWheelVariation);
+    pyClass.def_property_readonly("front_wheels", &alt::IVehicle::GetWheelVariation);
+    pyClass.def_property_readonly("rear_wheels", &alt::IVehicle::GetRearWheelVariation);
     pyClass.def_property_readonly("neon_active", &alt::IVehicle::IsNeonActive);
     pyClass.def_property_readonly("handbrake_active", &alt::IVehicle::IsHandbrakeActive);
     pyClass.def_property_readonly("daylight_on", &alt::IVehicle::IsDaylightOn);

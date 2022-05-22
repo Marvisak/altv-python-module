@@ -6,6 +6,7 @@ This is repository for official [alt:V Python Module](https://github.com/Marvisa
 
 - MkDocs
 - Material Theme
+- MkDocStrings and the Python Handler
 
 ## How to start
 
@@ -14,4 +15,4 @@ This is repository for official [alt:V Python Module](https://github.com/Marvisa
 ```
 
 ## Contributing
-If you feel like some feature is not documented or you would like to add something, feel free to create a PR with your changes, any contribution is appreciated
+If you feel like some feature is not documented, or you would like to add something, feel free to create a PR with your changes, any contribution is appreciated

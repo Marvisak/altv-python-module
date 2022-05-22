@@ -152,7 +152,7 @@ void Emit(alt::IPlayer* _this, const std::string& eventName, const py::args& arg
 
 
 void RegisterPlayerClass(const py::module_& m) {
-    auto pyClass = py::class_<alt::IPlayer, alt::IEntity, alt::Ref<alt::IPlayer>>(m, "Player");
+    auto pyClass = py::class_<alt::IPlayer, alt::IEntity, alt::Ref<alt::IPlayer>>(m, "Player", py::multiple_inheritance());
 
     // Static
     pyClass.def_property_readonly_static("all", &GetAllPlayers);
@@ -237,7 +237,8 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def("get_head_blend_palette_color", &alt::IPlayer::GetHeadBlendPaletteColor, py::arg("id"));
     pyClass.def("set_head_blend_data", &alt::IPlayer::SetHeadBlendData, py::arg("shape_first_id"), py::arg("shape_second_id"), py::arg("shape_third_id"), py::arg("skin_first_id"), py::arg("skin_second_id"), py::arg("skin_third_id"), py::arg("shape_mix"), py::arg("skin_mix"), py::arg("third_mix"));
     pyClass.def_property_readonly("head_blend_data", &GetHeadBlendData);
-    pyClass.def_property("eye_color", &alt::IPlayer::GetEyeColor, &alt::IPlayer::SetEyeColor);
+	pyClass.def("get_eye_color", &alt::IPlayer::GetEyeColor);
+	pyClass.def("set_eye_color", &alt::IPlayer::SetEyeColor, py::arg("eye_color"));
     pyClass.def_property("hair_color", &alt::IPlayer::GetHairColor, &alt::IPlayer::SetHairColor);
     pyClass.def_property("hair_highlight_color", &alt::IPlayer::GetHairHighlightColor, &alt::IPlayer::SetHairHighlightColor);
 
@@ -250,7 +251,7 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def("set_prop", &alt::IPlayer::SetProps, py::arg("component"), py::arg("drawable"), py::arg("texture"));
     pyClass.def("get_dlc_prop", &GetDlcProp, py::arg("component"));
     pyClass.def("set_dlc_prop", &SetDlcProps, py::arg("dlc"), py::arg("component"), py::arg("drawable"), py::arg("texture"));
-    pyClass.def("clear_props", &alt::IPlayer::ClearProps);
+    pyClass.def("clear_prop", &alt::IPlayer::ClearProps);
 
     // Streaming Range
     pyClass.def("is_entity_in_streaming_range", py::overload_cast<alt::Ref<alt::IEntity>>(&alt::IPlayer::IsEntityInStreamingRange), py::arg("entity"));

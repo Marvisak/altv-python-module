@@ -35,7 +35,7 @@ def server_started():
 
 This decorator `alt.event()` decorator, is placed above a function which should get executed once the specified event is triggered
 
-The first and only argument you pass to this function is an event you want to register. This has to be `alt.Event` enum, otherwise exception will be raised
+The first and only argument you pass to this function is an event you want to subscribe to. This has to be `alt.Event` enum, otherwise exception will be raised
 
 ---
 
@@ -64,8 +64,8 @@ import alt
 @alt.event(alt.Event.PlayerConnect)
 def player_connected(player: alt.Player):
     alt.log(f"Player joined: {player.name}")
-    player.spawn(0, 0, 0)
     player.model = "mp_m_freemode_01"
+    player.spawn(0, 0, 0)
 ```
 
 The only difference between these events and events without arguments, is that the function you create needs to have arguments
@@ -154,7 +154,7 @@ def custom_event(msg: str):
 alt.emit("customEvent", "This is a message from server")
 ```
 
-Registering events from server works the same way as with client events, only difference is that you use `alt.custom_event()` decorator
+Subscribing to events from server works the same way as with client events, only difference is that you use `alt.custom_event()` decorator
 
 Emitting the event is also very similar to emitting client event, you just call `alt.emit()` function and pass the event name and the arguments
 
