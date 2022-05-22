@@ -68,4 +68,4 @@ Now you should know basic information about Vectors
 
 Vectors have much more functions which you can find in API reference, this should be just a quick explanation of how do they work
 
-Next we are going to learn about BaseObjects 
+Next we are going to learn about vehicles 

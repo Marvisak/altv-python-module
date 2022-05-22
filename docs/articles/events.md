@@ -70,7 +70,7 @@ def player_connected(player: alt.Player):
 
 The only difference between these events and events without arguments, is that the function you create needs to have arguments
 
-This is a PlayerConnect event which gets executed when player joins, our first argument is the player which connected, we are going to learn about the player class later
+This is a PlayerConnect event which gets executed when player joins, our first argument is the player which connected
 
 In this event we are logging into the console that player joined, spawning the player and setting its model
 
@@ -208,6 +208,8 @@ def player_before_connect(connection_info: alt.ConnectionInfo):
 ```
 
 ---
+
+You can see all of the available events inside [API Reference](api-reference/events.md)
 
 Now you should know what events are and how to use them
 
