@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any, List, Dict, overload, TypedDict, Set, Callable, Sequence
 from enum import Enum, auto
 
+
 # enums
 class WeatherType(Enum):
 	ExtraSunny = auto()
@@ -1561,6 +1562,10 @@ class Vector3:
 			Calculated angle in degrees
 		"""
 
+
+class FireInfo(TypedDict):
+	pos: Vector3
+	weapon: int
 
 class RGBA:
 	@property
