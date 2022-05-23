@@ -1,5 +1,6 @@
 build/
 dist/
+docs/site/
 cmake-build*/
 CMakeSettings.json
 
