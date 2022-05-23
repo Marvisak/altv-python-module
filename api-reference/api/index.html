@@ -9020,6 +9020,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#alt.Player.spawned" class="md-nav__link">
+    spawned()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alt.Player.current_animation_dict" class="md-nav__link">
+    current_animation_dict()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alt.Player.current_animation_name" class="md-nav__link">
+    current_animation_name()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#alt.Player.get_by_id" class="md-nav__link">
     get_by_id()
   </a>
@@ -11420,6 +11441,13 @@
           <li class="md-nav__item">
   <a href="#alt.events.ConsoleCommand" class="md-nav__link">
     ConsoleCommand()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alt.events.PlayerAnimationChange" class="md-nav__link">
+    PlayerAnimationChange()
   </a>
   
 </li>
@@ -20098,6 +20126,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#alt.Player.spawned" class="md-nav__link">
+    spawned()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alt.Player.current_animation_dict" class="md-nav__link">
+    current_animation_dict()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alt.Player.current_animation_name" class="md-nav__link">
+    current_animation_name()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#alt.Player.get_by_id" class="md-nav__link">
     get_by_id()
   </a>
@@ -22498,6 +22547,13 @@
           <li class="md-nav__item">
   <a href="#alt.events.ConsoleCommand" class="md-nav__link">
     ConsoleCommand()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alt.events.PlayerAnimationChange" class="md-nav__link">
+    PlayerAnimationChange()
   </a>
   
 </li>
@@ -51344,6 +51400,75 @@ the network owner gets out of the streaming range.
 
 
 
+<h3 id="alt.Player.spawned" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">spawned</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="alt.Player.current_animation_dict" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">current_animation_dict</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="alt.Player.current_animation_name" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">current_animation_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
 <h3 id="alt.Player.get_by_id" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">get_by_id</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Player</span> <span class="o">|</span> <span class="kc">None</span></code>
 
@@ -62424,6 +62549,26 @@ The <code>vehicle.repair()</code> function should be used to repair a vehicle if
 
 <h3 id="alt.events.ConsoleCommand" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">ConsoleCommand</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span></code>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="alt.events.PlayerAnimationChange" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">PlayerAnimationChange</span><span class="p">(</span><span class="n">player</span><span class="p">:</span> <span class="n">Player</span><span class="p">,</span> <span class="n">old_anim_dict</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">new_anim_dict</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">old_anim_name</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">new_anim_name</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span></code>
 
 
 </h3>
