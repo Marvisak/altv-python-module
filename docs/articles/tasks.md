@@ -14,7 +14,7 @@ Tasks or as some call it intervals call your code every X milliseconds
 import alt
 
 @alt.task(seconds=1)
-def task():
+def task() -> None:
     alt.log("I am called every second!")
 ```
 
@@ -40,7 +40,7 @@ You can also combine the arguments to create something like this
 import alt
 
 @alt.task(minutes=1, seconds=30)
-def task():
+def task() -> None:
     alt.log("I am called every minute and a half!")
 ```
 
@@ -65,7 +65,7 @@ So you can create something like this:
 import alt
 
 @alt.task()
-def task():
+def task() -> None:
     alt.log("I am called only once!")
     task.stop()
 ```
@@ -86,7 +86,7 @@ Timers call your code after X milliseconds, the difference between tasks and tim
 ```py
 import alt
 
-def timer():
+def timer() -> None:
     alt.log("I am called after one second!")
 
 timer_number = alt.timer(timer, 1000)

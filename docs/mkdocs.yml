@@ -55,6 +55,7 @@ nav:
   - Vectors: "vectors.md"
   - Vehicle: "vehicle.md"
   - ColShapes: "colshapes.md"
+  - Additional Information: "additional-information.md"
   - API Reference:
       Events: "api-reference/events.md"
       API: "api-reference/api.md"

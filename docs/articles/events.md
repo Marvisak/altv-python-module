@@ -14,7 +14,7 @@ Let's start with events without any arguments as they are easier to understand, 
 import alt
 
 @alt.event(alt.Event.ServerStarted)
-def server_started():
+def server_started() -> None:
     alt.log("Server Started!")
 ```
 
@@ -29,7 +29,7 @@ Let's go through this code line by line
 import alt
 
 @alt.event(alt.Event.ServerStarted)
-def server_started():
+def server_started() -> None:
     alt.log("Server Started!")
 ```
 
@@ -44,7 +44,7 @@ The first and only argument you pass to this function is an event you want to su
 import alt
 
 @alt.event(alt.Event.ServerStarted)
-def server_started():
+def server_started() -> None:
     alt.log("Server Started!")
 ```
 
@@ -62,7 +62,7 @@ Most of the time you want to get some info from events, this is possible through
 import alt
 
 @alt.event(alt.Event.PlayerConnect)
-def player_connected(player: alt.Player):
+def player_connect(player: alt.Player) -> None:
     alt.log(f"Player joined: {player.name}")
     player.model = "mp_m_freemode_01"
     player.spawn(0, 0, 0)
@@ -96,7 +96,7 @@ alt.emitServer("clientEvent", "This is message from client");
 import alt
 
 @alt.client_event("clientEvent")
-def client_event(player: alt.Player, msg: str):
+def client_event(player: alt.Player, msg: str) -> None:
     alt.log(f"Player {player.name} sent {msg}")
 ```
 
@@ -120,7 +120,7 @@ alt.onServer("serverEvent", (msg) => {
 import alt
 
 @alt.event(alt.Event.PlayerConnect)
-def player_connect(player: alt.Player):
+def player_connect(player: alt.Player) -> None:
     # These 2 do the same thing
     player.emit("serverEvent", "This is a server event")
     alt.emit_client(player, "serverEvent", "This is a server event")
@@ -148,7 +148,7 @@ And the fourth and last one is the simplest, by calling the function you emit ev
 import alt
 
 @alt.custom_event("customEvent")
-def custom_event(msg: str):
+def custom_event(msg: str) -> None:
     alt.log(f"Message received {msg}")
 
 alt.emit("customEvent", "This is a message from server")
@@ -178,7 +178,7 @@ Most of them are triggered by player doing something, and by cancelling them you
 import alt
 
 @alt.event(alt.Event.Explosion)
-def explosion(player: alt.Player, *args):
+def explosion(player: alt.Player, *args) -> bool:
     alt.log(f"{player.name} caused an explosion")
     return False
 ```
@@ -202,7 +202,7 @@ banned_players = [
 ]
 
 @alt.event(alt.Event.PlayerBeforeConnect)
-def player_before_connect(connection_info: alt.ConnectionInfo):
+def player_before_connect(connection_info: alt.ConnectionInfo) -> str | None:
     if connection_info.name in banned_players:
         return "You are banned"
 ```

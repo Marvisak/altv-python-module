@@ -19,7 +19,7 @@ import alt
 test_colshape = alt.ColShape.circle(0, 0, 20)
 
 @alt.event(alt.Event.ColShape)
-def colshape_event(colshape: alt.ColShape, entity: alt.Entity, state: bool):
+def colshape_event(colshape: alt.ColShape, entity: alt.Entity, state: bool) -> None:
     if colshape != test_colshape: # If it isn't our ColShape we can return
         return
 
@@ -42,7 +42,7 @@ import alt
 checkpoint = alt.Checkpoint(alt.CheckpointType.Ring, 0, 0, 70, 2, 2, 255, 0, 0, 255)
 
 @alt.event(alt.Event.ColShape)
-def colshape_event(colshape: alt.ColShape, entity: alt.Entity, state: bool):
+def colshape_event(colshape: alt.ColShape, entity: alt.Entity, state: bool) -> None:
     if colshape != checkpoint: # If it isn't our Checkpoint we can return
         return
 
