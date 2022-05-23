@@ -4,7 +4,7 @@
     <p align="center">Adds alt:V serverside language support for Python</p>
 </p>
 
-## Docs are being prepared
+## [Docs](https://marvisak.github.io/altv-python-module/)
 
 ## How to install
 1) Download the newest version from [Releases](https://github.com/Marvisak/altv-python-module/releases)

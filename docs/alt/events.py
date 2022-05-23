@@ -164,3 +164,13 @@ def RemoveEntity(object: Entity) -> None:
 
 def ConsoleCommand(name: str, args: List[str]) -> None:
     ...
+
+
+def PlayerAnimationChange(
+    player: Player,
+    old_anim_dict: int,
+    new_anim_dict: int,
+    old_anim_name: int,
+    new_anim_name: int,
+) -> None:
+    ...

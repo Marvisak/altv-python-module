@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import Any, List, Dict, overload, TypedDict, Set, Callable, Sequence
 from enum import Enum, auto
 
-
 # enums
 class WeatherType(Enum):
     ExtraSunny = auto()
@@ -22,7 +21,6 @@ class WeatherType(Enum):
     Xmas = auto()
     Halloween = auto()
 
-
 class WeaponTint(Enum):
     Normal = auto()
     Green = auto()
@@ -32,7 +30,6 @@ class WeaponTint(Enum):
     LSPD = auto()
     Orange = auto()
     Platinum = auto()
-
 
 class VehicleModType(Enum):
     Spoiler = auto()
@@ -85,7 +82,6 @@ class VehicleModType(Enum):
     Unk4 = auto()
     Livery = auto()
 
-
 class WindowTint(Enum):
     DarkSmoke = auto()
     Green = auto()
@@ -94,7 +90,6 @@ class WindowTint(Enum):
     Clear = auto()
     PureBlack = auto()
     Stock = auto()
-
 
 class RadioStation(Enum):
     Nothing = auto()
@@ -124,7 +119,6 @@ class RadioStation(Enum):
     EastLosFM = auto()
     WestCoastClassics = auto()
 
-
 class VehicleLockState(Enum):
     Nothing = auto()
     Unlocked = auto()
@@ -135,7 +129,6 @@ class VehicleLockState(Enum):
     ForceDoorsShut = auto()
     LockedCanBeDamaged = auto()
 
-
 class VehicleDoor(Enum):
     DriverFront = auto()
     PassengerFront = auto()
@@ -143,7 +136,6 @@ class VehicleDoor(Enum):
     PassengerRear = auto()
     Hood = auto()
     Trunk = auto()
-
 
 class VehicleDoorState(Enum):
     Closed = auto()
@@ -156,7 +148,6 @@ class VehicleDoorState(Enum):
     OpenedLevel7 = auto()
     Unknown = 255
 
-
 class VehiclePart(Enum):
     FrontLeft = auto()
     FrontRight = auto()
@@ -165,24 +156,20 @@ class VehiclePart(Enum):
     RearLeft = auto()
     RearRight = auto()
 
-
 class VehiclePartDamage(Enum):
     NotDamaged = auto()
     DamagedLevel1 = auto()
     DamagedLevel2 = auto()
     DamagedLevel3 = auto()
 
-
 class VehicleBumper(Enum):
     Front = auto()
     Rear = auto()
-
 
 class VehicleBumperDamage(Enum):
     NotDamaged = auto()
     Damaged = auto()
     Nothing = auto()
-
 
 class NumberPlateStyle(Enum):
     BlueWhite = auto()
@@ -191,7 +178,6 @@ class NumberPlateStyle(Enum):
     Yankton = auto()
     YellowBlack = auto()
     YellowBlue = auto()
-
 
 class Event(Enum):
     ServerStarted = 1
@@ -228,7 +214,6 @@ class Event(Enum):
     NetOwnerChange = auto()
     RemoveEntity = auto()
     ConsoleCommand = 41
-
 
 class ExplosionType(Enum):
     Grenade = 0
@@ -272,7 +257,6 @@ class ExplosionType(Enum):
     ValkyrieCannon = auto()
     Unknown = -1
 
-
 class BodyPart(Enum):
     Pelvis = auto()
     LeftHip = auto()
@@ -297,7 +281,6 @@ class BodyPart(Enum):
     Head = auto()
     Unknown = -1
 
-
 class VehicleType(Enum):
     Invalid = auto()
     Ped = auto()
@@ -318,7 +301,6 @@ class VehicleType(Enum):
     Submarine = auto()
     Object = auto()
 
-
 class ColShapeType(Enum):
     Sphere = auto()
     Cylinder = auto()
@@ -327,7 +309,6 @@ class ColShapeType(Enum):
     Rect = auto()
     CheckpointCylinder = auto()
     Polygon = auto()
-
 
 class BaseObjectType(Enum):
     Player = auto()
@@ -343,7 +324,6 @@ class BaseObjectType(Enum):
     RmlElement = auto()
     RmlDocument = auto()
     LocalPlayer = auto()
-
 
 class BlipColor(Enum):
     White = auto()
@@ -399,7 +379,6 @@ class BlipColor(Enum):
     TransparentRed = 79
     TransparentBlue = 80
     Purple = 83
-
 
 class BlipSprite(Enum):
     Higher = auto()
@@ -988,7 +967,6 @@ class BlipSprite(Enum):
     ArenaSlamvan = auto()
     ArenaZ = auto()
 
-
 class CheckpointType(Enum):
     CylinderSingleArrow = 0
     CylinderDoubleArrow = auto()
@@ -1058,11 +1036,9 @@ class CheckpointType(Enum):
     RingJetpack = auto()
     RingWhir = auto()
 
-
 class IVector2(TypedDict):
     x: float
     y: float
-
 
 class Vector2:
     # Constructor
@@ -1073,29 +1049,20 @@ class Vector2:
                 x:
                 y:
         """
-
     @overload
     def __init__(self, vector_list: List[float]) -> None:
         """
         Args:
                 vector_list:
         """
-
     @property
-    def x(self) -> float:
-        ...
-
+    def x(self) -> float: ...
     @x.setter
-    def x(self, new_x: float) -> None:
-        ...
-
+    def x(self, new_x: float) -> None: ...
     @property
-    def y(self) -> float:
-        ...
-
+    def y(self) -> float: ...
     @y.setter
-    def y(self, new_y: float) -> None:
-        ...
+    def y(self, new_y: float) -> None: ...
 
     zero: Vector2
     """(0, 0) vector"""
@@ -1121,21 +1088,18 @@ class Vector2:
         Returns:
                 IVector2 dict
         """
-
     def to_list(self) -> List[float]:
         """Converts vector to list
 
         Returns:
                 [x, y] list
         """
-
     def length(self) -> float:
         """Calculates length of the vector.
 
         Returns:
                 Calculated length
         """
-
     def distance(self, vector: Vector2) -> float:
         """Calculates distance between two vectors.
 
@@ -1145,7 +1109,6 @@ class Vector2:
         Returns:
                 Calculated distance
         """
-
     def distance_squared(self, vector: Vector2) -> float:
         """Calculates squared distance between two vectors.
 
@@ -1155,7 +1118,6 @@ class Vector2:
         Returns:
                 Calculated squared distance.
         """
-
     def lerp(self, vector: Vector2, ratio: float) -> Vector2:
         """Interpolates vectors linearly.
 
@@ -1166,21 +1128,18 @@ class Vector2:
         Returns:
                 Interpolated vector
         """
-
     def to_degrees(self, vector: Vector2) -> Vector2:
         """Converts radians to degrees.
 
         Returns:
                 Vector converted to degrees
         """
-
     def to_radians(self, vector: Vector2) -> Vector2:
         """Converts degrees to radians.
 
         Returns:
                 Vector converted to radians
         """
-
     def is_in_range(self, vector: Vector2, range: float) -> bool:
         """Checks if distance between vectors is smaller or equal to range.
 
@@ -1191,55 +1150,30 @@ class Vector2:
         Returns:
                 True if distance is smaller or equal than range
         """
-
     @overload
-    def __add__(self, other: Vector2) -> Vector2:
-        ...
-
+    def __add__(self, other: Vector2) -> Vector2: ...
     @overload
-    def __add__(self, num: float) -> Vector2:
-        ...
-
+    def __add__(self, num: float) -> Vector2: ...
     @overload
-    def __add__(self, vector_list: List[float]) -> Vector2:
-        ...
-
+    def __add__(self, vector_list: List[float]) -> Vector2: ...
     @overload
-    def __sub__(self, other: Vector2) -> Vector2:
-        ...
-
+    def __sub__(self, other: Vector2) -> Vector2: ...
     @overload
-    def __sub__(self, num: float) -> Vector2:
-        ...
-
+    def __sub__(self, num: float) -> Vector2: ...
     @overload
-    def __sub__(self, vector_list: List[float]) -> Vector2:
-        ...
-
+    def __sub__(self, vector_list: List[float]) -> Vector2: ...
     @overload
-    def __mul__(self, other: Vector2) -> Vector2:
-        ...
-
+    def __mul__(self, other: Vector2) -> Vector2: ...
     @overload
-    def __mul__(self, num: float) -> Vector2:
-        ...
-
+    def __mul__(self, num: float) -> Vector2: ...
     @overload
-    def __mul__(self, vector_list: List[float]) -> Vector2:
-        ...
-
+    def __mul__(self, vector_list: List[float]) -> Vector2: ...
     @overload
-    def __truediv__(self, other: Vector2) -> Vector2:
-        ...
-
+    def __truediv__(self, other: Vector2) -> Vector2: ...
     @overload
-    def __truediv__(self, num: float) -> Vector2:
-        ...
-
+    def __truediv__(self, num: float) -> Vector2: ...
     @overload
-    def __truediv__(self, vector_list: List[float]) -> Vector2:
-        ...
-
+    def __truediv__(self, vector_list: List[float]) -> Vector2: ...
     def __neg__(self) -> Vector2:
         """Negates vector.
 
@@ -1249,7 +1183,6 @@ class Vector2:
                 alt.log(-vector) # Vector2(-1, -1)
                 ```
         """
-
     def __eq__(self, other: object) -> bool:
         """Compares two vectors.
 
@@ -1260,7 +1193,6 @@ class Vector2:
                 alt.log(vector == vector2) # True
                 ```
         """
-
     @overload
     def dot(self, vector: Vector2) -> Vector2:
         """Calculates dot product between two vectors.
@@ -1271,7 +1203,6 @@ class Vector2:
         Returns:
                 Dot product
         """
-
     @overload
     def dot(self, num: float) -> Vector2:
         """Calculates dot product between vector and a number.
@@ -1282,7 +1213,6 @@ class Vector2:
         Returns:
                 Dot product
         """
-
     @overload
     def dot(self, vector_list: List[int]) -> Vector2:
         """Calculates dot product between two vectors.
@@ -1293,14 +1223,12 @@ class Vector2:
         Returns:
                 Dot product
         """
-
     def normalize(self) -> Vector2:
         """Normalizes vector.
 
         Returns:
                 Normalized vector
         """
-
     def angle_to(self, vector: Vector2) -> float:
         """Calculates angle between two vectors (in radians).
 
@@ -1310,7 +1238,6 @@ class Vector2:
         Returns:
                 Calculated angle in radians
         """
-
     def angle_to_degrees(self, vector: Vector2) -> float:
         """Calculates angle between two vectors (in degrees).
 
@@ -1321,37 +1248,24 @@ class Vector2:
                 Calculated angle in degrees
         """
 
-
 class IVector3(TypedDict):
     x: float
     y: float
     z: float
 
-
 class Vector3:
     @property
-    def x(self) -> float:
-        ...
-
+    def x(self) -> float: ...
     @x.setter
-    def x(self, new_x: float) -> None:
-        ...
-
+    def x(self, new_x: float) -> None: ...
     @property
-    def y(self) -> float:
-        ...
-
+    def y(self) -> float: ...
     @y.setter
-    def y(self, new_y: float) -> None:
-        ...
-
+    def y(self, new_y: float) -> None: ...
     @property
-    def z(self) -> float:
-        ...
-
+    def z(self) -> float: ...
     @z.setter
-    def z(self, new_z: float) -> None:
-        ...
+    def z(self, new_z: float) -> None: ...
 
     zero: Vector3
     """(0, 0, 0) vector"""
@@ -1383,14 +1297,12 @@ class Vector3:
                 y:
                 z:
         """
-
     @overload
     def __init__(self, vector_list: List[float]) -> None:
         """
         Args:
                 vector_list:
         """
-
     # Methods
     def to_dict(self) -> IVector3:
         """Converts vector to IVector3 dict
@@ -1398,21 +1310,18 @@ class Vector3:
         Returns:
                 IVector3 dict
         """
-
     def to_list(self) -> List[int]:
         """Converts vector to list
 
         Returns:
                 [x, y, z] list
         """
-
     def length(self) -> float:
         """Calculates length of the vector.
 
         Returns:
                 Calculated length
         """
-
     def distance(self, vector: Vector3) -> float:
         """Calculates distance between two vectors.
 
@@ -1422,7 +1331,6 @@ class Vector3:
         Returns:
                 Calculated distance
         """
-
     def distance_squared(self, vector: Vector3) -> float:
         """Calculates squared distance between two vectors.
 
@@ -1432,7 +1340,6 @@ class Vector3:
         Returns:
                 Calculated squared distance.
         """
-
     def lerp(self, vector: Vector3, ratio: float) -> Vector3:
         """Interpolates vectors linearly.
 
@@ -1443,21 +1350,18 @@ class Vector3:
         Returns:
                 Interpolated vector
         """
-
     def to_degrees(self, vector: Vector3) -> Vector3:
         """Converts radians to degrees.
 
         Returns:
                 Vector converted to degrees
         """
-
     def to_radians(self, vector: Vector3) -> Vector3:
         """Converts degrees to radians.
 
         Returns:
                 Vector converted to radians
         """
-
     def is_in_range(self, vector: Vector3, range: float) -> bool:
         """Checks if distance between vectors is smaller or equal to range.
 
@@ -1468,55 +1372,30 @@ class Vector3:
         Returns:
                 True if distance is smaller or equal than range
         """
-
     @overload
-    def __add__(self, other: Vector3) -> Vector3:
-        ...
-
+    def __add__(self, other: Vector3) -> Vector3: ...
     @overload
-    def __add__(self, num: float) -> Vector3:
-        ...
-
+    def __add__(self, num: float) -> Vector3: ...
     @overload
-    def __add__(self, vector_list: List[float]) -> Vector3:
-        ...
-
+    def __add__(self, vector_list: List[float]) -> Vector3: ...
     @overload
-    def __sub__(self, other: Vector3) -> Vector3:
-        ...
-
+    def __sub__(self, other: Vector3) -> Vector3: ...
     @overload
-    def __sub__(self, num: float) -> Vector3:
-        ...
-
+    def __sub__(self, num: float) -> Vector3: ...
     @overload
-    def __sub__(self, vector_list: List[float]) -> Vector3:
-        ...
-
+    def __sub__(self, vector_list: List[float]) -> Vector3: ...
     @overload
-    def __mul__(self, other: Vector3) -> Vector3:
-        ...
-
+    def __mul__(self, other: Vector3) -> Vector3: ...
     @overload
-    def __mul__(self, num: float) -> Vector3:
-        ...
-
+    def __mul__(self, num: float) -> Vector3: ...
     @overload
-    def __mul__(self, vector_list: List[float]) -> Vector3:
-        ...
-
+    def __mul__(self, vector_list: List[float]) -> Vector3: ...
     @overload
-    def __truediv__(self, other: Vector3) -> Vector3:
-        ...
-
+    def __truediv__(self, other: Vector3) -> Vector3: ...
     @overload
-    def __truediv__(self, num: float) -> Vector3:
-        ...
-
+    def __truediv__(self, num: float) -> Vector3: ...
     @overload
-    def __truediv__(self, vector_list: List[float]) -> Vector3:
-        ...
-
+    def __truediv__(self, vector_list: List[float]) -> Vector3: ...
     def __neg__(self) -> Vector3:
         """Negates vector.
 
@@ -1526,7 +1405,6 @@ class Vector3:
                 alt.log(-vector) # Vector3(-1, -1, -1)
                 ```
         """
-
     def __eq__(self, other: object) -> bool:
         """Compares two vectors.
 
@@ -1537,7 +1415,6 @@ class Vector3:
                 alt.log(vector == vector2) # True
                 ```
         """
-
     @overload
     def cross(self, vector: Vector3) -> Vector3:
         """Calculates cross product between two vectors.
@@ -1548,7 +1425,6 @@ class Vector3:
         Returns:
                 Calculated cross product
         """
-
     @overload
     def cross(self, num: int) -> Vector3:
         """Calculates cross product between vector and number.
@@ -1559,7 +1435,6 @@ class Vector3:
         Returns:
                 Calculated cross product
         """
-
     @overload
     def cross(self, list: List[int]) -> Vector3:
         """Calculates cross product between two vectors.
@@ -1570,7 +1445,6 @@ class Vector3:
         Returns:
                 Calculated cross product
         """
-
     @overload
     def dot(self, vector: Vector3) -> Vector3:
         """Calculates dot product between two vectors.
@@ -1581,7 +1455,6 @@ class Vector3:
         Returns:
                 Dot product
         """
-
     @overload
     def dot(self, num: int) -> Vector3:
         """Calculates dot product between vector and a number.
@@ -1592,7 +1465,6 @@ class Vector3:
         Returns:
                 Dot product
         """
-
     @overload
     def dot(self, list: List[int]) -> Vector3:
         """Calculates dot product between two vectors.
@@ -1603,14 +1475,12 @@ class Vector3:
         Returns:
                 Dot product
         """
-
     def normalize(self) -> Vector3:
         """Normalizes vector.
 
         Returns:
                 Normalized vector
         """
-
     def angle_to(self, vector: Vector3) -> float:
         """Calculates angle between two vectors (in radians).
 
@@ -1620,7 +1490,6 @@ class Vector3:
         Returns:
                 Calculated angle in radians
         """
-
     def angle_to_degrees(self, vector: Vector3) -> float:
         """Calculates angle between two vectors (in degrees).
 
@@ -1631,44 +1500,31 @@ class Vector3:
                 Calculated angle in degrees
         """
 
-
 class FireInfo(TypedDict):
     pos: Vector3
     weapon: int
-
 
 class RGBA:
     @property
     def r(self) -> int:
         """r component of RGBA"""
-
     @r.setter
-    def r(self, new_r: float) -> None:
-        ...
-
+    def r(self, new_r: float) -> None: ...
     @property
     def g(self) -> int:
         """g component of RGBA"""
-
     @g.setter
-    def g(self, new_g: float) -> None:
-        ...
-
+    def g(self, new_g: float) -> None: ...
     @property
     def b(self) -> int:
         """b component of RGBA"""
-
     @b.setter
-    def b(self, new_b: float) -> None:
-        ...
-
+    def b(self, new_b: float) -> None: ...
     @property
     def a(self) -> int:
         """a component of RGBA"""
-
     @a.setter
-    def a(self, new_a: float) -> None:
-        ...
+    def a(self, new_a: float) -> None: ...
 
     # Constructor
     def __init__(self, r: int, g: int, b: int, a: int = 255) -> None:
@@ -1682,28 +1538,24 @@ class RGBA:
         Note:
                 The RGBA values are alowed to range from 0 to 255.
         """
-
     def to_bgra(self) -> RGBA:
         """Converts RGBA to BGRA
 
         Returns:
                 RGBA converted to BGRA
         """
-
     def to_argb(self) -> RGBA:
         """Converts RGBA to ARGB
 
         Returns:
                 RGBA converted to ARGB
         """
-
     def to_list(self) -> List[int]:
         """Converts RGBA to list
 
         Returns:
                 [r, g, b, a] list
         """
-
 
 class BaseObject:
     # Properties
@@ -1714,7 +1566,6 @@ class BaseObject:
         Raises:
                 RuntimeError: If the server is not in debug mode
         """
-
     @property
     def valid(self) -> bool:
         """Object usability.
@@ -1722,11 +1573,9 @@ class BaseObject:
         Returns:
                 False if object is no longer usable.
         """
-
     @property
     def type(self) -> BaseObjectType:
         """Type of the object."""
-
     # Methods
     def delete_meta(self, key: str) -> None:
         """Removes the specified key and the data connected to that specific key.
@@ -1734,7 +1583,6 @@ class BaseObject:
         Args:
                 key: The key of the value to remove.
         """
-
     def get_meta(self, key: str) -> Any:
         """Gets a value using the specified key.
 
@@ -1744,7 +1592,6 @@ class BaseObject:
         Returns:
                 Dynamic value associated with the specified key or None if no data is present.
         """
-
     def set_meta(self, key: str, value: Any) -> None:
         """Stores the given value with the specified key.
 
@@ -1755,7 +1602,6 @@ class BaseObject:
         Note:
                 The given value will be shared locally.
         """
-
     def has_meta(self, key: str) -> bool:
         """Determines whether contains the specified key.
 
@@ -1765,21 +1611,16 @@ class BaseObject:
         Returns:
                 True when element associated with the specified key is stored.
         """
-
     def destroy(self) -> None:
         """Removes the object from the world."""
-
 
 class WorldObject(BaseObject):
     # Properties
     @property
     def pos(self) -> Vector3:
         """Object position."""
-
     @pos.setter
-    def pos(self, new_pos: Vector3) -> None:
-        ...
-
+    def pos(self, new_pos: Vector3) -> None: ...
     @property
     def dimension(self) -> int:
         """Object dimension
@@ -1787,11 +1628,8 @@ class WorldObject(BaseObject):
         Note:
                 Check [https://docs.altv.mp/articles/dimensions.html](https://docs.altv.mp/articles/dimensions.html) to understand how it works.
         """
-
     @dimension.setter
-    def dimension(self, new_dimension: int) -> None:
-        ...
-
+    def dimension(self, new_dimension: int) -> None: ...
 
 class Entity(WorldObject):
     # Properties
@@ -1812,7 +1650,6 @@ class Entity(WorldObject):
     @property
     def id(self) -> int:
         """Internal identificator of the entity which is identical on both sides."""
-
     @property
     def rot(self) -> Vector3:
         """Entity rotation.
@@ -1820,43 +1657,26 @@ class Entity(WorldObject):
         Note:
                 Values are provided in radians.
         """
-
     @rot.setter
-    def rot(self, new_rot: Vector3) -> None:
-        ...
-
+    def rot(self, new_rot: Vector3) -> None: ...
     @property
     def streamed(self) -> bool:
         """Whether the entity should be streamed for other entities."""
-
     @streamed.setter
-    def streamed(self, state: bool) -> None:
-        ...
-
+    def streamed(self, state: bool) -> None: ...
     @property
     def visible(self) -> bool:
         """Whether the entity is visible."""
-
     @visible.setter
-    def visible(self, state: bool) -> None:
-        ...
-
+    def visible(self, state: bool) -> None: ...
     @property
-    def collision(self) -> bool:
-        ...
-
+    def collision(self) -> bool: ...
     @collision.setter
-    def collision(self, state: bool) -> None:
-        ...
-
+    def collision(self, state: bool) -> None: ...
     @property
-    def frozen(self) -> bool:
-        ...
-
+    def frozen(self) -> bool: ...
     @frozen.setter
-    def frozen(self, state: bool) -> None:
-        ...
-
+    def frozen(self, state: bool) -> None: ...
     @property
     def model(self) -> int:
         """Entity model hash.
@@ -1864,11 +1684,8 @@ class Entity(WorldObject):
         Note:
                 Setter also accepts string as a value, but the getter will always return number
         """
-
     @model.setter
-    def model(self, new_model: int | str) -> None:
-        ...
-
+    def model(self, new_model: int | str) -> None: ...
     @property
     def net_owner(self) -> Player | None:
         """Network owner of the entity.
@@ -1876,7 +1693,6 @@ class Entity(WorldObject):
         Note:
                 Network owner is responsible for syncing entity with the server. It changes when actual network owner passes the migration range, then the new one is determined based on distance from the entity (if entity is a vehicle, then the driver will take priority for becoming network owner). Disabling migration range will stop this process from happening until turned on again.
         """
-
     # Methods
     @staticmethod
     def get_by_id(id: int) -> Entity | None:
@@ -1888,7 +1704,6 @@ class Entity(WorldObject):
         Returns:
                 Entity if it was found, otherwise None
         """
-
     def set_net_owner(self, player: Player, disable_migration: bool = False) -> None:
         """Changes network owner to the specified player.
 
@@ -1903,7 +1718,6 @@ class Entity(WorldObject):
                 the network owner gets out of the streaming range.
                 </b></p>
         """
-
     def reset_net_owner(self, disable_migration: bool = False) -> None:
         """Resets overwritten network owner.
 
@@ -1917,16 +1731,15 @@ class Entity(WorldObject):
                 the network owner gets out of the streaming range.
                 </b></p>
         """
-
     def attach_to(
-            self,
-            entity: Entity,
-            entity_bone_id: int,
-            own_bone_id: int,
-            pos: Vector3,
-            rot: Vector3,
-            enable_collisions: bool,
-            no_fixed_rotation: bool,
+        self,
+        entity: Entity,
+        entity_bone_id: int,
+        own_bone_id: int,
+        pos: Vector3,
+        rot: Vector3,
+        enable_collisions: bool,
+        no_fixed_rotation: bool,
     ) -> None:
         """Attaches this entity to another entity.
 
@@ -1939,10 +1752,8 @@ class Entity(WorldObject):
                 enable_collisions: If true the attached entity has a collision.
                 no_fixed_rotation: If false the entity is attached with a fixed rotation (no bouncing). That means if the value in native was true, you have to use false in the serverside method.
         """
-
     def detach(self) -> None:
         """Detaches the entity if attached to another entity."""
-
     def get_synced_meta(self, key: str) -> Any:
         """Gets a value using the specified key.
 
@@ -1952,7 +1763,6 @@ class Entity(WorldObject):
         Returns:
                 Dynamic value associated with the specified key or None if no data is present.
         """
-
     def has_synced_meta(self, key: str) -> bool:
         """Determines whether contains the specified key.
 
@@ -1962,7 +1772,6 @@ class Entity(WorldObject):
         Returns:
                 True if the meta table contains any data at the specified key or False if not.
         """
-
     def set_synced_meta(self, key: str, value: Any) -> None:
         """Stores the given value with the specified key.
 
@@ -1973,14 +1782,12 @@ class Entity(WorldObject):
         Note:
                 The given value will be shared with all clients.
         """
-
     def delete_synced_meta(self, key: str) -> None:
         """Removes the specified key and the data connected to that specific key.
 
         Args:
                 key: The key of the value to remove.
         """
-
     def get_stream_synced_meta(self, key: str) -> Any:
         """Gets a value using the specified key.
 
@@ -1990,7 +1797,6 @@ class Entity(WorldObject):
         Returns:
                 Dynamic value associated with the specified key or None if no data is present.
         """
-
     def has_stream_synced_meta(self, key: str) -> bool:
         """Determines whether contains the specified key.
 
@@ -2000,7 +1806,6 @@ class Entity(WorldObject):
         Returns:
                 True if the meta table contains any data at the specified key or False if not.
         """
-
     def set_stream_synced_meta(self, key: str, value: Any) -> None:
         """Stores the given value with the specified key.
 
@@ -2011,7 +1816,6 @@ class Entity(WorldObject):
         Note:
                 The given value will be shared with all clients in streaming range.
         """
-
     def delete_stream_synced_meta(self, key: str) -> None:
         """Removes the specified key and the data connected to that specific key.
 
@@ -2019,12 +1823,10 @@ class Entity(WorldObject):
                 key: The key of the value to remove.
         """
 
-
 class Weapon(TypedDict):
     hash: int
     tint_index: int
     components: Set[int]
-
 
 class HeadOverlay(TypedDict):
     index: int
@@ -2032,7 +1834,6 @@ class HeadOverlay(TypedDict):
     color_type: int
     color_index: int
     second_color_index: int
-
 
 class HeadBlendData(TypedDict):
     shape_first_id: int
@@ -2045,12 +1846,10 @@ class HeadBlendData(TypedDict):
     skin_mix: float
     third_mix: float
 
-
 class Cloth(TypedDict):
     drawable: int
     texture: int
     palette: int
-
 
 class DlcCloth(TypedDict):
     dlc: int
@@ -2058,17 +1857,14 @@ class DlcCloth(TypedDict):
     texture: int
     palette: int
 
-
 class Prop(TypedDict):
     drawable: int
     texture: int
-
 
 class DlcProp(TypedDict):
     dlc: int
     drawable: int
     texture: int
-
 
 class Player(Entity):
     # Properties
@@ -2087,41 +1883,23 @@ class Player(Entity):
 	"""
 
     @property
-    def name(self) -> str:
-        ...
-
+    def name(self) -> str: ...
     @property
-    def ip(self) -> str:
-        ...
-
+    def ip(self) -> str: ...
     @property
-    def connected(self) -> bool:
-        ...
-
+    def connected(self) -> bool: ...
     @property
-    def ping(self) -> int:
-        ...
-
+    def ping(self) -> int: ...
     @property
-    def social_id(self) -> int:
-        ...
-
+    def social_id(self) -> int: ...
     @property
-    def hwid_hash(self) -> int:
-        ...
-
+    def hwid_hash(self) -> int: ...
     @property
-    def hwid_ex_hash(self) -> int:
-        ...
-
+    def hwid_ex_hash(self) -> int: ...
     @property
-    def auth_token(self) -> str:
-        ...
-
+    def auth_token(self) -> str: ...
     @property
-    def speed(self) -> int:
-        ...
-
+    def speed(self) -> int: ...
     @property
     def aim_pos(self) -> Vector3:
         """Position the player is currently aiming at.
@@ -2129,142 +1907,80 @@ class Player(Entity):
         Note:
                 Will return [zero][alt.Vector3.zero] if the player is aiming against a entity.
         """
-
     @property
-    def head_rot(self) -> Vector3:
-        ...
-
+    def head_rot(self) -> Vector3: ...
     @property
-    def entity_aiming_at(self) -> Entity | None:
-        ...
-
+    def entity_aiming_at(self) -> Entity | None: ...
     @property
-    def entity_aim_offset(self) -> Vector3:
-        ...
-
+    def entity_aim_offset(self) -> Vector3: ...
     @property
-    def invincible(self) -> bool:
-        ...
-
+    def invincible(self) -> bool: ...
     @invincible.setter
-    def invincible(self, state: bool) -> None:
-        ...
-
+    def invincible(self, state: bool) -> None: ...
     @property
-    def in_vehicle(self) -> bool:
-        ...
-
+    def in_vehicle(self) -> bool: ...
     @property
-    def vehicle(self) -> Vehicle | None:
-        ...
-
+    def vehicle(self) -> Vehicle | None: ...
     @property
-    def seat(self) -> int:
-        ...
-
+    def seat(self) -> int: ...
     @property
-    def health(self) -> int:
-        ...
-
+    def health(self) -> int: ...
     @health.setter
-    def health(self, new_health: int) -> None:
-        ...
-
+    def health(self, new_health: int) -> None: ...
     @property
-    def max_health(self) -> int:
-        ...
-
+    def max_health(self) -> int: ...
     @max_health.setter
-    def max_health(self, new_max_health: int) -> None:
-        ...
-
+    def max_health(self, new_max_health: int) -> None: ...
     @property
-    def armour(self) -> int:
-        ...
-
+    def armour(self) -> int: ...
     @armour.setter
-    def armour(self, new_armour: int) -> None:
-        ...
-
+    def armour(self, new_armour: int) -> None: ...
     @property
-    def max_armour(self) -> int:
-        ...
-
+    def max_armour(self) -> int: ...
     @max_armour.setter
-    def max_armour(self, new_max_armour: int) -> None:
-        ...
-
+    def max_armour(self, new_max_armour: int) -> None: ...
     @property
-    def current_weapon(self) -> int:
-        ...
-
+    def current_weapon(self) -> int: ...
     @current_weapon.setter
-    def current_weapon(self, new_current_weapon: int) -> None:
-        ...
-
+    def current_weapon(self, new_current_weapon: int) -> None: ...
     @property
-    def current_weapon_tint_index(self) -> WeaponTint:
-        ...
-
+    def current_weapon_tint_index(self) -> WeaponTint: ...
     @property
-    def current_weapon_tint_components(self) -> List[int]:
-        ...
-
+    def current_weapon_tint_components(self) -> List[int]: ...
     @property
-    def weapons(self) -> List[Weapon]:
-        ...
-
+    def weapons(self) -> List[Weapon]: ...
     @property
-    def dead(self) -> bool:
-        ...
-
+    def dead(self) -> bool: ...
     @property
-    def jumping(self) -> bool:
-        ...
-
+    def jumping(self) -> bool: ...
     @property
-    def in_ragdoll(self) -> bool:
-        ...
-
+    def in_ragdoll(self) -> bool: ...
     @property
-    def aiming(self) -> bool:
-        ...
-
+    def aiming(self) -> bool: ...
     @property
-    def shooting(self) -> bool:
-        ...
-
+    def shooting(self) -> bool: ...
     @property
-    def reloading(self) -> bool:
-        ...
-
+    def reloading(self) -> bool: ...
     @property
-    def super_jump(self) -> bool:
-        ...
-
+    def super_jump(self) -> bool: ...
     @property
-    def crouching(self) -> bool:
-        ...
-
+    def crouching(self) -> bool: ...
     @property
-    def stealthy(self) -> bool:
-        ...
-
+    def stealthy(self) -> bool: ...
     @property
-    def flashlight_active(self) -> bool:
-        ...
-
+    def flashlight_active(self) -> bool: ...
     @property
-    def head_blend_data(self) -> HeadBlendData:
-        ...
-
+    def head_blend_data(self) -> HeadBlendData: ...
     @property
-    def hair_color(self) -> int:
-        ...
-
+    def hair_color(self) -> int: ...
     @property
-    def hair_highlight_color(self) -> int:
-        ...
+    def hair_highlight_color(self) -> int: ...
+    @property
+    def spawned(self) -> bool: ...
+    @property
+    def current_animation_dict(self) -> int: ...
+    @property
+    def current_animation_name(self) -> int: ...
 
     # Methods
     @staticmethod
@@ -2277,7 +1993,6 @@ class Player(Entity):
         Returns:
                 Player if it was found, otherwise None.
         """
-
     def emit(self, event_name: str, *args: Any) -> None:
         """Emits specified event to client.
 
@@ -2285,16 +2000,14 @@ class Player(Entity):
                 event_name: Name of the event.
                 *args: Rest parameters for emit to send.
         """
-
     def kick(self, reason: str = "Kicked") -> None:
         """Forcefully disconnects the player with a reason message.
 
         Args:
                 reason: The reason that will display to the player on the disconnect screen.
         """
-
     def play_ambient_speech(
-            self, speech_name: str, speech_param: str, speech_dict_hash: str
+        self, speech_name: str, speech_param: str, speech_dict_hash: str
     ) -> None:
         """Plays ambient speech.
 
@@ -2306,21 +2019,14 @@ class Player(Entity):
         Note:
                 See [https://github.com/DurtyFree/gta-v-data-dumps/blob/master/speeches.json](https://github.com/DurtyFree/gta-v-data-dumps/blob/master/speeches.json) for a full list of speeches.
         """
-
     def set_date_time(
-            self, day: int, month: int, year: int, hour: int, minute: int, second: int
-    ) -> None:
-        ...
-
-    def set_weather(self, weather: WeatherType | int) -> None:
-        ...
-
+        self, day: int, month: int, year: int, hour: int, minute: int, second: int
+    ) -> None: ...
+    def set_weather(self, weather: WeatherType | int) -> None: ...
     def set_into_vehicle(self, vehicle: Vehicle, seat: int) -> None:
         """Set the player into a vehicle on specific seat."""
-
     def clear_blood_damage(self) -> None:
         """Removes the visible blood on the player body."""
-
     def give_weapon(self, weapon_hash: int, ammo: int, equip_now: bool) -> None:
         """Gives the specified weapon to the player.
 
@@ -2345,25 +2051,18 @@ class Player(Entity):
                 player.give_weapon(alt.hash("weapon_pistol"), 10, True) # adds amount ammo of type "AMMO_PISTOL", so 20 pistol ammo in result
                 ```
         """
-
     def remove_weapon(self, weapon_hash: int) -> None:
         """Removes the specified weapon from the player.
 
         Args:
                 weapon_hash: Hash of the weapon.
         """
-
     def remove_all_weapons(self) -> None:
         """Removes every weapon from the player."""
-
     def set_weapon_tint_index(
-            self, weapon_hash: int, tint_index: WeaponTint | int
-    ) -> None:
-        ...
-
-    def add_weapon_component(self, weapon_hash: int, component: int) -> None:
-        ...
-
+        self, weapon_hash: int, tint_index: WeaponTint | int
+    ) -> None: ...
+    def add_weapon_component(self, weapon_hash: int, component: int) -> None: ...
     def remove_weapon_component(self, weapon_hash: int, component: int) -> None:
         """Removes the specified weapon component from the specified weapon.
 
@@ -2371,62 +2070,37 @@ class Player(Entity):
                 weapon_hash: Hash of the weapon.
                 component: Hash of the weapon component.
         """
-
-    def set_head_overlay(self, overlay_id: int, index: int, opacity: float) -> bool:
-        ...
-
-    def remove_head_overlay(self, overlay_id: int) -> bool:
-        ...
-
+    def set_head_overlay(self, overlay_id: int, index: int, opacity: float) -> bool: ...
+    def remove_head_overlay(self, overlay_id: int) -> bool: ...
     def set_head_overlay_color(
-            self,
-            overlay_id: int,
-            color_type: int,
-            color_index: int,
-            second_color_index: int,
-    ) -> bool:
-        ...
-
-    def get_head_overlay(self, overlay_id: int) -> HeadOverlay:
-        ...
-
-    def set_face_feature(self, index: int, scale: float) -> bool:
-        ...
-
-    def get_face_feature_scale(self, index: int) -> float:
-        ...
-
-    def remove_face_feature(self, index: int) -> bool:
-        ...
-
+        self,
+        overlay_id: int,
+        color_type: int,
+        color_index: int,
+        second_color_index: int,
+    ) -> bool: ...
+    def get_head_overlay(self, overlay_id: int) -> HeadOverlay: ...
+    def set_face_feature(self, index: int, scale: float) -> bool: ...
+    def get_face_feature_scale(self, index: int) -> float: ...
+    def remove_face_feature(self, index: int) -> bool: ...
     def set_head_blend_palette_color(
-            self, id: int, red: int, green: int, blue: int
-    ) -> bool:
-        ...
-
-    def get_head_blend_palette_color(self, id: int) -> RGBA:
-        ...
-
+        self, id: int, red: int, green: int, blue: int
+    ) -> bool: ...
+    def get_head_blend_palette_color(self, id: int) -> RGBA: ...
     def set_head_blend_data(
-            self,
-            shape_first_id: int,
-            shape_second_id: int,
-            shape_third_id: int,
-            skin_first_id: int,
-            skin_second_id: int,
-            skin_third_id: int,
-            shape_mix: float,
-            skin_mix: float,
-            third_mix: float,
-    ) -> None:
-        ...
-
-    def set_eye_color(self, eye_color: int) -> bool:
-        ...
-
-    def get_eye_color(self) -> int:
-        ...
-
+        self,
+        shape_first_id: int,
+        shape_second_id: int,
+        shape_third_id: int,
+        skin_first_id: int,
+        skin_second_id: int,
+        skin_third_id: int,
+        shape_mix: float,
+        skin_mix: float,
+        third_mix: float,
+    ) -> None: ...
+    def set_eye_color(self, eye_color: int) -> bool: ...
+    def get_eye_color(self) -> int: ...
     def get_clothes(self, component: int) -> Cloth:
         """Gets the specified clothing component.
 
@@ -2442,9 +2116,8 @@ class Player(Entity):
                 alt.log(cloth.drawable) # Logs the drawable of the currently equipped mask
                 ```
         """
-
     def set_clothes(
-            self, component: int, drawable: int, texture: int, palette: int = 0
+        self, component: int, drawable: int, texture: int, palette: int = 0
     ) -> bool:
         """Sets the specified clothing component.
 
@@ -2459,7 +2132,6 @@ class Player(Entity):
                 player.set_clothes(1, 14, 0) # Sets the players mask to a blue hockey mask
                 ```
         """
-
     def get_dlc_clothes(self, component: int) -> DlcCloth:
         """Gets the specified dlc clothing component.
 
@@ -2475,9 +2147,8 @@ class Player(Entity):
                 alt.log(cloth.drawable) # Logs the drawable of the currently equipped mask
                 ```
         """
-
     def set_dlc_clothes(
-            self, dlc: int, component: int, drawable: int, texture: int, palette: int = 2
+        self, dlc: int, component: int, drawable: int, texture: int, palette: int = 2
     ) -> bool:
         """Sets the specified dlc clothing component.
 
@@ -2493,7 +2164,6 @@ class Player(Entity):
                 player.set_dlc_clothes(alt.hash("dlcname"), 1, 14, 0)
                 ```
         """
-
     def get_prop(self, component: int) -> Prop:
         """Gets the specified prop component.
 
@@ -2509,7 +2179,6 @@ class Player(Entity):
                 alt.log(prop.drawable) # Logs the drawable id of the current hat prop of the player
                 ```
         """
-
     def set_prop(self, component: int, drawable: int, texture: int) -> bool:
         """Sets the specified prop component.
 
@@ -2523,7 +2192,6 @@ class Player(Entity):
                 player.set_prop(0, 13, 0) # sets the players hat prop to a blue cowboy hat
                 ```
         """
-
     def get_dlc_prop(self, component: int) -> DlcProp:
         """Gets the specified dlc prop component.
 
@@ -2539,9 +2207,8 @@ class Player(Entity):
                 alt.log(prop.drawable) # Logs the drawable id of the current hat prop of the player
                 ```
         """
-
     def set_dlc_prop(
-            self, dlc: int, component: int, drawable: int, texture: int
+        self, dlc: int, component: int, drawable: int, texture: int
     ) -> bool:
         """Sets the specified dlc prop component.
 
@@ -2556,7 +2223,6 @@ class Player(Entity):
                 player.set_dlc_prop(alt.hash("dlcname"), 0, 13, 0)
                 ```
         """
-
     def clear_prop(self, component: int) -> None:
         """Removes a specified prop component.
 
@@ -2568,7 +2234,6 @@ class Player(Entity):
                 player.clear_prop(0) # removes the player hat prop
                 ```
         """
-
     def is_entity_in_streaming_range(self, entity: Entity | int) -> bool:
         """Checks whether the given entity is in the stream range of the player.
 
@@ -2581,7 +2246,6 @@ class Player(Entity):
                     alt.log(player.is_entity_in_streaming_range(player.vehicle)) # This always logs True, because their own vehicle is always in stream range of the player
                 ```
         """
-
     @overload
     def spawn(self, pos: Vector3, delay: int = 0) -> None:
         """Spawns the player in the world.
@@ -2593,7 +2257,6 @@ class Player(Entity):
         Note:
                 The player has to have a model set before being spawned.
         """
-
     @overload
     def spawn(self, x: float, y: float, z: float, delay: int = 0) -> None:
         """Spawns the player in the world.
@@ -2607,10 +2270,7 @@ class Player(Entity):
         Note:
                 The player has to have a model set before being spawned.
         """
-
-    def despawn(self) -> None:
-        ...
-
+    def despawn(self) -> None: ...
     def get_local_meta(self, key: str) -> Any:
         """Gets a value using the specified key.
 
@@ -2620,10 +2280,7 @@ class Player(Entity):
         Returns:
                 Dynamic value associated with the specified key or undefined if no data is present.
         """
-
-    def has_local_meta(self, key: str) -> bool:
-        ...
-
+    def has_local_meta(self, key: str) -> bool: ...
     def set_local_meta(self, key: str, value: Any) -> None:
         """Stores the given value with the specified key.
 
@@ -2631,10 +2288,7 @@ class Player(Entity):
                 key: The key of the value to store.
                 value: The value to store.
         """
-
-    def delete_local_meta(self, key: str) -> None:
-        ...
-
+    def delete_local_meta(self, key: str) -> None: ...
 
 class Neon(TypedDict):
     left: bool
@@ -2642,24 +2296,20 @@ class Neon(TypedDict):
     front: bool
     back: bool
 
-
 class Vehicle(Entity):
     @overload
     def __init__(
-            self,
-            model: str | int,
-            x: float,
-            y: float,
-            z: float,
-            rx: float,
-            ry: float,
-            rz: float,
-    ) -> None:
-        ...
-
+        self,
+        model: str | int,
+        x: float,
+        y: float,
+        z: float,
+        rx: float,
+        ry: float,
+        rz: float,
+    ) -> None: ...
     @overload
-    def __init__(self, model: str | int, pos: Vector3, rot: Vector3) -> None:
-        ...
+    def __init__(self, model: str | int, pos: Vector3, rot: Vector3) -> None: ...
 
     # Properties
     all: Sequence[Vehicle]
@@ -2679,19 +2329,13 @@ class Vehicle(Entity):
     @property
     def modkit(self) -> int:
         """Gets or sets the current mod kit of a vehicle."""
-
     @modkit.setter
-    def modkit(self, id: int) -> None:
-        ...
-
+    def modkit(self, id: int) -> None: ...
     @property
     def primary_color(self) -> int:
         """Gets or sets the current primary color of a vehicle."""
-
     @primary_color.setter
-    def primary_color(self, color: int) -> None:
-        ...
-
+    def primary_color(self, color: int) -> None: ...
     @property
     def primary_color_rgb(self) -> RGBA:
         """Gets or sets the custom primary color as a RGBA type.
@@ -2703,19 +2347,13 @@ class Vehicle(Entity):
                 alt.log("Vehicle primary color RGB was set to red")
                 ```
         """
-
     @primary_color_rgb.setter
-    def primary_color_rgb(self, color: RGBA) -> None:
-        ...
-
+    def primary_color_rgb(self, color: RGBA) -> None: ...
     @property
     def secondary_color(self) -> int:
         """Gets or sets the current secondary color."""
-
     @secondary_color.setter
-    def secondary_color(self, color: int) -> None:
-        ...
-
+    def secondary_color(self, color: int) -> None: ...
     @property
     def secondary_color_rgb(self) -> RGBA:
         """Gets or sets the custom secondary color as a RGBA type.
@@ -2727,35 +2365,23 @@ class Vehicle(Entity):
                 alt.log("Vehicle secondary color RGB was set to red")
                 ```
         """
-
     @secondary_color_rgb.setter
-    def secondary_color_rgb(self, color: RGBA) -> None:
-        ...
-
+    def secondary_color_rgb(self, color: RGBA) -> None: ...
     @property
     def pearl_color(self) -> int:
         """Gets or sets the pearl color of a vehicle."""
-
     @pearl_color.setter
-    def pearl_color(self, color: int) -> None:
-        ...
-
+    def pearl_color(self, color: int) -> None: ...
     @property
     def wheel_color(self) -> int:
         """Gets or sets the wheel color."""
-
     @wheel_color.setter
-    def wheel_color(self, color: int) -> None:
-        ...
-
+    def wheel_color(self, color: int) -> None: ...
     @property
     def interior_color(self) -> int:
         """Gets or sets the interior color of a vehicle."""
-
     @interior_color.setter
-    def interior_color(self, color: int) -> None:
-        ...
-
+    def interior_color(self, color: int) -> None: ...
     @property
     def dashboard_color(self) -> int:
         """Gets or sets the dashboard color of the vehicle. Dash board colors range from 0 to 159.
@@ -2766,27 +2392,18 @@ class Vehicle(Entity):
                 vehicle.dashboard_color = 139
                 ```
         """
-
     @dashboard_color.setter
-    def dashboard_color(self, color: int) -> None:
-        ...
-
+    def dashboard_color(self, color: int) -> None: ...
     @property
     def tire_smoke_color(self) -> RGBA:
         """Gets or sets the color of the tire smoke."""
-
     @tire_smoke_color.setter
-    def tire_smoke_color(self, color: RGBA) -> None:
-        ...
-
+    def tire_smoke_color(self, color: RGBA) -> None: ...
     @property
     def custom_tires(self) -> bool:
         """Gets or sets if the vehicle instance has custom tires."""
-
     @custom_tires.setter
-    def custom_tires(self, state: bool) -> None:
-        ...
-
+    def custom_tires(self, state: bool) -> None: ...
     @property
     def darkness(self) -> int:
         """Applies some decoration effects to the vehicle (e.g.: It makes the hydra looking rusty or applies snow to the front bumper of policeold1). Does not work on every vehicle model.
@@ -2797,75 +2414,48 @@ class Vehicle(Entity):
                 vehicle.darkness = 500;
                 ```
         """
-
     @darkness.setter
-    def darkness(self, value: int) -> None:
-        ...
-
+    def darkness(self, value: int) -> None: ...
     @property
     def number_plate_index(self) -> NumberPlateStyle:
         """Gets or sets the current number plate style."""
-
     @number_plate_index.setter
-    def number_plate_index(self, index: NumberPlateStyle | int) -> None:
-        ...
-
+    def number_plate_index(self, index: NumberPlateStyle | int) -> None: ...
     @property
     def number_plate_text(self) -> str:
         """Gets or sets the current text displayed on the number plate."""
-
     @number_plate_text.setter
-    def number_plate_text(self, text: str) -> None:
-        ...
-
+    def number_plate_text(self, text: str) -> None: ...
     @property
     def window_tint(self) -> WindowTint:
         """Gets or sets the window tint of a vehicle."""
-
     @window_tint.setter
-    def window_tint(self, tint: WindowTint | int) -> None:
-        ...
-
+    def window_tint(self, tint: WindowTint | int) -> None: ...
     @property
     def dirt_level(self) -> int:
         """Gets or sets the dirt level of the vehicle."""
-
     @dirt_level.setter
-    def dirt_level(self, level: int) -> None:
-        ...
-
+    def dirt_level(self, level: int) -> None: ...
     @property
     def neon(self) -> Neon:
         """Enables or disables a neon light on a specific position."""
-
     @neon.setter
-    def neon(self, new_neon: Neon) -> None:
-        ...
-
+    def neon(self, new_neon: Neon) -> None: ...
     @property
     def neon_color(self) -> RGBA:
         """Gets or sets the color of the neon lights."""
-
     @neon_color.setter
-    def neon_color(self, color: RGBA) -> None:
-        ...
-
+    def neon_color(self, color: RGBA) -> None: ...
     @property
     def livery(self) -> int:
         """Gets or sets the livery of a vehicle."""
-
     @livery.setter
-    def livery(self, new_livery: int) -> None:
-        ...
-
+    def livery(self, new_livery: int) -> None: ...
     @property
     def roof_livery(self) -> int:
         """Gets or sets the roof livery of a vehicle."""
-
     @roof_livery.setter
-    def roof_livery(self, new_roof_livery: int) -> None:
-        ...
-
+    def roof_livery(self, new_roof_livery: int) -> None: ...
     @property
     def game_state_base64(self) -> str:
         """Gets or sets the game state data of a vehicle as a base64 string.
@@ -2876,11 +2466,8 @@ class Vehicle(Entity):
         Note:
                 Base64 methods are deprecated.
         """
-
     @game_state_base64.setter
-    def game_state_base64(self, base64: str) -> None:
-        ...
-
+    def game_state_base64(self, base64: str) -> None: ...
     @property
     def appearance_data_base64(self) -> str:
         """Gets or sets the appearance of a vehicle as a base64 string.
@@ -2891,11 +2478,8 @@ class Vehicle(Entity):
         Note:
                 Base64 methods are deprecated.
         """
-
     @appearance_data_base64.setter
-    def appearance_data_base64(self, base64: str) -> None:
-        ...
-
+    def appearance_data_base64(self, base64: str) -> None: ...
     @property
     def health_data_base64(self) -> str:
         """Gets or sets the health data of a vehicle as a base64 string.
@@ -2906,11 +2490,8 @@ class Vehicle(Entity):
         Note:
                 Base64 methods are deprecated.
         """
-
     @health_data_base64.setter
-    def health_data_base64(self, base64: str) -> None:
-        ...
-
+    def health_data_base64(self, base64: str) -> None: ...
     @property
     def damage_data_base64(self) -> str:
         """Gets or sets the damage status of a vehicle as a base64 string.
@@ -2921,11 +2502,8 @@ class Vehicle(Entity):
         Note:
                 Base64 methods are deprecated.
         """
-
     @damage_data_base64.setter
-    def damage_data_base64(self, base64: str) -> None:
-        ...
-
+    def damage_data_base64(self, base64: str) -> None: ...
     @property
     def script_data_base64(self) -> str:
         """Gets or sets the script data of a vehicle as a base64 string.
@@ -2936,11 +2514,8 @@ class Vehicle(Entity):
         Note:
                 Base64 methods are deprecated.
         """
-
     @script_data_base64.setter
-    def script_data_base64(self, base64: str) -> None:
-        ...
-
+    def script_data_base64(self, base64: str) -> None: ...
     @property
     def engine_on(self) -> bool:
         """Gets or sets the engine state of the vehicle. The functionality of the vehicle engine can be triggered on either client-side or server-side. If you want to trigger the engine on client-side use native.setVehicleEngineOn.
@@ -2951,19 +2526,13 @@ class Vehicle(Entity):
                 vehicle.engine_on = True;
                 ```
         """
-
     @engine_on.setter
-    def engine_on(self, state: bool) -> None:
-        ...
-
+    def engine_on(self, state: bool) -> None: ...
     @property
     def headlight_color(self) -> int:
         """Gets or sets the headlight color of a vehicle."""
-
     @headlight_color.setter
-    def headlight_color(self, color: int) -> None:
-        ...
-
+    def headlight_color(self, color: int) -> None: ...
     @property
     def active_radio_station(self) -> RadioStation:
         """Gets or sets the active radio station.
@@ -2978,43 +2547,28 @@ class Vehicle(Entity):
                 alt.log("Vehicle radio station was turned off.")
                 ```
         """
-
     @active_radio_station.setter
-    def active_radio_station(self, station: RadioStation | int) -> None:
-        ...
-
+    def active_radio_station(self, station: RadioStation | int) -> None: ...
     @property
     def siren_active(self) -> bool:
         """Gets or sets the siren state of a vehicle."""
-
     @siren_active.setter
-    def siren_active(self, state: bool) -> None:
-        ...
-
+    def siren_active(self, state: bool) -> None: ...
     @property
     def lock_state(self) -> VehicleLockState:
         """Gets or sets the lock state of a vehicle."""
-
     @lock_state.setter
-    def lock_state(self, state: VehicleLockState | int) -> None:
-        ...
-
+    def lock_state(self, state: VehicleLockState | int) -> None: ...
     @property
     def roof_state(self) -> int:
         """Gets or sets the roof state of a vehicle (closed or open)."""
-
     @roof_state.setter
-    def roof_state(self, state: int) -> None:
-        ...
-
+    def roof_state(self, state: int) -> None: ...
     @property
     def lights_multiplier(self) -> float:
         """Gets or sets the lights intensity and distance of a vehicle."""
-
     @lights_multiplier.setter
-    def lights_multiplier(self, multiplier: int) -> None:
-        ...
-
+    def lights_multiplier(self, multiplier: int) -> None: ...
     @property
     def engine_health(self) -> int:
         """
@@ -3045,83 +2599,53 @@ class Vehicle(Entity):
                     alt.log("Repaired Vehicle")
                 ```
         """
-
     @engine_health.setter
-    def engine_health(self, health: int) -> None:
-        ...
-
+    def engine_health(self, health: int) -> None: ...
     @property
     def petrol_tank_health(self) -> int:
         """Gets or sets the current health amount of the petrol tank."""
-
     @petrol_tank_health.setter
-    def petrol_tank_health(self, health: int) -> None:
-        ...
-
+    def petrol_tank_health(self, health: int) -> None: ...
     @property
     def body_health(self) -> int:
         """Gets or sets the body health."""
-
     @body_health.setter
-    def body_health(self, health: int) -> None:
-        ...
-
+    def body_health(self, health: int) -> None: ...
     @property
     def body_additional_health(self) -> int:
         """Gets or sets the additional body health."""
-
     @body_additional_health.setter
-    def body_additional_health(self, health: int) -> None:
-        ...
-
+    def body_additional_health(self, health: int) -> None: ...
     @property
     def manual_engine_control(self) -> bool:
         """Enables or disables the manual engine control."""
-
     @manual_engine_control.setter
-    def manual_engine_control(self, state: bool) -> None:
-        ...
-
+    def manual_engine_control(self, state: bool) -> None: ...
     @property
     def drift_mode_enabled(self) -> bool:
         """Gets or sets the drift mode state of the vehicle."""
-
     @drift_mode_enabled.setter
-    def drift_mode_enabled(self, state: bool) -> None:
-        ...
-
+    def drift_mode_enabled(self, state: bool) -> None: ...
     @property
     def is_mission_train(self) -> bool:
         """Gets or sets if the created train is a mission train."""
-
     @is_mission_train.setter
-    def is_mission_train(self, state: bool) -> None:
-        ...
-
+    def is_mission_train(self, state: bool) -> None: ...
     @property
     def is_train_engine(self) -> bool:
         """Gets or sets if the train is the engine of the train."""
-
     @is_train_engine.setter
-    def is_train_engine(self, is_engine: bool) -> None:
-        ...
-
+    def is_train_engine(self, is_engine: bool) -> None: ...
     @property
     def train_track_id(self) -> int:
         """Gets or sets the track id of the train."""
-
     @train_track_id.setter
-    def train_track_id(self, track_id: int) -> None:
-        ...
-
+    def train_track_id(self, track_id: int) -> None: ...
     @property
     def train_engine_id(self) -> Vehicle | None:
         """Gets or sets the engine of the train."""
-
     @train_engine_id.setter
-    def train_engine_id(self, vehicle: Vehicle | None) -> None:
-        ...
-
+    def train_engine_id(self, vehicle: Vehicle | None) -> None: ...
     @property
     def train_config_index(self) -> int:
         """Gets or sets the trains config index.
@@ -3129,123 +2653,75 @@ class Vehicle(Entity):
         Note:
                 You can find a list of all possible config indices in the trains.xml. Valid indices are between 1 and 25.
         """
-
     @train_config_index.setter
-    def train_config_index(self, config_index: int) -> None:
-        ...
-
+    def train_config_index(self, config_index: int) -> None: ...
     @property
     def train_distance_from_engine(self) -> float:
         """Gets or sets the distance of the trains to the engine."""
-
     @train_distance_from_engine.setter
-    def train_distance_from_engine(self, distance_from_engine: float) -> None:
-        ...
-
+    def train_distance_from_engine(self, distance_from_engine: float) -> None: ...
     @property
     def is_train_caboose(self) -> bool:
         """Gets or sets if the train is a caboose."""
-
     @is_train_caboose.setter
-    def is_train_caboose(self, is_caboose: bool) -> None:
-        ...
-
+    def is_train_caboose(self, is_caboose: bool) -> None: ...
     @property
     def train_direction(self) -> bool:
         """Gets or sets the direction of the train."""
-
     @train_direction.setter
-    def train_direction(self, direction: bool) -> None:
-        ...
-
+    def train_direction(self, direction: bool) -> None: ...
     @property
     def train_passenger_carriages(self) -> bool:
         """Gets or sets if the train is a passenger carriage."""
-
     @train_passenger_carriages.setter
-    def train_passenger_carriages(self, has_passenger_carriages: bool) -> None:
-        ...
-
+    def train_passenger_carriages(self, has_passenger_carriages: bool) -> None: ...
     @property
     def train_render_derailed(self) -> bool:
         """Gets or sets if the trains is rendered derailed."""
-
     @train_render_derailed.setter
-    def train_render_derailed(self, render_derailed: bool) -> None:
-        ...
-
+    def train_render_derailed(self, render_derailed: bool) -> None: ...
     @property
     def train_force_doors_open(self) -> bool:
         """Gets or sets if the doors of the trains should be forced open."""
-
     @train_force_doors_open.setter
-    def train_force_doors_open(self, force_doors_open: bool) -> None:
-        ...
-
+    def train_force_doors_open(self, force_doors_open: bool) -> None: ...
     @property
     def train_cruise_speed(self) -> float:
         """Gets or sets the cruise speed of the train."""
-
     @train_cruise_speed.setter
-    def train_cruise_speed(self, cruise_speed: float) -> None:
-        ...
-
+    def train_cruise_speed(self, cruise_speed: float) -> None: ...
     @property
     def train_carriage_config_index(self) -> int:
         """Gets or sets the config index of the train's carriage."""
-
     @train_carriage_config_index.setter
-    def train_carriage_config_index(self, carriage_config_index: int) -> None:
-        ...
-
+    def train_carriage_config_index(self, carriage_config_index: int) -> None: ...
     @property
     def train_linked_to_backward_id(self) -> Vehicle | None:
         """Gets or sets another train that is linked to the back of the train. Returns null if there is no linked train."""
-
     @train_linked_to_backward_id.setter
-    def train_linked_to_backward_id(self, vehicle: Vehicle) -> None:
-        ...
-
+    def train_linked_to_backward_id(self, vehicle: Vehicle) -> None: ...
     @property
     def train_linked_to_forward_id(self) -> Vehicle | None:
         """Gets or sets another train that is linked to the back of the train. Returns null if there is no linked train in front."""
-
     @train_linked_to_forward_id.setter
-    def train_linked_to_forward_id(self, vehicle: Vehicle) -> None:
-        ...
-
+    def train_linked_to_forward_id(self, vehicle: Vehicle) -> None: ...
     @property
-    def train_unk1(self) -> bool:
-        ...
-
+    def train_unk1(self) -> bool: ...
     @train_unk1.setter
-    def train_unk1(self, unk1: bool) -> None:
-        ...
-
+    def train_unk1(self, unk1: bool) -> None: ...
     @property
-    def train_unk2(self) -> bool:
-        ...
-
+    def train_unk2(self) -> bool: ...
     @train_unk2.setter
-    def train_unk2(self, unk2: bool) -> None:
-        ...
-
+    def train_unk2(self, unk2: bool) -> None: ...
     @property
-    def train_unk3(self) -> bool:
-        ...
-
+    def train_unk3(self) -> bool: ...
     @train_unk3.setter
-    def train_unk3(self, unk3: bool) -> None:
-        ...
-
+    def train_unk3(self, unk3: bool) -> None: ...
     @property
     def boat_anchor_active(self) -> bool:
         """Gets or sets the status of the boat anchor."""
-
     @boat_anchor_active.setter
-    def boat_anchor_active(self, state: bool) -> None:
-        ...
-
+    def boat_anchor_active(self, state: bool) -> None: ...
     @property
     def driver(self) -> Player | None:
         """Gets the current driver of the vehicle. It returns null, if there is no driver.
@@ -3258,7 +2734,6 @@ class Vehicle(Entity):
                     alt.log(f"There is currently a player driving this car {driver.name}")
                 ```
         """
-
     @property
     def destroyed(self) -> bool:
         """Gets if a vehicle is destroyed. Destroyed is set to True when specific game activities cause the engine to stop. Explosions, being underwater, crashing too much, etc.
@@ -3270,43 +2745,29 @@ class Vehicle(Entity):
                     alt.log("The elegy has been destroyed.")
                 ```
         """
-
     @property
     def modkits_count(self) -> int:
         """Gets the maximum amount of vehicle mod kits available."""
-
     @property
-    def is_primary_color_rgb(self) -> bool:
-        ...
-
+    def is_primary_color_rgb(self) -> bool: ...
     @property
-    def is_secondary_color_rgb(self) -> bool:
-        ...
-
+    def is_secondary_color_rgb(self) -> bool: ...
     @property
-    def is_tire_smoke_color_custom(self) -> bool:
-        ...
-
+    def is_tire_smoke_color_custom(self) -> bool: ...
     @property
     def wheel_type(self) -> int:
         """Gets the wheel type."""
-
     @property
     def front_wheels(self) -> int:
         """Gets the type of the front wheels."""
-
     @property
     def rear_wheels(self) -> int:
         """Gets the type of the rear wheels."""
-
     @property
-    def neon_active(self) -> bool:
-        ...
-
+    def neon_active(self) -> bool: ...
     @property
     def handbrake_active(self) -> bool:
         """Gets if the handbrake of a car is active."""
-
     @property
     def daylight_on(self) -> bool:
         """Gets the current state of the daylights.
@@ -3320,39 +2781,30 @@ class Vehicle(Entity):
                     alt.log("Vehicle daylights are off")
                 ```
         """
-
     @property
     def nightlight_on(self) -> bool:
         """Gets the current state of the nightlights."""
-
     @property
     def flamethrower_active(self) -> bool:
         """Gets if a flamethrower of a vehicle is active on vehicle models like `cerberus`."""
-
     @property
     def wheels_count(self) -> int:
         """Gets the amount of wheels of a vehicle."""
-
     @property
     def repairs_count(self) -> int:
         """Gets how often a vehicle got repaired."""
-
     @property
     def has_armored_windows(self) -> bool:
         """Gets if the car has armored windows."""
-
     @property
     def velocity(self) -> Vector3:
         """Gets the velocity vector of a vehicle."""
-
     @property
     def attached(self) -> Vehicle | None:
         """Gets a vehicle that is attached to the vehicle instance."""
-
     @property
     def attached_to(self) -> Vehicle | None:
         """Gets a vehicle where the vehicle is attached to."""
-
     # Methods
     @staticmethod
     def get_by_id(id: int) -> Vehicle | None:
@@ -3364,7 +2816,6 @@ class Vehicle(Entity):
         Returns:
                 Vehicle if it was found, otherwise None.
         """
-
     def get_mod(self, mod_type: VehicleModType | int) -> int:
         """Returns the mod value for a specific mod type.
 
@@ -3374,7 +2825,6 @@ class Vehicle(Entity):
         Returns:
                 The value of the mod type.
         """
-
     def set_mod(self, mod_type: VehicleModType | int, mod_id: int) -> bool:
         """Applies a specific mod of a given mod type.
 
@@ -3382,7 +2832,6 @@ class Vehicle(Entity):
                 mod_type: The type of the mod.
                 mod_id: The id of the mod.
         """
-
     def get_mods_count(self, mod_type: VehicleModType | int) -> int:
         """Returns the amount of possible mod values for a specific mod type.
 
@@ -3392,7 +2841,6 @@ class Vehicle(Entity):
         Returns:
                 The amount of possible mod values of a mod type.
         """
-
     def get_extra(self, extra_id: int) -> bool:
         """Returns the state of a specific extra of a vehicle.
 
@@ -3405,7 +2853,6 @@ class Vehicle(Entity):
         Note:
                 Extras are not available on every vehicle model.
         """
-
     def set_extra(self, extra_id: int, state: bool) -> None:
         """Sets the state of an extra of a vehicle.
 
@@ -3416,7 +2863,6 @@ class Vehicle(Entity):
         Note:
                 Setting extras on vehicle does not work for every vehicle model. For example you can change the light bar of a police car with this method.
         """
-
     def get_door_state(self, door_id: int) -> VehicleDoorState:
         """Returns the state of a specific door.
 
@@ -3426,7 +2872,6 @@ class Vehicle(Entity):
         Returns:
                 The state of the door.
         """
-
     def set_door_state(self, door_id: int, state: VehicleDoorState | int) -> None:
         """Sets the state of a specific door
 
@@ -3434,7 +2879,6 @@ class Vehicle(Entity):
                 door_id: The id of the door.
                 state: The state of the door.
         """
-
     def is_window_opened(self, window_id: int) -> bool:
         """Returns if a specific window is open.
 
@@ -3444,7 +2888,6 @@ class Vehicle(Entity):
         Returns:
                 True if the window is opened, otherwise False.
         """
-
     def set_window_opened(self, window_id: int, state: bool) -> None:
         """Sets if a specific window is open.
 
@@ -3452,7 +2895,6 @@ class Vehicle(Entity):
                 window_id: The id of the window.
                 state: True to open the window, otherwise False.
         """
-
     def is_wheel_burst(self, wheel_id: int) -> bool:
         """Returns if a specific wheel is burst.
 
@@ -3462,7 +2904,6 @@ class Vehicle(Entity):
         Returns:
                 True if the wheel is burst, otherwise False.
         """
-
     def does_wheel_has_tire(self, wheel_id: int) -> bool:
         """Returns if a specific wheel has a tire.
 
@@ -3472,7 +2913,6 @@ class Vehicle(Entity):
         Returns:
                 True when the wheel has a tire, otherwise False.
         """
-
     def is_wheel_detached(self, wheel_id: int) -> bool:
         """Returns if a specific wheel is detached.
 
@@ -3482,7 +2922,6 @@ class Vehicle(Entity):
         Returns:
                 True if the wheel is detached, otherwise False.
         """
-
     def is_wheel_on_fire(self, wheel_id: int) -> bool:
         """Returns if a specific wheel is on fire.
 
@@ -3492,7 +2931,6 @@ class Vehicle(Entity):
         Returns:
                 True if the wheel is on fire, otherwise False.
         """
-
     def get_wheel_health(self, wheel_id: int) -> float:
         """Returns the health of a specific wheel.
 
@@ -3502,7 +2940,6 @@ class Vehicle(Entity):
         Returns:
                 The amount of health of a specific wheel.
         """
-
     def get_part_damage_level(self, part_id: VehiclePart | int) -> VehiclePartDamage:
         """Returns the damage level of a vehicle part.
 
@@ -3512,7 +2949,6 @@ class Vehicle(Entity):
         Returns:
                 The damage level of a vehicle part.
         """
-
     def get_part_bullet_holes(self, part_id: VehiclePart | int) -> int:
         """Returns the amount of bullet holes of a vehicle part.
 
@@ -3522,7 +2958,6 @@ class Vehicle(Entity):
         Returns:
                 The amount of bullet holes of a vehicle part.
         """
-
     def is_light_damaged(self, light_id: int) -> bool:
         """Returns if a specific light is damaged.
 
@@ -3532,7 +2967,6 @@ class Vehicle(Entity):
         Returns:
                 True if the light is damaged, otherwise False.
         """
-
     def is_window_damaged(self, window_id: int) -> bool:
         """Returns if a specific window is damaged.
 
@@ -3542,7 +2976,6 @@ class Vehicle(Entity):
         Returns:
                 True if the window is damaged, otherwise False.
         """
-
     def is_special_light_damaged(self, special_light_id: int) -> bool:
         """Returns if a specific special light is damaged.
 
@@ -3552,7 +2985,6 @@ class Vehicle(Entity):
         Returns:
                 True if the special light is damaged, otherwise False.
         """
-
     def get_armored_window_health(self, window_id: int) -> float:
         """Returns the health of a specific armored window.
 
@@ -3562,7 +2994,6 @@ class Vehicle(Entity):
         Returns:
                 The amount of health.
         """
-
     def get_armored_window_shoot_count(self, window_id: int) -> int:
         """Returns the amount of shoots that a specific armoured window received.
 
@@ -3572,9 +3003,8 @@ class Vehicle(Entity):
         Returns:
                 The amount of shoots that a window received.
         """
-
     def get_bumper_damage_level(
-            self, bumper_id: VehicleBumper | int
+        self, bumper_id: VehicleBumper | int
     ) -> VehicleBumperDamage:
         """Returns the damage level of a specific bumper.
 
@@ -3584,10 +3014,8 @@ class Vehicle(Entity):
         Returns:
                 The damage level of a bumper.
         """
-
     def repair(self) -> None:
         """Repairs the vehicle."""
-
     def set_wheels(self, wheel_type: int, wheel_id: int) -> None:
         """Applies a wheel style based on the type and variation.
 
@@ -3595,14 +3023,12 @@ class Vehicle(Entity):
                 wheel_type: The type of the wheel.
                 wheel_id: The variation id of the wheel.
         """
-
     def set_rear_wheels(self, wheel_id: int) -> None:
         """Sets type of the rear wheels.
 
         Args:
                 wheel_id: The id of the rear wheel type.
         """
-
     def set_wheel_burst(self, wheel_id: int, state: bool) -> None:
         """Sets if a specific wheel is burst.
 
@@ -3610,7 +3036,6 @@ class Vehicle(Entity):
                 wheel_id: The id of the wheel.
                 state: True to burst the wheel, otherwise False.
         """
-
     def set_wheel_has_tire(self, wheel_id: int, state: bool) -> None:
         """Sets if a specific wheel has a tire.
 
@@ -3618,7 +3043,6 @@ class Vehicle(Entity):
                 wheel_id: The id of the wheel.
                 state: True to apply a tire to a wheel, otherwise False.
         """
-
     def set_wheel_health(self, wheel_id: int, health: int) -> None:
         """Sets the health of a specific wheel.
 
@@ -3626,7 +3050,6 @@ class Vehicle(Entity):
                 wheel_id: The id of the wheel.
                 health: The health of the wheel.
         """
-
     def set_wheel_detached(self, wheel_id: int, state: bool) -> None:
         """Sets a wheel either detached or attached.
 
@@ -3634,7 +3057,6 @@ class Vehicle(Entity):
                 wheel_id: The id of the wheel.
                 state: True to detach the wheel, otherwise False.
         """
-
     def set_wheel_on_fire(self, wheel_id: int, state: bool) -> None:
         """Sets a wheel either on fire or not.
 
@@ -3642,16 +3064,14 @@ class Vehicle(Entity):
                 wheel_id: The id of the wheel.
                 state: True to set the wheel on fire, otherwise False.
         """
-
     def set_wheel_fixed(self, wheel_id: int) -> None:
         """Repairs a specific wheel.
 
         Args:
                 wheel_id: The id of the wheel.
         """
-
     def set_part_damage_level(
-            self, part_id: VehiclePart | int, damage: VehiclePartDamage | int
+        self, part_id: VehiclePart | int, damage: VehiclePartDamage | int
     ) -> None:
         """Sets the damage level of a vehicle part.
 
@@ -3659,7 +3079,6 @@ class Vehicle(Entity):
                 part_id: The id of the part.
                 damage: The damage level.
         """
-
     def set_part_bullet_holes(self, part_id: VehiclePart | int, count: int) -> None:
         """Applies bullet holes to a specific vehicle part.
 
@@ -3667,7 +3086,6 @@ class Vehicle(Entity):
                 part_id: The id of the part.
                 count: The amount of bullet holes.
         """
-
     def set_light_damaged(self, light_id: int, is_damaged: bool) -> None:
         """Sets a specific light of the vehicle either damaged or not.
 
@@ -3675,7 +3093,6 @@ class Vehicle(Entity):
                 light_id: The id of the light.
                 is_damaged: True to damage the specific light, otherwise False.
         """
-
     def set_window_damaged(self, window_id: int, is_damaged: bool) -> None:
         """Sets if a specific window is damaged.
 
@@ -3683,9 +3100,8 @@ class Vehicle(Entity):
                 window_id: The id of the window.
                 is_damaged: True to damage the specific window, otherwise False.
         """
-
     def set_special_light_damaged(
-            self, special_light_id: int, is_damaged: bool
+        self, special_light_id: int, is_damaged: bool
     ) -> None:
         """Sets if a special light is damaged.
 
@@ -3693,7 +3109,6 @@ class Vehicle(Entity):
                 special_light_id: The id of the special light.
                 is_damaged: True to damage the specific special light, otherwise False.
         """
-
     def set_armored_window_health(self, window_id: int, health: float) -> None:
         """Sets the health of a specific armored window.
 
@@ -3701,7 +3116,6 @@ class Vehicle(Entity):
                 window_id: The id of the window.
                 health: The amount of health.
         """
-
     def set_armored_window_shoot_count(self, window_id: int, count: int) -> None:
         """Sets the shoot count of a specific armoured window.
 
@@ -3709,9 +3123,8 @@ class Vehicle(Entity):
                 window_id: The id of the window.
                 count: The amount of shoots.
         """
-
     def set_bumper_damage_level(
-            self, bumper_id: VehicleBumper | int, level: VehicleBumperDamage | int
+        self, bumper_id: VehicleBumper | int, level: VehicleBumperDamage | int
     ) -> None:
         """Sets the damage level of a specific bumper.
 
@@ -3719,14 +3132,12 @@ class Vehicle(Entity):
                 bumper_id: The id of the bumper.
                 level: The damage level.
         """
-
     def set_search_light_to(self, entity: Entity, state: bool) -> None:
         """Activates the searchlight and follows the target.
 
         Note:
                 Entity parameter isn't working for now and this can only be used for helicopter searchlights.
         """
-
 
 class VoiceChannel(BaseObject):
     # Constructor
@@ -3740,42 +3151,21 @@ class VoiceChannel(BaseObject):
         Note:
                 This throws an error when the voice chat is not activated on serverside.
         """
-
     # Properties
     @property
-    def player_count(self) -> int:
-        ...
-
+    def player_count(self) -> int: ...
     @property
-    def players(self) -> List[Player]:
-        ...
-
+    def players(self) -> List[Player]: ...
     @property
-    def max_distance(self) -> float:
-        ...
-
+    def max_distance(self) -> float: ...
     @property
-    def spatial(self) -> bool:
-        ...
-
-    def add_player(self, player: Player) -> None:
-        ...
-
-    def has_player(self, player: Player) -> bool:
-        ...
-
-    def is_player_muted(self, player: Player) -> bool:
-        ...
-
-    def mute_player(self, player: Player) -> None:
-        ...
-
-    def remove_player(self, player: Player) -> None:
-        ...
-
-    def unmute_player(self, player: Player) -> None:
-        ...
-
+    def spatial(self) -> bool: ...
+    def add_player(self, player: Player) -> None: ...
+    def has_player(self, player: Player) -> bool: ...
+    def is_player_muted(self, player: Player) -> bool: ...
+    def mute_player(self, player: Player) -> None: ...
+    def remove_player(self, player: Player) -> None: ...
+    def unmute_player(self, player: Player) -> None: ...
 
 class Blip(WorldObject):
     all: Sequence[Blip]
@@ -3793,596 +3183,332 @@ class Blip(WorldObject):
 	"""
 
     @property
-    def alpha(self) -> int:
-        ...
-
+    def alpha(self) -> int: ...
     @alpha.setter
-    def alpha(self, new_alpha: int) -> None:
-        ...
-
+    def alpha(self, new_alpha: int) -> None: ...
     @property
-    def as_mission_creator(self) -> bool:
-        ...
-
+    def as_mission_creator(self) -> bool: ...
     @as_mission_creator.setter
-    def as_mission_creator(self, val: bool) -> None:
-        ...
-
+    def as_mission_creator(self, val: bool) -> None: ...
     @property
-    def attached_to(self) -> Entity:
-        ...
-
+    def attached_to(self) -> Entity: ...
     @attached_to.setter
-    def attached_to(self, entity: Entity) -> None:
-        ...
-
+    def attached_to(self, entity: Entity) -> None: ...
     @property
-    def bright(self) -> bool:
-        ...
-
+    def bright(self) -> bool: ...
     @bright.setter
-    def bright(self, new_bright: bool) -> None:
-        ...
-
+    def bright(self, new_bright: bool) -> None: ...
     @property
-    def category(self) -> int:
-        ...
-
+    def category(self) -> int: ...
     @category.setter
-    def category(self, val: int) -> None:
-        ...
-
+    def category(self, val: int) -> None: ...
     @property
-    def color(self) -> BlipColor:
-        ...
-
+    def color(self) -> BlipColor: ...
     @color.setter
-    def color(self, new_color: BlipColor | int) -> None:
-        ...
-
+    def color(self, new_color: BlipColor | int) -> None: ...
     @property
-    def crew_indicator_visible(self) -> bool:
-        ...
-
+    def crew_indicator_visible(self) -> bool: ...
     @crew_indicator_visible.setter
-    def crew_indicator_visible(self, val: bool) -> None:
-        ...
-
+    def crew_indicator_visible(self, val: bool) -> None: ...
     @property
-    def display(self) -> int:
-        ...
-
+    def display(self) -> int: ...
     @display.setter
-    def display(self, new_display: int) -> None:
-        ...
-
+    def display(self, new_display: int) -> None: ...
     @property
-    def flash_interval(self) -> int:
-        ...
-
+    def flash_interval(self) -> int: ...
     @flash_interval.setter
-    def flash_interval(self, interval: int) -> None:
-        ...
-
+    def flash_interval(self, interval: int) -> None: ...
     @property
-    def flash_timer(self) -> int:
-        ...
-
+    def flash_timer(self) -> int: ...
     @flash_timer.setter
-    def flash_timer(self, timer: int) -> None:
-        ...
-
+    def flash_timer(self, timer: int) -> None: ...
     @property
-    def flashes(self) -> bool:
-        ...
-
+    def flashes(self) -> bool: ...
     @flashes.setter
-    def flashes(self, state: bool) -> None:
-        ...
-
+    def flashes(self, state: bool) -> None: ...
     @property
-    def flashes_alternate(self) -> bool:
-        ...
-
+    def flashes_alternate(self) -> bool: ...
     @flashes_alternate.setter
-    def flashes_alternate(self, state: bool) -> None:
-        ...
-
+    def flashes_alternate(self, state: bool) -> None: ...
     @property
-    def friend_indicator_visible(self) -> bool:
-        ...
-
+    def friend_indicator_visible(self) -> bool: ...
     @friend_indicator_visible.setter
-    def friend_indicator_visible(self, state: bool) -> None:
-        ...
-
+    def friend_indicator_visible(self, state: bool) -> None: ...
     @property
-    def gxt_name(self) -> str:
-        ...
-
+    def gxt_name(self) -> str: ...
     @gxt_name.setter
-    def gxt_name(self, name: str) -> None:
-        ...
-
+    def gxt_name(self, name: str) -> None: ...
     @property
-    def heading(self) -> float:
-        ...
-
+    def heading(self) -> float: ...
     @heading.setter
-    def heading(self, rot: float) -> None:
-        ...
-
+    def heading(self, rot: float) -> None: ...
     @property
-    def heading_indicator_visible(self) -> bool:
-        ...
-
+    def heading_indicator_visible(self) -> bool: ...
     @heading_indicator_visible.setter
-    def heading_indicator_visible(self, state: bool) -> None:
-        ...
-
+    def heading_indicator_visible(self, state: bool) -> None: ...
     @property
-    def high_detail(self) -> bool:
-        ...
-
+    def high_detail(self) -> bool: ...
     @high_detail.setter
-    def high_detail(self, state: bool) -> None:
-        ...
-
+    def high_detail(self, state: bool) -> None: ...
     @property
-    def name(self) -> str:
-        ...
-
+    def name(self) -> str: ...
     @name.setter
-    def name(self, new_name: str) -> None:
-        ...
-
+    def name(self, new_name: str) -> None: ...
     @property
-    def number(self) -> int:
-        ...
-
+    def number(self) -> int: ...
     @number.setter
-    def number(self, new_number: int) -> None:
-        ...
-
+    def number(self, new_number: int) -> None: ...
     @property
-    def outline_indicator_visible(self) -> bool:
-        ...
-
+    def outline_indicator_visible(self) -> bool: ...
     @outline_indicator_visible.setter
-    def outline_indicator_visible(self, state: bool) -> None:
-        ...
-
+    def outline_indicator_visible(self, state: bool) -> None: ...
     @property
-    def priority(self) -> int:
-        ...
-
+    def priority(self) -> int: ...
     @priority.setter
-    def priority(self, state: int) -> None:
-        ...
-
+    def priority(self, state: int) -> None: ...
     @property
-    def pulse(self) -> bool:
-        ...
-
+    def pulse(self) -> bool: ...
     @pulse.setter
-    def pulse(self, state: bool) -> None:
-        ...
-
+    def pulse(self, state: bool) -> None: ...
     @property
-    def route(self) -> bool:
-        ...
-
+    def route(self) -> bool: ...
     @route.setter
-    def route(self, state: bool) -> None:
-        ...
-
+    def route(self, state: bool) -> None: ...
     @property
-    def route_color(self) -> RGBA:
-        ...
-
+    def route_color(self) -> RGBA: ...
     @route_color.setter
-    def route_color(self, state: RGBA) -> None:
-        ...
-
+    def route_color(self, state: RGBA) -> None: ...
     @property
-    def scale(self) -> float:
-        ...
-
+    def scale(self) -> float: ...
     @scale.setter
-    def scale(self, new_scale: float) -> None:
-        ...
-
+    def scale(self, new_scale: float) -> None: ...
     @property
-    def secondary_color(self) -> RGBA:
-        ...
-
+    def secondary_color(self) -> RGBA: ...
     @secondary_color.setter
-    def secondary_color(self, new_scale: RGBA) -> None:
-        ...
-
+    def secondary_color(self, new_scale: RGBA) -> None: ...
     @property
-    def short_range(self) -> bool:
-        ...
-
+    def short_range(self) -> bool: ...
     @short_range.setter
-    def short_range(self, state: bool) -> None:
-        ...
-
+    def short_range(self, state: bool) -> None: ...
     @property
-    def show_cone(self) -> bool:
-        ...
-
+    def show_cone(self) -> bool: ...
     @show_cone.setter
-    def show_cone(self, state: bool) -> None:
-        ...
-
+    def show_cone(self, state: bool) -> None: ...
     @property
-    def shrinked(self) -> bool:
-        ...
-
+    def shrinked(self) -> bool: ...
     @shrinked.setter
-    def shrinked(self, state: bool) -> None:
-        ...
-
+    def shrinked(self, state: bool) -> None: ...
     @property
     def size(self) -> Vector2:
         """
         Note:
                 Doesn't properly work for areablips currently.
         """
-
     @size.setter
-    def size(self, new_size: Vector2) -> None:
-        ...
-
+    def size(self, new_size: Vector2) -> None: ...
     @property
-    def sprite(self) -> BlipSprite:
-        ...
-
+    def sprite(self) -> BlipSprite: ...
     @sprite.setter
-    def sprite(self, new_sprite: BlipSprite) -> None:
-        ...
-
+    def sprite(self, new_sprite: BlipSprite) -> None: ...
     @property
-    def tick_visible(self) -> bool:
-        ...
-
+    def tick_visible(self) -> bool: ...
     @tick_visible.setter
-    def tick_visible(self, state: bool) -> None:
-        ...
-
+    def tick_visible(self, state: bool) -> None: ...
     @staticmethod
     @overload
-    def area(x: float, y: float, z: float, width: float, height: float) -> Blip:
-        ...
-
+    def area(x: float, y: float, z: float, width: float, height: float) -> Blip: ...
     @staticmethod
     @overload
-    def area(pos: Vector3, width: float, height: float) -> Blip:
-        ...
-
+    def area(pos: Vector3, width: float, height: float) -> Blip: ...
     @staticmethod
     @overload
-    def point(x: float, y: float, z: float) -> Blip:
-        ...
-
+    def point(x: float, y: float, z: float) -> Blip: ...
     @staticmethod
     @overload
-    def point(pos: Vector3) -> Blip:
-        ...
-
+    def point(pos: Vector3) -> Blip: ...
     @staticmethod
     @overload
-    def point(entity: Entity) -> Blip:
-        ...
-
+    def point(entity: Entity) -> Blip: ...
     @staticmethod
     @overload
-    def radius(x: float, y: float, z: float, radius: float) -> Blip:
-        ...
-
+    def radius(x: float, y: float, z: float, radius: float) -> Blip: ...
     @staticmethod
     @overload
-    def radius(pos: Vector3, radius: float) -> Blip:
-        ...
-
-    def fade(self, opacity: int, duration: int) -> None:
-        ...
-
+    def radius(pos: Vector3, radius: float) -> Blip: ...
+    def fade(self, opacity: int, duration: int) -> None: ...
 
 class ColShape(WorldObject):
     @staticmethod
     @overload
-    def circle(x: float, y: float, radius: float) -> ColShape:
-        ...
-
+    def circle(x: float, y: float, radius: float) -> ColShape: ...
     @staticmethod
     @overload
-    def circle(pos: Vector2, radius: float) -> ColShape:
-        ...
-
+    def circle(pos: Vector2, radius: float) -> ColShape: ...
     @staticmethod
     @overload
     def cylinder(
-            x: float, y: float, z: float, radius: float, height: float
-    ) -> ColShape:
-        ...
-
+        x: float, y: float, z: float, radius: float, height: float
+    ) -> ColShape: ...
     @staticmethod
     @overload
-    def cylinder(pos: Vector3, radius: float, height: float) -> ColShape:
-        ...
-
+    def cylinder(pos: Vector3, radius: float, height: float) -> ColShape: ...
     @staticmethod
     @overload
-    def sphere(x: float, y: float, z: float, radius: float) -> ColShape:
-        ...
-
+    def sphere(x: float, y: float, z: float, radius: float) -> ColShape: ...
     @staticmethod
     @overload
-    def sphere(pos: Vector3, radius: float) -> ColShape:
-        ...
-
+    def sphere(pos: Vector3, radius: float) -> ColShape: ...
     @staticmethod
     @overload
     def cube(
-            x1: float, y1: float, z1: float, x2: float, y2: float, z2: float
-    ) -> ColShape:
-        ...
-
+        x1: float, y1: float, z1: float, x2: float, y2: float, z2: float
+    ) -> ColShape: ...
     @staticmethod
     @overload
-    def cube(pos1: Vector3, pos2: Vector3) -> ColShape:
-        ...
-
+    def cube(pos1: Vector3, pos2: Vector3) -> ColShape: ...
     @staticmethod
     @overload
-    def rectangle(x1: float, y1: float, x2: float, y2: float) -> ColShape:
-        ...
-
+    def rectangle(x1: float, y1: float, x2: float, y2: float) -> ColShape: ...
     @staticmethod
     @overload
-    def rectangle(pos1: Vector3, pos2: Vector3) -> ColShape:
-        ...
-
+    def rectangle(pos1: Vector3, pos2: Vector3) -> ColShape: ...
     @staticmethod
-    def polygon(min_z: float, max_z: float, points: List[Vector2]) -> ColShape:
-        ...
-
+    def polygon(min_z: float, max_z: float, points: List[Vector2]) -> ColShape: ...
     @property
-    def colshape_type(self) -> ColShapeType:
-        ...
-
+    def colshape_type(self) -> ColShapeType: ...
     @property
     def players_only(self) -> bool:
         """Whether this colshape should only trigger its enter/leave events for players or all entities."""
-
     @players_only.setter
-    def players_only(self, state: bool) -> None:
-        ...
-
-    def is_entity_in(self, entity: Entity) -> bool:
-        ...
-
-    def is_point_in(self, pos: Vector3) -> bool:
-        ...
-
+    def players_only(self, state: bool) -> None: ...
+    def is_entity_in(self, entity: Entity) -> bool: ...
+    def is_point_in(self, pos: Vector3) -> bool: ...
 
 class Checkpoint(ColShape):
     @overload
     def __init__(
-            self,
-            type: int | CheckpointType,
-            x: float,
-            y: float,
-            z: float,
-            radius: float,
-            height: float,
-            r: int,
-            g: int,
-            b: int,
-            a: int,
-    ) -> None:
-        ...
-
+        self,
+        type: int | CheckpointType,
+        x: float,
+        y: float,
+        z: float,
+        radius: float,
+        height: float,
+        r: int,
+        g: int,
+        b: int,
+        a: int,
+    ) -> None: ...
     @overload
     def __init__(
-            self,
-            type: int | CheckpointType,
-            pos: Vector3,
-            radius: float,
-            height: float,
-            color: RGBA,
-    ) -> None:
-        ...
-
+        self,
+        type: int | CheckpointType,
+        pos: Vector3,
+        radius: float,
+        height: float,
+        color: RGBA,
+    ) -> None: ...
     @property
-    def checkpoint_type(self) -> CheckpointType:
-        ...
-
+    def checkpoint_type(self) -> CheckpointType: ...
     @property
-    def height(self) -> float:
-        ...
-
+    def height(self) -> float: ...
     @property
-    def radius(self) -> float:
-        ...
-
+    def radius(self) -> float: ...
     @property
-    def color(self) -> RGBA:
-        ...
-
+    def color(self) -> RGBA: ...
 
 class ConnectionInfo:
     @property
-    def name(self) -> str:
-        ...
-
+    def name(self) -> str: ...
     @property
-    def social_id(self) -> int:
-        ...
-
+    def social_id(self) -> int: ...
     @property
-    def hwid_hash(self) -> int:
-        ...
-
+    def hwid_hash(self) -> int: ...
     @property
-    def hwid_ex_hash(self) -> int:
-        ...
-
+    def hwid_ex_hash(self) -> int: ...
     @property
-    def auth_token(self) -> str:
-        ...
-
+    def auth_token(self) -> str: ...
     @property
-    def is_debug(self) -> bool:
-        ...
-
+    def is_debug(self) -> bool: ...
     @property
-    def branch(self) -> str:
-        ...
-
+    def branch(self) -> str: ...
     @property
-    def build(self) -> int:
-        ...
-
+    def build(self) -> int: ...
     @property
-    def cdn_url(self) -> str:
-        ...
-
+    def cdn_url(self) -> str: ...
     @property
-    def password_hash(self) -> int:
-        ...
-
+    def password_hash(self) -> int: ...
     @property
-    def ip(self) -> str:
-        ...
-
+    def ip(self) -> str: ...
     @property
-    def discord_user_id(self) -> str:
-        ...
-
+    def discord_user_id(self) -> str: ...
     @property
-    def accepted(self) -> bool:
-        ...
-
+    def accepted(self) -> bool: ...
     def accept(self) -> None:
         """
         Note:
                 This method works only when accessed from ConnectionQueue.
         """
-
     def decline(self, reason: str) -> None:
         """
         Note:
                 This method works only when accessed from ConnectionQueue.
         """
 
-
 class Resource:
     all: Sequence[Resource]
     current: Resource
 
     @property
-    def is_started(self) -> bool:
-        ...
-
+    def is_started(self) -> bool: ...
     @property
-    def type(self) -> str:
-        ...
-
+    def type(self) -> str: ...
     @property
-    def name(self) -> str:
-        ...
-
+    def name(self) -> str: ...
     @property
-    def main(self) -> str:
-        ...
-
+    def main(self) -> str: ...
     @property
-    def path(self) -> str:
-        ...
-
+    def path(self) -> str: ...
     @property
-    def exports(self) -> Dict[str, Callable]:
-        ...
-
+    def exports(self) -> Dict[str, Callable]: ...
     @property
-    def dependencies(self) -> List[str]:
-        ...
-
+    def dependencies(self) -> List[str]: ...
     @property
-    def dependants(self) -> List[str]:
-        ...
-
+    def dependants(self) -> List[str]: ...
     @property
-    def required_permissions(self) -> List[int]:
-        ...
-
+    def required_permissions(self) -> List[int]: ...
     @property
-    def optional_permissions(self) -> List[int]:
-        ...
-
+    def optional_permissions(self) -> List[int]: ...
     @staticmethod
-    def get_by_name(resource_name: str) -> Resource:
-        ...
-
+    def get_by_name(resource_name: str) -> Resource: ...
 
 class VehicleModelInfo:
     @property
-    def title(self) -> str:
-        ...
-
+    def title(self) -> str: ...
     @property
-    def wheels_count(self) -> int:
-        ...
-
+    def wheels_count(self) -> int: ...
     @property
-    def has_armored_windows(self) -> bool:
-        ...
-
+    def has_armored_windows(self) -> bool: ...
     @property
-    def primary_color(self) -> int:
-        ...
-
+    def primary_color(self) -> int: ...
     @property
-    def secondary_color(self) -> int:
-        ...
-
+    def secondary_color(self) -> int: ...
     @property
-    def pearl_color(self) -> int:
-        ...
-
+    def pearl_color(self) -> int: ...
     @property
-    def wheels_color(self) -> int:
-        ...
-
+    def wheels_color(self) -> int: ...
     @property
-    def interior_color(self) -> int:
-        ...
-
+    def interior_color(self) -> int: ...
     @property
-    def dashboard_color(self) -> int:
-        ...
-
+    def dashboard_color(self) -> int: ...
     @property
-    def has_auto_attach_trailer(self) -> bool:
-        ...
-
+    def has_auto_attach_trailer(self) -> bool: ...
     @property
-    def type(self) -> VehicleType:
-        ...
-
+    def type(self) -> VehicleType: ...
     @property
-    def available_modkits(self) -> List[bool]:
-        ...
-
-    def has_extra(self, extra_id: int):
-        ...
-
-    def has_default_extra(self, extra_id: int):
-        ...
-
+    def available_modkits(self) -> List[bool]: ...
+    def has_extra(self, extra_id: int): ...
+    def has_default_extra(self, extra_id: int): ...
 
 # alt attributes
 branch: str
@@ -4402,7 +3528,6 @@ Note:
 	It's a slighty modified semantic versioning specification, which can be matched using this regular expression pattern `^(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))$`
 """
 
-
 # alt methods
 def hash(value: str) -> int:
     """Creates a hash using Jenkins one-at-a-time algorithm.
@@ -4411,26 +3536,17 @@ def hash(value: str) -> int:
             value: A string from which hash will be created.
     """
 
-
 def get_net_time() -> int:
     """Gets the amount of milliseconds since the server was started."""
 
-
-def get_server_config() -> Dict[str, Any]:
-    ...
-
-
-def get_vehicle_model_info_by_hash(vehicle_hash: int) -> VehicleModelInfo:
-    ...
-
-
+def get_server_config() -> Dict[str, Any]: ...
+def get_vehicle_model_info_by_hash(vehicle_hash: int) -> VehicleModelInfo: ...
 def hash_server_password(password: str) -> int:
     """Hash string with alt:V algortihm.
 
     Args:
             password: The string you want to hash
     """
-
 
 def set_password(password: str) -> None:
     """Change the server password at runtime.
@@ -4439,15 +3555,8 @@ def set_password(password: str) -> None:
             password: The new password.
     """
 
-
-def stop_server() -> None:
-    ...
-
-
-def string_to_sha256(value: str) -> str:
-    ...
-
-
+def stop_server() -> None: ...
+def string_to_sha256(value: str) -> str: ...
 def export(name: str, object: Any) -> None:
     """Exports a value to other resources
 
@@ -4456,14 +3565,12 @@ def export(name: str, object: Any) -> None:
             object: The exported object
     """
 
-
 def restart_resource(resource_name: str) -> None:
     """Restarts the specified resource.
 
     Args:
             resource_name: Name of the resource.
     """
-
 
 def start_resource(resource_name: str) -> None:
     """Starts the specified resource.
@@ -4472,7 +3579,6 @@ def start_resource(resource_name: str) -> None:
             resource_name: Name of the resource.
     """
 
-
 def stop_resource(resource_name: str) -> None:
     """Stops the specified resource.
 
@@ -4480,14 +3586,12 @@ def stop_resource(resource_name: str) -> None:
             resource_name: Name of the resource.
     """
 
-
 def delete_meta(key: str) -> None:
     """Removes the specified key and the data connected to that specific key.
 
     Args:
             key: The key of the value to remove.
     """
-
 
 def get_meta(key: str) -> Any:
     """Gets a value using the specified key.
@@ -4499,7 +3603,6 @@ def get_meta(key: str) -> Any:
             Dynamic value associated with the specified key or undefined if no data is present.
     """
 
-
 def set_meta(key: str, value: Any) -> None:
     """Stores the given value with the specified key.
 
@@ -4507,7 +3610,6 @@ def set_meta(key: str, value: Any) -> None:
             key: The key of the value to store.
             value: The value to store.
     """
-
 
 def has_meta(key: str) -> bool:
     """Determines whether contains the specified key.
@@ -4519,7 +3621,6 @@ def has_meta(key: str) -> bool:
             True when element associated with the specified key is stored.
     """
 
-
 def get_synced_meta(key: str) -> Any:
     """Gets a value using the specified key.
 
@@ -4529,7 +3630,6 @@ def get_synced_meta(key: str) -> Any:
     Returns:
             Dynamic value associated with the specified key or undefined if no data is present.
     """
-
 
 def has_synced_meta(key: str) -> bool:
     """Determines whether contains the specified key.
@@ -4541,7 +3641,6 @@ def has_synced_meta(key: str) -> bool:
             True when element associated with the specified key is stored.
     """
 
-
 def set_synced_meta(key: str, value: Any) -> None:
     """Stores the given value with the specified key.
 
@@ -4550,14 +3649,12 @@ def set_synced_meta(key: str, value: Any) -> None:
             value: The value to store.
     """
 
-
 def delete_synced_meta(key: str) -> None:
     """Removes the specified key and the data connected to that specific key.
 
     Args:
             key: The key of the value to remove.
     """
-
 
 def timer(func: Callable, milliseconds: float) -> int:
     """
@@ -4571,14 +3668,12 @@ def timer(func: Callable, milliseconds: float) -> int:
             A number representing the id value of the timer that is set. Use this value with the [clear_timer][alt.clear_timer] function to cancel the timer.
     """
 
-
 def clear_timer(timer_id: int) -> None:
     """Clears a timer set with the [timer][alt.timer] function.
 
     Args:
             timer_id: The id of a timer.
     """
-
 
 def log(*args: Any, sep: str = " ") -> None:
     """Logs the specified arguments to the console.
@@ -4588,7 +3683,6 @@ def log(*args: Any, sep: str = " ") -> None:
             sep: Separator used for separating arguments.
     """
 
-
 def log_error(*args: Any, sep: str = " ") -> None:
     """Logs the specified arguments as an error to the console.
 
@@ -4596,7 +3690,6 @@ def log_error(*args: Any, sep: str = " ") -> None:
             *args: Arguments logged to the console.
             sep: Separator used for separating arguments.
     """
-
 
 def log_warning(*args: Any, sep: str = " ") -> None:
     """Logs the specified arguments as a warning to the console.
@@ -4606,7 +3699,6 @@ def log_warning(*args: Any, sep: str = " ") -> None:
             sep: Separator used for separating arguments.
     """
 
-
 def emit(event_name: str, *args: Any) -> None:
     """Emits specified event across resources.
 
@@ -4614,7 +3706,6 @@ def emit(event_name: str, *args: Any) -> None:
             event_name: Name of the event.
             *args: Rest parameters for emit to send.
     """
-
 
 def emit_client(player: Player | List[Player], event_name: str, *args: Any) -> None:
     """Emits specified event to specific client.
@@ -4625,7 +3716,6 @@ def emit_client(player: Player | List[Player], event_name: str, *args: Any) -> N
             *args: Rest parameters for emit to send.
     """
 
-
 def emit_all_clients(event_name: str, *args: Any) -> None:
     """Emits specified event to all clients.
 
@@ -4633,7 +3723,6 @@ def emit_all_clients(event_name: str, *args: Any) -> None:
             event_name: Name of the event.
             *args: Rest parameters for emit to send.
     """
-
 
 # decorators
 def event(event: Event) -> Callable:
@@ -4643,14 +3732,12 @@ def event(event: Event) -> Callable:
             event: The subscribed event.
     """
 
-
 def custom_event(event: str) -> Callable:
     """A decorator that subscribes to a custom event with a listener
 
     Args:
             event: Name of the event.
     """
-
 
 def client_event(event: str) -> Callable:
     """A decorator that subscribes to a client event with a listener
@@ -4659,9 +3746,8 @@ def client_event(event: str) -> Callable:
             event: Name of the event.
     """
 
-
 def task(
-        *, milliseconds: float = 0, seconds: float = 0, minutes: float = 0, hours: float = 0
+    *, milliseconds: float = 0, seconds: float = 0, minutes: float = 0, hours: float = 0
 ) -> Callable:
     """A decorator which creates a task executed every X milliseconds
 

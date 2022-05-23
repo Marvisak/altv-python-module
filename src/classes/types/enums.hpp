@@ -233,6 +233,8 @@ enum class Event : uint16_t {
 	RemoveEntity,
 
 	ConsoleCommand = 41,
+
+	PlayerAnimationChange,
 };
 
 enum class ExplosionType : int8_t {

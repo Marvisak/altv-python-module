@@ -2266,6 +2266,18 @@ class Player(Entity):
     def hair_highlight_color(self) -> int:
         ...
 
+    @property
+    def spawned(self) -> bool:
+        ...
+
+    @property
+    def current_animation_dict(self) -> int:
+        ...
+
+    @property
+    def current_animation_name(self) -> int:
+        ...
+
     # Methods
     @staticmethod
     def get_by_id(id: int) -> Player | None:

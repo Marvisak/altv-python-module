@@ -1,5 +1,6 @@
 #include "events.hpp"
 #include "utils.hpp"
+#include "events/CPlayerChangeAnimationEvent.h"
 
 EventHandler playerConnect(alt::CEvent::Type::PLAYER_CONNECT, [](const alt::CEvent* ev, py::list& args) {
     auto event = dynamic_cast<const alt::CPlayerConnectEvent*>(ev);
@@ -84,4 +85,13 @@ EventHandler playerRequestControl(alt::CEvent::Type::PLAYER_REQUEST_CONTROL, [](
 	auto event = dynamic_cast<const alt::CPlayerRequestControlEvent*>(ev);
 	args.append(event->GetPlayer().Get());
 	args.append(Utils::GetBaseObject(event->GetTarget().Get()));
+});
+
+EventHandler playerAnimationChange(alt::CEvent::Type::PLAYER_CHANGE_ANIMATION_EVENT, [](const alt::CEvent* ev, py::list& args) {
+	auto event = dynamic_cast<const alt::CPlayerChangeAnimationEvent*>(ev);
+	args.append(event->GetTarget().Get());
+	args.append(event->GetOldAnimationDict());
+	args.append(event->GetNewAnimationDict());
+	args.append(event->GetOldAnimationName());
+	args.append(event->GetNewAnimationName());
 });
