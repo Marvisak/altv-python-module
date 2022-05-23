@@ -1,0 +1,832 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.15">
+    
+    
+      
+        <title>Events - alt:V Python Module</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.c382b1dc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#events" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="alt:V Python Module" class="md-header__button md-logo" aria-label="alt:V Python Module" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            alt:V Python Module
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Events
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Marvisak/altv-python-module" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Marvisak/altv-python-module
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="alt:V Python Module" class="md-nav__button md-logo" aria-label="alt:V Python Module" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    alt:V Python Module
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Marvisak/altv-python-module" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Marvisak/altv-python-module
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        Intro
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Events
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Events
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#events-with-no-arguments" class="md-nav__link">
+    Event's with no arguments
+  </a>
+  
+    <nav class="md-nav" aria-label="Event's with no arguments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decorator" class="md-nav__link">
+    Decorator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function" class="md-nav__link">
+    Function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events-with-arguments" class="md-nav__link">
+    Events with arguments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-events" class="md-nav__link">
+    Custom events
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-server" class="md-nav__link">
+    Client -&gt; Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-client" class="md-nav__link">
+    Server -&gt; Client
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-server" class="md-nav__link">
+    Server -&gt; Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-about-custom-event-arguments" class="md-nav__link">
+    Note about custom event arguments
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cancelling-events" class="md-nav__link">
+    Cancelling Events
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tasks/" class="md-nav__link">
+        Tasks and Timers
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vectors/" class="md-nav__link">
+        Vectors
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vehicle/" class="md-nav__link">
+        Vehicle
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../colshapes/" class="md-nav__link">
+        ColShapes
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../additional-information/" class="md-nav__link">
+        Additional Information
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/events/" class="md-nav__link">
+        Events
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#events-with-no-arguments" class="md-nav__link">
+    Event's with no arguments
+  </a>
+  
+    <nav class="md-nav" aria-label="Event's with no arguments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decorator" class="md-nav__link">
+    Decorator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function" class="md-nav__link">
+    Function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events-with-arguments" class="md-nav__link">
+    Events with arguments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-events" class="md-nav__link">
+    Custom events
+  </a>
+  
+    <nav class="md-nav" aria-label="Custom events">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-server" class="md-nav__link">
+    Client -&gt; Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-client" class="md-nav__link">
+    Server -&gt; Client
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-server" class="md-nav__link">
+    Server -&gt; Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-about-custom-event-arguments" class="md-nav__link">
+    Note about custom event arguments
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cancelling-events" class="md-nav__link">
+    Cancelling Events
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/Marvisak/altv-python-module/edit/dev/docs/articles/events.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="events">Events</h1>
+<p>Sometimes you want to execute code once something happens</p>
+<p>That's why events are here, let's take a look at how they work</p>
+<hr />
+<h2 id="events-with-no-arguments">Event's with no arguments</h2>
+<p>Let's start with events without any arguments as they are easier to understand, currently there is only one so let's take a look at it.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">alt</span>
+
+<span class="nd">@alt</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">Event</span><span class="o">.</span><span class="n">ServerStarted</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">server_started</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Server Started!&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>This code outputs <code>Server Started!</code> when the event is triggered, in this case the ServerStarted event which triggers when the server is started</p>
+<p>Let's go through this code line by line</p>
+<hr />
+<h3 id="decorator">Decorator</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">alt</span>
+
+<span class="hll"><span class="nd">@alt</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">Event</span><span class="o">.</span><span class="n">ServerStarted</span><span class="p">)</span>
+</span><span class="k">def</span> <span class="nf">server_started</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Server Started!&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>This decorator <code>alt.event()</code> decorator, is placed above a function which should get executed once the specified event is triggered</p>
+<p>The first and only argument you pass to this function is an event you want to subscribe to. This has to be <code>alt.Event</code> enum, otherwise exception will be raised</p>
+<hr />
+<h3 id="function">Function</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">alt</span>
+
+<span class="nd">@alt</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">Event</span><span class="o">.</span><span class="n">ServerStarted</span><span class="p">)</span>
+<span class="hll"><span class="k">def</span> <span class="nf">server_started</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span class="hll">    <span class="n">alt</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Server Started!&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>This is the function you want to call once the event is triggered, the name can be anything you want</p>
+<p>Because we are creating event with no arguments, there shouldn't be any arguments for this function</p>
+<p>The body of the function can of course be anything you want, most of the time it's going to do something with the arguments passed to it</p>
+<h2 id="events-with-arguments">Events with arguments</h2>
+<p>Most of the time you want to get some info from events, this is possible through arguments</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">alt</span>
+
+<span class="nd">@alt</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">Event</span><span class="o">.</span><span class="n">PlayerConnect</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">player_connect</span><span class="p">(</span><span class="n">player</span><span class="p">:</span> <span class="n">alt</span><span class="o">.</span><span class="n">Player</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Player joined: </span><span class="si">{</span><span class="n">player</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;mp_m_freemode_01&quot;</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>The only difference between these events and events without arguments, is that the function you create needs to have arguments</p>
+<p>This is a PlayerConnect event which gets executed when player joins, our first argument is the player which connected</p>
+<p>In this event we are logging into the console that player joined, spawning the player and setting its model</p>
+<h2 id="custom-events">Custom events</h2>
+<p>Sometimes you want to trigger events yourself, like for example when you want 2 resources communicate with each other or client to communicate with server</p>
+<p>The communication can go as follows:</p>
+<ul>
+<li>Client -&gt; Server</li>
+<li>Server -&gt; Client</li>
+<li>Server -&gt; Server</li>
+</ul>
+<h3 id="client-server">Client -&gt; Server</h3>
+<div class="highlight"><span class="filename">client.js</span><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">alt</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;alt-client&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="nx">alt</span><span class="p">.</span><span class="nx">emitServer</span><span class="p">(</span><span class="s2">&quot;clientEvent&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;This is message from client&quot;</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><span class="filename">server.py</span><pre><span></span><code><span class="kn">import</span> <span class="nn">alt</span>
+
+<span class="nd">@alt</span><span class="o">.</span><span class="n">client_event</span><span class="p">(</span><span class="s2">&quot;clientEvent&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">client_event</span><span class="p">(</span><span class="n">player</span><span class="p">:</span> <span class="n">alt</span><span class="o">.</span><span class="n">Player</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Player </span><span class="si">{</span><span class="n">player</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> sent </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Client events work almost identically to normal events, you only need to replace the decorator <code>alt.event()</code> with <code>alt.client_event()</code> and instead of <code>alt.Event</code> enum, pass name of the event as string</p>
+<p>When you receive event from client, you will get the player object as the first argument, this is the player which triggered the event</p>
+<p>Rest of the arguments are the ones sent with the event, in this example it is the string <code>This is message from client</code></p>
+<h3 id="server-client">Server -&gt; Client</h3>
+<div class="highlight"><span class="filename">client.js</span><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">alt</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;alt-client&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="nx">alt</span><span class="p">.</span><span class="nx">onServer</span><span class="p">(</span><span class="s2">&quot;serverEvent&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">alt</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span><span class="w"></span>
+<span class="p">});</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><span class="filename">server.py</span><pre><span></span><code><span class="kn">import</span> <span class="nn">alt</span>
+
+<span class="nd">@alt</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">Event</span><span class="o">.</span><span class="n">PlayerConnect</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">player_connect</span><span class="p">(</span><span class="n">player</span><span class="p">:</span> <span class="n">alt</span><span class="o">.</span><span class="n">Player</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># These 2 do the same thing</span>
+    <span class="n">player</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s2">&quot;serverEvent&quot;</span><span class="p">,</span> <span class="s2">&quot;This is a server event&quot;</span><span class="p">)</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">emit_client</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="s2">&quot;serverEvent&quot;</span><span class="p">,</span> <span class="s2">&quot;This is a server event&quot;</span><span class="p">)</span>
+
+    <span class="c1"># You can also pass list instead of single player</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">emit_client</span><span class="p">([</span><span class="n">player</span><span class="p">],</span> <span class="s2">&quot;serverEvent&quot;</span><span class="p">,</span> <span class="s2">&quot;This is a server event&quot;</span><span class="p">)</span>
+
+    <span class="c1"># This will emit an event to all players</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">emit_all_clients</span><span class="p">(</span><span class="s2">&quot;serverEvent&quot;</span><span class="p">,</span> <span class="s2">&quot;This is a server event&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>When we want to emit event from server to specific player, we need to have the player object</p>
+<p>All the ways to emit a client event are showed in this code</p>
+<p>The first two emit event to single player only, they both work completely the same way</p>
+<p>The third one works the same way as the second one, apart from that you can pass list instead of single player, this can be useful when you need to emit event to multiple players</p>
+<p>And the fourth and last one is the simplest, by calling the function you emit event to players</p>
+<h3 id="server-server">Server -&gt; Server</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">alt</span>
+
+<span class="nd">@alt</span><span class="o">.</span><span class="n">custom_event</span><span class="p">(</span><span class="s2">&quot;customEvent&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">custom_event</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Message received </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">alt</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s2">&quot;customEvent&quot;</span><span class="p">,</span> <span class="s2">&quot;This is a message from server&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Subscribing to events from server works the same way as with client events, only difference is that you use <code>alt.custom_event()</code> decorator</p>
+<p>Emitting the event is also very similar to emitting client event, you just call <code>alt.emit()</code> function and pass the event name and the arguments</p>
+<h3 id="note-about-custom-event-arguments">Note about custom event arguments</h3>
+<p>Important thing to keep in mind, is that you can't pass everything as an event argument, the structures you sent have to be cross-language, so any custom object you might try to send as an argument won't work</p>
+<p>Here is the list of types which you can send: <code>str</code>, <code>int</code>, <code>float</code>, <code>bool</code>, <code>NoneType</code>, <code>list</code>, <code>dict</code>, <code>function</code>, <code>bytes</code>, <code>bytearray</code>, <code>alt.Vector2</code>, <code>alt.Vector3</code>, <code>alt.RGBA</code>, <code>alt.BaseObject</code></p>
+<p>Functions can be only sent on the server, trying to send function to client or vice versa will fail</p>
+<p>Keep in mind that if you send function, the return value and arguments of the function must be sendable in an event</p>
+<h2 id="cancelling-events">Cancelling Events</h2>
+<p>There are some events which you are able to cancel</p>
+<p>Most of them are triggered by player doing something, and by cancelling them you disable it syncing to other players</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">alt</span>
+
+<span class="nd">@alt</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">Event</span><span class="o">.</span><span class="n">Explosion</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">explosion</span><span class="p">(</span><span class="n">player</span><span class="p">:</span> <span class="n">alt</span><span class="o">.</span><span class="n">Player</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">player</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> caused an explosion&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+<p>This is the explosion event, which gets triggered once explosion is created</p>
+<p>We can cancel events by returning <code>False</code>, you can cancel any event this way, but not every event will be changed once you cancel them</p>
+<p>Also, here you can see that we used <code>*args</code> as an argument, this makes it so that you don't need to specify every single argument if you don't need them</p>
+<p>The only event which works differently is <code>alt.Event.PlayerBeforeConnect</code></p>
+<p>In this event you can return <code>False</code> as with other events, but also a string, this will do the same thing as returning <code>False</code> but will also show a message</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">alt</span>
+
+<span class="n">banned_players</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;very_bad_player&quot;</span>
+<span class="p">]</span>
+
+<span class="nd">@alt</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">alt</span><span class="o">.</span><span class="n">Event</span><span class="o">.</span><span class="n">PlayerBeforeConnect</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">player_before_connect</span><span class="p">(</span><span class="n">connection_info</span><span class="p">:</span> <span class="n">alt</span><span class="o">.</span><span class="n">ConnectionInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">connection_info</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">banned_players</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;You are banned&quot;</span>
+</code></pre></div>
+<hr />
+<p>You can see all of the available events inside <a href="../api-reference/events/">API Reference</a></p>
+<p>Now you should know what events are and how to use them</p>
+<p>In the next article we are going to learn about Tasks and Timers</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../intro/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Intro" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Intro
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../tasks/" class="md-footer__link md-footer__link--next" aria-label="Next: Tasks and Timers" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Tasks and Timers
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a6c66575.min.js"></script>
+      
+    
+  </body>
+</html>
