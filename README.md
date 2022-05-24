@@ -15,6 +15,4 @@
 modules: [ python-module ]
 ```
 
-Link to stubs: [here](https://github.com/ZackaryH8/altv-python-stubs)
-
 # I really appreciate any contribution
