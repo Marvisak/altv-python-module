@@ -89,7 +89,7 @@ import alt
 def timer() -> None:
     alt.log("I am called after one second!")
 
-timer_number = alt.timer(timer, 1000)
+timer_id = alt.timer(timer, 1000)
 ```
 
 Which outputs:
@@ -98,6 +98,21 @@ Which outputs:
 ```
 
 The `alt.timer()` function takes 2 arguments, the first one is the function you want to add to the timer, and the second one is the amount of milliseconds after which the function should get called
+
+If you need the timer to stop so that the function doesn't execute, you can use the `alt.clear_timer()` function
+
+The function takes the number you got from the `alt.timer()` as an argument.
+
+```py
+import alt
+
+def timer() -> None:
+    alt.log("I am never called :(")
+
+timer_id = alt.timer(timer, 1000)
+
+alt.clear_timer(timer_id)
+```
 
 ---
 
