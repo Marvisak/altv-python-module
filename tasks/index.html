@@ -543,12 +543,23 @@
 <span class="k">def</span> <span class="nf">timer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">alt</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;I am called after one second!&quot;</span><span class="p">)</span>
 
-<span class="n">timer_number</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">timer</span><span class="p">(</span><span class="n">timer</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">timer_id</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">timer</span><span class="p">(</span><span class="n">timer</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 </code></pre></div>
 <p>Which outputs:
 <div class="highlight"><pre><span></span><code>[XX:XX:01] I am called after one second!
 </code></pre></div></p>
 <p>The <code>alt.timer()</code> function takes 2 arguments, the first one is the function you want to add to the timer, and the second one is the amount of milliseconds after which the function should get called</p>
+<p>If you need the timer to stop so that the function doesn't execute, you can use the <code>alt.clear_timer()</code> function</p>
+<p>The function takes the number you got from the <code>alt.timer()</code> as an argument.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">alt</span>
+
+<span class="k">def</span> <span class="nf">timer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;I am never called :(&quot;</span><span class="p">)</span>
+
+<span class="n">timer_id</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">timer</span><span class="p">(</span><span class="n">timer</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">alt</span><span class="o">.</span><span class="n">clear_timer</span><span class="p">(</span><span class="n">timer_id</span><span class="p">)</span>
+</code></pre></div>
 <hr />
 <p>Now you should know everything about Tasks and Timers</p>
 <p>Next we are going to learn about vectors</p>
