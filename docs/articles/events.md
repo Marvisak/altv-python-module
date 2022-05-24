@@ -1,10 +1,8 @@
 # Events
 
-Sometimes you want to execute code once something happens
+Sometimes you want to execute code when something happens
 
-That's why events are here, let's take a look at how they work
-
----
+This is why events exist, let's take a look at how they work
 
 ## Event's with no arguments
 
