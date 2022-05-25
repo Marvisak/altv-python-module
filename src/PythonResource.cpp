@@ -29,7 +29,8 @@ bool PythonResource::Start() {
 	}
 
 
-	FILE* fp = fopen(fullPath.c_str(), "r");
+	FILE* fp;
+	fopen_s(&fp, fullPath.c_str(), "r");
 	bool crashed = PyRun_SimpleFile(fp, fullPath.c_str());
 
 	PyThreadState_Swap(runtime->GetInterpreter());
@@ -82,12 +83,12 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 
 void PythonResource::OnTick() {
 	for (auto task : tasks) {
-		long time = alt::ICore::Instance().GetNetTime();
+		uint32_t time = alt::ICore::Instance().GetNetTime();
 		if (task->Update(time) && (alt::ICore::Instance().GetNetTime() - time) > 10)
 			task->TimeWarning(time, resource->GetName());
 	}
 	for (auto it = timers.cbegin(); it != timers.cend();) {
-		long time = alt::ICore::Instance().GetNetTime();
+		uint32_t time = alt::ICore::Instance().GetNetTime();
 		if (it->second->Update(time)) {
 			if ((alt::ICore::Instance().GetNetTime() - time) > 10)
 				it->second->TimeWarning(time, resource->GetName());

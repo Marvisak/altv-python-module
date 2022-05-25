@@ -5,7 +5,7 @@ class Interval {
  private:
 	double milliseconds;
 	py::function function;
-	long nextTime;
+	uint32_t nextTime;
 	bool running = true;
  public:
 	Interval(double milliseconds, py::function function);
@@ -26,7 +26,7 @@ class Interval {
 		milliseconds = newMilliseconds;
 	}
 
-	void TimeWarning(long time, const std::string& resourceName);
+	void TimeWarning(uint32_t time, const std::string& resourceName);
 
-	bool Update(long time);
+	bool Update(uint32_t time);
 };
