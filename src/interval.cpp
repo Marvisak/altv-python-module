@@ -1,6 +1,7 @@
 #include "interval.hpp"
+#include "PythonRuntime.hpp"
 
-Interval::Interval(double milliseconds, py::function function) : milliseconds(milliseconds), function(std::move(function)) {
+Interval::Interval(double milliseconds, py::function function, PyThreadState* interpreter) : milliseconds(milliseconds), function(std::move(function)), interpreter(interpreter) {
 	nextTime = alt::ICore::Instance().GetNetTime() + (long)milliseconds;
 }
 
@@ -14,7 +15,9 @@ void Interval::TimeWarning(uint32_t time, const std::string& resourceName) {
 bool Interval::Update(uint32_t time) {
 	if (time >= nextTime && running) {
 		try {
+			PyThreadState_Swap(interpreter);
 			function();
+			PyThreadState_Swap(PythonRuntime::GetInstance()->GetInterpreter());
 		} catch (py::error_already_set& e) {
 			py::print(e.what());
 			e.restore();

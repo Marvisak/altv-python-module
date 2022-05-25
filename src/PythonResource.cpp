@@ -156,7 +156,7 @@ bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject>& object) {
 }
 
 int PythonResource::AddTimer(double milliseconds, const py::function& func) {
-	auto task = new Interval(milliseconds, func);
+	auto task = new Interval(milliseconds, func, interpreter);
 	intervalId++;
 	timers[intervalId] = task;
 	return intervalId;
@@ -169,7 +169,7 @@ void PythonResource::ClearTimer(int timerId) {
 }
 
 void PythonResource::AddTask(double milliseconds, const py::function& func) {
-	auto task = new Interval(milliseconds, func);
+	auto task = new Interval(milliseconds, func, interpreter);
 	tasks.push_back(task);
 }
 

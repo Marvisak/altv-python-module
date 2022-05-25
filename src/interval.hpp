@@ -7,8 +7,9 @@ class Interval {
 	py::function function;
 	uint32_t nextTime;
 	bool running = true;
+	PyThreadState* interpreter;
  public:
-	Interval(double milliseconds, py::function function);
+	Interval(double milliseconds, py::function function, PyThreadState* interpreter);
 
 	py::function GetFunc() {
 		return function;
