@@ -39,6 +39,8 @@ PythonResource* PythonRuntime::GetPythonResourceFromInterp(PyThreadState* interp
 	for (PythonResource* resource : resources)
 		if (resource->GetInterpreter() == interp)
 			return resource;
+	if (interp->interp == PyInterpreterState_Main())
+		alt::ICore::Instance().LogError("Main Interpreter Passed");
 	return nullptr;
 }
 
