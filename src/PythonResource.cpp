@@ -14,6 +14,21 @@ bool PythonResource::Start() {
 	py::list pyPath = sys.attr("path");
 	pyPath.append(fullPath.substr(0, fullPath.find_last_of("\\/")));
 
+	py::dict modules = sys.attr("modules");
+	py::object imp = py::module_::import("importlib.util");
+	for (const auto& depName: resource->GetDependencies()) {
+		alt::IResource* dep = alt::ICore::Instance().GetResource(depName);
+
+		py::object spec = imp.attr("spec_from_loader")(depName, py::none());
+		py::object module = imp.attr("module_from_spec")(spec);
+
+		py::dict exports = Utils::MValueToValue(dep->GetExports());
+		for (auto exp : exports)
+			module.attr(exp.first) = exp.second;
+		modules[depName.c_str()] = module;
+	}
+
+
 	FILE* fp = fopen(fullPath.c_str(), "r");
 	bool crashed = PyRun_SimpleFile(fp, fullPath.c_str());
 
