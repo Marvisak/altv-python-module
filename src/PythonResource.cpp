@@ -28,10 +28,10 @@ bool PythonResource::Start() {
 		modules[depName.c_str()] = module;
 	}
 
-
 	FILE* fp;
 	fopen_s(&fp, fullPath.c_str(), "r");
 	bool crashed = PyRun_SimpleFile(fp, fullPath.c_str());
+	fclose(fp);
 
 	PyThreadState_Swap(runtime->GetInterpreter());
 	return !crashed;
