@@ -257,13 +257,13 @@ void RegisterVector3Class(const py::module_ &m) {
 
 	pyClass.def(py::self == py::self);
 
-    pyClass.def("cross", static_cast<Vector3 (Vector3::*)(const Vector3&) const>(&Vector3::Cross), py::arg("vector"));
-    pyClass.def("cross", static_cast<Vector3 (Vector3::*)(double) const>(&Vector3::Cross), py::arg("num"));
-    pyClass.def("cross", static_cast<Vector3 (Vector3::*)(const py::list&) const>(&Vector3::Cross), py::arg("vector_list"));
+    pyClass.def("cross", py::overload_cast<const Vector3&>(&Vector3::Cross, py::const_), py::arg("vector"));
+    pyClass.def("cross", py::overload_cast<double>(&Vector3::Cross, py::const_), py::arg("num"));
+    pyClass.def("cross", py::overload_cast<const py::list&>(&Vector3::Cross, py::const_), py::arg("vector_list"));
 
-	pyClass.def("dot", static_cast<double (Vector3::*)(double) const>(&Vector3::Dot), py::arg("num"));
-	pyClass.def("dot", static_cast<double (Vector3::*)(const py::list&) const>(&Vector3::Dot), py::arg("vector_list"));
-	pyClass.def("dot", static_cast<double (Vector3::*)(const Vector3&) const>(&Vector3::Dot), py::arg("vector"));
+	pyClass.def("dot", py::overload_cast<const Vector3&>(&Vector3::Dot, py::const_), py::arg("vector"));
+	pyClass.def("dot", py::overload_cast<double>(&Vector3::Dot, py::const_), py::arg("num"));
+	pyClass.def("dot", py::overload_cast<const py::list&>(&Vector3::Dot, py::const_), py::arg("vector_list"));
 
     pyClass.def_property_readonly_static("zero", &Vector3::Zero);
     pyClass.def_property_readonly_static("one", &Vector3::One);

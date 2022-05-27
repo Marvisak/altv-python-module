@@ -226,9 +226,9 @@ void RegisterVector2Class(const py::module_ &m) {
 
 	pyClass.def(py::self == py::self);
 
-	pyClass.def("dot", static_cast<double (Vector2::*)(double) const>(&Vector2::Dot), py::arg("num"));
-	pyClass.def("dot", static_cast<double (Vector2::*)(const py::list&) const>(&Vector2::Dot), py::arg("vector_list"));
-	pyClass.def("dot", static_cast<double (Vector2::*)(const Vector2&) const>(&Vector2::Dot), py::arg("vector"));
+	pyClass.def("dot", py::overload_cast<const Vector2&>(&Vector2::Dot, py::const_), py::arg("vector"));
+	pyClass.def("dot", py::overload_cast<const py::list&>(&Vector2::Dot, py::const_), py::arg("vector_list"));
+	pyClass.def("dot", py::overload_cast<double>(&Vector2::Dot, py::const_), py::arg("num"));
 
     pyClass.def_property_readonly_static("zero", &Vector2::Zero);
     pyClass.def_property_readonly_static("one", &Vector2::One);
