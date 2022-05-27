@@ -46,13 +46,13 @@ void ResetNetOwner(alt::IEntity* _this, bool disable_migration) {
     _this->SetNetworkOwner(nullptr, disable_migration);
 }
 
-void SetModel(alt::IPlayer* _this, uint32_t model) {
-	_this->SetModel(model);
-}
-
-void SetModel(alt::IPlayer* _this, const std::string& model) {
-	uint32_t modelHash = alt::ICore::Instance().Hash(model);
-	_this->SetModel(modelHash);
+void SetModel(alt::IPlayer* _this, const py::object& object) {
+	if (py::isinstance<py::str>(object))
+		_this->SetModel(alt::ICore::Instance().Hash(object.cast<std::string>()));
+	else if (py::isinstance<py::int_>(object))
+		_this->SetModel(object.cast<int>());
+	else
+		throw py::value_error("int or str expected");
 }
 
 void RegisterEntityClass(const py::module_& m) {
@@ -71,8 +71,7 @@ void RegisterEntityClass(const py::module_& m) {
 	pyClass.def_property("frozen", &alt::IEntity::IsFrozen, &alt::IEntity::SetFrozen);
 
 	// Model
-	pyClass.def_property("model", &alt::IEntity::GetModel, py::overload_cast<alt::IPlayer*, uint32_t>(&SetModel));
-	pyClass.def_property("model", &alt::IEntity::GetModel, py::overload_cast<alt::IPlayer*, const std::string&>(&SetModel));
+	pyClass.def_property("model", &alt::IEntity::GetModel, &SetModel);
 
     // NetOwner
     pyClass.def_property_readonly("net_owner", &alt::IEntity::GetNetworkOwner);
