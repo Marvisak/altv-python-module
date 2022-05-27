@@ -29,6 +29,10 @@ bool PythonResource::Start() {
 	}
 
 	FILE* fp = fopen(fullPath.c_str(), "r");
+	if (!fp) {
+		alt::ICore::Instance().LogError("Main file not found");
+		return false;
+	}
 	bool crashed = PyRun_SimpleFile(fp, fullPath.c_str());
 	fclose(fp);
 
