@@ -19,8 +19,7 @@ bool Interval::Update(uint32_t time) {
 			function();
 			PyThreadState_Swap(PythonRuntime::GetInstance()->GetInterpreter());
 		} catch (py::error_already_set& e) {
-			py::print(e.what());
-			e.restore();
+			e.discard_as_unraisable(function.attr("__name__"));
 		}
 		nextTime = time + (long)milliseconds;
 		return true;

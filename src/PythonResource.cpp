@@ -72,8 +72,7 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 					else if (py::isinstance<py::str>(returnValue) && eventType == alt::CEvent::Type::PLAYER_BEFORE_CONNECT)
 						reinterpret_cast<alt::CPlayerBeforeConnectEvent*>(const_cast<alt::CEvent*>(event))->Cancel(returnValue.cast<std::string>());
 				} catch (py::error_already_set& e) {
-					py::print(e.what());
-					e.restore();
+					e.discard_as_unraisable(callback.attr("__name__"));
 				}
 			}
 		}
@@ -96,7 +95,6 @@ void PythonResource::OnTick() {
 			it = timers.erase(it);
 		} else
 			it = std::next(it);
-
 	}
 
 }
@@ -128,8 +126,7 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 			callback(*eventArgs);
 			PyThreadState_Swap(runtime->GetInterpreter());
 		} catch (py::error_already_set& e) {
-			py::print(e.what());
-			e.restore();
+			e.discard_as_unraisable(callback.attr("__name__"));
 		}
 	}
 }
