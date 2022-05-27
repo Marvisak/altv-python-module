@@ -19,6 +19,7 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 set(CMAKE_SHARED_LIBRARY_PREFIX "")
 
 add_definitions(-DMODULE_NAME="${PROJECT_MODULE_NAME}")
+add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
 
 file(GLOB_RECURSE PROJECT_SOURCE_FILES "./src/*.h" "./src/*.hpp" "./src/*.cpp")
