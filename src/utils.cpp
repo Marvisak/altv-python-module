@@ -4,17 +4,16 @@
 
 alt::MValue Utils::ValueToMValue(const py::object& arg) {
 	alt::MValue mValue;
-	auto valueStr = py::str(arg).cast<std::string>();
 	if (py::isinstance<py::str>(arg))
-		mValue = alt::ICore::Instance().CreateMValueString(valueStr);
+		mValue = alt::ICore::Instance().CreateMValueString(py::str(arg).cast<std::string>());
 	else if (py::isinstance<py::bool_>(arg))
-		mValue = alt::ICore::Instance().CreateMValueBool(valueStr != "0");
+		mValue = alt::ICore::Instance().CreateMValueBool(py::bool_(arg).cast<bool>());
 	else if (py::isinstance<py::int_>(arg))
-		mValue = alt::ICore::Instance().CreateMValueInt(std::stoi(valueStr));
+		mValue = alt::ICore::Instance().CreateMValueInt(py::int_(arg).cast<int64_t>());
 	else if (py::isinstance<py::none>(arg))
 		mValue = alt::ICore::Instance().CreateMValueNil();
 	else if (py::isinstance<py::float_>(arg))
-		mValue = alt::ICore::Instance().CreateMValueDouble(std::stod(valueStr));
+		mValue = alt::ICore::Instance().CreateMValueDouble(py::float_(arg).cast<double>());
 	else if (py::isinstance<py::list>(arg) || py::isinstance<py::tuple>(arg)) {
 		auto tempList = alt::ICore::Instance().CreateMValueList();
 		for (auto element : arg)
@@ -126,7 +125,7 @@ py::object Utils::MValueToValue(const alt::MValueConst& mValue) {
         }
 		case alt::IMValue::Type::BYTE_ARRAY: {
 			auto mByteArray = mValue.As<alt::IMValueByteArray>();
-			value = py::bytearray(reinterpret_cast<const char*>(mByteArray->GetData()), mByteArray->GetSize());
+			value = py::bytearray(reinterpret_cast<const char*>(mByteArray->GetData()), (Py_ssize_t)mByteArray->GetSize());
 			break;
 		}
         default:
@@ -189,6 +188,7 @@ py::object Utils::GetBaseObject(const alt::Ref<alt::IBaseObject>& baseObject) {
 			return py::cast(dynamic_cast<alt::ICheckpoint*>(baseObject.Get()));
         case alt::IBaseObject::Type::VOICE_CHANNEL:
             return py::cast(dynamic_cast<alt::IVoiceChannel*>(baseObject.Get()));
+		default:
+			return py::none();
     }
-    return py::none();
 }

@@ -12,9 +12,8 @@ namespace Utils
     template <class T>
     py::list ArrayToPyList(const alt::Array<T>& array) {
         py::list pyList;
-        for (auto element : array) {
+        for (auto element : array)
             pyList.append(element);
-        }
         return pyList;
     }
 }
