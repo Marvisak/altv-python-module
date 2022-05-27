@@ -3470,7 +3470,7 @@ class Resource:
     @property
     def path(self) -> str: ...
     @property
-    def exports(self) -> Dict[str, Callable]: ...
+    def exports(self) -> Dict[str, Any]: ...
     @property
     def dependencies(self) -> List[str]: ...
     @property
@@ -3507,8 +3507,8 @@ class VehicleModelInfo:
     def type(self) -> VehicleType: ...
     @property
     def available_modkits(self) -> List[bool]: ...
-    def has_extra(self, extra_id: int): ...
-    def has_default_extra(self, extra_id: int): ...
+    def has_extra(self, extra_id: int) -> bool: ...
+    def has_default_extra(self, extra_id: int) -> bool: ...
 
 # alt attributes
 branch: str
@@ -3656,7 +3656,7 @@ def delete_synced_meta(key: str) -> None:
             key: The key of the value to remove.
     """
 
-def timer(func: Callable, milliseconds: float) -> int:
+def timer(func: Callable[[], None], milliseconds: float) -> int:
     """
     Schedules execution of handler once after the expiration of interval.
 
@@ -3725,21 +3725,21 @@ def emit_all_clients(event_name: str, *args: Any) -> None:
     """
 
 # decorators
-def event(event: Event) -> Callable:
+def event(event: Event) -> Callable[[Any], None]:
     """A decorator that subscribes to a server event with a listener
 
     Args:
             event: The subscribed event.
     """
 
-def custom_event(event: str) -> Callable:
+def custom_event(event: str) -> Callable[[Any], None]:
     """A decorator that subscribes to a custom event with a listener
 
     Args:
             event: Name of the event.
     """
 
-def client_event(event: str) -> Callable:
+def client_event(event: str) -> Callable[[Any], None]:
     """A decorator that subscribes to a client event with a listener
 
     Args:
@@ -3748,7 +3748,7 @@ def client_event(event: str) -> Callable:
 
 def task(
     *, milliseconds: float = 0, seconds: float = 0, minutes: float = 0, hours: float = 0
-) -> Callable:
+) -> Callable[[Callable[[], None]], None]:
     """A decorator which creates a task executed every X milliseconds
 
     Args:
