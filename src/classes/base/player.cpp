@@ -258,14 +258,9 @@ void RegisterPlayerClass(const py::module_& m) {
     pyClass.def("is_entity_in_streaming_range", py::overload_cast<uint16_t>(&alt::IPlayer::IsEntityInStreamingRange), py::arg("id"));
 
     // Spawn
-	pyClass.def_property_readonly("spawned", &alt::IPlayer::IsSpawned);
     pyClass.def("spawn", py::overload_cast<alt::IPlayer*, Vector3, uint32_t>(&Spawn), py::arg("pos"), py::arg("delay") = 0);
     pyClass.def("spawn", py::overload_cast<alt::IPlayer*, float, float, float, uint32_t>(&Spawn), py::arg("x"), py::arg("y"), py::arg("z"), py::arg("delay") = 0);
-    pyClass.def("despawn", &alt::IPlayer::Despawn);
-
-	// Animations
-	pyClass.def_property_readonly("current_animation_dict", &alt::IPlayer::GetCurrentAnimationDict);
-	pyClass.def_property_readonly("current_animation_name", &alt::IPlayer::GetCurrentAnimationName);
+    py;Class.def("despawn", &alt::IPlayer::Despawn);
 
     // Local MetaData
     pyClass.def("get_local_meta", &GetLocalMeta, py::arg("key"));
