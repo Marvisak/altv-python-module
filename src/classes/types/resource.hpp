@@ -29,6 +29,11 @@ class Resource {
 		return resource->GetPath();
 	}
 
+	py::dict GetConfig() {
+		alt::config::Node config = resource->GetConfig();
+		return Utils::ConfigNodeToValue(config);
+	}
+
 	py::dict GetExports() {
 		return Utils::MValueToValue(resource->GetExports());
 	}
@@ -57,11 +62,11 @@ class Resource {
 		return list;
 	}
 
-	static Resource GetByName(const std::string& resourceName) {
+	static py::object GetByName(const std::string& resourceName) {
 		auto resource = alt::ICore::Instance().GetResource(resourceName);
 		if (resource != nullptr)
-			return {resource};
-		return nullptr;
+			return py::cast(Resource(resource));
+		return py::none();
 	}
 
 	static py::list GetAllResources(const py::object& type) {

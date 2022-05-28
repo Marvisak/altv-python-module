@@ -7,6 +7,7 @@ void RegisterResourceClass(const py::module_& m) {
 	pyClass.def_property_readonly("name", &Resource::GetName);
 	pyClass.def_property_readonly("main", &Resource::GetMain);
 	pyClass.def_property_readonly("path", &Resource::GetPath);
+	pyClass.def_property_readonly("config", &Resource::GetConfig);
 	pyClass.def_property_readonly("exports", &Resource::GetExports);
 	pyClass.def_property_readonly("dependencies", &Resource::GetDependencies);
 	pyClass.def_property_readonly("dependants", &Resource::GetDependants);
