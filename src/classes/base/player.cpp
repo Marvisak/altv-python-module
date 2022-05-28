@@ -260,7 +260,7 @@ void RegisterPlayerClass(const py::module_& m) {
     // Spawn
     pyClass.def("spawn", py::overload_cast<alt::IPlayer*, Vector3, uint32_t>(&Spawn), py::arg("pos"), py::arg("delay") = 0);
     pyClass.def("spawn", py::overload_cast<alt::IPlayer*, float, float, float, uint32_t>(&Spawn), py::arg("x"), py::arg("y"), py::arg("z"), py::arg("delay") = 0);
-    py;Class.def("despawn", &alt::IPlayer::Despawn);
+    pyClass.def("despawn", &alt::IPlayer::Despawn);
 
     // Local MetaData
     pyClass.def("get_local_meta", &GetLocalMeta, py::arg("key"));
