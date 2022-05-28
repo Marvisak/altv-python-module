@@ -1,11 +1,11 @@
 [submodule "vendors/cpp-sdk"]
 	path = vendors/cpp-sdk
 	url = https://github.com/altmp/cpp-sdk
-[submodule "vendors/pybind11"]
-	path = vendors/pybind11
-	url = https://github.com/pybind/pybind11
-	branch = stable
 [submodule "vendors/magic_enum"]
 	path = vendors/magic_enum
 	url = https://github.com/Neargye/magic_enum
     ignore = dirty
+[submodule "vendors/pybind11"]
+	path = vendors/pybind11
+	url = git@github.com:pybind/pybind11.git
+	branch = stable
