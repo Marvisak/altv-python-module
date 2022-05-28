@@ -62,9 +62,10 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 	else {
 		auto eventHandler = EventHandler::Get(event);
 		if (eventHandler) {
+			auto callbacks = localEvents[eventType];
+			if (callbacks.empty()) return true;
 			py::list eventArgs;
 			eventHandler->GetEventArgs(event, eventArgs);
-			auto callbacks = localEvents[eventType];
 			for (const auto& callback : callbacks) {
 				try {
 					PyThreadState_Swap(interpreter);
@@ -109,6 +110,7 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 		auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
 		std::string name = event->GetName();
 		callbacks = localCustomEvents[name];
+		if (callbacks.empty()) return;
 		for (const auto& arg : event->GetArgs()) {
 			auto value = Utils::MValueToValue(arg);
 			eventArgs.append(value);
@@ -117,6 +119,7 @@ void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
 		auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
 		std::string name = event->GetName();
 		callbacks = remoteEvents[name];
+		if (callbacks.empty()) return;
 		eventArgs.append(event->GetTarget().Get());
 		for (const auto& arg : event->GetArgs()) {
 			auto value = Utils::MValueToValue(arg);
