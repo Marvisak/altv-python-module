@@ -1,6 +1,7 @@
 #include "resource.hpp"
 
-void RegisterResourceClass(const py::module_& m) {
+void RegisterResourceClass(const py::module_& m)
+{
 	auto pyClass = py::class_<Resource>(m, "Resource");
 	pyClass.def_property_readonly("is_started", &Resource::IsStarted);
 	pyClass.def_property_readonly("type", &Resource::GetType);

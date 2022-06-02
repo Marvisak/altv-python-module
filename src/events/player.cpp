@@ -1,10 +1,10 @@
 #include "events.hpp"
-#include "utils.hpp"
 #include "events/CPlayerChangeAnimationEvent.h"
+#include "utils.hpp"
 
 EventHandler playerConnect(alt::CEvent::Type::PLAYER_CONNECT, [](const alt::CEvent* ev, py::list& args) {
-    auto event = dynamic_cast<const alt::CPlayerConnectEvent*>(ev);
-    args.append(event->GetTarget().Get());
+	auto event = dynamic_cast<const alt::CPlayerConnectEvent*>(ev);
+	args.append(event->GetTarget().Get());
 });
 
 EventHandler playerBeforeConnect(alt::CEvent::Type::PLAYER_BEFORE_CONNECT, [](const alt::CEvent* ev, py::list& args) {
@@ -57,7 +57,6 @@ EventHandler playerEnteringVehicle(alt::CEvent::Type::PLAYER_ENTERING_VEHICLE, [
 	args.append(event->GetTarget().Get());
 	args.append(event->GetSeat());
 });
-
 
 EventHandler playerLeftVehicle(alt::CEvent::Type::PLAYER_LEAVE_VEHICLE, [](const alt::CEvent* ev, py::list& args) {
 	auto event = dynamic_cast<const alt::CPlayerLeaveVehicleEvent*>(ev);

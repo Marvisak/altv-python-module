@@ -1,30 +1,47 @@
 #pragma once
 #include "main.hpp"
 
-class Vector3 {
-    double GetAngle(const Vector3& other, const bool& boolean) const;
-public:
-    double x, y, z;
+class Vector3
+{
+	double GetAngle(const Vector3& other, const bool& boolean) const;
 
-    Vector3(double x, double y, double z) : x(x), y(y), z(z) {}
-    explicit Vector3(alt::Position position) : x{position[0]}, y{position[1]}, z{position[2]} {}
-    explicit Vector3(alt::Rotation rotation) : x{rotation[0]}, y{rotation[1]}, z{rotation[2]} {}
-    explicit Vector3(alt::Vector3f vector) : x{vector[0]}, y{vector[1]}, z{vector[2]} {}
-    explicit Vector3(const py::list& vectorList) : x{vectorList[0].cast<float>()}, y{vectorList[1].cast<float>()}, z{vectorList[2].cast<float>()} {}
+ public:
+	double x, y, z;
 
-    py::dict ToDict();
-    py::list ToList();
+	Vector3(double x, double y, double z)
+		: x(x), y(y), z(z)
+	{
+	}
+	explicit Vector3(alt::Position position)
+		: x{position[0]}, y{position[1]}, z{position[2]}
+	{
+	}
+	explicit Vector3(alt::Rotation rotation)
+		: x{rotation[0]}, y{rotation[1]}, z{rotation[2]}
+	{
+	}
+	explicit Vector3(alt::Vector3f vector)
+		: x{vector[0]}, y{vector[1]}, z{vector[2]}
+	{
+	}
+	explicit Vector3(const py::list& vectorList)
+		: x{vectorList[0].cast<float>()}, y{vectorList[1].cast<float>()}, z{vectorList[2].cast<float>()}
+	{
+	}
 
-    alt::Position ToAlt() const;
-    std::string ToString() const;
+	py::dict ToDict();
+	py::list ToList();
 
-    Vector3 ToDegrees() const;
-    Vector3 ToRadians() const;
+	alt::Position ToAlt() const;
+	std::string ToString() const;
 
-    double Length() const;
-    double Distance(Vector3& other) const;
+	Vector3 ToDegrees() const;
+	Vector3 ToRadians() const;
+
+	double Length() const;
+	double Distance(Vector3& other) const;
 	double DistanceSquared(Vector3& other) const;
-    bool IsInRange(const Vector3& other, double range) const;
+	bool IsInRange(const Vector3& other, double range) const;
 	Vector3 Lerp(Vector3 other, double ratio) const;
 
 	Vector3 operator+(const Vector3& other) const;
@@ -54,20 +71,20 @@ public:
 	double Dot(double num) const;
 	double Dot(const py::list& vectorList) const;
 
-    Vector3 Normalize() const;
+	Vector3 Normalize() const;
 
-    static Vector3 Zero(const py::object& _this);
-    static Vector3 One(const py::object& _this);
-    static Vector3 Up(const py::object& _this);
-    static Vector3 Down(const py::object& _this);
-    static Vector3 Left(const py::object& _this);
-    static Vector3 Right(const py::object& _this);
-    static Vector3 Back(const py::object& _this);
-    static Vector3 Forward(const py::object& _this);
+	static Vector3 Zero(const py::object& _this);
+	static Vector3 One(const py::object& _this);
+	static Vector3 Up(const py::object& _this);
+	static Vector3 Down(const py::object& _this);
+	static Vector3 Left(const py::object& _this);
+	static Vector3 Right(const py::object& _this);
+	static Vector3 Back(const py::object& _this);
+	static Vector3 Forward(const py::object& _this);
 
-    static Vector3 PositiveInfinity(const py::object& _this);
-    static Vector3 NegativeInfinity(const py::object& _this);
+	static Vector3 PositiveInfinity(const py::object& _this);
+	static Vector3 NegativeInfinity(const py::object& _this);
 
-    double AngleTo(const Vector3& other);
-    double AngleToDegrees(const Vector3& other);
+	double AngleTo(const Vector3& other);
+	double AngleToDegrees(const Vector3& other);
 };

@@ -1,7 +1,8 @@
 #include "PythonResource.hpp"
 #include "utils.hpp"
 
-bool PythonResource::Start() {
+bool PythonResource::Start()
+{
 	PyThreadState_Swap(runtime->GetInterpreter());
 	interpreter = Py_NewInterpreter();
 
@@ -16,7 +17,8 @@ bool PythonResource::Start() {
 
 	py::dict modules = sys.attr("modules");
 	py::object imp = py::module_::import("importlib.util");
-	for (const auto& depName: resource->GetDependencies()) {
+	for (const auto& depName : resource->GetDependencies())
+	{
 		alt::IResource* dep = alt::ICore::Instance().GetResource(depName);
 
 		py::object spec = imp.attr("spec_from_loader")(depName, py::none());
@@ -29,7 +31,8 @@ bool PythonResource::Start() {
 	}
 
 	FILE* fp = fopen(fullPath.c_str(), "r");
-	if (!fp) {
+	if (!fp)
+	{
 		alt::ICore::Instance().LogError("Main file not found");
 		return false;
 	}
@@ -39,7 +42,8 @@ bool PythonResource::Start() {
 	PyThreadState_Swap(runtime->GetInterpreter());
 	return !crashed;
 }
-bool PythonResource::Stop() {
+bool PythonResource::Stop()
+{
 	localEvents.clear();
 	localCustomEvents.clear();
 	remoteEvents.clear();
@@ -55,19 +59,24 @@ bool PythonResource::Stop() {
 	return true;
 }
 
-bool PythonResource::OnEvent(const alt::CEvent* event) {
+bool PythonResource::OnEvent(const alt::CEvent* event)
+{
 	auto eventType = event->GetType();
 	if (eventType == alt::CEvent::Type::SERVER_SCRIPT_EVENT || eventType == alt::CEvent::Type::CLIENT_SCRIPT_EVENT)
 		HandleCustomEvent(event);
-	else {
+	else
+	{
 		auto eventHandler = EventHandler::Get(event);
-		if (eventHandler) {
+		if (eventHandler)
+		{
 			auto callbacks = localEvents[eventType];
 			if (callbacks.empty()) return true;
 			py::list eventArgs;
 			eventHandler->GetEventArgs(event, eventArgs);
-			for (const auto& callback : callbacks) {
-				try {
+			for (const auto& callback : callbacks)
+			{
+				try
+				{
 					PyThreadState_Swap(interpreter);
 					py::object returnValue = callback(*eventArgs);
 					PyThreadState_Swap(runtime->GetInterpreter());
@@ -75,7 +84,9 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 						event->Cancel();
 					else if (py::isinstance<py::str>(returnValue) && eventType == alt::CEvent::Type::PLAYER_BEFORE_CONNECT)
 						reinterpret_cast<alt::CPlayerBeforeConnectEvent*>(const_cast<alt::CEvent*>(event))->Cancel(returnValue.cast<std::string>());
-				} catch (py::error_already_set& e) {
+				}
+				catch (py::error_already_set& e)
+				{
 					e.discard_as_unraisable(callback.attr("__name__"));
 				}
 			}
@@ -84,119 +95,144 @@ bool PythonResource::OnEvent(const alt::CEvent* event) {
 	return true;
 }
 
-void PythonResource::OnTick() {
-	for (auto task : tasks) {
+void PythonResource::OnTick()
+{
+	for (auto task : tasks)
+	{
 		uint32_t time = alt::ICore::Instance().GetNetTime();
 		if (task->Update(time) && (alt::ICore::Instance().GetNetTime() - time) > 10)
 			task->TimeWarning(time, resource->GetName());
 	}
-	for (auto it = timers.cbegin(); it != timers.cend();) {
+	for (auto it = timers.cbegin(); it != timers.cend();)
+	{
 		uint32_t time = alt::ICore::Instance().GetNetTime();
-		if (it->second->Update(time)) {
+		if (it->second->Update(time))
+		{
 			if ((alt::ICore::Instance().GetNetTime() - time) > 10)
 				it->second->TimeWarning(time, resource->GetName());
 			delete it->second;
 			it = timers.erase(it);
-		} else
+		}
+		else
 			it = std::next(it);
 	}
-
 }
 
-void PythonResource::HandleCustomEvent(const alt::CEvent* ev) {
+void PythonResource::HandleCustomEvent(const alt::CEvent* ev)
+{
 	py::list eventArgs;
 	std::vector<py::function> callbacks;
-	if (ev->GetType() == alt::CEvent::Type::SERVER_SCRIPT_EVENT) {
+	if (ev->GetType() == alt::CEvent::Type::SERVER_SCRIPT_EVENT)
+	{
 		auto event = dynamic_cast<const alt::CServerScriptEvent*>(ev);
 		std::string name = event->GetName();
 		callbacks = localCustomEvents[name];
 		if (callbacks.empty()) return;
-		for (const auto& arg : event->GetArgs()) {
+		for (const auto& arg : event->GetArgs())
+		{
 			auto value = Utils::MValueToValue(arg);
 			eventArgs.append(value);
 		}
-	} else {
+	}
+	else
+	{
 		auto event = dynamic_cast<const alt::CClientScriptEvent*>(ev);
 		std::string name = event->GetName();
 		callbacks = remoteEvents[name];
 		if (callbacks.empty()) return;
 		eventArgs.append(event->GetTarget().Get());
-		for (const auto& arg : event->GetArgs()) {
+		for (const auto& arg : event->GetArgs())
+		{
 			auto value = Utils::MValueToValue(arg);
 			eventArgs.append(value);
 		}
 	}
-	for (const auto& callback : callbacks) {
-		try {
+	for (const auto& callback : callbacks)
+	{
+		try
+		{
 			PyThreadState_Swap(interpreter);
 			callback(*eventArgs);
 			PyThreadState_Swap(runtime->GetInterpreter());
-		} catch (py::error_already_set& e) {
+		}
+		catch (py::error_already_set& e)
+		{
 			e.discard_as_unraisable(callback.attr("__name__"));
 		}
 	}
 }
 
-void PythonResource::OnCreateBaseObject(alt::Ref<alt::IBaseObject> object) {
+void PythonResource::OnCreateBaseObject(alt::Ref<alt::IBaseObject> object)
+{
 	object->AddRef();
 	objects.insert({object->GetType(), object});
 }
 
-void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object) {
+void PythonResource::OnRemoveBaseObject(alt::Ref<alt::IBaseObject> object)
+{
 	auto range = objects.equal_range(object->GetType());
 	for (auto it = range.first; it != range.second; it++)
-		if (it->second == object) {
+		if (it->second == object)
+		{
 			objects.erase(it);
 			break;
 		}
 }
 
-bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject>& object) {
+bool PythonResource::IsObjectValid(const alt::Ref<alt::IBaseObject>& object)
+{
 	auto range = objects.equal_range(object->GetType());
 	for (auto it = range.first; it != range.second; it++)
 		if (it->second == object) return true;
 	return false;
 }
 
-int PythonResource::AddTimer(double milliseconds, const py::function& func) {
+int PythonResource::AddTimer(double milliseconds, const py::function& func)
+{
 	auto task = new Interval(milliseconds, func, interpreter);
 	intervalId++;
 	timers[intervalId] = task;
 	return intervalId;
 }
 
-void PythonResource::ClearTimer(int timerId) {
+void PythonResource::ClearTimer(int timerId)
+{
 	auto interval = timers[timerId];
 	timers.erase(timerId);
 	delete interval;
 }
 
-void PythonResource::AddTask(double milliseconds, const py::function& func) {
+void PythonResource::AddTask(double milliseconds, const py::function& func)
+{
 	auto task = new Interval(milliseconds, func, interpreter);
 	tasks.push_back(task);
 }
 
-Interval* PythonResource::GetInterval(const py::function& func) {
-	for (int i{}; i<tasks.size(); i++)
+Interval* PythonResource::GetInterval(const py::function& func)
+{
+	for (int i{}; i < tasks.size(); i++)
 		if (tasks[i]->GetFunc().is(func))
 			return tasks[i];
 	return nullptr;
 }
 
-
-void PythonResource::AddLocalEvent(const alt::CEvent::Type& type, const py::function& eventFunc) {
+void PythonResource::AddLocalEvent(const alt::CEvent::Type& type, const py::function& eventFunc)
+{
 	localEvents[type].push_back(eventFunc);
 }
 
-void PythonResource::AddLocalCustomEvent(const std::string& eventName, const py::function& eventFunc) {
+void PythonResource::AddLocalCustomEvent(const std::string& eventName, const py::function& eventFunc)
+{
 	localCustomEvents[eventName].push_back(eventFunc);
 }
 
-void PythonResource::AddRemoteEvent(const std::string& eventName, const py::function& eventFunc) {
+void PythonResource::AddRemoteEvent(const std::string& eventName, const py::function& eventFunc)
+{
 	remoteEvents[eventName].push_back(eventFunc);
 }
 
-alt::MValue PythonResource::PythonFunction::Call(alt::MValueArgs args) const {
+alt::MValue PythonResource::PythonFunction::Call(alt::MValueArgs args) const
+{
 	py::list funcArgs;
 	for (const auto& arg : args)
 		funcArgs.append(Utils::MValueToValue(arg));
@@ -204,7 +240,8 @@ alt::MValue PythonResource::PythonFunction::Call(alt::MValueArgs args) const {
 	return Utils::ValueToMValue(returnValue);
 }
 
-bool PythonResource::MakeClient(alt::IResource::CreationInfo* info, alt::Array<std::string> files) {
+bool PythonResource::MakeClient(alt::IResource::CreationInfo* info, alt::Array<std::string> files)
+{
 	info->type = "js";
 	return true;
 }

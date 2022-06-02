@@ -1,29 +1,29 @@
-#include "classes/types/vector3.hpp"
 #include "classes/types/enums.hpp"
+#include "classes/types/vector3.hpp"
 #include "events.hpp"
 #include "utils.hpp"
 
-
 EventHandler resourceStart(alt::CEvent::Type::RESOURCE_START, [](const alt::CEvent* ev, py::list& args) {
-    auto event = dynamic_cast<const alt::CResourceStartEvent*>(ev);
-    args.append(event->GetResource()->GetName());
+	auto event = dynamic_cast<const alt::CResourceStartEvent*>(ev);
+	args.append(event->GetResource()->GetName());
 });
 
 EventHandler resourceStop(alt::CEvent::Type::RESOURCE_STOP, [](const alt::CEvent* ev, py::list& args) {
-    auto event = dynamic_cast<const alt::CResourceStopEvent*>(ev);
-    args.append(event->GetResource()->GetName());
+	auto event = dynamic_cast<const alt::CResourceStopEvent*>(ev);
+	args.append(event->GetResource()->GetName());
 });
 
 EventHandler resourceError(alt::CEvent::Type::RESOURCE_ERROR, [](const alt::CEvent* ev, py::list& args) {
-    auto event = dynamic_cast<const alt::CResourceErrorEvent*>(ev);
-    args.append(event->GetResource()->GetName());
+	auto event = dynamic_cast<const alt::CResourceErrorEvent*>(ev);
+	args.append(event->GetResource()->GetName());
 });
 
 EventHandler fire(alt::CEvent::Type::FIRE_EVENT, [](const alt::CEvent* ev, py::list& args) {
 	auto event = dynamic_cast<const alt::CFireEvent*>(ev);
 	args.append(event->GetSource().Get());
 	py::list fireInfos;
-	for (alt::CFireEvent::FireInfo fireInfo : event->GetFires()) {
+	for (alt::CFireEvent::FireInfo fireInfo : event->GetFires())
+	{
 		py::dict fireInfoDict;
 		fireInfoDict["pos"] = Vector3(fireInfo.position);
 		fireInfoDict["weapon"] = fireInfo.weaponHash;

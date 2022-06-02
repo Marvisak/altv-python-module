@@ -1,8 +1,8 @@
 #pragma once
 
 #include "PythonResource.hpp"
-#include "main.hpp"
 #include "events/events.hpp"
+#include "main.hpp"
 
 class PythonRuntime : public alt::IScriptRuntime
 {
@@ -12,14 +12,15 @@ class PythonRuntime : public alt::IScriptRuntime
 #ifdef __linux__
 	void* python;
 #endif
-public:
+ public:
 	PythonRuntime();
 	alt::IResource::Impl* CreateImpl(alt::IResource* resource) override;
 	void DestroyImpl(alt::IResource::Impl* impl) override;
 	void OnDispose() override;
 	PythonResource* GetPythonResourceFromInterp(PyThreadState* state);
 
-	PyThreadState* GetInterpreter() {
+	PyThreadState* GetInterpreter()
+	{
 		return mainInterpreter;
 	}
 

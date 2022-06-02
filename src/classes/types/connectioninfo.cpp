@@ -1,7 +1,7 @@
 #include "classes/classes.hpp"
 
-
-void RegisterConnectionInfoClass(const py::module_& m) {
+void RegisterConnectionInfoClass(const py::module_& m)
+{
 	auto pyClass = py::class_<alt::IConnectionInfo, alt::Ref<alt::IConnectionInfo>>(m, "ConnectionInfo");
 	pyClass.def_property_readonly("name", &alt::IConnectionInfo::GetName);
 	pyClass.def_property_readonly("social_id", &alt::IConnectionInfo::GetSocialId);

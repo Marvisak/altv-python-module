@@ -3,12 +3,16 @@
 
 PYBIND11_DECLARE_HOLDER_TYPE(T, alt::Ref<T>, true)
 
-namespace pybind11::detail {
-	template <typename T>
+namespace pybind11::detail
+{
+	template<typename T>
 	struct holder_helper<alt::Ref<T>> {
-		static const T* get(const alt::Ref<T> &p) { return p.Get(); }
+		static const T* get(const alt::Ref<T>& p)
+		{
+			return p.Get();
+		}
 	};
-}
+}// namespace pybind11::detail
 
 void RegisterEnums(const py::module_& m);
 void RegisterRGBAClass(const py::module_& m);

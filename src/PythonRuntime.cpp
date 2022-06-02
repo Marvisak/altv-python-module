@@ -5,7 +5,8 @@
 
 PythonRuntime* PythonRuntime::instance = nullptr;
 
-PythonRuntime::PythonRuntime() {
+PythonRuntime::PythonRuntime()
+{
 #ifdef __linux__
 	// Without this, python doesn't recognize the shared lib, should be linux only issue
 	std::string so = std::string("libpython") + std::to_string(PY_MAJOR_VERSION) + "." + std::to_string(PY_MINOR_VERSION) + ".so.1.0";
@@ -18,7 +19,8 @@ PythonRuntime::PythonRuntime() {
 
 	// Venv should get recognized automatically, but if it doesn't, here is a config option for it
 	alt::config::Node venv = alt::ICore::Instance().GetServerConfig()["python-venv"];
-	if (venv) {
+	if (venv)
+	{
 #ifdef _WIN32
 		std::string separator = ";";
 #else
@@ -27,7 +29,6 @@ PythonRuntime::PythonRuntime() {
 		path.append(separator + alt::ICore::Instance().GetRootDirectory() + SEPARATOR + venv.ToString());
 	}
 
-
 	Py_SetPath(std::wstring(path.begin(), path.end()).c_str());
 	py::initialize_interpreter(false);
 	py::module_::import("alt");
@@ -35,7 +36,8 @@ PythonRuntime::PythonRuntime() {
 	instance = this;
 }
 
-PythonResource* PythonRuntime::GetPythonResourceFromInterp(PyThreadState* interp) {
+PythonResource* PythonRuntime::GetPythonResourceFromInterp(PyThreadState* interp)
+{
 	for (PythonResource* resource : resources)
 		if (resource->GetInterpreter() == interp)
 			return resource;
@@ -44,13 +46,15 @@ PythonResource* PythonRuntime::GetPythonResourceFromInterp(PyThreadState* interp
 	return nullptr;
 }
 
-alt::IResource::Impl* PythonRuntime::CreateImpl(alt::IResource* impl) {
+alt::IResource::Impl* PythonRuntime::CreateImpl(alt::IResource* impl)
+{
 	auto* resource = new PythonResource(this, impl);
 	resources.push_back(resource);
 	return resource;
 }
 
-void PythonRuntime::DestroyImpl(alt::IResource::Impl* impl) {
+void PythonRuntime::DestroyImpl(alt::IResource::Impl* impl)
+{
 	auto* resource = dynamic_cast<PythonResource*>(impl);
 	for (int i{}; i < resources.size(); i++)
 	{
@@ -63,12 +67,11 @@ void PythonRuntime::DestroyImpl(alt::IResource::Impl* impl) {
 	delete resource;
 }
 
-
-void PythonRuntime::OnDispose() {
+void PythonRuntime::OnDispose()
+{
 	PyThreadState_Swap(mainInterpreter);
 	py::finalize_interpreter();
 #ifdef __linux__
 	dlclose(python);
 #endif
 }
-

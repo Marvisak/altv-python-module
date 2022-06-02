@@ -17,8 +17,8 @@ static char SEPARATOR = '/';
 #include <SDK.h>
 
 // Python API
-#include <pybind11/stl.h>
 #include <pybind11/embed.h>
 #include <pybind11/operators.h>
+#include <pybind11/stl.h>
 
-namespace py = pybind11;
+namespace py = pybind11;// NOLINT

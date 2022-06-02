@@ -1,112 +1,119 @@
 #pragma once
 
-enum class WeatherType : uint32_t {
-    ExtraSunny,
-    Clear,
-    Clouds,
-    Smog,
-    Foggy,
-    Overcast,
-    Rain,
-    Thunder,
-    Clearing,
-    Neutral,
-    Snow,
-    Blizzard,
-    Snowlight,
-    Xmas,
-    Halloween,
+#include <cstdint>
+
+enum class WeatherType : uint32_t
+{
+	ExtraSunny,
+	Clear,
+	Clouds,
+	Smog,
+	Foggy,
+	Overcast,
+	Rain,
+	Thunder,
+	Clearing,
+	Neutral,
+	Snow,
+	Blizzard,
+	Snowlight,
+	Xmas,
+	Halloween,
 };
 
-enum class WeaponTint : uint32_t {
-    Normal,
-    Green,
-    Gold,
-    Pink,
-    Army,
-    LSPD,
-    Orange,
-    Platinum
+enum class WeaponTint : uint32_t
+{
+	Normal,
+	Green,
+	Gold,
+	Pink,
+	Army,
+	LSPD,
+	Orange,
+	Platinum
 };
 
-enum class VehicleModType : uint8_t {
-    Spoiler,
-    FrontBumper,
-    RearBumper,
-    SideSkirt,
-    Exhaust,
-    Frame,
-    Grille,
-    Hood,
-    Fender,
-    RightFender,
-    Roof,
-    Engine,
-    Brakes,
-    Transmission,
-    Horn,
-    Suspension,
-    Armor,
-    Unk1,
-    Turbo,
-    Unk2,
-    TireSmoke,
-    Unk3,
-    XenonLights,
-    FrontWheels,
-    BackWheels,
-    Plateholder,
-    VanityPlates,
-    TrimDesign,
-    Ornaments,
-    Dashboard,
-    Dial,
-    DoorSpeaker,
-    Seats,
-    SteeringWheel,
-    ColumnShifterLeavers,
-    Plaques,
-    Speakers,
-    Trunk,
-    Hydraulics,
-    EngineBlock,
-    AirFilter,
-    Struts,
-    ArchCover,
-    Aerials,
-    Trim,
-    Tank,
-    Windows,
-    Unk4,
-    Livery,
+enum class VehicleModType : uint8_t
+{
+	Spoiler,
+	FrontBumper,
+	RearBumper,
+	SideSkirt,
+	Exhaust,
+	Frame,
+	Grille,
+	Hood,
+	Fender,
+	RightFender,
+	Roof,
+	Engine,
+	Brakes,
+	Transmission,
+	Horn,
+	Suspension,
+	Armor,
+	Unk1,
+	Turbo,
+	Unk2,
+	TireSmoke,
+	Unk3,
+	XenonLights,
+	FrontWheels,
+	BackWheels,
+	Plateholder,
+	VanityPlates,
+	TrimDesign,
+	Ornaments,
+	Dashboard,
+	Dial,
+	DoorSpeaker,
+	Seats,
+	SteeringWheel,
+	ColumnShifterLeavers,
+	Plaques,
+	Speakers,
+	Trunk,
+	Hydraulics,
+	EngineBlock,
+	AirFilter,
+	Struts,
+	ArchCover,
+	Aerials,
+	Trim,
+	Tank,
+	Windows,
+	Unk4,
+	Livery,
 };
 
-enum class WindowTint : uint8_t {
-    DarkSmoke,
-    Green,
-    LightSmoke,
-    Limo,
-    Clear,
-    PureBlack,
-    Stock
+enum class WindowTint : uint8_t
+{
+	DarkSmoke,
+	Green,
+	LightSmoke,
+	Limo,
+	Clear,
+	PureBlack,
+	Stock
 };
 
-enum class RadioStation : uint32_t {
+enum class RadioStation : uint32_t
+{
 	Nothing,
-    RadioOff,
-    MediaPlayer,
-    TheMusicLocker,
-    MotoMami,
-    BlueArk,
-    WorldWideFM,
-    FlyLoFM,
-    TheLowdown,
-    TheLab,
+	RadioOff,
+	MediaPlayer,
+	TheMusicLocker,
+	MotoMami,
+	BlueArk,
+	WorldWideFM,
+	FlyLoFM,
+	TheLowdown,
+	TheLab,
 	RadioMirrorPark,
-    KultFM,
-    Space,
-    VinewoodBoulevardRadio,
-    Blonded,
+	KultFM,
+	Space,
+	VinewoodBoulevardRadio,
+	Blonded,
 	LosSantosUndergroundRadio,
 	iFruitRadio,
 	LosSantosRockRadio,
@@ -120,75 +127,84 @@ enum class RadioStation : uint32_t {
 	WestCoastClassics
 };
 
-enum class VehicleLockState : uint8_t {
-    Nothing,
-    Unlocked,
-    Locked,
-    LockoutPlayerOnly,
-    LockPlayerInside,
-    InitiallyLocked,
-    ForceDoorsShut,
-    LockedCanBeDamaged,
+enum class VehicleLockState : uint8_t
+{
+	Nothing,
+	Unlocked,
+	Locked,
+	LockoutPlayerOnly,
+	LockPlayerInside,
+	InitiallyLocked,
+	ForceDoorsShut,
+	LockedCanBeDamaged,
 };
 
-enum class VehicleDoor : uint8_t {
-    DriverFront,
-    PassengerFront,
-    DriverRear,
-    PassengerRear,
-    Hood,
-    Trunk,
+enum class VehicleDoor : uint8_t
+{
+	DriverFront,
+	PassengerFront,
+	DriverRear,
+	PassengerRear,
+	Hood,
+	Trunk,
 };
 
-enum class VehicleDoorState : uint8_t {
-    Closed,
-    OpenedLevel1,
-    OpenedLevel2,
-    OpenedLevel3,
-    OpenedLevel4,
-    OpenedLevel5,
-    OpenedLevel6,
-    OpenedLevel7,
-    Unknown = 255,
+enum class VehicleDoorState : uint8_t
+{
+	Closed,
+	OpenedLevel1,
+	OpenedLevel2,
+	OpenedLevel3,
+	OpenedLevel4,
+	OpenedLevel5,
+	OpenedLevel6,
+	OpenedLevel7,
+	Unknown = 255,
 };
 
-enum class VehiclePart : uint8_t {
-    FrontLeft,
-    FrontRight,
-    MiddleLeft,
-    MiddleRight,
-    RearLeft,
-    RearRight,
+enum class VehiclePart : uint8_t
+{
+	FrontLeft,
+	FrontRight,
+	MiddleLeft,
+	MiddleRight,
+	RearLeft,
+	RearRight,
 };
 
-enum class VehiclePartDamage : uint8_t {
-    NotDamaged,
-    DamagedLevel1,
-    DamagedLevel2,
-    DamagedLevel3,
+enum class VehiclePartDamage : uint8_t
+{
+	NotDamaged,
+	DamagedLevel1,
+	DamagedLevel2,
+	DamagedLevel3,
 };
 
-enum class VehicleBumper : uint8_t {
-    Front,
-    Rear,
+enum class VehicleBumper : uint8_t
+{
+	Front,
+	Rear,
 };
 
-enum class VehicleBumperDamage : uint8_t {
-    NotDamaged,
-    Damaged,
-    Nothing,
+enum class VehicleBumperDamage : uint8_t
+{
+	NotDamaged,
+	Damaged,
+	Nothing,
 };
 
-enum class NumberPlateStyle : uint32_t {
-    BlueWhite,
-    BlueWhite2,
-    BlueWhite3,
-    Yankton,
-    YellowBlack,
-    YellowBlue
+enum class NumberPlateStyle : uint32_t
+{
+	BlueWhite,
+	BlueWhite2,
+	BlueWhite3,
+	Yankton,
+	YellowBlack,
+	YellowBlue
 };
 
-enum class Event : uint16_t {
+enum class Event : uint16_t
+{
 	ServerStarted = 1,
 
 	PlayerConnect,
@@ -237,7 +253,8 @@ enum class Event : uint16_t {
 	PlayerAnimationChange,
 };
 
-enum class ExplosionType : int8_t {
+enum class ExplosionType : int8_t
+{
 	Grenade,
 	GrenadeLauncher,
 	StickyBomb,
@@ -280,7 +297,8 @@ enum class ExplosionType : int8_t {
 	Unknown = -1,
 };
 
-enum class BodyPart : int8_t {
+enum class BodyPart : int8_t
+{
 	Pelvis,
 	LeftHip,
 	LeftLeg,
@@ -305,7 +323,8 @@ enum class BodyPart : int8_t {
 	Unknown = -1,
 };
 
-enum class VehicleType : uint8_t {
+enum class VehicleType : uint8_t
+{
 	Invalid,
 	Ped,
 	Automobile,
@@ -326,7 +345,8 @@ enum class VehicleType : uint8_t {
 	Object
 };
 
-enum class ColShapeType : uint8_t {
+enum class ColShapeType : uint8_t
+{
 	Sphere,
 	Cylinder,
 	Circle,
@@ -336,7 +356,8 @@ enum class ColShapeType : uint8_t {
 	Polygon
 };
 
-enum class BaseObjectType : uint8_t {
+enum class BaseObjectType : uint8_t
+{
 	Player,
 	Vehicle,
 	Blip,
@@ -352,7 +373,8 @@ enum class BaseObjectType : uint8_t {
 	LocalPlayer
 };
 
-enum class BlipColor : int {
+enum class BlipColor : int
+{
 	White,
 	Red,
 	Green,
@@ -408,7 +430,8 @@ enum class BlipColor : int {
 	Purple = 83,
 };
 
-enum class BlipSprite : int {
+enum class BlipSprite : int
+{
 	Higher,
 	Lower,
 	PolicePed,
@@ -996,7 +1019,8 @@ enum class BlipSprite : int {
 	ArenaZr,
 };
 
-enum class CheckpointType : uint8_t {
+enum class CheckpointType : uint8_t
+{
 	CylinderSingleArrow,
 	CylinderDoubleArrow,
 	CylinderTripleArrow,

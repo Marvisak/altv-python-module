@@ -1,94 +1,115 @@
 #pragma once
 
-#include "version/version.h"
-#include "utils.hpp"
 #include "main.hpp"
+#include "utils.hpp"
+#include "version/version.h"
 
-uint32_t Hash(const std::string& str) {
-    return alt::ICore::Instance().Hash(str);
+uint32_t Hash(const std::string& str)
+{
+	return alt::ICore::Instance().Hash(str);
 }
 
-uint32_t GetNetTime() {
+uint32_t GetNetTime()
+{
 	return alt::ICore::Instance().GetNetTime();
 }
 
-py::dict GetServerConfig() {
+py::dict GetServerConfig()
+{
 	alt::config::Node config = alt::ICore::Instance().GetServerConfig();
 	return Utils::ConfigNodeToValue(config);
 }
 
-alt::VehicleModelInfo GetVehicleModelInfoByHash(uint32_t vehicleHash) {
+alt::VehicleModelInfo GetVehicleModelInfoByHash(uint32_t vehicleHash)
+{
 	return alt::ICore::Instance().GetVehicleModelByHash(vehicleHash);
 }
 
-uint64_t HashServerPassword(const std::string& password) {
+uint64_t HashServerPassword(const std::string& password)
+{
 	return alt::ICore::Instance().HashServerPassword(password);
 }
 
-void RestartResource(const std::string& resourceName) {
+void RestartResource(const std::string& resourceName)
+{
 	alt::ICore::Instance().RestartResource(resourceName);
 }
 
-void StartResource(const std::string& resourceName) {
+void StartResource(const std::string& resourceName)
+{
 	alt::ICore::Instance().StartResource(resourceName);
 }
 
-void StopResource(const std::string& resourceName) {
+void StopResource(const std::string& resourceName)
+{
 	alt::ICore::Instance().StopResource(resourceName);
 }
 
-void SetPassword(const std::string& password) {
+void SetPassword(const std::string& password)
+{
 	return alt::ICore::Instance().SetPassword(password);
 }
 
-void StopServer() {
+void StopServer()
+{
 	alt::ICore::Instance().StopServer();
 }
 
-std::string StringToSHA256(const std::string& str) {
+std::string StringToSHA256(const std::string& str)
+{
 	return alt::ICore::Instance().StringToSHA256(str);
 }
 
-void Export(const std::string& name, const py::object& object) {
+void Export(const std::string& name, const py::object& object)
+{
 	PyThreadState* interp = PyThreadState_Get();
 	PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
 	auto exports = resource->GetResource()->GetExports();
 	exports->Set(name, Utils::ValueToMValue(object));
 }
 
-py::object GetMeta(const std::string& key) {
+py::object GetMeta(const std::string& key)
+{
 	return Utils::MValueToValue(alt::ICore::Instance().GetMetaData(key));
 }
 
-void SetMeta(const std::string& key, const py::object& value) {
+void SetMeta(const std::string& key, const py::object& value)
+{
 	alt::ICore::Instance().SetMetaData(key, Utils::ValueToMValue(value));
 }
 
-bool HasMeta(const std::string& key) {
+bool HasMeta(const std::string& key)
+{
 	return alt::ICore::Instance().HasMetaData(key);
 }
 
-void DeleteMeta(const std::string& key) {
+void DeleteMeta(const std::string& key)
+{
 	return alt::ICore::Instance().DeleteMetaData(key);
 }
 
-py::object GetSyncedMeta(const std::string& key) {
+py::object GetSyncedMeta(const std::string& key)
+{
 	return Utils::MValueToValue(alt::ICore::Instance().GetSyncedMetaData(key));
 }
 
-void SetSyncedMeta(const std::string& key, const py::object& value) {
+void SetSyncedMeta(const std::string& key, const py::object& value)
+{
 	alt::ICore::Instance().SetSyncedMetaData(key, Utils::ValueToMValue(value));
 }
 
-bool HasSyncedMeta(const std::string& key) {
+bool HasSyncedMeta(const std::string& key)
+{
 	return alt::ICore::Instance().HasSyncedMetaData(key);
 }
 
-void DeleteSyncedMeta(const std::string& key) {
+void DeleteSyncedMeta(const std::string& key)
+{
 	return alt::ICore::Instance().DeleteSyncedMetaData(key);
 }
 
-void RegisterHelpersFunctions(py::module_ m) {
+void RegisterHelpersFunctions(py::module_ m)
+{
 	m.attr("branch") = alt::ICore::Instance().GetBranch();
 	m.attr("debug") = alt::ICore::Instance().IsDebug();
 	m.attr("default_dimension") = alt::DEFAULT_DIMENSION;
@@ -97,7 +118,7 @@ void RegisterHelpersFunctions(py::module_ m) {
 	m.attr("sdk_version") = ALT_SDK_VERSION;
 	m.attr("version") = alt::ICore::Instance().GetVersion();
 
-    m.def("hash", &Hash, py::arg("value"));
+	m.def("hash", &Hash, py::arg("value"));
 	m.def("get_net_time", &GetNetTime);
 	m.def("get_server_config", &GetServerConfig);
 	m.def("get_vehicle_model_info_by_hash", &GetVehicleModelInfoByHash, py::arg("vehicle_hash"));

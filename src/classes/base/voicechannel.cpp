@@ -1,15 +1,16 @@
 #include "classes/classes.hpp"
 
-
-void RegisterVoiceChannelClass(const py::module_& m) {
+void RegisterVoiceChannelClass(const py::module_& m)
+{
 	auto pyClass = py::class_<alt::IVoiceChannel, alt::IBaseObject, alt::Ref<alt::IVoiceChannel>>(m, "VoiceChannel");
 
 	pyClass.def(py::init<>([](bool spatial, float maxDistance) {
-		auto voiceChannel = alt::ICore::Instance().CreateVoiceChannel(spatial, maxDistance);
-		if (voiceChannel)
-			return voiceChannel.Get();
-		throw std::runtime_error("Failed to create VoiceChannel, make sure voice chat is enabled");
-	}), py::arg("spatial"), py::arg("max_distance"));
+					auto voiceChannel = alt::ICore::Instance().CreateVoiceChannel(spatial, maxDistance);
+					if (voiceChannel)
+						return voiceChannel.Get();
+					throw std::runtime_error("Failed to create VoiceChannel, make sure voice chat is enabled");
+				}),
+				py::arg("spatial"), py::arg("max_distance"));
 
 	pyClass.def_property_readonly("player_count", &alt::IVoiceChannel::GetPlayerCount);
 	pyClass.def_property_readonly("players", &alt::IVoiceChannel::GetPlayers);

@@ -38,4 +38,3 @@ EventHandler localMetaChange(alt::CEvent::Type::LOCAL_SYNCED_META_CHANGE, [](con
 	args.append(Utils::MValueToValue(event->GetVal()));
 	args.append(Utils::MValueToValue(event->GetOldVal()));
 });
-

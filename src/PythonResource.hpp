@@ -1,7 +1,7 @@
 #pragma once
 
-#include "main.hpp"
 #include "interval.hpp"
+#include "main.hpp"
 
 class PythonRuntime;
 class PythonResource : public alt::IResource::Impl
@@ -19,6 +19,7 @@ class PythonResource : public alt::IResource::Impl
 	std::map<int, Interval*> timers;
 
 	std::unordered_map<alt::IBaseObject::Type, alt::Ref<alt::IBaseObject>> objects;
+
  public:
 	PythonResource(PythonRuntime* runtime, alt::IResource* resource)
 		: runtime(runtime), resource(resource)
@@ -55,11 +56,13 @@ class PythonResource : public alt::IResource::Impl
 
 	void HandleCustomEvent(const alt::CEvent* event);
 
-	alt::IResource* GetResource() {
+	alt::IResource* GetResource()
+	{
 		return resource;
 	}
 
-	PyThreadState* GetInterpreter() {
+	PyThreadState* GetInterpreter()
+	{
 		return interpreter;
 	}
 

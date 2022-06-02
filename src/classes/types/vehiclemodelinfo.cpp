@@ -1,18 +1,21 @@
 #include "classes/classes.hpp"
 #include "enums.hpp"
 
-VehicleType GetType(const alt::VehicleModelInfo& modelInfo) {
+VehicleType GetType(const alt::VehicleModelInfo& modelInfo)
+{
 	return (VehicleType)modelInfo.modelType;
 }
 
-py::list GetAvailableModKits(const alt::VehicleModelInfo& modelInfo) {
+py::list GetAvailableModKits(const alt::VehicleModelInfo& modelInfo)
+{
 	py::list list;
 	for (auto modkit : modelInfo.modkits)
 		list.append(modkit != 0xFFFF);
 	return list;
 }
 
-void RegisterVehicleModelInfoClass(const py::module_& m) {
+void RegisterVehicleModelInfoClass(const py::module_& m)
+{
 	auto pyClass = py::class_<alt::VehicleModelInfo>(m, "VehicleModelInfo");
 	pyClass.def_readonly("title", &alt::VehicleModelInfo::title);
 	pyClass.def_readonly("wheels_count", &alt::VehicleModelInfo::wheelsCount);

@@ -1,77 +1,97 @@
 #include "classes/classes.hpp"
-#include "classes/types/vector3.hpp"
-#include "classes/types/vector2.hpp"
 #include "classes/types/enums.hpp"
+#include "classes/types/vector2.hpp"
+#include "classes/types/vector3.hpp"
 #include "utils.hpp"
 
-
-BlipColor GetBlipColor(alt::IBlip* _this) {
+BlipColor GetBlipColor(alt::IBlip* _this)
+{
 	return (BlipColor)_this->GetColor();
 }
 
-float GetBlipScale(alt::IBlip* _this) {
+float GetBlipScale(alt::IBlip* _this)
+{
 	return _this->GetScaleXY()[0];
 }
 
-void SetBlipScale(alt::IBlip* _this, float scale) {
+void SetBlipScale(alt::IBlip* _this, float scale)
+{
 	_this->SetScaleXY({scale, scale});
 }
 
-Vector2 GetSize(alt::IBlip* _this) {
+Vector2 GetSize(alt::IBlip* _this)
+{
 	return (Vector2)_this->GetScaleXY();
 }
 
-void SetSize(alt::IBlip* _this, Vector2 size) {
+void SetSize(alt::IBlip* _this, Vector2 size)
+{
 	_this->SetScaleXY(size.ToAlt());
 }
 
-BlipSprite GetBlipSprite(alt::IBlip* _this) {
+BlipSprite GetBlipSprite(alt::IBlip* _this)
+{
 	return (BlipSprite)_this->GetSprite();
 }
 
-py::list GetAllBlips(const py::object& type) {
+py::list GetAllBlips(const py::object& type)
+{
 	return Utils::ArrayToPyList<alt::Ref<alt::IBlip>>(alt::ICore::Instance().GetBlips());
 }
 
-
-void RegisterBlipClass(const py::module_& m) {
+void RegisterBlipClass(const py::module_& m)
+{
 	auto pyClass = py::class_<alt::IBlip, alt::IWorldObject, alt::Ref<alt::IBlip>>(m, "Blip");
 
-	pyClass.def_static("area", [](double x, double y, double z, float width, float height) {
-		auto blip = alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::AREA, {x, y, z});
-		blip->SetScaleXY({width, height});
-		return blip;
-	}, py::arg("x"), py::arg("y"), py::arg("z"), py::arg("width"), py::arg("height"));
+	pyClass.def_static(
+		"area", [](double x, double y, double z, float width, float height) {
+			auto blip = alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::AREA, {x, y, z});
+			blip->SetScaleXY({width, height});
+			return blip;
+		},
+		py::arg("x"), py::arg("y"), py::arg("z"), py::arg("width"), py::arg("height"));
 
-	pyClass.def_static("area", [](Vector3 pos, float width, float height) {
-		auto blip = alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::AREA, pos.ToAlt());
-		blip->SetScaleXY({width, height});
-		return blip;
-	}, py::arg("pos"), py::arg("width"), py::arg("height"));
+	pyClass.def_static(
+		"area", [](Vector3 pos, float width, float height) {
+			auto blip = alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::AREA, pos.ToAlt());
+			blip->SetScaleXY({width, height});
+			return blip;
+		},
+		py::arg("pos"), py::arg("width"), py::arg("height"));
 
-	pyClass.def_static("point", [](double x, double y, double z) {
-		return alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::DESTINATION, {x, y, z});
-	}, py::arg("x"), py::arg("y"), py::arg("z"));
+	pyClass.def_static(
+		"point", [](double x, double y, double z) {
+			return alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::DESTINATION, {x, y, z});
+		},
+		py::arg("x"), py::arg("y"), py::arg("z"));
 
-	pyClass.def_static("point", [](Vector3 pos) {
-		return alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::DESTINATION, pos.ToAlt());
-	}, py::arg("pos"));
+	pyClass.def_static(
+		"point", [](Vector3 pos) {
+			return alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::DESTINATION, pos.ToAlt());
+		},
+		py::arg("pos"));
 
-	pyClass.def_static("point", [](alt::IEntity* entity) {
-		return alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::DESTINATION, entity);
-	}, py::arg("entity"));
+	pyClass.def_static(
+		"point", [](alt::IEntity* entity) {
+			return alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::DESTINATION, entity);
+		},
+		py::arg("entity"));
 
-	pyClass.def_static("radius", [](double x, double y, double z, float radius) {
-		auto blip = alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::RADIUS, {x, y, z});
-		blip->SetScaleXY({radius, radius});
-		return blip;
-	}, py::arg("x"), py::arg("y"), py::arg("z"), py::arg("radius"));
+	pyClass.def_static(
+		"radius", [](double x, double y, double z, float radius) {
+			auto blip = alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::RADIUS, {x, y, z});
+			blip->SetScaleXY({radius, radius});
+			return blip;
+		},
+		py::arg("x"), py::arg("y"), py::arg("z"), py::arg("radius"));
 
-	pyClass.def_static("radius", [](Vector3 pos, float radius) {
-		auto blip = alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::RADIUS, pos.ToAlt());
-		blip->SetScaleXY({radius, radius});
-		return blip;
-	}, py::arg("pos"), py::arg("radius"));
+	pyClass.def_static(
+		"radius", [](Vector3 pos, float radius) {
+			auto blip = alt::ICore::Instance().CreateBlip(nullptr, alt::IBlip::BlipType::RADIUS, pos.ToAlt());
+			blip->SetScaleXY({radius, radius});
+			return blip;
+		},
+		py::arg("pos"), py::arg("radius"));
 
 	pyClass.def_property_readonly_static("all", &GetAllBlips);
 
