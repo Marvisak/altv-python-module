@@ -1,6 +1,5 @@
-#pragma once
-
 #include "PythonRuntime.hpp"
+#include "bindings.hpp"
 #include "main.hpp"
 
 void CreateAttrsForTaskFunction(PythonResource* resource, const py::function& func)
@@ -55,7 +54,7 @@ void ClearTimer(int timerId)
 	resource->ClearTimer(timerId);
 }
 
-void RegisterIntervalFunction(py::module_ m)
+void RegisterIntervalFunctions(py::module_ m)
 {
 	m.def("task", &Task, py::kw_only(), py::arg("milliseconds") = 0, py::arg("seconds") = 0, py::arg("minutes") = 0, py::arg("hours") = 0, "Decorator for creating task");
 	m.def("timer", &Timer, py::arg("func"), py::arg("milliseconds"), "Creates timer and returns it's id");

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "classes/types/enums.hpp"
 #include "main.hpp"
 #include "utils.hpp"

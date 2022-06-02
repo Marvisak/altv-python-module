@@ -1,8 +1,5 @@
-#include "alt.hpp"
+#include "bindings.hpp"
 #include "classes/classes.hpp"
-#include "events.hpp"
-#include "intervals.hpp"
-#include "log.hpp"
 #include "main.hpp"
 
 PYBIND11_EMBEDDED_MODULE(alt, m)
@@ -29,6 +26,6 @@ PYBIND11_EMBEDDED_MODULE(alt, m)
 
 	RegisterLogFunctions(m);
 	RegisterEventFunctions(m);
-	RegisterHelpersFunctions(m);
-	RegisterIntervalFunction(m);
+	RegisterMainFunctions(m);
+	RegisterIntervalFunctions(m);
 }

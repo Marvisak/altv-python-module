@@ -1,5 +1,3 @@
-#pragma once
-
 #include "main.hpp"
 
 void Log(const py::args& args, const std::string& separator = " ")

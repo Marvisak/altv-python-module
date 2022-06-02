@@ -1,5 +1,3 @@
-#pragma once
-
 #include "main.hpp"
 #include "utils.hpp"
 #include "version/version.h"
@@ -108,7 +106,7 @@ void DeleteSyncedMeta(const std::string& key)
 	return alt::ICore::Instance().DeleteSyncedMetaData(key);
 }
 
-void RegisterHelpersFunctions(py::module_ m)
+void RegisterMainFunctions(py::module_ m)
 {
 	m.attr("branch") = alt::ICore::Instance().GetBranch();
 	m.attr("debug") = alt::ICore::Instance().IsDebug();
