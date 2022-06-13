@@ -15,19 +15,18 @@ PythonRuntime::PythonRuntime()
 	// For compatibility reasons disable site packages, if user wants to use 3rd party modules they should create venv
 	Py_IsolatedFlag = 1;
 
-	std::string path = alt::ICore::Instance().GetRootDirectory() + SEPARATOR + "modules" + SEPARATOR + "python-module" + SEPARATOR + "python";
+#ifdef _WIN32
+	std::string pathSeparator = ";";
+#else
+	std::string pathSeparator = ":";
+#endif
+	std::string basePath = alt::ICore::Instance().GetRootDirectory() + SEPARATOR + "modules" + SEPARATOR + "python-module" + SEPARATOR + "python";
+	std::string path = basePath + pathSeparator + (basePath + SEPARATOR + "libs.zip");
 
 	// Venv should get recognized automatically, but if it doesn't, here is a config option for it
 	alt::config::Node venv = alt::ICore::Instance().GetServerConfig()["python-venv"];
 	if (venv)
-	{
-#ifdef _WIN32
-		std::string separator = ";";
-#else
-		std::string separator = ":";
-#endif
-		path.append(separator + alt::ICore::Instance().GetRootDirectory() + SEPARATOR + venv.ToString());
-	}
+		path.append(pathSeparator + alt::ICore::Instance().GetRootDirectory() + SEPARATOR + venv.ToString());
 
 	Py_SetPath(std::wstring(path.begin(), path.end()).c_str());
 	py::initialize_interpreter(false);

@@ -15,8 +15,11 @@ IF NOT EXIST dist\ (
 set pythonPath=build\Python-3.10.5
 
 copy build\Release\python-module.dll dist
-copy %pythonPath%\PCbuild\amd64\python310.dll dist
-xcopy %pythonPath%\Lib\* dist\python /E /Y > nul
+copy %pythonPath%\PCbuild\amd64\python310.dll dist\python
+copy %pythonPath%\PCbuild\amd64\python3.dll dist\python
+pushd %pythonPath%\Lib
+tar -acf ..\..\..\dist\python\libs.zip *
+popd
 xcopy %pythonPath%\PCbuild\amd64\*.pyd dist\python /Y > nul
 xcopy %pythonPath%\PCbuild\amd64\lib*.dll dist\python /Y > nul
 

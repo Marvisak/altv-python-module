@@ -40,7 +40,9 @@ jobs:
         run: build.bat
 
       - name: Zip artifacts
-        run: tar.exe -a -c -f python-module-windows.zip dist/*
+        run: |
+          cd dist
+          tar -acf ..\python-module-windows.zip *
 
       - name: Upload artifacts to release
         uses: actions/upload-release-asset@v1
