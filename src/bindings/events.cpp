@@ -7,6 +7,11 @@ py::cpp_function Event(Event event)
 	return [event](const py::function& func) {
 		PyThreadState* interp = PyThreadState_Get();
 		PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
+		auto ev = static_cast<alt::CEvent::Type>(event);
+
+		if (!alt::ICore::Instance().IsEventEnabled(ev))
+			alt::ICore::Instance().ToggleEvent(ev, true);
+
 		auto castEvent = static_cast<alt::CEvent::Type>(event);
 		resource->AddLocalEvent(castEvent, func);
 	};
