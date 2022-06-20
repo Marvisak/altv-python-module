@@ -17,12 +17,13 @@ set pythonPath=build\Python-3.10.5
 copy build\Release\python-module.dll dist
 copy %pythonPath%\PCbuild\amd64\python310.dll dist\python
 copy %pythonPath%\PCbuild\amd64\python3.dll dist\python
+
+rmdir /s /q %pythonPath%\Lib\test
+rmdir /s /q %pythonPath%\Lib\__pycache__
+
 pushd %pythonPath%\Lib
 tar -acf ..\..\..\dist\python\libs.zip *
 popd
 xcopy %pythonPath%\PCbuild\amd64\*.pyd dist\python /Y > nul
 xcopy %pythonPath%\PCbuild\amd64\lib*.dll dist\python /Y > nul
 
-:: This is huge absolutely useless directory
-rmdir /s /q dist\python\test
-rmdir /s /q dist\python\__pycache__
