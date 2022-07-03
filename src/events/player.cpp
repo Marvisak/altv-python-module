@@ -1,6 +1,10 @@
 #include "events.hpp"
 #include "utils.hpp"
 
+// TODO Remove after next alt:V update
+#include "events/CPlayerChangeAnimationEvent.h"
+#include "events/CPlayerChangeInteriorEvent.h"
+
 EventHandler playerConnect(alt::CEvent::Type::PLAYER_CONNECT, [](const alt::CEvent* ev, py::list& args) {
 	auto event = dynamic_cast<const alt::CPlayerConnectEvent*>(ev);
 	args.append(event->GetTarget().Get());
