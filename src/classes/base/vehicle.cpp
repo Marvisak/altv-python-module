@@ -151,6 +151,7 @@ void RegisterVehicleClass(const py::module_& m)
 	pyClass.def("set_armored_window_shoot_count", &alt::IVehicle::SetArmoredWindowShootCount, py::arg("window_id"), py::arg("count"));
 	pyClass.def("set_bumper_damage_level", &alt::IVehicle::SetBumperDamageLevel, py::arg("bumper_id"), py::arg("level"));
 	pyClass.def("set_search_light_to", &SetSearchLightTo, py::arg("entity"), py::arg("state"));
+	pyClass.def("set_timed_explosion", &alt::IVehicle::SetTimedExplosion, py::arg("state"), py::arg("culprit"), py::arg("time"));
 
 	pyClass.def_property("modkit", &alt::IVehicle::GetModKit, &alt::IVehicle::SetModKit);
 	pyClass.def_property("primary_color", &alt::IVehicle::GetPrimaryColor, &alt::IVehicle::SetPrimaryColor);
@@ -209,6 +210,7 @@ void RegisterVehicleClass(const py::module_& m)
 	pyClass.def_property("train_unk2", &alt::IVehicle::GetTrainUnk2, &alt::IVehicle::SetTrainUnk2);
 	pyClass.def_property("train_unk3", &alt::IVehicle::GetTrainUnk3, &alt::IVehicle::SetTrainUnk3);
 	pyClass.def_property("boat_anchor_active", &alt::IVehicle::IsBoatAnchorActive, &alt::IVehicle::SetBoatAnchorActive);
+	pyClass.def_property("light_state", &alt::IVehicle::GetLightState, &alt::IVehicle::SetLightState);
 
 	pyClass.def_property_readonly("driver", &alt::IVehicle::GetDriver);
 	pyClass.def_property_readonly("destroyed", &alt::IVehicle::IsDestroyed);
@@ -230,4 +232,7 @@ void RegisterVehicleClass(const py::module_& m)
 	pyClass.def_property_readonly("velocity", &GetVelocity);
 	pyClass.def_property_readonly("attached", &alt::IVehicle::GetAttached);
 	pyClass.def_property_readonly("attached_to", &alt::IVehicle::GetAttachedTo);
+	pyClass.def_property_readonly("has_timed_explosion", &alt::IVehicle::HasTimedExplosion);
+	pyClass.def_property_readonly("timed_explosion_culprit", &alt::IVehicle::GetTimedExplosionCulprit);
+	pyClass.def_property_readonly("timed_explosion_time", &alt::IVehicle::GetTimedExplosionTime);
 }

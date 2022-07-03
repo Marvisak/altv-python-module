@@ -191,14 +191,18 @@ void RegisterPlayerClass(const py::module_& m)
 	pyClass.def_property_readonly("hwid_hash", &alt::IPlayer::GetHwidHash);
 	pyClass.def_property_readonly("hwid_ex_hash", &alt::IPlayer::GetHwidExHash);
 	pyClass.def_property_readonly("auth_token", &alt::IPlayer::GetAuthToken);
+	pyClass.def_property_readonly("discord_id", &alt::IPlayer::GetDiscordId);
 	pyClass.def("kick", &alt::IPlayer::Kick, py::arg("reason") = "Kicked");
 
 	// Game Data
-	pyClass.def_property_readonly("speed", &alt::IPlayer::GetMoveSpeed);
+	pyClass.def_property_readonly("move_speed", &alt::IPlayer::GetMoveSpeed);
+	pyClass.def_property_readonly("strafe_speed", &alt::IPlayer::GetStrafeSpeed);
+	pyClass.def_property_readonly("forward_speed", &alt::IPlayer::GetForwardSpeed);
 	pyClass.def_property_readonly("aim_pos", &GetAimPos);
 	pyClass.def_property_readonly("head_rot", &GetHeadRot);
 	pyClass.def_property_readonly("entity_aiming_at", &GetEntityAimingAt);
 	pyClass.def_property_readonly("entity_aim_offset", &GetEntityAimOffset);
+	pyClass.def_property_readonly("interior_location", &alt::IPlayer::GetInteriorLocation);
 	pyClass.def_property("invincible", &alt::IPlayer::GetInvincible, &alt::IPlayer::SetInvincible);
 	pyClass.def("play_ambient_speech", &alt::IPlayer::PlayAmbientSpeech, py::arg("speech_name"), py::arg("speech_param"), py::arg("speech_dict_hash"));
 

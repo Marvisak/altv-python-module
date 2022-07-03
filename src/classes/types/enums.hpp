@@ -251,6 +251,7 @@ enum class Event : uint16_t
 	ConsoleCommand = 41,
 
 	PlayerAnimationChange,
+	PlayerInteriorChange
 };
 
 enum class ExplosionType : int8_t

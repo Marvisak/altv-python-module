@@ -214,6 +214,8 @@ class Event(Enum):
     NetOwnerChange = auto()
     RemoveEntity = auto()
     ConsoleCommand = 41
+    PlayerAnimationChange = auto()
+    PlayerInteriorChange = auto()
 
 class ExplosionType(Enum):
     Grenade = 0
@@ -1899,7 +1901,11 @@ class Player(Entity):
     @property
     def auth_token(self) -> str: ...
     @property
-    def speed(self) -> int: ...
+    def move_speed(self) -> float: ...
+    @property
+    def strafe_speed(self) -> float: ...
+    @property
+    def forward_speed(self) -> float: ...
     @property
     def aim_pos(self) -> Vector3:
         """Position the player is currently aiming at.
@@ -1981,6 +1987,8 @@ class Player(Entity):
     def current_animation_dict(self) -> int: ...
     @property
     def current_animation_name(self) -> int: ...
+    @property
+    def interior_location(self) -> int: ...
 
     # Methods
     @staticmethod
@@ -2805,6 +2813,12 @@ class Vehicle(Entity):
     @property
     def attached_to(self) -> Vehicle | None:
         """Gets a vehicle where the vehicle is attached to."""
+    @property
+    def has_timed_explosion(self) -> bool: ...
+    @property
+    def timed_explosion_culprit(self) -> Player: ...
+    @property
+    def timed_explosion_time(self) -> int: ...
     # Methods
     @staticmethod
     def get_by_id(id: int) -> Vehicle | None:
@@ -3138,6 +3152,7 @@ class Vehicle(Entity):
         Note:
                 Entity parameter isn't working for now and this can only be used for helicopter searchlights.
         """
+    def set_timed_explosion(self, state: bool, culprit: Player, time: int) -> None: ...
 
 class VoiceChannel(BaseObject):
     # Constructor
@@ -3381,7 +3396,7 @@ class ColShape(WorldObject):
         """Whether this colshape should only trigger its enter/leave events for players or all entities."""
     @players_only.setter
     def players_only(self, state: bool) -> None: ...
-    def is_entity_in(self, entity: Entity) -> bool: ...
+    def is_entity_in(self, entity: Entity | int) -> bool: ...
     def is_point_in(self, pos: Vector3) -> bool: ...
 
 class Checkpoint(ColShape):

@@ -174,3 +174,7 @@ def PlayerAnimationChange(
     new_anim_name: int,
 ) -> None:
     ...
+
+
+def PlayerInteriorChange(player: Player, new_interior: int, old_interior: int) -> None:
+    ...

@@ -90,5 +90,6 @@ void RegisterColShapeClass(const py::module_& m)
 	pyClass.def_property("players_only", &alt::IColShape::IsPlayersOnly, &alt::IColShape::SetPlayersOnly);
 
 	pyClass.def("is_entity_in", &alt::IColShape::IsEntityIn, py::arg("entity"));
+	pyClass.def("is_entity_in", &alt::IColShape::IsEntityIdIn, py::arg("entity_id"));
 	pyClass.def("is_point_in", &IsPointIn, py::arg("pos"));
 }
