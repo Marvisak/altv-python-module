@@ -1,8 +1,16 @@
 :root {
-    --md-primary-fg-color:        #008736;
+    --md-primary-fg-color: #008736;
     --md-primary-fg-color--light: #F1F2F2;
-    --md-primary-fg-color--dark:  #1F1F1F;
+    --md-primary-fg-color--dark: #1F1F1F;
 }
+
+:root,
+[data-md-color-scheme=default] {
+    --md-primary-fg-color: #008736;
+    --md-primary-fg-color--light: #F1F2F2;
+    --md-primary-fg-color--dark: #1F1F1F;
+}
+
 
 div.doc-contents:not(.first) {
     padding-left: 25px;
