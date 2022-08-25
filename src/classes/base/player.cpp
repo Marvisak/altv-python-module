@@ -171,6 +171,10 @@ void Emit(alt::IPlayer* _this, const std::string& eventName, const py::args& arg
 	alt::ICore::Instance().TriggerClientEvent(_this, eventName, eventArgs);
 }
 
+BodyPart GetLastDamagedBodyPart(alt::IPlayer* _this) {
+    return (BodyPart)_this->GetLastDamagedBodyPart();
+}
+
 void RegisterPlayerClass(const py::module_& m)
 {
 	auto pyClass = py::class_<alt::IPlayer, alt::IEntity, alt::Ref<alt::IPlayer>>(m, "Player", py::multiple_inheritance());
@@ -204,6 +208,7 @@ void RegisterPlayerClass(const py::module_& m)
 	pyClass.def_property_readonly("entity_aim_offset", &GetEntityAimOffset);
 	pyClass.def_property_readonly("interior_location", &alt::IPlayer::GetInteriorLocation);
 	pyClass.def_property("invincible", &alt::IPlayer::GetInvincible, &alt::IPlayer::SetInvincible);
+    pyClass.def_property("last_damaged_body_part", &GetLastDamagedBodyPart, &alt::IPlayer::SetLastDamagedBodyPart);
 	pyClass.def("play_ambient_speech", &alt::IPlayer::PlayAmbientSpeech, py::arg("speech_name"), py::arg("speech_param"), py::arg("speech_dict_hash"));
 
 	// Weather & Time

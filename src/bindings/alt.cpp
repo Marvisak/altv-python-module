@@ -23,6 +23,23 @@ alt::VehicleModelInfo GetVehicleModelInfoByHash(uint32_t vehicleHash)
 	return alt::ICore::Instance().GetVehicleModelByHash(vehicleHash);
 }
 
+py::dict GetPedModelInfoByHash(uint32_t pedHash) {
+    py::dict dict;
+    alt::PedModelInfo pedModelInfo = alt::ICore::Instance().GetPedModelByHash(pedHash);
+    dict["hash"] = pedModelInfo.hash;
+    dict["name"] = pedModelInfo.name;
+    py::list pedBones;
+    for (const auto& pedBone : pedModelInfo.bones) {
+        py::dict pyPedBone;
+        pyPedBone["id"] = pedBone.id;
+        pyPedBone["index"] = pedBone.index;
+        pyPedBone["name"] = pedBone.name;
+        pedBones.append(pyPedBone);
+    }
+    dict["bones"] = pedBones;
+    return dict;
+}
+
 uint64_t HashServerPassword(const std::string& password)
 {
 	return alt::ICore::Instance().HashServerPassword(password);
@@ -120,6 +137,7 @@ void RegisterMainFunctions(py::module_ m)
 	m.def("get_net_time", &GetNetTime);
 	m.def("get_server_config", &GetServerConfig);
 	m.def("get_vehicle_model_info_by_hash", &GetVehicleModelInfoByHash, py::arg("vehicle_hash"));
+    m.def("get_ped_model_info_by_hash", &GetPedModelInfoByHash, py::arg("ped_hash"));
 	m.def("hash_server_password", &HashServerPassword, py::arg("password"));
 	m.def("set_password", &SetPassword, py::arg("password"));
 	m.def("stop_server", &StopServer);

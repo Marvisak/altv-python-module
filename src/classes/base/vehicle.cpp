@@ -152,6 +152,8 @@ void RegisterVehicleClass(const py::module_& m)
 	pyClass.def("set_bumper_damage_level", &alt::IVehicle::SetBumperDamageLevel, py::arg("bumper_id"), py::arg("level"));
 	pyClass.def("set_search_light_to", &SetSearchLightTo, py::arg("entity"), py::arg("state"));
 	pyClass.def("set_timed_explosion", &alt::IVehicle::SetTimedExplosion, py::arg("state"), py::arg("culprit"), py::arg("time"));
+    pyClass.def("get_weapon_capacity", &alt::IVehicle::GetWeaponCapacity, py::arg("weapon_index"));
+    pyClass.def("set_weapon_capacity", &alt::IVehicle::SetWeaponCapacity, py::arg("weapon_index"), py::arg("capacity"));
 
 	pyClass.def_property("modkit", &alt::IVehicle::GetModKit, &alt::IVehicle::SetModKit);
 	pyClass.def_property("primary_color", &alt::IVehicle::GetPrimaryColor, &alt::IVehicle::SetPrimaryColor);
@@ -211,6 +213,16 @@ void RegisterVehicleClass(const py::module_& m)
 	pyClass.def_property("train_unk3", &alt::IVehicle::GetTrainUnk3, &alt::IVehicle::SetTrainUnk3);
 	pyClass.def_property("boat_anchor_active", &alt::IVehicle::IsBoatAnchorActive, &alt::IVehicle::SetBoatAnchorActive);
 	pyClass.def_property("light_state", &alt::IVehicle::GetLightState, &alt::IVehicle::SetLightState);
+    pyClass.def_property("is_towing_disabled", &alt::IVehicle::IsTowingDisabled, &alt::IVehicle::SetDisableTowing);
+    pyClass.def_property("rocket_refuel_speed", &alt::IVehicle::GetRocketRefuelSpeed, &alt::IVehicle::SetRocketRefuelSpeed);
+    pyClass.def_property("bomb_count", &alt::IVehicle::GetBombCount, &alt::IVehicle::SetBombCount);
+    pyClass.def_property("counter_measure_count", &alt::IVehicle::GetCounterMeasureCount, &alt::IVehicle::SetCounterMeasureCount);
+    pyClass.def_property("script_max_speed", &alt::IVehicle::GetScriptMaxSpeed, &alt::IVehicle::SetScriptMaxSpeed);
+    pyClass.def_property("weapons_disabled", &alt::IVehicle::GetWeaponsDisabled, &alt::IVehicle::SetWeaponsDisabled);
+    pyClass.def_property("hybrid_extra_active", &alt::IVehicle::GetHybridExtraActive, &alt::IVehicle::SetHybridExtraActive);
+    pyClass.def_property("hybrid_extra_state", &alt::IVehicle::GetHybridExtraState, &alt::IVehicle::SetHybridExtraState);
+    pyClass.def_property("damage_modifier", &alt::IVehicle::GetDamageModifier, &alt::IVehicle::SetDamageModifier);
+    pyClass.def_property("damage_multiplier", &alt::IVehicle::GetDamageMultiplier, &alt::IVehicle::SetDamageMultiplier);
 
 	pyClass.def_property_readonly("driver", &alt::IVehicle::GetDriver);
 	pyClass.def_property_readonly("destroyed", &alt::IVehicle::IsDestroyed);

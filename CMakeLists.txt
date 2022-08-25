@@ -6,7 +6,7 @@ include(cmake/python.cmake)
 project(python-module)
 set(PROJECT_MODULE_NAME python-module)
 
-set(PYTHON_VERSION 3.10.5)
+set(PYTHON_VERSION 3.10.6)
 
 message("Downloading and Compiling Python, this might take a while")
 DownloadPython(${PYTHON_VERSION})

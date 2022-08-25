@@ -12,7 +12,7 @@ IF NOT EXIST dist\ (
     mkdir dist\python
 )
 
-set pythonPath=build\Python-3.10.5
+set pythonPath=build\Python-3.10.6
 
 copy build\Release\python-module.dll dist
 copy %pythonPath%\PCbuild\amd64\python310.dll dist\python
