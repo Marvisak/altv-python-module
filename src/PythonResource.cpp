@@ -216,17 +216,17 @@ Interval* PythonResource::GetInterval(const py::function& func)
 	return nullptr;
 }
 
-void PythonResource::AddLocalEvent(const alt::CEvent::Type& type, const py::function& eventFunc)
+void PythonResource::AddScriptEvent(const alt::CEvent::Type& type, const py::function& eventFunc)
 {
 	localEvents[type].push_back(eventFunc);
 }
 
-void PythonResource::AddLocalCustomEvent(const std::string& eventName, const py::function& eventFunc)
+void PythonResource::AddServerEvent(const std::string& eventName, const py::function& eventFunc)
 {
 	localCustomEvents[eventName].push_back(eventFunc);
 }
 
-void PythonResource::AddRemoteEvent(const std::string& eventName, const py::function& eventFunc)
+void PythonResource::AddClientEvent(const std::string& eventName, const py::function& eventFunc)
 {
 	remoteEvents[eventName].push_back(eventFunc);
 }

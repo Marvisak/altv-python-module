@@ -2,7 +2,7 @@
 #include "main.hpp"
 #include "utils.hpp"
 
-py::cpp_function Event(Event event)
+py::cpp_function ScriptEvent(Event event)
 {
 	return [event](const py::function& func) {
 		PyThreadState* interp = PyThreadState_Get();
@@ -13,16 +13,16 @@ py::cpp_function Event(Event event)
 			alt::ICore::Instance().ToggleEvent(ev, true);
 
 		auto castEvent = static_cast<alt::CEvent::Type>(event);
-		resource->AddLocalEvent(castEvent, func);
+		resource->AddScriptEvent(castEvent, func);
 	};
 }
 
-py::cpp_function CustomEvent(const std::string& eventName)
+py::cpp_function ServerEvent(const std::string& eventName)
 {
 	return [eventName](const py::function& func) {
 		PyThreadState* interp = PyThreadState_Get();
 		PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
-		resource->AddLocalCustomEvent(eventName, func);
+		resource->AddServerEvent(eventName, func);
 	};
 }
 
@@ -31,7 +31,7 @@ py::cpp_function ClientEvent(const std::string& eventName)
 	return [eventName](const py::function& func) {
 		PyThreadState* interp = PyThreadState_Get();
 		PythonResource* resource = PythonRuntime::GetInstance()->GetPythonResourceFromInterp(interp);
-		resource->AddRemoteEvent(eventName, func);
+		resource->AddClientEvent(eventName, func);
 	};
 }
 
@@ -71,8 +71,8 @@ void EmitAllClients(const std::string& eventName, const py::args& args)
 
 void RegisterEventFunctions(py::module_ m)
 {
-	m.def("event", &Event, py::arg("event"), "Decorator for registering event listener");
-	m.def("custom_event", &CustomEvent, py::arg("event"), "Decorator for registering custom event listener");
+	m.def("script_event", &ScriptEvent, py::arg("event"), "Decorator for registering event listener");
+	m.def("server_event", &ServerEvent, py::arg("event"), "Decorator for registering custom event listener");
 	m.def("client_event", &ClientEvent, py::arg("event"), "Decorator for registering client event listener");
 	m.def("emit", &Emit, py::arg("event_name"), "Emits event");
 	m.def("emit_client", py::overload_cast<alt::IPlayer*, const std::string&, const py::args&>(&EmitClient), py::arg("player"), py::arg("event_name"), "Emits client event");

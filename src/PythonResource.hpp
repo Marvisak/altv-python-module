@@ -48,11 +48,11 @@ class PythonResource : public alt::IResource::Impl
 
 	Interval* GetInterval(const py::function& func);
 
-	void AddLocalEvent(const alt::CEvent::Type& type, const py::function& eventFunc);
+	void AddScriptEvent(const alt::CEvent::Type& type, const py::function& eventFunc);
 
-	void AddLocalCustomEvent(const std::string& eventName, const py::function& eventFunc);
+	void AddServerEvent(const std::string& eventName, const py::function& eventFunc);
 
-	void AddRemoteEvent(const std::string& eventName, const py::function& eventFunc);
+	void AddClientEvent(const std::string& eventName, const py::function& eventFunc);
 
 	void HandleCustomEvent(const alt::CEvent* event);
 
