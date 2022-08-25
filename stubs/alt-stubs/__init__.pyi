@@ -1060,11 +1060,11 @@ class Vector2:
     @property
     def x(self) -> float: ...
     @x.setter
-    def x(self, new_x: float) -> None: ...
+    def x(self, x: float) -> None: ...
     @property
     def y(self) -> float: ...
     @y.setter
-    def y(self, new_y: float) -> None: ...
+    def y(self, y: float) -> None: ...
 
     zero: Vector2
     """(0, 0) vector"""
@@ -1259,15 +1259,15 @@ class Vector3:
     @property
     def x(self) -> float: ...
     @x.setter
-    def x(self, new_x: float) -> None: ...
+    def x(self, x: float) -> None: ...
     @property
     def y(self) -> float: ...
     @y.setter
-    def y(self, new_y: float) -> None: ...
+    def y(self, y: float) -> None: ...
     @property
     def z(self) -> float: ...
     @z.setter
-    def z(self, new_z: float) -> None: ...
+    def z(self, z: float) -> None: ...
 
     zero: Vector3
     """(0, 0, 0) vector"""
@@ -1511,22 +1511,22 @@ class RGBA:
     def r(self) -> int:
         """r component of RGBA"""
     @r.setter
-    def r(self, new_r: float) -> None: ...
+    def r(self, r: float) -> None: ...
     @property
     def g(self) -> int:
         """g component of RGBA"""
     @g.setter
-    def g(self, new_g: float) -> None: ...
+    def g(self, g: float) -> None: ...
     @property
     def b(self) -> int:
         """b component of RGBA"""
     @b.setter
-    def b(self, new_b: float) -> None: ...
+    def b(self, b: float) -> None: ...
     @property
     def a(self) -> int:
         """a component of RGBA"""
     @a.setter
-    def a(self, new_a: float) -> None: ...
+    def a(self, a: float) -> None: ...
 
     # Constructor
     def __init__(self, r: int, g: int, b: int, a: int = 255) -> None:
@@ -1622,7 +1622,7 @@ class WorldObject(BaseObject):
     def pos(self) -> Vector3:
         """Object position."""
     @pos.setter
-    def pos(self, new_pos: Vector3) -> None: ...
+    def pos(self, pos: Vector3) -> None: ...
     @property
     def dimension(self) -> int:
         """Object dimension
@@ -1631,13 +1631,13 @@ class WorldObject(BaseObject):
                 Check [https://docs.altv.mp/articles/dimensions.html](https://docs.altv.mp/articles/dimensions.html) to understand how it works.
         """
     @dimension.setter
-    def dimension(self, new_dimension: int) -> None: ...
+    def dimension(self, dimension: int) -> None: ...
 
 class Entity(WorldObject):
     # Properties
     all: Sequence[Entity]
     """List with all entities.
-	
+
 	Note:
 		This creates a clone of the list everytime it is called. It is advised to call this once and store the result in a variable, before iterating over it.
 
@@ -1660,7 +1660,7 @@ class Entity(WorldObject):
                 Values are provided in radians.
         """
     @rot.setter
-    def rot(self, new_rot: Vector3) -> None: ...
+    def rot(self, rot: Vector3) -> None: ...
     @property
     def streamed(self) -> bool:
         """Whether the entity should be streamed for other entities."""
@@ -1687,7 +1687,7 @@ class Entity(WorldObject):
                 Setter also accepts string as a value, but the getter will always return number
         """
     @model.setter
-    def model(self, new_model: int | str) -> None: ...
+    def model(self, model: int | str) -> None: ...
     @property
     def net_owner(self) -> Player | None:
         """Network owner of the entity.
@@ -1872,7 +1872,7 @@ class Player(Entity):
     # Properties
     all: Sequence[Player]
     """List with all players connected to the server.
-	
+
 	Note:
 		This creates a clone of the list everytime it is called. It is advised to call this once and store the result in a variable, before iterating over it.
 
@@ -1911,7 +1911,7 @@ class Player(Entity):
         """Position the player is currently aiming at.
 
         Note:
-                Will return [zero][alt.Vector3.zero] if the player is aiming against a entity.
+                Will return [zero][alt.Vector3.zero] if the player is aiming against an entity.
         """
     @property
     def head_rot(self) -> Vector3: ...
@@ -1932,23 +1932,27 @@ class Player(Entity):
     @property
     def health(self) -> int: ...
     @health.setter
-    def health(self, new_health: int) -> None: ...
+    def health(self, health: int) -> None: ...
     @property
     def max_health(self) -> int: ...
     @max_health.setter
-    def max_health(self, new_max_health: int) -> None: ...
+    def max_health(self, max_health: int) -> None: ...
     @property
     def armour(self) -> int: ...
     @armour.setter
-    def armour(self, new_armour: int) -> None: ...
+    def armour(self, armour: int) -> None: ...
     @property
     def max_armour(self) -> int: ...
     @max_armour.setter
-    def max_armour(self, new_max_armour: int) -> None: ...
+    def max_armour(self, max_armour: int) -> None: ...
     @property
     def current_weapon(self) -> int: ...
     @current_weapon.setter
-    def current_weapon(self, new_current_weapon: int) -> None: ...
+    def current_weapon(self, current_weapon: int) -> None: ...
+    @property
+    def last_damaged_body_part(self) -> BodyPart: ...
+    @last_damaged_body_part.setter
+    def last_damaged_body_part(self, body_part: BodyPart | int): ...
     @property
     def current_weapon_tint_index(self) -> WeaponTint: ...
     @property
@@ -2048,7 +2052,7 @@ class Player(Entity):
 
                 Some more notes about weapon ammo:
 
-                - Zero ammo value doesnt remove ammo of that weapon.
+                - Zero ammo value doesn't remove ammo of that weapon.
                 - Negative ammo value enables infinite ammo for this ammo type.
                 - Amount of ammo will be added if player already have weapon with same ammo type.
 
@@ -2322,7 +2326,7 @@ class Vehicle(Entity):
     # Properties
     all: Sequence[Vehicle]
     """List with all vehicles.
-	
+
 	Note:
 		This creates a clone of the list everytime it is called. It is advised to call this once and store the result in a variable, before iterating over it.
 
@@ -2346,7 +2350,7 @@ class Vehicle(Entity):
     def primary_color(self, color: int) -> None: ...
     @property
     def primary_color_rgb(self) -> RGBA:
-        """Gets or sets the custom primary color as a RGBA type.
+        """Gets or sets the custom primary color as an RGBA type.
 
         Example:
                 ```py
@@ -2364,7 +2368,7 @@ class Vehicle(Entity):
     def secondary_color(self, color: int) -> None: ...
     @property
     def secondary_color_rgb(self) -> RGBA:
-        """Gets or sets the custom secondary color as a RGBA type.
+        """Gets or sets the custom secondary color as an RGBA type.
 
         Example:
                 ```py
@@ -2392,7 +2396,7 @@ class Vehicle(Entity):
     def interior_color(self, color: int) -> None: ...
     @property
     def dashboard_color(self) -> int:
-        """Gets or sets the dashboard color of the vehicle. Dash board colors range from 0 to 159.
+        """Gets or sets the dashboard color of the vehicle. Dashboard colors range from 0 to 159.
 
         Example:
                 ```py
@@ -2448,7 +2452,7 @@ class Vehicle(Entity):
     def neon(self) -> Neon:
         """Enables or disables a neon light on a specific position."""
     @neon.setter
-    def neon(self, new_neon: Neon) -> None: ...
+    def neon(self, neon: Neon) -> None: ...
     @property
     def neon_color(self) -> RGBA:
         """Gets or sets the color of the neon lights."""
@@ -2458,12 +2462,12 @@ class Vehicle(Entity):
     def livery(self) -> int:
         """Gets or sets the livery of a vehicle."""
     @livery.setter
-    def livery(self, new_livery: int) -> None: ...
+    def livery(self, livery: int) -> None: ...
     @property
     def roof_livery(self) -> int:
         """Gets or sets the roof livery of a vehicle."""
     @roof_livery.setter
-    def roof_livery(self, new_roof_livery: int) -> None: ...
+    def roof_livery(self, roof_livery: int) -> None: ...
     @property
     def game_state_base64(self) -> str:
         """Gets or sets the game state data of a vehicle as a base64 string.
@@ -2731,6 +2735,46 @@ class Vehicle(Entity):
     @boat_anchor_active.setter
     def boat_anchor_active(self, state: bool) -> None: ...
     @property
+    def is_towing_disabled(self) -> bool: ...
+    @is_towing_disabled.setter
+    def is_towing_disabled(self, state: bool) -> None: ...
+    @property
+    def rocket_refuel_speed(self) -> float: ...
+    @rocket_refuel_speed.setter
+    def rocket_refuel_speed(self, rocket_refuel_speed: float) -> None: ...
+    @property
+    def bomb_count(self) -> int: ...
+    @bomb_count.setter
+    def bomb_count(self, bomb_count: int) -> None: ...
+    @property
+    def counter_measure_count(self) -> int: ...
+    @counter_measure_count.setter
+    def counter_measure_count(self, counter_measure_count: int) -> None: ...
+    @property
+    def script_max_speed(self) -> float: ...
+    @script_max_speed.setter
+    def script_max_speed(self, script_max_speed: float) -> None: ...
+    @property
+    def weapons_disabled(self) -> bool: ...
+    @weapons_disabled.setter
+    def weapons_disabled(self, state: bool) -> None: ...
+    @property
+    def hybrid_extra_active(self) -> bool: ...
+    @hybrid_extra_active.setter
+    def hybrid_extra_active(self, state: bool) -> None: ...
+    @property
+    def hybrid_extra_state(self) -> bool: ...
+    @hybrid_extra_state.setter
+    def hybrid_extra_state(self, state: bool) -> None: ...
+    @property
+    def damage_modifier(self) -> float: ...
+    @damage_modifier.setter
+    def damage_modifier(self, damage_modifier: float) -> None: ...
+    @property
+    def damage_multiplier(self) -> float: ...
+    @damage_multiplier.setter
+    def damage_multiplier(self, damage_multiplier: float) -> None: ...
+    @property
     def driver(self) -> Player | None:
         """Gets the current driver of the vehicle. It returns null, if there is no driver.
 
@@ -2875,7 +2919,7 @@ class Vehicle(Entity):
                 state: The state of the extra.
 
         Note:
-                Setting extras on vehicle does not work for every vehicle model. For example you can change the light bar of a police car with this method.
+                Setting extras on vehicle does not work for every vehicle model. For example, you can change the light bar of a police car with this method.
         """
     def get_door_state(self, door_id: int) -> VehicleDoorState:
         """Returns the state of a specific door.
@@ -3153,6 +3197,8 @@ class Vehicle(Entity):
                 Entity parameter isn't working for now and this can only be used for helicopter searchlights.
         """
     def set_timed_explosion(self, state: bool, culprit: Player, time: int) -> None: ...
+    def get_weapon_capacity(self, weapon_index: int) -> int: ...
+    def set_weapon_capacity(self, weapon_index: int, capacity: int) -> None: ...
 
 class VoiceChannel(BaseObject):
     # Constructor
@@ -3185,7 +3231,7 @@ class VoiceChannel(BaseObject):
 class Blip(WorldObject):
     all: Sequence[Blip]
     """List with all blips.
-	
+
 	Note:
 		This creates a clone of the list everytime it is called. It is advised to call this once and store the result in a variable, before iterating over it.
 
@@ -3200,7 +3246,7 @@ class Blip(WorldObject):
     @property
     def alpha(self) -> int: ...
     @alpha.setter
-    def alpha(self, new_alpha: int) -> None: ...
+    def alpha(self, alpha: int) -> None: ...
     @property
     def as_mission_creator(self) -> bool: ...
     @as_mission_creator.setter
@@ -3212,7 +3258,7 @@ class Blip(WorldObject):
     @property
     def bright(self) -> bool: ...
     @bright.setter
-    def bright(self, new_bright: bool) -> None: ...
+    def bright(self, bright: bool) -> None: ...
     @property
     def category(self) -> int: ...
     @category.setter
@@ -3220,7 +3266,7 @@ class Blip(WorldObject):
     @property
     def color(self) -> BlipColor: ...
     @color.setter
-    def color(self, new_color: BlipColor | int) -> None: ...
+    def color(self, color: BlipColor | int) -> None: ...
     @property
     def crew_indicator_visible(self) -> bool: ...
     @crew_indicator_visible.setter
@@ -3228,7 +3274,7 @@ class Blip(WorldObject):
     @property
     def display(self) -> int: ...
     @display.setter
-    def display(self, new_display: int) -> None: ...
+    def display(self, display: int) -> None: ...
     @property
     def flash_interval(self) -> int: ...
     @flash_interval.setter
@@ -3268,11 +3314,11 @@ class Blip(WorldObject):
     @property
     def name(self) -> str: ...
     @name.setter
-    def name(self, new_name: str) -> None: ...
+    def name(self, name: str) -> None: ...
     @property
     def number(self) -> int: ...
     @number.setter
-    def number(self, new_number: int) -> None: ...
+    def number(self, number: int) -> None: ...
     @property
     def outline_indicator_visible(self) -> bool: ...
     @outline_indicator_visible.setter
@@ -3296,11 +3342,11 @@ class Blip(WorldObject):
     @property
     def scale(self) -> float: ...
     @scale.setter
-    def scale(self, new_scale: float) -> None: ...
+    def scale(self, scale: float) -> None: ...
     @property
     def secondary_color(self) -> RGBA: ...
     @secondary_color.setter
-    def secondary_color(self, new_scale: RGBA) -> None: ...
+    def secondary_color(self, scale: RGBA) -> None: ...
     @property
     def short_range(self) -> bool: ...
     @short_range.setter
@@ -3320,11 +3366,11 @@ class Blip(WorldObject):
                 Doesn't properly work for areablips currently.
         """
     @size.setter
-    def size(self, new_size: Vector2) -> None: ...
+    def size(self, size: Vector2) -> None: ...
     @property
     def sprite(self) -> BlipSprite: ...
     @sprite.setter
-    def sprite(self, new_sprite: BlipSprite) -> None: ...
+    def sprite(self, sprite: BlipSprite) -> None: ...
     @property
     def tick_visible(self) -> bool: ...
     @tick_visible.setter
@@ -3542,10 +3588,21 @@ version: str
 r"""Represents the current version.
 
 Note:
-    It's a slighty modified semantic versioning specification, which can be matched using this regular expression pattern `^(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))$` 
+    It's a slighty modified semantic versioning specification, which can be matched using this regular expression pattern `^(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))$`
 """
 
 # alt methods
+
+class BoneInfo(TypedDict):
+    id: int
+    index: int
+    name: str
+
+class PedModelInfo(TypedDict):
+    hash: int
+    name: str
+    pedBones: List[BoneInfo]
+
 def hash(value: str) -> int:
     """Creates a hash using Jenkins one-at-a-time algorithm.
 
@@ -3558,6 +3615,7 @@ def get_net_time() -> int:
 
 def get_server_config() -> Dict[str, Any]: ...
 def get_vehicle_model_info_by_hash(vehicle_hash: int) -> VehicleModelInfo: ...
+def get_ped_model_info_by_hash(ped_hash: int) -> PedModelInfo: ...
 def hash_server_password(password: str) -> int:
     """Hash string with alt:V algortihm.
 
@@ -3742,14 +3800,14 @@ def emit_all_clients(event_name: str, *args: Any) -> None:
     """
 
 # decorators
-def event(event: Event) -> Callable[[Any], None]:
+def script_event(event: Event) -> Callable[[Any], None]:
     """A decorator that subscribes to a server event with a listener
 
     Args:
             event: The subscribed event.
     """
 
-def custom_event(event: str) -> Callable[[Any], None]:
+def server_event(event: str) -> Callable[[Any], None]:
     """A decorator that subscribes to a custom event with a listener
 
     Args:
