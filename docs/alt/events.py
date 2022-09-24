@@ -178,3 +178,17 @@ def PlayerAnimationChange(
 
 def PlayerInteriorChange(player: Player, new_interior: int, old_interior: int) -> None:
     ...
+
+
+def PlayerConnectDenied(
+    player: Player,
+    name: str,
+    ip: str,
+    password_hash: int,
+    is_debug: bool,
+    branch: str,
+    version: int,
+    cdn_url: str,
+    discord_id: int,
+) -> None:
+    ...

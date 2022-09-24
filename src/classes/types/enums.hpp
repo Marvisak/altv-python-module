@@ -210,6 +210,7 @@ enum class Event : uint16_t
 	PlayerConnect,
 	PlayerBeforeConnect,
 	PlayerDisconnect,
+	PlayerConnectDenied,
 
 	ConnectionQueueAdd,
 	ConnectionQueueRemove,
@@ -1089,4 +1090,12 @@ enum class CheckpointType : uint8_t
 	RingParachute,
 	RingJetpack,
 	RingWhirl,
+};
+
+enum class ConnectDeniedReason : uint8_t {
+	WrongVersion,
+	WrongBranch,
+	DebugNotAllowed,
+	WrongPassword,
+	WrongCdnUrl
 };

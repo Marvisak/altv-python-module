@@ -120,7 +120,12 @@ bool HasSyncedMeta(const std::string& key)
 
 void DeleteSyncedMeta(const std::string& key)
 {
-	return alt::ICore::Instance().DeleteSyncedMetaData(key);
+	alt::ICore::Instance().DeleteSyncedMetaData(key);
+}
+
+void SetWorldProfiler(bool state)
+{
+	alt::ICore::Instance().SetWorldProfiler(state);
 }
 
 void RegisterMainFunctions(py::module_ m)
@@ -143,6 +148,7 @@ void RegisterMainFunctions(py::module_ m)
 	m.def("stop_server", &StopServer);
 	m.def("string_to_sha256", &StringToSHA256, py::arg("value"));
 	m.def("export", &Export, py::arg("name"), py::arg("object"));
+	m.def("set_world_profiler", &SetWorldProfiler, py::arg("state"));
 
 	m.def("restart_resource", &RestartResource, py::arg("resource_name"));
 	m.def("start_resource", &StartResource, py::arg("resource_name"));

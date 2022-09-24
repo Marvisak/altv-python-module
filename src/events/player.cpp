@@ -1,9 +1,6 @@
 #include "events.hpp"
 #include "utils.hpp"
-
-// TODO Remove after next alt:V update
-#include "events/CPlayerChangeAnimationEvent.h"
-#include "events/CPlayerChangeInteriorEvent.h"
+#include "../classes/types/enums.hpp"
 
 EventHandler playerConnect(alt::CEvent::Type::PLAYER_CONNECT, [](const alt::CEvent* ev, py::list& args) {
 	auto event = dynamic_cast<const alt::CPlayerConnectEvent*>(ev);
@@ -104,4 +101,17 @@ EventHandler playerInteriorChange(alt::CEvent::Type::PLAYER_CHANGE_INTERIOR_EVEN
 	args.append(event->GetTarget().Get());
 	args.append(event->GetNewInteriorLocation());
 	args.append(event->GetOldInteriorLocation());
+});
+
+EventHandler playerConnectDenied(alt::CEvent::Type::PLAYER_CONNECT_DENIED, [](const alt::CEvent* ev, py::list& args) {
+	auto event = dynamic_cast<const alt::CPlayerConnectDeniedEvent*>(ev);
+	args.append(ConnectDeniedReason(event->GetReason()));
+	args.append(event->GetName());
+	args.append(event->GetIp());
+	args.append(event->GetPasswordHash());
+	args.append(event->IsDebug());
+	args.append(event->GetBranch());
+	args.append(event->GetMajorVersion());
+	args.append(event->GetCdnUrl());
+	args.append(event->GetDiscordId());
 });
