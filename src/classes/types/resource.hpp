@@ -41,7 +41,7 @@ class Resource
 
 	py::dict GetConfig()
 	{
-		alt::config::Node config = resource->GetConfig();
+		Config::Value::ValuePtr config = resource->GetConfig();
 		return Utils::ConfigNodeToValue(config);
 	}
 

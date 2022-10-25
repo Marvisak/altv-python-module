@@ -14,7 +14,7 @@ uint32_t GetNetTime()
 
 py::dict GetServerConfig()
 {
-	alt::config::Node config = alt::ICore::Instance().GetServerConfig();
+	Config::Value::ValuePtr config = alt::ICore::Instance().GetServerConfig();
 	return Utils::ConfigNodeToValue(config);
 }
 

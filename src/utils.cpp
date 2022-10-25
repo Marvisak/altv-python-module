@@ -127,38 +127,27 @@ py::object Utils::MValueToValue(const alt::MValueConst& mValue)
 	}
 }
 
-py::object Utils::ConfigNodeToValue(alt::config::Node& node)
+py::object Utils::ConfigNodeToValue(Config::Value::ValuePtr node)
 {
-	switch (node.GetType())
+	switch (node->GetType())
 	{
-	case alt::config::Node::Type::NONE:
+	case Config::Value::Type::NONE:
 		return py::none();
-	case alt::config::Node::Type::SCALAR: {
-		try
-		{
-			return py::bool_(node.ToBool());
-		}
-		catch (alt::config::Error&)
-		{
-			try
-			{
-				return py::float_(node.ToNumber());
-			}
-			catch (alt::config::Error&)
-			{
-				return py::str(node.ToString());
-			}
-		}
-	}
-	case alt::config::Node::Type::LIST: {
-		alt::config::Node::List list = node.ToList();
+	case Config::Value::Type::BOOL:
+		return py::bool_(node->AsBool());
+	case Config::Value::Type::NUMBER:
+		return py::float_(node->AsNumber());
+	case Config::Value::Type::STRING:
+		return py::str(node->AsString());
+	case Config::Value::Type::LIST: {
+		Config::Value::List list = node->AsList();
 		py::list pyList;
 		for (auto val : list)
 			pyList.append(ConfigNodeToValue(val));
 		return pyList;
 	}
-	case alt::config::Node::Type::DICT: {
-		alt::config::Node::Dict dict = node.ToDict();
+	case Config::Value::Type::DICT: {
+		Config::Value::Dict dict = node->AsDict();
 		py::dict pyDict;
 		for (auto& pair : dict)
 			pyDict[pair.first.c_str()] = ConfigNodeToValue(pair.second);

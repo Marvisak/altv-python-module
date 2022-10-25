@@ -6,7 +6,7 @@ include(cmake/python.cmake)
 project(python-module)
 set(PROJECT_MODULE_NAME python-module)
 
-set(PYTHON_VERSION 3.10.6)
+set(PYTHON_VERSION 3.11.0)
 
 message("Downloading and Compiling Python, this might take a while")
 DownloadPython(${PYTHON_VERSION})
@@ -47,9 +47,9 @@ add_library(
 add_dependencies(${PROJECT_MODULE_NAME} alt-sdk)
 
 if (WIN32)
-	target_link_libraries(${PROJECT_MODULE_NAME} ${CMAKE_CURRENT_BINARY_DIR}/Python-${PYTHON_VERSION}/PCbuild/amd64/python310.lib)
+	target_link_libraries(${PROJECT_MODULE_NAME} ${CMAKE_CURRENT_BINARY_DIR}/Python-${PYTHON_VERSION}/PCbuild/amd64/python311.lib)
 endif(WIN32)
 
 if (UNIX)
-	target_link_libraries(${PROJECT_MODULE_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/Python-${PYTHON_VERSION}/libpython3.10.so)
+	target_link_libraries(${PROJECT_MODULE_NAME} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/Python-${PYTHON_VERSION}/libpython3.11.so)
 endif(UNIX)
