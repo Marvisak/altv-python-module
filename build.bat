@@ -4,7 +4,7 @@ IF NOT EXIST build\ (
     mkdir build
 )
 pushd build
-cmake -G"Visual Studio 16" -A x64 ..
+cmake -A x64 ..
 cmake --build . --config Release
 popd
 
@@ -12,10 +12,10 @@ IF NOT EXIST dist\ (
     mkdir dist\python
 )
 
-set pythonPath=build\Python-3.10.4
+set pythonPath=build\Python-3.11.0
 
 copy build\Release\python-module.dll dist
-copy %pythonPath%\PCbuild\amd64\python310.dll dist
+copy %pythonPath%\PCbuild\amd64\python311.dll dist
 xcopy %pythonPath%\Lib\* dist\python /E /Y > nul
 xcopy %pythonPath%\PCbuild\amd64\*.pyd dist\python /Y > nul
 xcopy %pythonPath%\PCbuild\amd64\lib*.dll dist\python /Y > nul
